@@ -717,8 +717,7 @@ static libusb_device *get_libusb_device(const char *uri)
             {
                 for (altset = 0, altptr = ifaceptr->altsetting; altset < ifaceptr->num_altsetting; altset++, altptr++)
                 {
-                    if (  ((altptr->bInterfaceClass == LIBUSB_CLASS_PRINTER) && (altptr->bInterfaceSubClass == 1)) ||\
-                          ((altptr->bInterfaceClass == LIBUSB_CLASS_VENDOR_SPEC) && (altptr->bInterfaceSubClass == 0xcc)) )
+                    if ((altptr->bInterfaceClass == LIBUSB_CLASS_PRINTER) && (altptr->bInterfaceSubClass == 1))
                     {
                         if (is_uri(dev, uri))
                         {
@@ -1457,11 +1456,6 @@ enum HPMUD_RESULT __attribute__ ((visibility ("hidden"))) musb_raw_channel_write
                 BUG("unable to write data (len = %d) %s: %m\n", msp->device[pc->dindex].uri, len);
             goto bugout;
         }
-		if(len == 0 && size > 0)
-		{
-			stat = HPMUD_R_IO_ERROR;
-			goto bugout;	
-		}
         size-=len;
         total+=len;
         *bytes_wrote+=len;
@@ -2086,7 +2080,7 @@ int __attribute__ ((visibility ("hidden"))) musb_probe_devices(char *lst, int ls
             {
                 for (altset = 0, altptr = ifaceptr->altsetting; altset < ifaceptr->num_altsetting; altset++, altptr++)
                 {
-                    if ((altptr->bInterfaceClass == LIBUSB_CLASS_PRINTER) || (altptr->bInterfaceClass == LIBUSB_CLASS_VENDOR_SPEC)) 
+                    if (altptr->bInterfaceClass == LIBUSB_CLASS_PRINTER )  /* Printer */
                     {
                         if( (devtype == HPMUD_PRINTER) && (altptr->bInterfaceProtocol != 0x02) )
                         {
