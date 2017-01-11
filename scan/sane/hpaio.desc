@@ -82,10 +82,16 @@
 :model "HP Color LaserJet cm4730fsk Multifunction Printer"
 :status :good
 
+:model "HP Color LaserJet MFP m277c6"
+:status :good
+
 :model "HP Color LaserJet MFP m277dw"
 :status :good
 
 :model "HP Color LaserJet MFP m277n"
+:status :good
+
+:model "HP Color LaserJet MFP m377 Fnw"
 :status :good
 
 :model "HP Color LaserJet Pro MFP m274n"
@@ -730,6 +736,12 @@
 :model "HP Deskjet Ink Advantage Ultra 4729 All-in-one Printer"
 :status :good
 
+:model "HP Deskjet Ink Advantage Ultra 5738 All-in-one Printer"
+:status :good
+
+:model "HP Deskjet Ink Advantage Ultra 5739 All-in-one Printer"
+:status :good
+
 :model "HP Envy 100 d410 Series"
 :status :good
 
@@ -1216,6 +1228,30 @@
 :model "HP LaserJet Pro MFP m128fw"
 :status :good
 
+:model "HP LaserJet Pro MFP m132a"
+:status :good
+
+:model "HP LaserJet Pro MFP m132fn"
+:status :good
+
+:model "HP LaserJet Pro MFP m132fp"
+:status :good
+
+:model "HP LaserJet Pro MFP m132fw"
+:status :good
+
+:model "HP LaserJet Pro MFP m132nw"
+:status :good
+
+:model "HP LaserJet Pro MFP m132snw"
+:status :good
+
+:model "HP LaserJet Pro MFP m134a"
+:status :good
+
+:model "HP LaserJet Pro MFP m134fn"
+:status :good
+
 :model "HP LaserJet Pro MFP m225dn"
 :status :good
 
@@ -1229,6 +1265,12 @@
 :status :good
 
 :model "HP LaserJet Pro MFP m226dw"
+:status :good
+
+:model "HP LaserJet Pro MFP m227fdw"
+:status :good
+
+:model "HP LaserJet Pro MFP m227sdn"
 :status :good
 
 :model "HP LaserJet Pro MFP m426dw"
@@ -1319,6 +1361,21 @@
 :status :good
 
 :model "HP Officejet 150 Mobile All-in-one"
+:status :good
+
+:model "HP Officejet 250 Mobile All-in-one"
+:status :good
+
+:model "HP Officejet 250c Mobile All-in-one"
+:status :good
+
+:model "HP Officejet 252 Mobile All-in-one"
+:status :good
+
+:model "HP Officejet 252c Mobile All-in-one"
+:status :good
+
+:model "HP Officejet 258 Mobile All-in-one"
 :status :good
 
 :model "HP Officejet 2620 All-in-one"
@@ -1714,6 +1771,12 @@
 :model "HP Officejet 6820 E-all-in-one Printer"
 :status :good
 
+:model "HP Officejet 6950 All-in-one"
+:status :good
+
+:model "HP Officejet 6960 All-in-one"
+:status :good
+
 :model "HP Officejet 700 All-in-one Printer"
 :status :good
 
@@ -1805,6 +1868,9 @@
 :status :good
 
 :model "HP Officejet 8040 E-all-in-one"
+:status :good
+
+:model "HP Officejet 8702 All-in-one"
 :status :good
 
 :model "HP Officejet 9110 All-in-one Printer"
@@ -2035,6 +2101,24 @@
 :model "HP Officejet Pro 6835 E-all-in-one"
 :status :good
 
+:model "HP Officejet Pro 6960 All-in-one"
+:status :good
+
+:model "HP Officejet Pro 6968 All-in-one"
+:status :good
+
+:model "HP Officejet Pro 6970 All-in-one"
+:status :good
+
+:model "HP Officejet Pro 6975 All-in-one"
+:status :good
+
+:model "HP Officejet Pro 6978 All-in-one"
+:status :good
+
+:model "HP Officejet Pro 7740 Wide Format All-in-one"
+:status :good
+
 :model "HP Officejet Pro 8500 All-in-one Printer - a909a"
 :status :good
 
@@ -2096,6 +2180,12 @@
 :status :good
 
 :model "HP Officejet Pro 8725 All-in-one Printer"
+:status :good
+
+:model "HP Officejet Pro 8730"
+:status :good
+
+:model "HP Officejet Pro 8732 All-in-one Printer"
 :status :good
 
 :model "HP Officejet Pro 8740 All-in-one Printer"
@@ -2213,6 +2303,12 @@
 :status :good
 
 :model "HP Oficejet 6500 e710n-z"
+:status :good
+
+:model "HP Pagewide Managed MFP p57750dw"
+:status :good
+
+:model "HP Pagewide MFP 377dw"
 :status :good
 
 :model "HP Pagewide Pro 477dn Multifunction Printer"
@@ -3305,6 +3401,15 @@
 :status :good
 
 :model "HP PSC 950xi All-in-one Printer"
+:status :good
+
+:model "HP Scanjet Enterprise Flow 5000 s4"
+:status :good
+
+:model "HP Scanjet Enterprise Flow 7000 s3"
+:status :good
+
+:model "HP Scanjet Pro 3000 s3"
 :status :good
 
 :model "HP Scanjet Pro 3500 f1 Flatbed Scanner"

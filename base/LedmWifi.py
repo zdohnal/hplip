@@ -317,6 +317,40 @@ def getIPConfiguration(dev, adapterName):
     return ip, hostname, addressmode, subnetmask, gateway, pridns, sec_dns  
 
 
+
+
+# TODO: Temporary Function. To be removed after refactoring.
+def getwifiotherdetails(dev,adapterName):
+    ip, subnet, gateway, pri_dns, sec_dns, mode = '', '', '', '', '', ''
+    params1, params2, code1, code2, elementCount ={}, {}, HTTP_ERROR, HTTP_ERROR,0
+    URI1 = LEDM_WIFI_BASE_URI + adapterName + "/Profiles/Active"
+    URI2 = "/IoMgmt/IoConfig.xml" 
+    max_tries = 0
+
+    while max_tries < MAX_RETRIES:
+        max_tries +=1
+        params1, code1, elementCount = readXmlDataFromURI(dev,URI1,'<io:Profile', '<io:Profile')
+        params2, code2, elementCount = readXmlDataFromURI(dev,URI2,'<io:IoConfig', '<io:IoConfig')
+        if code1 == HTTP_OK and code2 == HTTP_OK:
+            break 
+
+    if code1 !=HTTP_OK and code2 != HTTP_OK:
+        log.error("Request Failed With Response Code %d" %code)
+        return ip, subnet, gateway, pri_dns, sec_dns 
+	
+    if params1 is not None and params2 is not None:
+        try:
+            ip = params1['io:profile-io:networkprofile-io:ipv4network-dd:ipaddress']
+            subnet = params1['io:profile-io:networkprofile-io:ipv4network-dd:subnetmask']
+            gateway = params1['io:profile-io:networkprofile-io:ipv4network-dd:defaultgateway']
+            pri_dns  = params1['io:profile-io:networkprofile-io:ipv4network-dd:dnsserveripaddress']
+            sec_dns = params1['io:profile-io:networkprofile-io:ipv4network-dd:secondarydnsserveripaddress']
+            mode = params2['io:ioconfig-io:iodeviceprotocolconfig-io:ipv4domainname-dd:domainnameconfig-dd:configmethod']
+
+        except KeyError as e:
+            log.debug("Missing response key: %s" % str(e))
+    return ip, subnet, gateway, pri_dns, sec_dns, mode
+	
 def getCryptoSuite(dev, adapterName):
     alg, mode, secretid = '', '', ''
     parms,code,elementCount ={},HTTP_ERROR,0

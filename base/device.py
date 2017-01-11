@@ -563,8 +563,8 @@ def probeDevices(bus=DEFAULT_PROBE_BUS, timeout=10,
                     devid = m.group(4) or ''
 
                     log.debug(uri)
-                    if("scanjet" in  mdl.lower()):
-                        continue # Do not include HP Scanjets
+                    #if("scanjet" in  mdl.lower()):
+                    #    continue # Do not include HP Scanjets
 
                     try:
                         back_end, is_hp, bb, model, serial, dev_file, host, zc, port = \

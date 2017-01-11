@@ -1823,6 +1823,7 @@ marker_kind_xlate =    { 'ink' : AGENT_KIND_SUPPLY,
                          'tonerCartridge' : AGENT_KIND_TONER_CARTRIDGE,
                          'toner-cartridge' : AGENT_KIND_TONER_CARTRIDGE,
                          'maintenanceKit' : AGENT_KIND_MAINT_KIT,
+                         'ink-cartridge' : AGENT_KIND_SUPPLY,
                        }
 
 marker_type_xlate = {'magenta ink' : AGENT_TYPE_MAGENTA,

@@ -31,7 +31,7 @@
 
 #ifndef HPCUPSFAX_H
 #define HPCUPSFAX_H
-
+#include<cups/ppd.h>
 /*
  * Raster data encoding methods
  */
