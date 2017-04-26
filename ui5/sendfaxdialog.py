@@ -325,7 +325,7 @@ class SendFaxDialog(QDialog, Ui_Dialog):
 
     def toggleCoverPage(self, b):
         # XXX: qt5port: disconnect method requires attention
-        self.CoverPageGroupBox.toggled[bool].connect(self.CoverPageGroupBox_toggled)
+        self.CoverPageGroupBox.toggled[bool].disconnect(self.CoverPageGroupBox_toggled)
         self.CoverPageGroupBox.setChecked(b)
         self.CoverPageGroupBox.toggled[bool].connect(self.CoverPageGroupBox_toggled)
 

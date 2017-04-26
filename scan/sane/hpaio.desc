@@ -82,6 +82,36 @@
 :model "HP Color LaserJet cm4730fsk Multifunction Printer"
 :status :good
 
+:model "HP Color LaserJet Managed Flow MFP e77822z"
+:status :good
+
+:model "HP Color LaserJet Managed Flow MFP e77825z"
+:status :good
+
+:model "HP Color LaserJet Managed Flow MFP e77830z"
+:status :good
+
+:model "HP Color LaserJet Managed Flow MFP e87640z"
+:status :good
+
+:model "HP Color LaserJet Managed Flow MFP e87660z"
+:status :good
+
+:model "HP Color LaserJet Managed MFP e77822dn"
+:status :good
+
+:model "HP Color LaserJet Managed MFP e77830dn"
+:status :good
+
+:model "HP Color LaserJet Managed MFP e87640 Dn"
+:status :good
+
+:model "HP Color LaserJet Managed MFP e87650dn"
+:status :good
+
+:model "HP Color LaserJet Managed MFP e87660dn"
+:status :good
+
 :model "HP Color LaserJet MFP m277c6"
 :status :good
 
@@ -1168,6 +1198,42 @@
 :model "HP LaserJet m5039 Multifunction Printer"
 :status :good
 
+:model "HP LaserJet Managed Flow MFP e72525z"
+:status :good
+
+:model "HP LaserJet Managed Flow MFP e72530z"
+:status :good
+
+:model "HP LaserJet Managed Flow MFP e72535z"
+:status :good
+
+:model "HP LaserJet Managed Flow MFP e82540z"
+:status :good
+
+:model "HP LaserJet Managed Flow MFP e82550z"
+:status :good
+
+:model "HP LaserJet Managed Flow MFP e82560z"
+:status :good
+
+:model "HP LaserJet Managed MFP e72525dn"
+:status :good
+
+:model "HP LaserJet Managed MFP e72530dn"
+:status :good
+
+:model "HP LaserJet Managed MFP e72535dn"
+:status :good
+
+:model "HP LaserJet Managed MFP e82540dn"
+:status :good
+
+:model "HP LaserJet Managed MFP e82550dn"
+:status :good
+
+:model "HP LaserJet Managed MFP e82560dn"
+:status :good
+
 :model "HP LaserJet Pro 200 Color MFP m276n"
 :status :good
 
@@ -1228,6 +1294,18 @@
 :model "HP LaserJet Pro MFP m128fw"
 :status :good
 
+:model "HP LaserJet Pro MFP m130a"
+:status :good
+
+:model "HP LaserJet Pro MFP m130fn"
+:status :good
+
+:model "HP LaserJet Pro MFP m130fw"
+:status :good
+
+:model "HP LaserJet Pro MFP m130nw"
+:status :good
+
 :model "HP LaserJet Pro MFP m132a"
 :status :good
 
@@ -1265,6 +1343,12 @@
 :status :good
 
 :model "HP LaserJet Pro MFP m226dw"
+:status :good
+
+:model "HP LaserJet Pro MFP m227d"
+:status :good
+
+:model "HP LaserJet Pro MFP m227fdn"
 :status :good
 
 :model "HP LaserJet Pro MFP m227fdw"
@@ -1358,6 +1442,9 @@
 :status :good
 
 :model "HP LaserJet Professional m1219nfs MFP"
+:status :good
+
+:model "HP LaserJet Ultra MFP m230sdn"
 :status :good
 
 :model "HP Officejet 150 Mobile All-in-one"

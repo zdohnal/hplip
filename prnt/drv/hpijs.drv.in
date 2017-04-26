@@ -12669,6 +12669,10 @@ Transparency"
     Attribute "Product" "" "(HP LaserJet Pro MFP m132fn)"
     Attribute "Product" "" "(HP LaserJet Pro MFP m132fp)"
     Attribute "Product" "" "(HP LaserJet Pro MFP m134fn)"
+    Attribute "Product" "" "(HP LaserJet Pro MFP m130a)"
+    Attribute "Product" "" "(HP LaserJet Pro MFP m130nw)"
+    Attribute "Product" "" "(HP LaserJet Pro MFP m130fn)"
+    Attribute "Product" "" "(HP LaserJet Pro MFP m130fw)"
   }
   // <%Hbpl1:Color%>
   {

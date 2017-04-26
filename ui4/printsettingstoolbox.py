@@ -269,6 +269,8 @@ class PrintSettingsToolbox(QToolBox):
             if not all_pages and page_range:
                 cmd = ' '.join([cmd, '-o page-ranges=%s' % page_range])
 
+            fit_to_page = "fit-to-page"
+            cmd = ' '.join([cmd, '-o %s' % fit_to_page])
             if page_set:
                 cmd = ' '.join([cmd, '-o page-set=%s' % page_set])
 

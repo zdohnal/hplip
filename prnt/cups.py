@@ -677,6 +677,8 @@ def getDefaultPrinter():
     return r
 
 def setDefaultPrinter(printer_name):
+    if PY3:
+       printer_name = str(printer_name, "utf-8")
     setPasswordPrompt("You do not have permission to set the default printer. You need authentication.")
     return cupsext.setDefaultPrinter(printer_name)
 
