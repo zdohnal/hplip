@@ -12089,6 +12089,15 @@ Manufacturer "HP"
             Attribute "Product" "" "(HP Deskjet Ink Advantage Ultra 4729 All-in-one Printer)"
           }
           {
+            ModelName "HP Deskjet 5730 Series"
+            Attribute "NickName" "" "HP Deskjet 5730 Series, hpcups $Version"
+            Attribute "ShortNickName" "" "HP Deskjet 5730 Series"
+            Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet 5730 series;DES:deskjet 5730 series;"
+            PCFileName "hp-deskjet_5730_series.ppd"
+            Attribute "Product" "" "(HP Deskjet Ink Advantage Ultra 5738 All-in-one Printer)"
+            Attribute "Product" "" "(HP Deskjet Ink Advantage Ultra 5739 All-in-one Printer)"
+          }
+          {
             ModelName "HP Deskjet 5810 Series"
             Attribute "NickName" "" "HP Deskjet 5810 Series, hpcups $Version"
             Attribute "ShortNickName" "" "HP Deskjet 5810 Series"

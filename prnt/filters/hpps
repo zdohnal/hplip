@@ -197,7 +197,7 @@ except IOError:
     sys.exit(CUPS_FILTER_FAILED)
 
 key_list = [x for x in ['HPAccountingInfo', 'HPBOD', 'HPPJLEconoMode', 'HPPJLEconoMode2',  'HPPJLOutputMode', 'HPPJLDryTime', 
-                        'HPPJLSaturation', 'HPPJLInkBleed', 'HPPJLColorAsGray'] if x in ppd_str]
+                        'HPPJLSaturation', 'HPPJLInkBleed', 'HPPJLColorAsGray', 'HPPJLTrueBlack'] if x in ppd_str]
 
 if 'HPAccountingInfo' in key_list:
     p = subprocess.Popen(['hostname', '-s'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -282,7 +282,7 @@ if 'HPPJLOutputMode' in key_list:
 
 if 'HPPJLDryTime' in key_list:
     try:
-        if opts['HPPJLDryTime'] == '0':
+        if opts['HPPJLDryTime'] == '0' or opts['HPPJLDryTime'] == 'Default':
             os.write(output_fd, b'@PJL SET DRYTIME=0\x0a') 
         elif opts['HPPJLDryTime'] == 'Medium':
             os.write(output_fd, b'@PJL SET DRYTIME=4\x0a') 
@@ -297,7 +297,7 @@ if 'HPPJLSaturation' in key_list:
             os.write(output_fd, b'@PJL SET SATURATION=0\x0a') 
         elif opts['HPPJLSaturation'] == '-1':
             os.write(output_fd, b'@PJL SET SATURATION=2\x0a') 
-        elif opts['HPPJLSaturation'] == '0':
+        elif opts['HPPJLSaturation'] == '0' or opts['HPPJLSaturation'] == 'default':
             os.write(output_fd, b'@PJL SET SATURATION=4\x0a') 
         elif opts['HPPJLSaturation'] == '+1':
             os.write(output_fd, b'@PJL SET SATURATION=6\x0a') 
@@ -325,7 +325,7 @@ if 'HPPJLInkBleed' in key_list:
 
 if 'HPPJLColorAsGray' in key_list:
     try:
-        if opts['HPPJLColorAsGray'] == 'Off' or opts['HPPJLColorAsGray'] == 'off':
+        if opts['HPPJLColorAsGray'] == 'Off' or opts['HPPJLColorAsGray'] == 'off' or opts['HPPJLColorAsGray'] == 'False':
             os.write(output_fd, b'@PJL SET GRAYSCALE=OFF\x0a') 
         elif opts['HPPJLColorAsGray'] == 'HighQuality':
             os.write(output_fd, b'@PJL SET GRAYSCALE=COMPOSITE\x0a') 
@@ -338,8 +338,21 @@ if 'HPPJLColorAsGray' in key_list:
         elif opts['HPPJLColorAsGray'] == 'no':
             os.write(output_fd, b'@PJL SET RESOLUTION=600\x0a')
             os.write(output_fd, b'@PJL SET BITSPERPIXEL=8\x0a')
+        elif opts['HPPJLColorAsGray'] == 'Plain' or opts['HPPJLColorAsGray'] == 'True': # for device 586 and device 586 flow
+            os.write(output_fd, b'@PJL SET PLANESINUSE=1\x0a')
+#        elif opts['HPPJLColorAsGray'] == 'check': # for device 556 no value is passed
+#            os.write(output_fd, b'')
     except:
         os.write(output_fd, b'@PJL SET GRAYSCALE=OFF\x0a')
+
+if 'HPPJLTrueBlack' in key_list:
+    try:
+        if opts['HPPJLTrueBlack'] == 'HighQuality':
+            os.write(output_fd, b'@PJL SET GRAYSCALE=COMPOSITE\x0a') 
+        elif opts['HPPJLTrueBlack'] == 'BlackInkOnly':
+            os.write(output_fd, b'@PJL SET GRAYSCALE=BLACKONLY\x0a') 
+    except:
+        os.write(output_fd, b'@PJL SET GRAYSCALE=BLACKONLY\x0a')
 
 os.write(output_fd, UEL)
 

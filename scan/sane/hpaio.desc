@@ -88,6 +88,9 @@
 :model "HP Color LaserJet MFP m277n"
 :status :good
 
+:model "HP Color LaserJet MFP m377 Fnw"
+:status :good
+
 :model "HP Color LaserJet Pro MFP m274n"
 :status :good
 
@@ -728,6 +731,12 @@
 :status :good
 
 :model "HP Deskjet Ink Advantage Ultra 4729 All-in-one Printer"
+:status :good
+
+:model "HP Deskjet Ink Advantage Ultra 5738 All-in-one Printer"
+:status :good
+
+:model "HP Deskjet Ink Advantage Ultra 5739 All-in-one Printer"
 :status :good
 
 :model "HP Envy 100 d410 Series"
@@ -2098,6 +2107,9 @@
 :model "HP Officejet Pro 8725 All-in-one Printer"
 :status :good
 
+:model "HP Officejet Pro 8730"
+:status :good
+
 :model "HP Officejet Pro 8740 All-in-one Printer"
 :status :good
 
@@ -2213,6 +2225,9 @@
 :status :good
 
 :model "HP Oficejet 6500 e710n-z"
+:status :good
+
+:model "HP Pagewide Managed MFP p57750dw"
 :status :good
 
 :model "HP Pagewide Pro 477dn Multifunction Printer"

@@ -18911,6 +18911,15 @@ lity:PenSet=2,Quality:FullBleed=1"
             Attribute "Product" "" "(HP Deskjet Ink Advantage Ultra 4729 All-in-one Printer)"
           }
           {
+            ModelName "HP Deskjet 5730 Series hpijs"
+            Attribute "NickName" "" "HP Deskjet 5730 Series hpijs, $Version"
+            Attribute "ShortNickName" "" "HP Deskjet 5730 Series hpijs"
+            Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet 5730 series;DES:deskjet 5730 series;"
+            PCFileName "hp-deskjet_5730_series-hpijs.ppd"
+            Attribute "Product" "" "(HP Deskjet Ink Advantage Ultra 5738 All-in-one Printer)"
+            Attribute "Product" "" "(HP Deskjet Ink Advantage Ultra 5739 All-in-one Printer)"
+          }
+          {
             ModelName "HP Deskjet 5810 Series hpijs"
             Attribute "NickName" "" "HP Deskjet 5810 Series hpijs, $Version"
             Attribute "ShortNickName" "" "HP Deskjet 5810 Series hpijs"
