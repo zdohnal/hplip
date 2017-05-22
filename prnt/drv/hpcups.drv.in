@@ -20269,6 +20269,18 @@ Group "RLT/HP Real Life Technologies"
 
    // <%Hbpl1:Mono%>
    {
+     ModelName "HP LaserJet m101-m106"
+     Attribute "NickName" "" "HP LaserJet m101-m106, hpcups $Version"
+     Attribute "ShortNickName" "" "HP LaserJet m101-m106"
+     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet m101-m106;DES:hp laserjet m101-m106;"
+     PCFileName "hp-laserjet_m101-m106.ppd"
+     Attribute "Product" "" "(HP LaserJet m102a)"
+     Attribute "Product" "" "(HP LaserJet m102w)"
+     Attribute "Product" "" "(HP LaserJet m104a)"
+     Attribute "Product" "" "(HP LaserJet m104w)"
+     Attribute "Product" "" "(HP LaserJet m106w)"
+   }
+   {
      ModelName "HP LaserJet Pro MFP m125r"
      Attribute "NickName" "" "HP LaserJet Pro MFP m125r, hpcups $Version, requires proprietary plugin"
      Attribute "ShortNickName" "" "HP LaserJet Pro MFP m125r"
@@ -20283,14 +20295,6 @@ Group "RLT/HP Real Life Technologies"
      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet pro mfp m125a;DES:hp laserjet pro mfp m125a;"
      PCFileName "hp-laserjet_pro_mfp_m125a.ppd"
      Attribute "Product" "" "(HP LaserJet Pro MFP m125a)"
-   }
-   {
-     ModelName "HP LaserJet Pro MFP m125nw"
-     Attribute "NickName" "" "HP LaserJet Pro MFP m125nw, hpcups $Version, requires proprietary plugin"
-     Attribute "ShortNickName" "" "HP LaserJet Pro MFP m125nw"
-     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet pro mfp m125nw;DES:hp laserjet pro mfp m125nw;"
-     PCFileName "hp-laserjet_pro_mfp_m125nw.ppd"
-     Attribute "Product" "" "(HP LaserJet Pro MFP m125nw)"
    }
    {
      ModelName "HP LaserJet Pro MFP m125ra"
@@ -20309,6 +20313,14 @@ Group "RLT/HP Real Life Technologies"
      Attribute "Product" "" "(HP LaserJet Pro MFP m125rnw)"
    }
    {
+     ModelName "HP LaserJet Pro MFP m125nw"
+     Attribute "NickName" "" "HP LaserJet Pro MFP m125nw, hpcups $Version, requires proprietary plugin"
+     Attribute "ShortNickName" "" "HP LaserJet Pro MFP m125nw"
+     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet pro mfp m125nw;DES:hp laserjet pro mfp m125nw;"
+     PCFileName "hp-laserjet_pro_mfp_m125nw.ppd"
+     Attribute "Product" "" "(HP LaserJet Pro MFP m125nw)"
+   }
+   {
      ModelName "HP LaserJet Pro MFP m126a"
      Attribute "NickName" "" "HP LaserJet Pro MFP m126a, hpcups $Version, requires proprietary plugin"
      Attribute "ShortNickName" "" "HP LaserJet Pro MFP m126a"
@@ -20323,6 +20335,14 @@ Group "RLT/HP Real Life Technologies"
      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet pro mfp m126nw;DES:hp laserjet pro mfp m126nw;"
      PCFileName "hp-laserjet_pro_mfp_m126nw.ppd"
      Attribute "Product" "" "(HP LaserJet Pro MFP m126nw)"
+   }
+   {
+     ModelName "HP LaserJet Pro MFP m127fs"
+     Attribute "NickName" "" "HP LaserJet Pro MFP m127fs, hpcups $Version, requires proprietary plugin"
+     Attribute "ShortNickName" "" "HP LaserJet Pro MFP m127fs"
+     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet pro mfp m127fs;DES:hp laserjet pro mfp m127fs;"
+     PCFileName "hp-laserjet_pro_mfp_m127fs.ppd"
+     Attribute "Product" "" "(HP LaserJet Pro MFP m127fs)"
    }
    {
      ModelName "HP LaserJet Pro MFP m127fp"
@@ -20349,14 +20369,6 @@ Group "RLT/HP Real Life Technologies"
      Attribute "Product" "" "(HP LaserJet Pro MFP m127fw)"
    }
    {
-     ModelName "HP LaserJet Pro MFP m127fs"
-     Attribute "NickName" "" "HP LaserJet Pro MFP m127fs, hpcups $Version, requires proprietary plugin"
-     Attribute "ShortNickName" "" "HP LaserJet Pro MFP m127fs"
-     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet pro mfp m127fs;DES:hp laserjet pro mfp m127fs;"
-     PCFileName "hp-laserjet_pro_mfp_m127fs.ppd"
-     Attribute "Product" "" "(HP LaserJet Pro MFP m127fs)"
-   }
-   {
      ModelName "HP LaserJet Pro MFP m128fn"
      Attribute "NickName" "" "HP LaserJet Pro MFP m128fn, hpcups $Version, requires proprietary plugin"
      Attribute "ShortNickName" "" "HP LaserJet Pro MFP m128fn"
@@ -20379,6 +20391,21 @@ Group "RLT/HP Real Life Technologies"
      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet pro mfp m128fw;DES:hp laserjet pro mfp m128fw;"
      PCFileName "hp-laserjet_pro_mfp_m128fw.ppd"
      Attribute "Product" "" "(HP LaserJet Pro MFP m128fw)"
+   }
+   {
+     ModelName "HP LaserJet MFP m129-m134"
+     Attribute "NickName" "" "HP LaserJet MFP m129-m134, hpcups $Version"
+     Attribute "ShortNickName" "" "HP LaserJet MFP m129-m134"
+     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet mfp m129-m134;DES:hp laserjet mfp m129-m134;"
+     PCFileName "hp-laserjet_mfp_m129-m134.ppd"
+     Attribute "Product" "" "(HP LaserJet Pro MFP m132a)"
+     Attribute "Product" "" "(HP LaserJet Pro MFP m132nw)"
+     Attribute "Product" "" "(HP LaserJet Pro MFP m132snw)"
+     Attribute "Product" "" "(HP LaserJet Pro MFP m134a)"
+     Attribute "Product" "" "(HP LaserJet Pro MFP m132fw)"
+     Attribute "Product" "" "(HP LaserJet Pro MFP m132fn)"
+     Attribute "Product" "" "(HP LaserJet Pro MFP m132fp)"
+     Attribute "Product" "" "(HP LaserJet Pro MFP m134fn)"
    }
   }
 

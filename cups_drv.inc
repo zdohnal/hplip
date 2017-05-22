@@ -404,6 +404,7 @@ cups_ppd_printers = \
    ppd/hpcups/hp-laserjet_cp_1025.ppd.gz \
    ppd/hpcups/hp-laserjet_cp_1025nw.ppd.gz \
    ppd/hpcups/hp-laserjet_m1005.ppd.gz \
+   ppd/hpcups/hp-laserjet_m101-m106.ppd.gz \
    ppd/hpcups/hp-laserjet_m1120_mfp.ppd.gz \
    ppd/hpcups/hp-laserjet_m1120n_mfp.ppd.gz \
    ppd/hpcups/hp-laserjet_m1319f_mfp.ppd.gz \
@@ -422,6 +423,7 @@ cups_ppd_printers = \
    ppd/hpcups/hp-laserjet_m9040_mfp-pcl3.ppd.gz \
    ppd/hpcups/hp-laserjet_m9050_mfp-pcl3.ppd.gz \
    ppd/hpcups/hp-laserjet_m9059_mfp-pcl3.ppd.gz \
+   ppd/hpcups/hp-laserjet_mfp_m129-m134.ppd.gz \
    ppd/hpcups/hp-laserjet_p1005.ppd.gz \
    ppd/hpcups/hp-laserjet_p1006.ppd.gz \
    ppd/hpcups/hp-laserjet_p1007.ppd.gz \

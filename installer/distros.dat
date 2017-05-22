@@ -112,7 +112,7 @@ supported=0
 
 [suse]
 index=3
-versions=13.2,42.1
+versions=13.2,42.1,42.2
 display_name=SUSE Linux
 alt_names=
 display=1
@@ -579,6 +579,152 @@ same_as_version=13.2
 
 
 # ****************************************
+
+[suse:42.2]
+code_name=Harlequin
+supported=1
+packaged_version=3.16.11
+release_date=24.11.2016
+post_depend_cmd=su -c "zypper --non-interactive --no-gpg-checks in --force --auto-agree-with-licenses cups-filters-ghostscript",su -c "service cups restart"
+scan_supported=1
+fax_supported=1
+pcard_supported=0
+network_supported=1
+parallel_supported=0
+usb_supported=1
+notes=Please be sure to disable the CD repositories in YaST.
+ppd_install=drv
+udev_mode_fix=1
+ppd_dir=/usr/share/cups/model/HP
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+cups_path_with_bitness=0
+ui_toolkit=qt4
+native_cups=1
+pre_depend_cmd=su -c "zypper refresh"
+
+[suse:42.2:cups]
+packages=cups,cups-client
+
+[suse:42.2:cups-devel]
+packages=cups-devel,cupsddk
+
+[suse:42.2:gcc]
+packages=gcc-c++
+
+[suse:42.2:gs]
+packages=ghostscript-library
+
+[suse:42.2:libcrypto]
+packages=openssl
+
+[suse:42.2:libjpeg]
+packages=libjpeg-devel
+
+[suse:42.2:libnetsnmp-devel]
+packages=net-snmp-devel
+
+[suse:42.2:libpthread]
+packages=glibc
+
+[suse:42.2:libtool]
+packages=libtool,libgphoto2-devel
+
+[suse:42.2:libusb]
+packages=libusb-1_0-devel,libusb-1_0-0
+
+[suse:42.2:make]
+packages=make
+
+[suse:42.2:pil]
+packages=python-imaging
+
+[suse:42.2:ppdev]
+packages=
+commands=su -c "modprobe ppdev"
+
+[suse:42.2:pyqt]
+packages=python-qt
+
+[suse:42.2:pyqt4]
+packages=python-qt4
+
+[suse:42.2:pyqt4-dbus]
+packages=dbus-1-python-devel,dbus-1-python
+
+[suse:42.2:python-devel]
+packages=python-devel,python-xml,libpython2_7-1_0
+
+[suse:42.2:python23]
+packages=python
+
+[suse:42.2:python2X]
+packages=python
+
+[suse:42.2:reportlab]
+packages=
+
+[suse:42.2:sane]
+packages=xsane
+
+[suse:42.2:sane-devel]
+packages=sane-backends-devel
+
+[suse:42.2:scanimage]
+packages=sane-backends
+
+[suse:42.2:xsane]
+packages=xsane
+
+[suse:42.2:cups-ddk]
+packages=cupsddk
+
+[suse:42.2:python-dbus]
+packages=dbus-1-python
+
+[suse:42.2:dbus]
+packages=dbus-1-devel,python-gobject2
+
+[suse:42.2:python-xml]
+packages=python-xml,libpython2_7-1_0
+
+[suse:42.2:cups-image]
+packages=cups-devel
+
+[suse:42.2:python-notify]
+packages=python-notify
+
+[suse:42.2:network]
+packages=wget
+
+[suse:42.2:avahi-utils]
+packages=avahi-utils
+
+[suse:42.2:python3-pyqt4]
+packages=python3-qt4,python3-qt4-devel
+
+[suse:42.2:python3-dbus]
+packages=dbus-1-python3,python3-gobject,python3-gobject2-devel
+
+[suse:42.2:python3-xml]
+packages=python3-xml,python3-lxml
+
+[suse:42.2:python3-devel]
+packages=python3-devel
+
+[suse:42.2:python3-pyqt4-dbus]
+packages=dbus-1-python3-devel,dbus-1-python3
+
+[suse:42.2:python3-pil]
+packages=python3-Pillow
+
+[suse:42.2:python3-reportlab]
+packages=python3-reportlab
+
+[suse:42.2:python3-notify2]
+packages=python3-notify2
+
+# ****************************************
 [redhat]
 index=6
 versions=8.0,9.0
@@ -779,7 +925,7 @@ ui_toolkit=qt3
 # ****************************************
 [fedora]
 index=5
-versions=22,23,24
+versions=22,23,24,25
 display_name=Fedora
 alt_names=Fedora Core
 display=1
@@ -1212,13 +1358,26 @@ same_as_version=22
 
 
 # ****************************************
+
 [fedora:24]
 code-name=
 supported=1
 packaged_version=3.16.8
 release_date=27/08/2016
 same_as_version=22
+
 # ****************************************
+
+[fedora:25]
+code-name=
+supported=1
+packaged_version=3.16.11
+release_date=23/11/2016
+same_as_version=22
+
+# ****************************************
+
+
 [linspire]
 index=15
 versions=5.0

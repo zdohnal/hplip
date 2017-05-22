@@ -1228,6 +1228,30 @@
 :model "HP LaserJet Pro MFP m128fw"
 :status :good
 
+:model "HP LaserJet Pro MFP m132a"
+:status :good
+
+:model "HP LaserJet Pro MFP m132fn"
+:status :good
+
+:model "HP LaserJet Pro MFP m132fp"
+:status :good
+
+:model "HP LaserJet Pro MFP m132fw"
+:status :good
+
+:model "HP LaserJet Pro MFP m132nw"
+:status :good
+
+:model "HP LaserJet Pro MFP m132snw"
+:status :good
+
+:model "HP LaserJet Pro MFP m134a"
+:status :good
+
+:model "HP LaserJet Pro MFP m134fn"
+:status :good
+
 :model "HP LaserJet Pro MFP m225dn"
 :status :good
 
@@ -1241,6 +1265,12 @@
 :status :good
 
 :model "HP LaserJet Pro MFP m226dw"
+:status :good
+
+:model "HP LaserJet Pro MFP m227fdw"
+:status :good
+
+:model "HP LaserJet Pro MFP m227sdn"
 :status :good
 
 :model "HP LaserJet Pro MFP m426dw"

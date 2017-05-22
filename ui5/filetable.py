@@ -316,10 +316,10 @@ class FileTable(QWidget):
                 mime_type_desc = MIME_TYPES_DESC[mime_type][0]
             except KeyError:
                 if self.typ == FILETABLE_TYPE_PRINT:
-                    FailureUI(self, self.__tr("<b>You are trying to add a file '%s' that cannot be directly printed with this utility.</b><p>To print this file, use the print command in the application that created it.<p>Note: Click <i>Show Valid Types...</i> to view a list of compatible file types that can be directly printed from this utility."%f),
+                    FailureUI(self, self.__tr("<b>You are trying to add a file  that cannot be directly printed with this utility.</b><p>To print this file, use the print command in the application that created it.<p>Note: Click <i>Show Valid Types...</i> to view a list of compatible file types that can be directly printed from this utility."),
                         self.__tr("HP Device Manager"))
                 else:
-                    FailureUI(self, self.__tr("<b>You are trying to add a file '%s' that cannot be directly faxed with this utility.</b><p>To fax this file, use the print command in the application that created it (using the appropriate fax print queue).<p>Note: Click <i>Show Valid Types...</i> to view a list of compatible file types that can be directly added to the fax file list in this utility."%f),
+                    FailureUI(self, self.__tr("<b>You are trying to add a file  that cannot be directly faxed with this utility.</b><p>To fax this file, use the print command in the application that created it (using the appropriate fax print queue).<p>Note: Click <i>Show Valid Types...</i> to view a list of compatible file types that can be directly added to the fax file list in this utility."),
                         self.__tr("HP Device Manager"))
             else:
                 if self.typ == FILETABLE_TYPE_PRINT:
