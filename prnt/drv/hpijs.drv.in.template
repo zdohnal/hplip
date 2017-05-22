@@ -8277,6 +8277,22 @@ lity:PenSet=2,Quality:FullBleed=1"
   // <%PyramidRefresh15:Normal%>
 } // end CopperheadIPH15
 
+{
+
+// <%SPDOfficejetProAsize:Normal%>
+
+}
+{
+
+// <%SPDOfficejetProBsize:Normal%>
+
+}
+
+{
+
+// <%Gemstone:Normal%>
+
+}
 ////////// Saipan
 {
   Attribute "DefaultResolution" "" "1200dpi"

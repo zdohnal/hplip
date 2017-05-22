@@ -613,7 +613,7 @@ SANE_Status escl_control_option(SANE_Handle handle, SANE_Int option, SANE_Action
          }
          else
          {  /* Set default. */
-           ps->currentInputSource = IS_PLATEN;
+           ps->currentInputSource = ps->inputSourceMap[0]; //IS_PLATEN;
            set_input_source_side_effects(ps, ps->currentInputSource);
            mset_result |= SANE_INFO_RELOAD_PARAMS | SANE_INFO_RELOAD_OPTIONS;
            stat = SANE_STATUS_GOOD;

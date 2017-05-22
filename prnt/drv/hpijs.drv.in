@@ -13904,6 +13904,14 @@ lity:PenSet=2,Quality:FullBleed=1"
             Attribute "Product" "" "(HP Officejet Pro 6835 E-all-in-one)"
           }
           {
+            ModelName "HP Officejet 6950 hpijs"
+            Attribute "NickName" "" "HP Officejet 6950 hpijs, $Version"
+            Attribute "ShortNickName" "" "HP Officejet 6950 hpijs"
+            Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet 6950;DES:officejet 6950;"
+            PCFileName "hp-officejet_6950-hpijs.ppd"
+            Attribute "Product" "" "(HP Officejet 6950 All-in-one)"
+          }
+          {
             ModelName "HP Officejet 6960 hpijs"
             Attribute "NickName" "" "HP Officejet 6960 hpijs, $Version"
             Attribute "ShortNickName" "" "HP Officejet 6960 hpijs"
@@ -14997,6 +15005,76 @@ lity:PenSet=2,Quality:FullBleed=1"
   }
 } // end CopperheadIPH15
 
+{
+
+// <%SPDOfficejetProAsize:Normal%>
+{
+  ModelName "HP Officejet 8700 hpijs"
+  Attribute "NickName" "" "HP Officejet 8700 hpijs, $Version"
+  Attribute "ShortNickName" "" "HP Officejet 8700 hpijs"
+  Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet 8700;DES:hp officejet 8700;"
+  PCFileName "hp-officejet_8700-hpijs.ppd"
+  Attribute "Product" "" "(HP Officejet 8702 All-in-one)"
+}
+{
+  ModelName "HP Officejet Pro 8710 hpijs"
+  Attribute "NickName" "" "HP Officejet Pro 8710 hpijs, $Version"
+  Attribute "ShortNickName" "" "HP Officejet Pro 8710 hpijs"
+  Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 8710;DES:hp officejet pro 8710;"
+  PCFileName "hp-officejet_pro_8710-hpijs.ppd"
+  Attribute "Product" "" "(HP Officejet Pro 8710 All-in-one Printer)"
+  Attribute "Product" "" "(HP Officejet Pro 8715 All-in-one Printer)"
+}
+{
+  ModelName "HP Officejet Pro 8720 hpijs"
+  Attribute "NickName" "" "HP Officejet Pro 8720 hpijs, $Version"
+  Attribute "ShortNickName" "" "HP Officejet Pro 8720 hpijs"
+  Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 8720;DES:hp officejet pro 8720;"
+  PCFileName "hp-officejet_pro_8720-hpijs.ppd"
+  Attribute "Product" "" "(HP Officejet Pro 8720 All-in-one Printer)"
+  Attribute "Product" "" "(HP Officejet Pro 8725 All-in-one Printer)"
+}
+
+}
+{
+
+// <%SPDOfficejetProBsize:Normal%>
+{
+  ModelName "HP Officejet Pro 7740 Series hpijs"
+  Attribute "NickName" "" "HP Officejet Pro 7740 Series hpijs, $Version"
+  Attribute "ShortNickName" "" "HP OJ Pro 7740 Series hpijs"
+  Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet pro 7740 series;DES:officejet pro 7740 series;"
+  PCFileName "hp-officejet_pro_7740_series-hpijs.ppd"
+  Attribute "Product" "" "(HP Officejet Pro 7740 Wide Format All-in-one)"
+}
+
+}
+
+{
+
+// <%Gemstone:Normal%>
+{
+  ModelName "HP Officejet 200 Mobile Series hpijs"
+  Attribute "NickName" "" "HP Officejet 200 Mobile Series hpijs, $Version"
+  Attribute "ShortNickName" "" "HP OJ 200 Mobile Series hpijs"
+  Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet 200 mobile series;DES:officejet 200 mobile series;"
+  PCFileName "hp-officejet_200_mobile_series-hpijs.ppd"
+  Attribute "Product" "" "(HP Officejet 200 Mobile Printer)"
+}
+{
+  ModelName "HP Officejet 250 Mobile Series hpijs"
+  Attribute "NickName" "" "HP Officejet 250 Mobile Series hpijs, $Version"
+  Attribute "ShortNickName" "" "HP OJ 250 Mobile Series hpijs"
+  Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet 250 mobile series;DES:officejet 250 mobile series;"
+  PCFileName "hp-officejet_250_mobile_series-hpijs.ppd"
+  Attribute "Product" "" "(HP Officejet 250 Mobile All-in-one)"
+  Attribute "Product" "" "(HP Officejet 250c Mobile All-in-one)"
+  Attribute "Product" "" "(HP Officejet 252 Mobile All-in-one)"
+  Attribute "Product" "" "(HP Officejet 252c Mobile All-in-one)"
+  Attribute "Product" "" "(HP Officejet 258 Mobile All-in-one)"
+}
+
+}
 ////////// Saipan
 {
   Attribute "DefaultResolution" "" "1200dpi"
