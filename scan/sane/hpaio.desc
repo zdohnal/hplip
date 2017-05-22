@@ -1330,6 +1330,21 @@
 :model "HP Officejet 150 Mobile All-in-one"
 :status :good
 
+:model "HP Officejet 250 Mobile All-in-one"
+:status :good
+
+:model "HP Officejet 250c Mobile All-in-one"
+:status :good
+
+:model "HP Officejet 252 Mobile All-in-one"
+:status :good
+
+:model "HP Officejet 252c Mobile All-in-one"
+:status :good
+
+:model "HP Officejet 258 Mobile All-in-one"
+:status :good
+
 :model "HP Officejet 2620 All-in-one"
 :status :good
 
@@ -2042,6 +2057,21 @@
 :status :good
 
 :model "HP Officejet Pro 6835 E-all-in-one"
+:status :good
+
+:model "HP Officejet Pro 6960 All-in-one"
+:status :good
+
+:model "HP Officejet Pro 6968 All-in-one"
+:status :good
+
+:model "HP Officejet Pro 6970 All-in-one"
+:status :good
+
+:model "HP Officejet Pro 6975 All-in-one"
+:status :good
+
+:model "HP Officejet Pro 6978 All-in-one"
 :status :good
 
 :model "HP Officejet Pro 8500 All-in-one Printer - a909a"

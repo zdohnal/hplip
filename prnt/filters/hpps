@@ -161,6 +161,11 @@ for opt in options.split():
     else:
         opts[o] = v
 
+try:
+    ppd_str = to_string_utf8(open(ppd_file, 'rb').read())
+except IOError:
+    bug("Unabel to read PPD File")
+    sys.exit(CUPS_FILTER_FAILED)
 
 # --------------------Secure Printing---------------------
 # Embeds private job PJL's into the print stream
@@ -173,12 +178,24 @@ if 'HPPinPrnt' in options and 'noHPPinPrnt' not in options:
     os.write(output_fd, b"@PJL SET HOLDTYPE=PRIVATE\x0a")
 
     secpin = ""
-    szKeyInitials = ['HPFIDigit', 'HPSEDigit', 'HPTHDigit', 'HPFTDigit']    # Defined in Printer PPD
-    for x in szKeyInitials:
+    if "HPDigit" in ppd_str:
         try:
-            secpin = secpin + opts[x]
-        except KeyError:
-            secpin = secpin + '0'
+            tmp = opts['HPDigit']
+            if "Custom." in tmp:
+               tmp = tmp[7:]
+            if tmp.isdigit() and len(tmp) == 4:
+                secpin += tmp
+            else: 
+                secpin = "0000"
+        except KeyError as e:
+            msg("Setting Pin to default")
+    else:
+        szKeyInitials = ['HPFIDigit', 'HPSEDigit', 'HPTHDigit', 'HPFTDigit']                                 
+	for x in szKeyInitials:
+           try:
+	        secpin += opts[x]
+           except KeyError:
+	        secpin += '0'
 
     os.write(output_fd, to_bytes_utf8('@PJL SET HOLDKEY="%s"\x0a' % secpin))
 
@@ -190,11 +207,6 @@ os.write(output_fd, to_bytes_utf8('@PJL SET JOBNAME="%s"\x0a' % title))
 # Embeds the job accouting (1-8) PJL's into print stream
 # -----------------------------------------------------
 
-try:
-    ppd_str = to_string_utf8(open(ppd_file, 'rb').read())
-except IOError:
-    bug("Unabel to read PPD File")
-    sys.exit(CUPS_FILTER_FAILED)
 
 key_list = [x for x in ['HPAccountingInfo', 'HPBOD', 'HPPJLEconoMode', 'HPPJLEconoMode2',  'HPPJLOutputMode', 'HPPJLDryTime', 
                         'HPPJLSaturation', 'HPPJLInkBleed', 'HPPJLColorAsGray', 'HPPJLTrueBlack'] if x in ppd_str]

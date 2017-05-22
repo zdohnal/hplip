@@ -1456,6 +1456,11 @@ enum HPMUD_RESULT __attribute__ ((visibility ("hidden"))) musb_raw_channel_write
                 BUG("unable to write data (len = %d) %s: %m\n", msp->device[pc->dindex].uri, len);
             goto bugout;
         }
+		if(len == 0 && size > 0)
+		{
+			stat = HPMUD_R_IO_ERROR;
+			goto bugout;	
+		}
         size-=len;
         total+=len;
         *bytes_wrote+=len;

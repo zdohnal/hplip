@@ -126,6 +126,7 @@ cups_ppd_printers = \
    ppd/hpcups/hp-deskjet_3600.ppd.gz \
    ppd/hpcups/hp-deskjet_3630_series.ppd.gz \
    ppd/hpcups/hp-deskjet_3650.ppd.gz \
+   ppd/hpcups/hp-deskjet_3700_series.ppd.gz \
    ppd/hpcups/hp-deskjet_3740.ppd.gz \
    ppd/hpcups/hp-deskjet_3810.ppd.gz \
    ppd/hpcups/hp-deskjet_3816.ppd.gz \
@@ -516,6 +517,7 @@ cups_ppd_printers = \
    ppd/hpcups/hp-officejet_100_mobile_l411.ppd.gz \
    ppd/hpcups/hp-officejet_150_mobile_l511.ppd.gz \
    ppd/hpcups/hp-officejet_200_mobile_series.ppd.gz \
+   ppd/hpcups/hp-officejet_250_mobile_series.ppd.gz \
    ppd/hpcups/hp-officejet_2620_series.ppd.gz \
    ppd/hpcups/hp-officejet_3830_series.ppd.gz \
    ppd/hpcups/hp-officejet_4000_k210.ppd.gz \
@@ -594,6 +596,8 @@ cups_ppd_printers = \
    ppd/hpcups/hp-officejet_pro_3620.ppd.gz \
    ppd/hpcups/hp-officejet_pro_6230.ppd.gz \
    ppd/hpcups/hp-officejet_pro_6830.ppd.gz \
+   ppd/hpcups/hp-officejet_pro_6960.ppd.gz \
+   ppd/hpcups/hp-officejet_pro_6970.ppd.gz \
    ppd/hpcups/hp-officejet_pro_8000_a809.ppd.gz \
    ppd/hpcups/hp-officejet_pro_8100.ppd.gz \
    ppd/hpcups/hp-officejet_pro_8500_a909a.ppd.gz \

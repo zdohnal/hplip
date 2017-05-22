@@ -196,6 +196,8 @@ class PrintSettingsToolbox(QToolBox):
         self.last_item = 0
         self.job_options = {}
         self.job_storage_enable = False
+        self.ppd_type = 0
+        self.pin_count = 0
 
         self.connect(self, SIGNAL("currentChanged(int)"), self.PrintSettingsToolbox_currentChanged)
 
@@ -234,6 +236,8 @@ class PrintSettingsToolbox(QToolBox):
 
         cups.resetOptions()
         cups.openPPD(self.cur_printer)
+        if self.ppd_type == 1 and self.pin_count == 0:
+           self.setPrinterOption("HPDigit", "1111")
         current_options = dict(cups.getOptions())
         cups.closePPD()
 
@@ -464,6 +468,9 @@ class PrintSettingsToolbox(QToolBox):
 
                     try:
                         text, num_subgroups = cups.getGroup(g)
+                        if text == "JCL":
+                           text = "Secure Printing"
+                           self.ppd_type = 1
                     except TypeError:
                         log.warn("Group %s returned None" % g)
                         continue
@@ -530,8 +537,10 @@ class PrintSettingsToolbox(QToolBox):
                                 cur_outputmode = value
                             else:
                                 cur_outputmode = defchoice                                
-
-                        self.addControlRow(o, option_text, ui, value, choice_data, defchoice, read_only)
+                        if option_text == "[Pin-4 Digits]":
+                           self.addControlRow(o, option_text, cups.UI_SPINNER, 1111, (0, 9999), 1111)                          
+                        else: 
+		    	   self.addControlRow(o, option_text, ui, value, choice_data, defchoice, read_only)
 
                     self.endControlGroup()
 
@@ -1582,7 +1591,8 @@ class PrintSettingsToolbox(QToolBox):
 
     def SpinBox_valueChanged(self, i): # cups.UI_SPINNER
         sender = self.sender()
-
+        if sender.option == "HPDigit":
+           self.pin_count = 1
         if not sender.job_option:
             if i == sender.default:
                 self.removePrinterOption(sender.option)
@@ -2012,6 +2022,15 @@ class PrintSettingsToolbox(QToolBox):
         cups.openPPD(self.cur_printer)
 
         try:
+            if option == "HPDigit":
+               if len(value) == 1:
+                  value = '000' + value
+               if len(value) == 2:
+                  value += '00' + value
+               if len(value) == 3:
+                  value += '0' + value
+               if len(value) != 4:
+                  value = value[-4:]
             cups.addOption("%s=%s" % (option, value))
             cups.setOptions()
         finally:
