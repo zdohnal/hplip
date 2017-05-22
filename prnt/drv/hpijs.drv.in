@@ -13904,6 +13904,14 @@ lity:PenSet=2,Quality:FullBleed=1"
             Attribute "Product" "" "(HP Officejet Pro 6835 E-all-in-one)"
           }
           {
+            ModelName "HP Officejet 6960 hpijs"
+            Attribute "NickName" "" "HP Officejet 6960 hpijs, $Version"
+            Attribute "ShortNickName" "" "HP Officejet 6960 hpijs"
+            Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet 6960;DES:officejet 6960;"
+            PCFileName "hp-officejet_6960-hpijs.ppd"
+            Attribute "Product" "" "(HP Officejet 6960 All-in-one)"
+          }
+          {
             ModelName "HP Officejet Pro 6960 hpijs"
             Attribute "NickName" "" "HP Officejet Pro 6960 hpijs, $Version"
             Attribute "ShortNickName" "" "HP Officejet Pro 6960 hpijs"

@@ -5222,6 +5222,14 @@ Manufacturer "HP"
             Attribute "Product" "" "(HP Officejet Pro 6835 E-all-in-one)"
           }
           {
+            ModelName "HP Officejet 6960"
+            Attribute "NickName" "" "HP Officejet 6960, hpcups $Version"
+            Attribute "ShortNickName" "" "HP Officejet 6960"
+            Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet 6960;DES:officejet 6960;"
+            PCFileName "hp-officejet_6960.ppd"
+            Attribute "Product" "" "(HP Officejet 6960 All-in-one)"
+          }
+          {
             ModelName "HP Officejet Pro 6960"
             Attribute "NickName" "" "HP Officejet Pro 6960, hpcups $Version"
             Attribute "ShortNickName" "" "HP Officejet Pro 6960"
@@ -12770,6 +12778,14 @@ Manufacturer "HP"
              "<</cupsInteger0 91/PageSize[459.36 649.44]/ImagingBBox null>>setpagedevice"
 
           // <%SPDOfficejetProAsize:Normal%>
+          {
+            ModelName "HP Officejet 8700"
+            Attribute "NickName" "" "HP Officejet 8700, hpcups $Version"
+            Attribute "ShortNickName" "" "HP Officejet 8700"
+            Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet 8700;DES:hp officejet 8700;"
+            PCFileName "hp-officejet_8700.ppd"
+            Attribute "Product" "" "(HP Officejet 8702 All-in-one)"
+          }
           {
             ModelName "HP Officejet Pro 8710"
             Attribute "NickName" "" "HP Officejet Pro 8710, hpcups $Version"

@@ -538,9 +538,9 @@ class PrintSettingsToolbox(QToolBox):
                             else:
                                 cur_outputmode = defchoice                                
                         if option_text == "[Pin-4 Digits]":
-                           self.addControlRow(o, option_text, cups.UI_SPINNER, 1111, (0, 9999), 1111)                          
+                           self.addControlRow(o, option_text, cups.UI_SPINNER, 1111, (1000, 9999), 1111)                          
                         else: 
-		    	   self.addControlRow(o, option_text, ui, value, choice_data, defchoice, read_only)
+                           self.addControlRow(o, option_text, ui, value, choice_data, defchoice, read_only)
 
                     self.endControlGroup()
 
@@ -1597,6 +1597,8 @@ class PrintSettingsToolbox(QToolBox):
             if i == sender.default:
                 self.removePrinterOption(sender.option)
                 sender.pushbutton.setEnabled(False)
+                if sender.option == "HPDigit":
+                   self.pin_count = 0
             else:
                 sender.pushbutton.setEnabled(True)
                 self.setPrinterOption(sender.option, str(i))

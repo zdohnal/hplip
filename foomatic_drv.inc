@@ -473,6 +473,7 @@ foomatic_ppd_printers = \
     ppd/hpijs/hp-laserjet_4300-hpijs-pcl3.ppd.gz \
     ppd/hpijs/hp-deskjet_1600cm-hpijs.ppd.gz \
     ppd/hpijs/hp-officejet_6500_e710a-f-hpijs.ppd.gz \
+    ppd/hpijs/hp-officejet_6960-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_1200n-hpijs.ppd.gz \
     ppd/hpijs/hp-deskjet_d1600_series-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_4ml-hpijs.ppd.gz \
@@ -784,6 +785,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-laserjet_mfp_m426_m427-ps.ppd.gz \
     prnt/ps/hp-laserjet_pro_mfp_m225_m226-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_pro_mfp_m476-ps.ppd.gz \
+    prnt/ps/hp-pagewide_352_printer-ps.ppd.gz \
     prnt/ps/hp-designjet_t1500-postscript.ppd.gz \
     prnt/ps/hp-officejet_pro_551_series-ps.ppd.gz \
     prnt/ps/hp-laserjet_cp1520_series-ps.ppd.gz \
@@ -855,6 +857,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-color_laserjet_cm1017-ps.ppd.gz \
     prnt/ps/hp-lj_300_400_color_mfp_m375_m475-ps.ppd.gz \
     prnt/ps/hp-laserjet_m4345_mfp-ps.ppd.gz \
+    prnt/ps/hp-pagewide_377_mfp-ps.ppd.gz \
     prnt/ps/hp-designjet_4020ps-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_mfp_m274-ps.ppd.gz \
     prnt/ps/hp-laserjet_200_colormfp_m276-ps.ppd.gz \
@@ -949,7 +952,9 @@ foomatic_ps_printers = \
     prnt/ps/hp-laserjet_9050-ps.ppd.gz \
     prnt/ps/hp-laserjet_8150_mfp-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_8550-ps.ppd.gz \
+    prnt/ps/hp-pagewide_color_e55650-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_2605dn-ps.ppd.gz \
+    prnt/ps/hp-officejet_pro_8732-ps.ppd.gz \
     prnt/ps/hp-laserjet_4ml-ps.ppd.gz \
     prnt/ps/hp-laserjet_4100_series-ps.ppd.gz \
     prnt/ps/hp-laserjet_color_flow_mfp_m575-ps.ppd.gz \
@@ -962,6 +967,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-color_laserjet_4600_series-ps.ppd.gz \
     prnt/ps/hp-laserjet_4300-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_cp2025dn-ps.ppd.gz \
+    prnt/ps/hp-pagewide_color_mfp_e58650-ps.ppd.gz \
     prnt/ps/hp-laserjet_500_color_m551-ps.ppd.gz \
     prnt/ps/hp-designjet_4500ps.ppd.gz \
     prnt/ps/hp-designjet_t1120ps_24in-ps.ppd.gz \

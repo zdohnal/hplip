@@ -1738,6 +1738,9 @@
 :model "HP Officejet 6820 E-all-in-one Printer"
 :status :good
 
+:model "HP Officejet 6960 All-in-one"
+:status :good
+
 :model "HP Officejet 700 All-in-one Printer"
 :status :good
 
@@ -1829,6 +1832,9 @@
 :status :good
 
 :model "HP Officejet 8040 E-all-in-one"
+:status :good
+
+:model "HP Officejet 8702 All-in-one"
 :status :good
 
 :model "HP Officejet 9110 All-in-one Printer"
@@ -2140,6 +2146,9 @@
 :model "HP Officejet Pro 8730"
 :status :good
 
+:model "HP Officejet Pro 8732 All-in-one Printer"
+:status :good
+
 :model "HP Officejet Pro 8740 All-in-one Printer"
 :status :good
 
@@ -2258,6 +2267,9 @@
 :status :good
 
 :model "HP Pagewide Managed MFP p57750dw"
+:status :good
+
+:model "HP Pagewide MFP 377dw"
 :status :good
 
 :model "HP Pagewide Pro 477dn Multifunction Printer"
