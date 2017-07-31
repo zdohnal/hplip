@@ -82,6 +82,9 @@
 :model "HP Color LaserJet cm4730fsk Multifunction Printer"
 :status :good
 
+:model "HP Color LaserJet Managed Flow MFP e67560z"
+:status :good
+
 :model "HP Color LaserJet Managed Flow MFP e77822z"
 :status :good
 
@@ -199,6 +202,9 @@
 :model "HP Deskjet 2134 All-in-one Printer"
 :status :good
 
+:model "HP Deskjet 2200 All-in-one"
+:status :good
+
 :model "HP Deskjet 2510 All-in-one Printer"
 :status :good
 
@@ -239,6 +245,18 @@
 :status :good
 
 :model "HP Deskjet 2549 All-in-one Printer"
+:status :good
+
+:model "HP Deskjet 2620 All-in-one"
+:status :good
+
+:model "HP Deskjet 2621 All-in-one"
+:status :good
+
+:model "HP Deskjet 2622 All-in-one"
+:status :good
+
+:model "HP Deskjet 2623 All-in-one"
 :status :good
 
 :model "HP Deskjet 3050 j610 Series"
@@ -317,6 +335,12 @@
 :status :good
 
 :model "HP Deskjet 3634 All-in-one Printer"
+:status :good
+
+:model "HP Deskjet 3700 All-in-one"
+:status :good
+
+:model "HP Deskjet 3722 All-in-one"
 :status :good
 
 :model "HP Deskjet f2110 All-in-one Printer"
@@ -595,6 +619,12 @@
 :model "HP Deskjet Ink Adv 2060 k110"
 :status :good
 
+:model "HP Deskjet Ink Advanatge 3789 All-in-one"
+:status :good
+
+:model "HP Deskjet Ink Advanatge 3790 All-in-one"
+:status :good
+
 :model "HP Deskjet Ink Advantage 1510 All-in-one Printer Series"
 :status :good
 
@@ -617,6 +647,9 @@
 :status :good
 
 :model "HP Deskjet Ink Advantage 2138 All-in One Printer"
+:status :good
+
+:model "HP Deskjet Ink Advantage 2200 All-in-one"
 :status :good
 
 :model "HP Deskjet Ink Advantage 2510 All-in-one"
@@ -643,10 +676,28 @@
 :model "HP Deskjet Ink Advantage 2548 All-in-one Printer"
 :status :good
 
+:model "HP Deskjet Ink Advantage 2635 All-in-one"
+:status :good
+
+:model "HP Deskjet Ink Advantage 2636 All-in-one"
+:status :good
+
 :model "HP Deskjet Ink Advantage 2645 All-in-one Printer"
 :status :good
 
 :model "HP Deskjet Ink Advantage 2646 All-in-one Printer"
+:status :good
+
+:model "HP Deskjet Ink Advantage 2675 All-in-one"
+:status :good
+
+:model "HP Deskjet Ink Advantage 2676 All-in-one"
+:status :good
+
+:model "HP Deskjet Ink Advantage 2677 All-in-one"
+:status :good
+
+:model "HP Deskjet Ink Advantage 2678 All-in-one"
 :status :good
 
 :model "HP Deskjet Ink Advantage 3515 E-all-in-one"
@@ -1355,6 +1406,24 @@
 :status :good
 
 :model "HP LaserJet Pro MFP m227sdn"
+:status :good
+
+:model "HP LaserJet Pro MFP m25a"
+:status :good
+
+:model "HP LaserJet Pro MFP m25nw"
+:status :good
+
+:model "HP LaserJet Pro MFP m26a"
+:status :good
+
+:model "HP LaserJet Pro MFP m26nw"
+:status :good
+
+:model "HP LaserJet Pro MFP m27c"
+:status :good
+
+:model "HP LaserJet Pro MFP m27cnw"
 :status :good
 
 :model "HP LaserJet Pro MFP m426dw"
@@ -2395,6 +2464,15 @@
 :model "HP Pagewide Managed MFP p57750dw"
 :status :good
 
+:model "HP Pagewide Managed MFP p77740zs"
+:status :good
+
+:model "HP Pagewide Managed MFP p77750z"
+:status :good
+
+:model "HP Pagewide Managed MFP p77750zs"
+:status :good
+
 :model "HP Pagewide MFP 377dw"
 :status :good
 
@@ -2408,6 +2486,9 @@
 :status :good
 
 :model "HP Pagewide Pro 577z Multifunction Printer"
+:status :good
+
+:model "HP Pagewide Pro MFP 772dw"
 :status :good
 
 :model "HP Photosmart 2570 All-in-one Printer"

@@ -575,6 +575,14 @@ endif # FAX_BUILD
 endif # HPCUPS ONLY
 endif # HPCUPS_INSTALL
 
+if HPPS_INSTALL
+hppsdir = $(cupsfilterdir)
+hpps_PROGRAMS = hpps
+hpps_SOURCES = prnt/hpps/hppsfilter.c prnt/hpps/hppsfilter.h
+hpps_CXXFLAGS = $(APDK_ENDIAN_FLAG) $(DBUS_CFLAGS)
+hpps_LDADD = -lcups  $(DBUS_LIBS)
+endif #HPPS_INSTALL
+
 # PPDs
 ppddir = $(hpppddir)
 dist_ppd_DATA = $(foomatic_ps_printers)

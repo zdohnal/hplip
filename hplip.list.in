@@ -64,6 +64,7 @@ $foomatic-ppd-install=@epm_foomatic_ppd_install@
 $cups-ppd-install=@epm_cups_ppd_install@
 $hpijs-install=@epm_hpijs_install@
 $hpcups-install=@epm_hpcups_install@
+$hpps-install=@epm_hpps_install@
 $foomatic-drv-install=@epm_foomatic_drv_install@
 $cups-drv-install=@epm_cups_drv_install@
 $machine=@platform@
@@ -81,7 +82,9 @@ $print_only_exclude=@epm_print_only_exclude@
 %endif
 %if hpcups-install
 f 0755 root root $cupsfilter/hpcups hpcups
-f 0755 root root $cupsfilter/hpps prnt/filters/hpps
+%endif
+%if hpps-install
+f 0755 root root $cupsfilter/hpps hpps
 %endif
 f 0644 root root /etc/hp/hplip.conf hplip.conf
 f 0644 root root /etc/cups/pstotiff.convs fax/filters/pstotiff.convs

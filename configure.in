@@ -26,7 +26,7 @@
 #   104 = no libdl
 
 #AC_PREREQ(2.59)
-AC_INIT([HP Linux Imaging and Printing], [3.17.4], [3.17.4], [hplip])
+AC_INIT([HP Linux Imaging and Printing], [3.17.7], [3.17.7], [hplip])
 #AM_INIT_AUTOMAKE([1.9 foreign])
 AM_INIT_AUTOMAKE
 AC_DISABLE_STATIC
@@ -202,6 +202,18 @@ else
    AC_MSG_RESULT(no)
 fi
 AM_CONDITIONAL(NEW_HPCUPS, test x$new_hpcups = xyes)
+
+AC_MSG_CHECKING([for hpps install])
+AC_ARG_ENABLE(hpps_install,
+  [  --enable-hpps-install     enable hpps install (default=yes)],
+  hpps_install=$enableval, hpps_install=yes)
+if test "$hpps_install" = "yes" && test "$hpijs_only_build" = "no"; then
+   AC_MSG_RESULT(yes)
+   epm_hpps_install=yes
+else
+   AC_MSG_RESULT(no)
+fi
+AM_CONDITIONAL(HPPS_INSTALL, test x$hpps_install = xyes && test x$hpijs_only_build = xno)
 
 AC_MSG_CHECKING([for network build])
 AC_ARG_ENABLE(network_build,
@@ -658,6 +670,7 @@ AC_SUBST(cups_ppd_install)
 AC_SUBST(cups_drv_install)
 AC_SUBST(hpijs_install)
 AC_SUBST(hpcups_install)
+AC_SUBST(hpps_install)
 AC_SUBST(doc_build)
 AC_SUBST(shadow_build)
 AC_SUBST(libusb01_build)
@@ -675,6 +688,7 @@ AC_SUBST(epm_foomatic_drv_install)
 AC_SUBST(epm_cups_drv_install)
 AC_SUBST(epm_hpijs_install)
 AC_SUBST(epm_hpcups_install)
+AC_SUBST(epm_hpps_install)
 AC_SUBST(epm_qt5)
 AC_SUBST(epm_qt4)
 AC_SUBST(epm_qt3)

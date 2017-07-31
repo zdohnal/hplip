@@ -120,7 +120,8 @@ TECH_CLASSES = [
     "Gemstone",
     "SPDOfficejetProAsize",
 	"CLE",
-    "SPDOfficejetProBsize"
+    "SPDOfficejetProBsize",
+    "PyramidRefresh17"
 ]
 
 TECH_CLASSES.sort()
@@ -190,7 +191,8 @@ TECH_CLASS_PDLS = {
     "Gemstone"      : 'pcl3',
     "SPDOfficejetProAsize" : 'pcl3',
 	"CLE"                  :'pcl3',
-    "SPDOfficejetProAsize" : 'pcl3'
+    "SPDOfficejetProAsize" : 'pcl3',
+    "PyramidRefresh17"     : 'pcl3'
 }
 
 PDL_TYPE_PCL = 0  # less preferred
