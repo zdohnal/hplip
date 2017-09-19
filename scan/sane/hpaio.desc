@@ -619,12 +619,6 @@
 :model "HP Deskjet Ink Adv 2060 k110"
 :status :good
 
-:model "HP Deskjet Ink Advanatge 3789 All-in-one"
-:status :good
-
-:model "HP Deskjet Ink Advanatge 3790 All-in-one"
-:status :good
-
 :model "HP Deskjet Ink Advantage 1510 All-in-one Printer Series"
 :status :good
 
@@ -730,6 +724,15 @@
 :model "HP Deskjet Ink Advantage 3638 All-in-one Printer"
 :status :good
 
+:model "HP Deskjet Ink Advantage 3735 All-in-one"
+:status :good
+
+:model "HP Deskjet Ink Advantage 3789 All-in-one"
+:status :good
+
+:model "HP Deskjet Ink Advantage 3790 All-in-one"
+:status :good
+
 :model "HP Deskjet Ink Advantage 3830 All-in-one Printer"
 :status :good
 
@@ -785,6 +788,9 @@
 :status :good
 
 :model "HP Deskjet Ink Advantage 4676 All-in-one"
+:status :good
+
+:model "HP Deskjet Ink Advantage 5075 All-in-one"
 :status :good
 
 :model "HP Deskjet Ink Advantage 5525 E-all-in-one"
@@ -889,6 +895,18 @@
 :model "HP Envy 4524 All-in-one Printer"
 :status :good
 
+:model "HP Envy 5000 All-in-one"
+:status :good
+
+:model "HP Envy 5020 All-in-one"
+:status :good
+
+:model "HP Envy 5030 All-in-one"
+:status :good
+
+:model "HP Envy 5032 All-in-one"
+:status :good
+
 :model "HP Envy 5530 E-all-in-one Printer"
 :status :good
 
@@ -953,6 +971,51 @@
 :status :good
 
 :model "HP Envy 7645 E-all-in-one"
+:status :good
+
+:model "HP Envy Photo 6200 All-in-one"
+:status :good
+
+:model "HP Envy Photo 6220 All-in-one"
+:status :good
+
+:model "HP Envy Photo 6230 All-in-one"
+:status :good
+
+:model "HP Envy Photo 6232 All-in-one"
+:status :good
+
+:model "HP Envy Photo 6234 All-in-one"
+:status :good
+
+:model "HP Envy Photo 7100 All-in-one"
+:status :good
+
+:model "HP Envy Photo 7120 All-in-one"
+:status :good
+
+:model "HP Envy Photo 7130 All-in-one"
+:status :good
+
+:model "HP Envy Photo 7134 All-in-one"
+:status :good
+
+:model "HP Envy Photo 7155 All-in-one"
+:status :good
+
+:model "HP Envy Photo 7164 All-in-one"
+:status :good
+
+:model "HP Envy Photo 7800 All-in-one"
+:status :good
+
+:model "HP Envy Photo 7820 All-in-one"
+:status :good
+
+:model "HP Envy Photo 7830 All-in-one"
+:status :good
+
+:model "HP Envy Photo 7855 All-in-one"
 :status :good
 
 :model "HP Hotspot LaserJet Pro m1218nfs MFP"
@@ -1732,6 +1795,18 @@
 :model "HP Officejet 520 All-in-one Printer"
 :status :good
 
+:model "HP Officejet 5200 All-in-one"
+:status :good
+
+:model "HP Officejet 5220 All-in-one"
+:status :good
+
+:model "HP Officejet 5230 All-in-one"
+:status :good
+
+:model "HP Officejet 5232 All-in-one"
+:status :good
+
 :model "HP Officejet 5505 All-in-one Printer"
 :status :good
 
@@ -2270,6 +2345,12 @@
 :status :good
 
 :model "HP Officejet Pro 6978 All-in-one"
+:status :good
+
+:model "HP Officejet Pro 7720 Wide Format All-in-one"
+:status :good
+
+:model "HP Officejet Pro 7730 Wide Format All-in-one"
 :status :good
 
 :model "HP Officejet Pro 7740 Wide Format All-in-one"

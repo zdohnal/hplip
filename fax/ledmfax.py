@@ -435,9 +435,13 @@ class LEDMFaxSendThread(FaxSendThread):
                             break
                         pos = response.find(b"/Jobs/JobList/",0,len(response))
                         pos1 = response.find(b"Content-Length",0,len(response))
+                        pos2 = response.find(b"Cache-Control",0,len(response))
                         jobListURI = response[pos:pos1].strip()
                         jobListURI = jobListURI.replace(b'\r',b'').replace(b'\n',b'')
-                        log.debug("jobListURI = [%s] type=%s" %(jobListURI, type(jobListURI)))
+                        if jobListURI == '':
+                            jobListURI = response[pos:pos2].strip()
+                            jobListURI = jobListURI.replace(b'\r',b'').replace(b'\n',b'')
+                            log.debug("jobListURI = [%s] type=%s" %(jobListURI, type(jobListURI)))
                         if type(jobListURI) != str:
                              jobListURI = jobListURI.decode('utf-8')
 

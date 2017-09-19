@@ -112,7 +112,7 @@ supported=0
 
 [suse]
 index=3
-versions=13.2,42.1,42.2
+versions=13.2,42.1,42.2,42.3
 display_name=SUSE Linux
 alt_names=
 display=1
@@ -725,6 +725,153 @@ packages=python3-reportlab
 packages=python3-notify2
 
 # ****************************************
+
+[suse:42.3]
+code_name=Harlequin
+supported=1
+packaged_version=3.17.9
+release_date=26.07.2017
+post_depend_cmd=su -c "zypper --non-interactive --no-gpg-checks in --force --auto-agree-with-licenses cups-filters-ghostscript",su -c "service cups restart"
+scan_supported=1
+fax_supported=1
+pcard_supported=0
+network_supported=1
+parallel_supported=0
+usb_supported=1
+notes=Please be sure to disable the CD repositories in YaST.
+ppd_install=drv
+udev_mode_fix=1
+ppd_dir=/usr/share/cups/model/HP
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+cups_path_with_bitness=0
+ui_toolkit=qt4
+native_cups=1
+pre_depend_cmd=su -c "zypper refresh"
+
+[suse:42.3:cups]
+packages=cups,cups-client
+
+[suse:42.3:cups-devel]
+packages=cups-devel,cupsddk
+
+[suse:42.3:gcc]
+packages=gcc-c++
+
+[suse:42.3:gs]
+packages=ghostscript-library
+
+[suse:42.3:libcrypto]
+packages=openssl
+
+[suse:42.3:libjpeg]
+packages=libjpeg-devel
+
+[suse:42.3:libnetsnmp-devel]
+packages=net-snmp-devel
+
+[suse:42.3:libpthread]
+packages=glibc
+
+[suse:42.3:libtool]
+packages=libtool,libgphoto2-devel
+
+[suse:42.3:libusb]
+packages=libusb-1_0-devel,libusb-1_0-0
+
+[suse:42.3:make]
+packages=make
+
+[suse:42.3:pil]
+packages=python-imaging
+
+[suse:42.3:ppdev]
+packages=
+commands=su -c "modprobe ppdev"
+
+[suse:42.3:pyqt]
+packages=python-qt
+
+[suse:42.3:pyqt4]
+packages=python-qt4
+
+[suse:42.3:pyqt4-dbus]
+packages=dbus-1-python-devel,dbus-1-python
+
+[suse:42.3:python-devel]
+packages=python-devel,python-xml,libpython2_7-1_0
+
+[suse:42.3:python23]
+packages=python
+
+[suse:42.3:python2X]
+packages=python
+
+[suse:42.3:reportlab]
+packages=
+
+[suse:42.3:sane]
+packages=xsane
+
+[suse:42.3:sane-devel]
+packages=sane-backends-devel
+
+[suse:42.3:scanimage]
+packages=sane-backends
+
+[suse:42.3:xsane]
+packages=xsane
+
+[suse:42.3:cups-ddk]
+packages=cupsddk
+
+[suse:42.3:python-dbus]
+packages=dbus-1-python
+
+[suse:42.3:dbus]
+packages=dbus-1-devel,python-gobject2
+
+[suse:42.3:python-xml]
+packages=python-xml,libpython2_7-1_0
+
+[suse:42.3:cups-image]
+packages=cups-devel
+
+[suse:42.3:python-notify]
+packages=python-notify
+
+[suse:42.3:network]
+packages=wget
+
+[suse:42.3:avahi-utils]
+packages=avahi-utils
+
+[suse:42.3:python3-pyqt4]
+packages=python3-qt4,python3-qt4-devel
+
+[suse:42.3:python3-dbus]
+packages=dbus-1-python3,python3-gobject,python3-gobject2-devel
+
+[suse:42.3:python3-xml]
+packages=python3-xml,python3-lxml
+
+[suse:42.3:python3-devel]
+packages=python3-devel
+
+[suse:42.3:python3-pyqt4-dbus]
+packages=dbus-1-python3-devel,dbus-1-python3
+
+[suse:42.3:python3-pil]
+packages=python3-Pillow
+
+[suse:42.3:python3-reportlab]
+packages=python3-reportlab
+
+[suse:42.3:python3-notify2]
+packages=python3-notify2
+
+
+# ****************************************
 [redhat]
 index=6
 versions=8.0,9.0
@@ -925,7 +1072,7 @@ ui_toolkit=qt3
 # ****************************************
 [fedora]
 index=5
-versions=22,23,24,25
+versions=22,23,24,25,26
 display_name=Fedora
 alt_names=Fedora Core
 display=1
@@ -1377,6 +1524,15 @@ same_as_version=22
 
 # ****************************************
 
+[fedora:26]
+code-name=
+supported=1
+packaged_version=3.17.9
+release_date=11/07/2017
+same_as_version=22
+
+# ****************************************
+
 
 [linspire]
 index=15
@@ -1420,7 +1576,7 @@ ui_toolkit=qt3
 # ****************************************
 [rhel]
 index=7
-versions=6.0,7.0
+versions=6.0,7.0,7.3
 display_name=Red Hat Enterprise Linux
 alt_names=red hat enterprise linux
 display=1
@@ -1704,6 +1860,12 @@ udev_mode_fix=1
 ppd_dir=/usr/share/ppd/HP
 fix_ppd_symlink=0
 drv_dir=/usr/share/cups/drv/HP
+
+# ****************************************
+[rhel:7.3]
+packaged_version=3.17.9
+release_date=03/11/2016
+same_as_version=6.0
 
 # ********************
 [slackware:9.0]
@@ -7420,7 +7582,7 @@ packages=avahi
 # ****************************************
 [linuxmint]
 index=22
-versions=17,17.1,17.2,17.3,18,18.1
+versions=17,17.1,17.2,17.3,18,18.1,18.2
 display_name=Linux Mint
 alt_names=mint, mint linux
 display=1
@@ -8255,6 +8417,154 @@ packages=python3-pil
 packages=python3-reportlab
 [linuxmint:18.1:python3-notify2]
 packages=python3-notify2,mate-notification-daemon
+
+# ****************************************
+
+[linuxmint:18.2]
+code_name=Sonya
+packaged_version=3.17.9
+release_date=02/07/17
+supported=1
+scan_supported=1
+fax_supported=1
+pcard_supported=1
+network_supported=1
+parallel_supported=1
+usb_supported=1
+notes=Enable the universe/multiverse repositories. Also be sure you are using the Ubuntu "Main" Repositories. See: https://help.ubuntu.com/community/Repositories/Ubuntu for more information.  Disable the CD-ROM/DVD source if you do not have the Ubuntu installation media inserted in the drive.
+ppd_install=drv
+udev_mode_fix=1
+ppd_dir=/usr/share/ppd/HP
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+ui_toolkit=qt4
+native_cups=1
+acl_rules=1
+
+libdir_path=/usr/lib/x86_64-linux-gnu
+
+[linuxmint:18.2:cups]
+packages=libcups2
+
+[linuxmint:18.2:cups-devel]
+packages=libcups2-dev,cups-bsd,cups-client
+
+[linuxmint:18.2:gcc]
+packages=build-essential
+
+[linuxmint:18.2:gs]
+packages=ghostscript
+
+[linuxmint:18.2:libcrypto]
+packages=openssl
+
+[linuxmint:18.2:libjpeg]
+packages=libjpeg8-dev
+
+[linuxmint:18.2:libnetsnmp-devel]
+packages=libsnmp-dev,snmp-mibs-downloader
+
+[linuxmint:18.2:libpthread]
+packages=build-essential
+
+[linuxmint:18.2:libtool]
+packages=libtool,libtool-bin
+
+[linuxmint:18.2:libusb]
+packages=libusb-1.0.0-dev
+
+[linuxmint:18.2:make]
+packages=build-essential
+
+[linuxmint:18.2:pil]
+packages=python-imaging
+
+[linuxmint:18.2:ppdev]
+packages=
+commands=sudo modprobe ppdev,sudo cp -f /etc/modules /etc/modules.hplip,echo ppdev | sudo tee -a /etc/modules
+
+[linuxmint:18.2:pyqt]
+packages=python-qt4
+
+[linuxmint:18.2:python-devel]
+packages=python-dev
+
+[linuxmint:18.2:pyqt4]
+packages=python-qt4
+
+[linuxmint:18.2:pyqt4-dbus]
+packages=python-qt4-dbus
+
+#[linuxmint:18.2:python23]
+#packages=python
+
+[linuxmint:18.2:python2X]
+packages=python
+
+[linuxmint:18.2:reportlab]
+packages=python-reportlab
+
+[linuxmint:18.2:sane]
+packages=libsane
+
+[linuxmint:18.2:sane-devel]
+packages=libsane-dev
+
+[linuxmint:18.2:scanimage]
+packages=sane-utils
+
+[linuxmint:18.2:xsane]
+packages=xsane
+
+[linuxmint:18.2:python-dbus]
+packages=python-dbus,python-gobject
+
+[linuxmint:18.2:dbus]
+packages=libdbus-1-dev
+
+[linuxmint:18.2:cups-image]
+packages=libcupsimage2-dev
+
+[linuxmint:18.2:cups-ddk]
+packages=cups,libcupsimage2-dev
+
+[linuxmint:18.2:policykit]
+packages=policykit-1,policykit-1-gnome
+
+[linuxmint:18.2:python-notify]
+packages=python-notify
+
+[linuxmint:18.2:network]
+packages=wget
+
+[linuxmint:18.2:avahi-utils]
+packages=avahi-utils
+
+[linuxmint:18.2:python3-pyqt4-dbus]
+packages=python3-dbus.mainloop.qt
+
+[linuxmint:18.2:python3-pyqt4]
+packages=python3-pyqt4
+
+[linuxmint:18.2:python3-dbus]
+packages=python3-dbus,python3-gi
+
+[linuxmint:18.2:python3-xml]
+packages=python3-lxml
+
+[linuxmint:18.2:python3-devel]
+packages=python3-dev
+
+[linuxmint:18.2:python3-pil]
+packages=python3-pil
+
+[linuxmint:18.2:python3-reportlab]
+packages=python3-reportlab
+
+[linuxmint:18.2:python3-notify2]
+packages=python3-notify2,mate-notification-daemon
+
+
 # ****************************************
 [linpus]
 index=25

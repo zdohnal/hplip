@@ -102,6 +102,7 @@ TECH_CLASSES = [
     "Python10",
     "Mimas",
     "Mimas15",
+    "Mimas17",
     "StingrayOJ",
     "Copperhead",
     "CopperheadXLP",
@@ -109,6 +110,7 @@ TECH_CLASSES = [
     "CopperheadIPH",
     "CopperheadIPH15",
     "PyramidRefresh15",
+    "CopperheadIPH17",
     "Ampere",
     "Python11",
     "Saipan",
@@ -120,6 +122,7 @@ TECH_CLASSES = [
     "Gemstone",
     "SPDOfficejetProAsize",
 	"CLE",
+     "CLE17",
     "SPDOfficejetProBsize",
     "PyramidRefresh17"
 ]
@@ -175,6 +178,7 @@ TECH_CLASS_PDLS = {
     "Python10"      : 'pcl3',
     "Mimas"      : 'pcl3',
     "Mimas15"      : 'pcl3',
+    "Mimas17"      : 'pcl3',
     "StingrayOJ"   : 'pcl3',
     "Pyramid15"   : 'pcl3',
     "Copperhead"   : 'pcl3',
@@ -191,7 +195,9 @@ TECH_CLASS_PDLS = {
     "Gemstone"      : 'pcl3',
     "SPDOfficejetProAsize" : 'pcl3',
 	"CLE"                  :'pcl3',
-    "SPDOfficejetProAsize" : 'pcl3',
+     "CLE17"                :'pcl3',
+    "SPDOfficejetProBsize" : 'pcl3',
+    "CopperheadIPH17"   : 'pcl3',
     "PyramidRefresh17"     : 'pcl3'
 }
 
