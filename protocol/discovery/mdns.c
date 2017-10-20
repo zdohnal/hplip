@@ -205,6 +205,7 @@ static unsigned char* mdns_readMDL(unsigned char *p, unsigned char *normalized_m
 {
     int i = 0;
     int j = 0;
+    int z = 0;
     int size = 0;
 
     unsigned char* mdl = normalized_mdl;
@@ -215,7 +216,16 @@ static unsigned char* mdns_readMDL(unsigned char *p, unsigned char *normalized_m
 
         if (strncmp(p, "mdl=", 4) == 0)
         {
-            for (j = 4; j < size; j++)
+           z = 4;
+        }
+        else if (strncmp(p, "ty=", 3) == 0)
+        {
+           z = 3+3;
+        }
+	
+	if(z > 0)
+        {
+            for (j = z; j < size; j++)
             {
                 if (*(p + j) == ' ')
                     *mdl++ = '_'; //Replace white space with underscore
@@ -427,6 +437,7 @@ int mdns_probe_nw_scanners(char* uris_buf, int buf_size, int *count)
 
     /* Send dns query */
     mdns_send_query(udp_socket, "_scanner._tcp.local", QTYPE_PTR);
+    mdns_send_query(udp_socket, "_uscan._tcp.local", QTYPE_PTR);
 
     /* Read Responses */
     rr_list = mdns_read_responses(udp_socket, MODE_READ_ALL);

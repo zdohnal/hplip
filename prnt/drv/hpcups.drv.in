@@ -5900,6 +5900,14 @@ Manufacturer "HP"
       Attribute "Product" "" "(HP Envy 7645 E-all-in-one)"
     }
     {
+      ModelName "HP Envy 8000 Series"
+      Attribute "NickName" "" "HP Envy 8000 Series, hpcups $Version"
+      Attribute "ShortNickName" "" "HP Envy 8000 Series"
+      Attribute "1284DeviceID" "" "MFG:HP;MDL:envy 8000 series;DES:envy 8000 series;"
+      PCFileName "hp-envy_8000_series.ppd"
+      Attribute "Product" "" "(HP Envy 8000 E-all-in-one)"
+    }
+    {
       ModelName "HP Officejet 8040 Series"
       Attribute "NickName" "" "HP Officejet 8040 Series, hpcups $Version"
       Attribute "ShortNickName" "" "HP Officejet 8040 Series"
@@ -11762,6 +11770,14 @@ Manufacturer "HP"
             Attribute "Product" "" "(HP Officejet 5220 All-in-one)"
             Attribute "Product" "" "(HP Officejet 5230 All-in-one)"
             Attribute "Product" "" "(HP Officejet 5232 All-in-one)"
+          }
+          {
+            ModelName "HP Deskjet 5200 Series"
+            Attribute "NickName" "" "HP Deskjet 5200 Series, hpcups $Version"
+            Attribute "ShortNickName" "" "HP Deskjet 5200 Series"
+            Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet 5200 series;DES:deskjet 5200 series;"
+            PCFileName "hp-deskjet_5200_series.ppd"
+            Attribute "Product" "" "(HP Deskjet Ink Advantage 5275 All-in-one)"
           }
 
 }// End Mimas17

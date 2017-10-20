@@ -788,6 +788,8 @@ class SetupDialog(QDialog, Ui_Dialog):
             self.print_ppd = None
             self.ppds = cups.getSystemPPDs()
             self.print_ppd = cups.getPPDFile2(self.mq, self.model, self.ppds)
+            if "scanjet" in self.model or "digital_sender" in self.model:
+                self.print_ppd = None
             
         finally:
             QApplication.restoreOverrideCursor()

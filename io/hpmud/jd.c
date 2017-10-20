@@ -506,8 +506,7 @@ enum HPMUD_RESULT __attribute__ ((visibility ("hidden"))) jd_s_channel_open(mud_
          break;
       case HPMUD_LEDM_SCAN_CHANNEL:
       case HPMUD_EWS_LEDM_CHANNEL:
-      case HPMUD_ESCL_SCAN_CHANNEL:
-         port = 8080;  
+         port = 8080;
          pin.sin_port = htons(port);
          if ((pc->socket = socket(AF_INET, SOCK_STREAM, 0)) == -1)
          {
@@ -520,13 +519,30 @@ enum HPMUD_RESULT __attribute__ ((visibility ("hidden"))) jd_s_channel_open(mud_
             goto bugout;
          }
          break;            
+      case HPMUD_ESCL_SCAN_CHANNEL:
+         port = 80;
+         pin.sin_port = htons(port);
+         if ((pc->socket = socket(AF_INET, SOCK_STREAM, 0)) == -1)
+         {
+            BUG("unable to open escl-scan port %d: %m %s\n", port, pd->uri);
+            goto bugout;
+         }
+         if (connect(pc->socket, (struct sockaddr *)&pin, sizeof(pin)) == -1)
+         {
+            BUG("unable to connect to escl-scan port %d: %m %s\n", port, pd->uri);
+            goto bugout;
+         }
+         break;            
       case HPMUD_IPP_CHANNEL:
-         port = 631;
+         port = 80;
          pin.sin_port = htons(port);
          if ((pc->socket = socket(AF_INET, SOCK_STREAM, 0)) == -1)
          {
             BUG("unable to open ipp port %d: %m %s\n", port, pd->uri);
-            goto bugout;
+            port = 631;
+            pin.sin_port = htons(port);
+            if((pc->socket = socket(AF_INET, SOCK_STREAM, 0)) == -1)
+              goto bugout;
          }
          if (connect(pc->socket, (struct sockaddr *)&pin, sizeof(pin)) == -1)
          {

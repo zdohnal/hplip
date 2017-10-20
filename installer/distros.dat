@@ -1576,7 +1576,7 @@ ui_toolkit=qt3
 # ****************************************
 [rhel]
 index=7
-versions=6.0,7.0,7.3
+versions=6.0,7.0
 display_name=Red Hat Enterprise Linux
 alt_names=red hat enterprise linux
 display=1
@@ -1842,6 +1842,12 @@ release_date=05/03/2015
 same_as_version=7.0
 
 # ****************************************
+[rhel:7.3]
+packaged_version=3.17.9
+release_date=03/11/2016
+same_as_version=6.0
+
+# ****************************************
 [slackware]
 index=8
 versions=9.0,9.1,10.0,10.1,10.2,11,12,12.1
@@ -1860,12 +1866,6 @@ udev_mode_fix=1
 ppd_dir=/usr/share/ppd/HP
 fix_ppd_symlink=0
 drv_dir=/usr/share/cups/drv/HP
-
-# ****************************************
-[rhel:7.3]
-packaged_version=3.17.9
-release_date=03/11/2016
-same_as_version=6.0
 
 # ********************
 [slackware:9.0]
@@ -4429,7 +4429,7 @@ packages=python3-reportlab
 
 [debian]
 index=2
-versions=7.0,7.1,7.2,7.3,7.4,7.5,7.6,7.7,7.8,7.9,8.0,8.1,8.2,8.3,8.4,8.5,8.6,8.7,8.8
+versions=7.0,7.1,7.2,7.3,7.4,7.5,7.6,7.7,7.8,7.9,8.0,8.1,8.2,8.3,8.4,8.5,8.6,8.7,8.8,9.1
 display_name=Debian
 alt_names=
 display=1
@@ -5581,6 +5581,124 @@ packages=python3-pyqt5,gtk2-engines-pixbuf
 [debian:8.8:pyqt5]
 packages=gtk2-engines-pixbuf,python-pyqt5
 [debian:8.8:pyqt5-dbus]
+packages=python-dbus.mainloop.pyqt5
+
+# *********************
+
+[debian:9.1]
+code_name=Stretch
+supported=1
+scan_supported=1
+fax_supported=1
+pcard_supported=1
+network_supported=1
+parallel_supported=1
+usb_supported=1
+packaged_version=3.17.10
+release_date=22/07/2017
+notes=NOTE: Disable the CD Sources in your apt sources.list or the install will fail and hang.
+ppd_install=drv
+udev_mode_fix=1
+ppd_dir=/usr/share/ppd/HP
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+ui_toolkit=qt5
+native_cups=1
+policykit=0
+# This libdir_path will be used only for 64 bit machine.
+libdir_path=/usr/lib/x86_64-linux-gnu
+[debian:9.1:cups]
+packages=cups,libcups2
+[debian:9.1:cups-devel]
+packages=libcups2-dev,cups-bsd,cups-client
+[debian:9.1:gcc]
+packages=g++
+[debian:9.1:gs]
+packages=ghostscript,ghostscript-cups,ghostscript-x
+[debian:9.1:libcrypto]
+packages=libssl-dev
+[debian:9.1:libjpeg]
+packages=libjpeg62-turbo-dev
+[debian:9.1:libnetsnmp-devel]
+packages=libsnmp-dev,snmp
+[debian:9.1:libpthread]
+packages=libc6
+[debian:9.1:libtool]
+packages=libtool,libtool-bin
+[debian:9.1:libusb]
+packages=libusb-1.0.0-dev
+[debian:9.1:make]
+packages=make
+[debian:9.1:pil]
+packages=python-imaging
+[debian:9.1:ppdev]
+packages=
+commands=su -c "modprobe ppdev",su -c cp -f /etc/modules /etc/modules.hplip,echo ppdev | su -c tee -a /etc/modules
+[debian:9.1:pyqt]
+packages=python-qt3
+[debian:9.1:python-devel]
+packages=python-dev
+[debian:9.1:pyqt4]
+packages=python-qt4
+[debian:9.1:pyqt4-dbus]
+packages=python-qt4-dbus
+[debian:9.1:python23]
+packages=python
+[debian:9.1:python2X]
+packages=python
+[debian:9.1:reportlab]
+packages=python-reportlab
+[debian:9.1:sane]
+packages=sane
+[debian:9.1:sane-devel]
+packages=libsane-dev
+[debian:9.1:scanimage]
+packages=sane-utils
+[debian:9.1:xsane]
+packages=xsane
+[debian:9.1:cups-ddk]
+packages=
+[debian:9.1:python-dbus]
+packages=python-dbus,python-gobject
+[debian:9.1:dbus]
+packages=libdbus-1-dev
+[debian:9.1:python-ctypes]
+packages=python-ctypes
+[debian:9.1:cups-image]
+packages=libcupsimage2,libcupsimage2-dev
+[debian:9.1:policykit]
+packages=policykit-1,policykit-1-gnome
+[debian:9.1:python-notify]
+packages=python-notify
+[debian:9.1:network]
+packages=wget
+[debian:9.1:avahi-utils]
+packages=avahi-utils
+[debian:9.1:gtk]
+packages=libcanberra-gtk-module
+[debian:9.1:python3-notify2]
+packages=python3-notify2
+[debian:9.1:python3-pyqt4-dbus]
+packages=python3-dbus.mainloop.qt
+[debian:9.1:python3-pyqt4]
+packages=python3-pyqt4,gtk2-engines-pixbuf
+[debian:9.1:python3-dbus]
+packages=python3-dbus,python3-gi
+[debian:9.1:python3-xml]
+packages=python3-lxml
+[debian:9.1:python3-devel]
+packages=python3-dev
+[debian:9.1:python3-pil]
+packages=python3-pil
+[debian:9.1:python3-reportlab]
+packages=python3-reportlab
+[debian:9.1:python3-pyqt5-dbus]
+packages=python3-dbus.mainloop.pyqt5
+[debian:9.1:python3-pyqt5]
+packages=python3-pyqt5,gtk2-engines-pixbuf
+[debian:9.1:pyqt5]
+packages=gtk2-engines-pixbuf,python-pyqt5
+[debian:9.1:pyqt5-dbus]
 packages=python-dbus.mainloop.pyqt5
 
 

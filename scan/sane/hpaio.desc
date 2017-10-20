@@ -793,6 +793,9 @@
 :model "HP Deskjet Ink Advantage 5075 All-in-one"
 :status :good
 
+:model "HP Deskjet Ink Advantage 5275 All-in-one"
+:status :good
+
 :model "HP Deskjet Ink Advantage 5525 E-all-in-one"
 :status :good
 
@@ -827,6 +830,9 @@
 :status :good
 
 :model "HP Deskjet Ink Advantage Ultra 5739 All-in-one Printer"
+:status :good
+
+:model "HP Digital Sender Flow 8500 fn2 Document Capture Workstation"
 :status :good
 
 :model "HP Envy 100 d410 Series"
@@ -971,6 +977,9 @@
 :status :good
 
 :model "HP Envy 7645 E-all-in-one"
+:status :good
+
+:model "HP Envy 8000 E-all-in-one"
 :status :good
 
 :model "HP Envy Photo 6200 All-in-one"
@@ -3656,6 +3665,9 @@
 :status :good
 
 :model "HP Scanjet Enterprise Flow 7000 s3"
+:status :good
+
+:model "HP Scanjet Enterprise Flow n9120 fn2 Document Scanner"
 :status :good
 
 :model "HP Scanjet Pro 3000 s3"
