@@ -138,10 +138,10 @@ DRIVER_ERROR ModeJbig::Init(int iLastRaster, int iPlanes, int iBPP, ZJPLATFORM z
         dlerror ();
         *(void **) (&HPLJJBGCompress) = get_library_symbol(m_hHPLibHandle, "hp_encode_bits_to_jbig");
         *(void **) (&HPLJSoInit) = get_library_symbol(m_hHPLibHandle, "hp_init_lib");
-        if (!HPLJSoInit || (HPLJSoInit && !HPLJSoInit (1)))
-        {
-            return PLUGIN_LIBRARY_MISSING;
-        }
+        //if (!HPLJSoInit || (HPLJSoInit && !HPLJSoInit (1)))
+        //{
+        //    return PLUGIN_LIBRARY_MISSING;
+        //}
     }
     else
     {

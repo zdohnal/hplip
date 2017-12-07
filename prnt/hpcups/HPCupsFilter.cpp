@@ -456,8 +456,10 @@ DRIVER_ERROR HPCupsFilter::startPage (cups_page_header2_t *cups_header)
     }
 
     string strPrinterURI="" , strPrinterName= "";
-    if (getenv("DEVICE_URI"))
-        m_DBusComm.initDBusComm(DBUS_PATH,DBUS_INTERFACE, getenv("DEVICE_URI"), m_JA.printer_name);
+    if(!IsChromeOs()){
+      if (getenv("DEVICE_URI"))
+          m_DBusComm.initDBusComm(DBUS_PATH,DBUS_INTERFACE, getenv("DEVICE_URI"), m_JA.printer_name);
+    }
 
     ptr = strstr(m_argv[5], "job-uuid");
     if (ptr) {

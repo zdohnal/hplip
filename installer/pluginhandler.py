@@ -43,7 +43,7 @@ except ImportError:
 
 
 PLUGIN_STATE_FILE = '/var/lib/hp/hplip.state'
-PLUGIN_FALLBACK_LOCATION = 'http://hplipopensource.com/hplip-web/plugin/'
+PLUGIN_FALLBACK_LOCATION = 'https://developers.hp.com/sites/default/files/'
 
 
 

@@ -170,9 +170,37 @@ CUPS_ERROR_BAD_PARAMETERS = 0x0f01
 nickname_pat = re.compile(r'''\*NickName:\s*\"(.*)"''', re.MULTILINE)
 pat_cups_error_log = re.compile("""^loglevel\s?(debug|debug2|warn|info|error|none)""", re.I)
 ppd_pat = re.compile(r'''.*hp-(.*?)(-.*)*\.ppd.*''', re.I)
+ppd_pat1 = re.compile(r'''.*hp-(.*?)(_.*)*\.ppd.*''', re.I)
 
+def getFamilyClassName(model):
+    models_dir = getPPDPath()
+    m = models.ModelData()
+    dict=m.read_all_files(False)
+    family_type = []
+    for m in dict:
+        if model in m:
+          family_type= dict[m]['family-class']
 
+    for f in models.FAMILY_CLASSES:
+        if f in family_type:
+           return f
 
+def isfamilydrv(ppds):
+    family_check=0
+    #for f in ppds:
+     #   for m in models.FAMILY_CLASSES:
+      #       if m in f:
+       #          family_check=1
+    filename_config = "/etc/hp/hplip.conf"
+    file_conf = open(filename_config,'r')
+    for line in file_conf:
+        if 'class-driver' in line:
+            count = line.find('=')
+            family_check_str = line[count+1:len(line)-1]
+            if family_check_str == 'yes':
+                family_check = 1
+    return family_check
+                
 def getPPDPath(addtional_paths=None):
     """
         Returns the CUPS ppd path (not the foomatic one under /usr/share/ppd).
@@ -342,7 +370,7 @@ number_pat = re.compile(r""".*?(\d+)""", re.IGNORECASE)
 
 STRIP_STRINGS2 = ['foomatic:', 'hp-', 'hp_', 'hp ', '.gz', '.ppd',
                   'drv:', '-pcl', '-pcl3', '-jetready',
-                 '-zxs', '-zjs', '-ps', '-postscript',
+                 '-zxs', '-zjs', '-ps', '-postscript', '-pdf',
                  '-jr', '-lidl', '-lidil', '-ldl', '-hpijs']
 
 
@@ -460,8 +488,14 @@ def getPPDFile2(mq,model, ppds): # New PPD find
 
     #Check if common ppd name is already given in models.dat(This is needed because in case of devices having more than one derivatives
     #will have diffrent model name strings in device ID, because of which we don't get the common ppd name for search)
+    family_check=isfamilydrv(ppds)
+    family_class=getFamilyClassName(model)
     model = models.normalizeModelName(model)
-    ppd_name = mq.get('ppd-name',0)
+    if family_check==0:
+       ppd_name = mq.get('ppd-name',0)
+    else:
+       ppd_name = mq.get('family-ppd',0)
+
     if ppd_name == 0:
         stripped_model = stripModel2(model)
     else:
@@ -470,21 +504,34 @@ def getPPDFile2(mq,model, ppds): # New PPD find
     log.debug("Matching PPD list to model  %s..." % stripped_model)
 
     matches = []
-    for f in ppds:
-        match = ppd_pat.match(f)
-        if match is not None:
-            if match.group(1) == stripped_model:
-                log.debug("Found match: %s" % f)
-                try:
-                    pdls = match.group(2).split('-')
-                except AttributeError:
-                    pdls = []
-
-                if (prop.hpcups_build and 'hpijs' not in f) or \
-                    ((prop.hpijs_build and 'hpijs' in pdls) or (prop.hpcups_build and 'hpijs' not in pdls)) or \
-                    ('ps' in pdls):
-                    matches.append((f, [p for p in pdls if p and p != 'hpijs']))
-
+    if family_check ==0 :
+        for f in ppds:
+            match = ppd_pat.match(f)
+            if match is not None:  
+                if match.group(1) == stripped_model:
+                    log.debug("Found match: %s" % f)
+                    try:
+                       pdls = match.group(2).split('-')
+                    except AttributeError:
+                         pdls = []
+                    if (prop.hpcups_build and 'hpijs' not in f) or \
+                        ((prop.hpijs_build and 'hpijs' in pdls) or (prop.hpcups_build and 'hpijs' not in pdls)) or \
+                         ('ps' in pdls) or ('pdf' in pdls):
+                          matches.append((f, [p for p in pdls if p and p != 'hpijs']))  
+    else:
+        for f in ppds:
+            match = ppd_pat1.match(f)
+            if match is not None: 
+                if match.group(1) == family_class:
+                    log.debug("Found match: %s" % f)
+                    try:
+                       pdls = match.group(2).split('-')
+                    except AttributeError:
+                         pdls = []
+                    if (prop.hpcups_build and 'hpijs' not in f) or \
+                        ((prop.hpijs_build and 'hpijs' in pdls) or (prop.hpcups_build and 'hpijs' not in pdls)) or \
+                         ('ps' in pdls) or ('pdf' in pdls):
+                          matches.append((f, [p for p in pdls if p and p != 'hpijs']))    
     log.debug(matches)
     num_matches = len(matches)
 
@@ -506,7 +553,7 @@ def getPPDFile2(mq,model, ppds): # New PPD find
 
                     if (prop.hpcups_build and 'hpijs' not in f) or \
                        ((prop.hpijs_build and 'hpijs' in pdls) or (prop.hpcups_build and 'hpijs' not in pdls)) or \
-                       ('ps' in pdls):
+                       ('ps' in pdls) or ('pdf' in pdls):
                         matches.append((f, [p for p in pdls if p and p != 'hpijs']))
 
         log.debug(matches)
@@ -521,8 +568,8 @@ def getPPDFile2(mq,model, ppds): # New PPD find
         return (matches[0][0], '')
 
     # > 1
-    log.debug("%d matches found. Searching based on PDL: Host > PS > PCL/Other" % num_matches)
-    for p in [models.PDL_TYPE_HOST, models.PDL_TYPE_PS, models.PDL_TYPE_PCL]:
+    log.debug("%d matches found. Searching based on PDL: Host > PS,PDF > PCL/Other" % num_matches)
+    for p in [models.PDL_TYPE_HOST, models.PDL_TYPE_PS,models.PDL_TYPE_PDF, models.PDL_TYPE_PCL]:
         for f, pdl_list in matches:
             for x in pdl_list:
                 # default to HOST-based PDLs, as newly supported PDLs will most likely be of this type

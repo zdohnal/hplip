@@ -308,11 +308,8 @@ cups_ppd_printers = \
    ppd/hpcups/hp-laserjet_1018.ppd.gz \
    ppd/hpcups/hp-laserjet_1020.ppd.gz \
    ppd/hpcups/hp-laserjet_1022-pcl3.ppd.gz \
-   ppd/hpcups/hp-laserjet_1022-zjs.ppd.gz \
    ppd/hpcups/hp-laserjet_1022n-pcl3.ppd.gz \
-   ppd/hpcups/hp-laserjet_1022n-zjs.ppd.gz \
    ppd/hpcups/hp-laserjet_1022nw-pcl3.ppd.gz \
-   ppd/hpcups/hp-laserjet_1022nw-zjs.ppd.gz \
    ppd/hpcups/hp-laserjet_1100.ppd.gz \
    ppd/hpcups/hp-laserjet_1100a.ppd.gz \
    ppd/hpcups/hp-laserjet_1100xi.ppd.gz \
@@ -440,11 +437,8 @@ cups_ppd_printers = \
    ppd/hpcups/hp-laserjet_p1008.ppd.gz \
    ppd/hpcups/hp-laserjet_p1009.ppd.gz \
    ppd/hpcups/hp-laserjet_p1505.ppd.gz \
-   ppd/hpcups/hp-laserjet_p1505n-pcl3.ppd.gz \
    ppd/hpcups/hp-laserjet_p1505n-zxs.ppd.gz \
-   ppd/hpcups/hp-laserjet_p2014-pcl3.ppd.gz \
    ppd/hpcups/hp-laserjet_p2014-zxs.ppd.gz \
-   ppd/hpcups/hp-laserjet_p2014n-pcl3.ppd.gz \
    ppd/hpcups/hp-laserjet_p2014n-zxs.ppd.gz \
    ppd/hpcups/hp-laserjet_p2015_series-pcl3.ppd.gz \
    ppd/hpcups/hp-laserjet_p2015d_series.ppd.gz \
@@ -452,9 +446,7 @@ cups_ppd_printers = \
    ppd/hpcups/hp-laserjet_p2015n_series.ppd.gz \
    ppd/hpcups/hp-laserjet_p2015x_series.ppd.gz \
    ppd/hpcups/hp-laserjet_p2035-pcl3.ppd.gz \
-   ppd/hpcups/hp-laserjet_p2035-zjs.ppd.gz \
    ppd/hpcups/hp-laserjet_p2035n-pcl3.ppd.gz \
-   ppd/hpcups/hp-laserjet_p2035n-zjs.ppd.gz \
    ppd/hpcups/hp-laserjet_p2055-pcl3.ppd.gz \
    ppd/hpcups/hp-laserjet_p2055d-pcl3.ppd.gz \
    ppd/hpcups/hp-laserjet_p2055dn-pcl3.ppd.gz \
@@ -476,10 +468,11 @@ cups_ppd_printers = \
    ppd/hpcups/hp-laserjet_p4515x.ppd.gz \
    ppd/hpcups/hp-laserjet_p4515xm.ppd.gz \
    ppd/hpcups/hp-laserjet_pro_mfp_m125a.ppd.gz \
+   ppd/hpcups/hp-laserjet_pro_mfp_m125nr.ppd.gz \
    ppd/hpcups/hp-laserjet_pro_mfp_m125nw.ppd.gz \
    ppd/hpcups/hp-laserjet_pro_mfp_m125r.ppd.gz \
-   ppd/hpcups/hp-laserjet_pro_mfp_m125ra.ppd.gz \
    ppd/hpcups/hp-laserjet_pro_mfp_m125rnw.ppd.gz \
+   ppd/hpcups/hp-laserjet_pro_mfp_m125s.ppd.gz \
    ppd/hpcups/hp-laserjet_pro_mfp_m126a.ppd.gz \
    ppd/hpcups/hp-laserjet_pro_mfp_m126nw.ppd.gz \
    ppd/hpcups/hp-laserjet_pro_mfp_m127fn.ppd.gz \

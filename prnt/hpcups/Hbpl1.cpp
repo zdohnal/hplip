@@ -60,7 +60,7 @@ Hbpl1::Hbpl1 () : Encapsulator ()
     m_ColorMode = COLORTYPE_BOTH; //Grayscale
     m_ColorTheme = NONE;
 
-    m_hHPLibHandle = load_plugin_library(UTILS_PRINT_PLUGIN_LIBRARY, PRNT_PLUGIN_HBPL1);
+    /*m_hHPLibHandle = load_plugin_library(UTILS_PRINT_PLUGIN_LIBRARY, PRNT_PLUGIN_HBPL1);
     if (m_hHPLibHandle)
     {
         dlerror ();
@@ -71,8 +71,12 @@ Hbpl1::Hbpl1 () : Encapsulator ()
 
         if ((m_pHbpl1Wrapper = fptr_create(this)) == NULL)
              m_init = false;
-    }
-
+    }*/
+    m_pHbpl1Wrapper = new Hbpl1Wrapper(this);
+    if(m_pHbpl1Wrapper == NULL)
+	m_init = false;
+    else
+	m_init = true;
 }
 
 Hbpl1::~Hbpl1()
@@ -89,8 +93,8 @@ Hbpl1::~Hbpl1()
         if(fptr_destroy)
             fptr_destroy( m_pHbpl1Wrapper );
 
-        unload_library(m_hHPLibHandle);
-        m_hHPLibHandle = NULL;
+        //unload_library(m_hHPLibHandle);
+        //m_hHPLibHandle = NULL;
     }
 }
 

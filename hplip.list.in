@@ -68,6 +68,7 @@ $hpps-install=@epm_hpps_install@
 $foomatic-drv-install=@epm_foomatic_drv_install@
 $cups-drv-install=@epm_cups_drv_install@
 $machine=@platform@
+$class-driver-install=@epm_class_install@
 
 $print_only_exclude=@epm_print_only_exclude@
 
@@ -90,7 +91,11 @@ f 0644 root root /etc/hp/hplip.conf hplip.conf
 f 0644 root root /etc/cups/pstotiff.convs fax/filters/pstotiff.convs
 f 0644 root root /etc/cups/pstotiff.types fax/filters/pstotiff.types
 f 0755 root root $cupsfilter/pstotiff fax/filters/pstotiff
+
+%if !print_only_exclude
 f 0755 root root $cupsfilter/hpcupsfax .libs/hpcupsfax
+%endif
+
 %if foomatic-drv-install
 f 0644 root root $drv/hpijs.drv prnt/drv/hpijs.drv
 %endif
@@ -106,7 +111,14 @@ f 0644 root root $drv/hpcups.drv prnt/drv/hpcups.drv
 %if cups-ppd-install
 f 0644 root root $ppd/HP ppd/hpcups/*.ppd.gz
 %endif
+
+%if class-driver-install
+f 0644 root root $ppd/HP ppd/classppd/hpcups/*.ppd.gz
+f 0644 root root $ppd/HP ppd/classppd/ps/hp-postscript*.ppd.gz 
+%else
 f 0644 root root $ppd/HP prnt/ps/*.ppd.gz
+f 0644 root root $ppd/HP prnt/pdf/*.ppd.gz
+%endif
 
 %system darwin
 @epm_print_only_exclude@f 0755 root root $libdir/libhpmud.0.0.6.dylib .libs/libhpmud.0.0.6.dylib
@@ -126,6 +138,7 @@ f 0644 root root $ppd/HP prnt/ps/*.ppd.gz
 @epm_print_only_exclude@l 0755 root root $libdir/libhpipp.so libhpipp.so.0.0.1
 @epm_print_only_exclude@f 0755 root root $libdir/libhpdiscovery.so.0.0.1 .libs/libhpdiscovery.so.0.0.1
 @epm_print_only_exclude@l 0755 root root $libdir/libhpdiscovery.so libhpdiscovery.so.0.0.1
+
 
 # Ugly fix for inconsistent libcrypto soname
 #l 0755 root root $libdir/libcrypto.so.6 libcrypto.so.0.9.8
@@ -176,7 +189,6 @@ f 0644 root root $ppd/HP prnt/ps/*.ppd.gz
 @epm_full@f 755 root root $home/levels.py levels.py
 @epm_full@f 755 root root $home/toolbox.py toolbox.py
 @epm_full@f 755 root root $home/probe.py probe.py
-@epm_full@f 755 root root $home/faxsetup.py faxsetup.py
 @epm_full@f 755 root root $home/hpdio.py hpdio.py
 @epm_full@f 755 root root $home/linefeedcal.py linefeedcal.py
 @epm_full@f 755 root root $home/pqdiag.py pqdiag.py
@@ -210,6 +222,7 @@ f 0644 root root $ppd/HP prnt/ps/*.ppd.gz
 @epm_full@f 755 root root $home/unload.py unload.py
 @epm_full@f 755 root root $home/scan.py scan.py
 @epm_full@f 755 root root $home/sendfax.py sendfax.py
+@epm_full@f 755 root root $home/faxsetup.py faxsetup.py
 
 @epm_full@d 775 root root $home/selinux -
 @epm_full@f 755 root root $home/selinux/hplip.te selinux/hplip.te
@@ -295,6 +308,11 @@ f 0644 root root $ppd/HP prnt/ps/*.ppd.gz
 @epm_full@f 755 root root $home/config_usb_printer.py config_usb_printer.py
 @epm_full@f 755 root root $home/diagnose_queues.py diagnose_queues.py
 @epm_full@f 755 root root $home/hplip_clean.sh hplip_clean.sh
+
+# lite
+@epm_lite@d 775 root root $home/data -
+@epm_lite@d 775 root root $home/data/models -
+@epm_lite@f 644 root root $home/data/models/models.dat data/models/models.dat
 
 # docs
 @epm_full@f 644 root root $htmldir doc/*
@@ -467,6 +485,19 @@ EOF
 @epm_lite@EOF
 %endif
 
+#classdriver
+@epm_class_driver@d 775 root root $home/data/models -
+@epm_class_driver@f 644 root root $home/data/models/models.dat data/models/models.dat
+
+#locate driver
+@epm_class_driver@f 755 root root $home/locatedriver locatedriver
+@epm_class_driver@l 755 root root $bindir/hp-locatedriver ../share/hplip/locatedriver
+
+# Use LINPUS8 for Acer Aspire One
+%if LINPUS8 RHEL5
+@epm_class_driver@f 0644 root root /etc/udev/rules.d/56-hpmud_sysfs.rules data/rules/56-hpmud_sysfs.rules
+%endif
+
 %if PLUGIN
 f 0644 root root $docdir/license.txt prnt/plugins/license.txt
 f 0644 root root $docdir/COPYING prnt/plugins/license.txt
@@ -513,6 +544,9 @@ d 0755 root root /var/lib/hp/ -
 
 %system !darwin
 @epm_print_only_exclude@f 0644 root root /etc/udev/rules.d/56-hpmud.rules data/rules/56-hpmud.rules
+
+%system !darwin
+@epm_class_driver@f 0644 root root /etc/udev/rules.d/56-hpmud.rules data/rules/56-hpmud.rules
 
 %system all
 %endif

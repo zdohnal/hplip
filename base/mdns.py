@@ -279,6 +279,11 @@ def updateReceivedData(data, answers):
                 y['device1'] = "MFG:Hewlett-Packard;MDL:%s;CLS:PRINTER;" % txt['ty']
             except KeyError:
                 log.debug("NO ty Key in txt: %s" % repr(txt))
+            try:
+                y['device1'] = "MFG:Hewlett-Packard;MDL:%s;CLS:PRINTER;" % txt['usb_MDL']
+            except KeyError:
+                log.debug("NO usb_MDL Key in txt: %s" % repr(txt))
+
 
             if 'note' in txt:
                 y['note'] = txt['note']

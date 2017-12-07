@@ -26,7 +26,7 @@
 #   104 = no libdl
 
 #AC_PREREQ(2.59)
-AC_INIT([HP Linux Imaging and Printing], [3.17.10], [3.17.10], [hplip])
+AC_INIT([HP Linux Imaging and Printing], [3.17.11], [3.17.11], [hplip])
 #AM_INIT_AUTOMAKE([1.9 foreign])
 AM_INIT_AUTOMAKE
 AC_DISABLE_STATIC
@@ -93,6 +93,7 @@ EOF
       ;;
 esac
 AM_CONDITIONAL(DARWIN_BUILD, test x$darwin_build = xyes)
+AM_CONDITIONAL(GCC_GE_47, test `g++ -dumpversion | gawk '{print $1>=4.7?"1":"0"}'` = 1)
 
 AC_MSG_CHECKING([for documentation build])
 AC_ARG_ENABLE(doc_build,
@@ -237,6 +238,27 @@ if test "$pp_build" = "yes"; then
 else
    AC_MSG_RESULT(no)
 fi
+
+AC_MSG_CHECKING([for class driver])
+AC_ARG_ENABLE(class_driver,
+  [  --enable-class-driver    enable class driver (default=no)],
+  class_driver=$enableval, class_driver=no)
+if test "$class_driver" = "yes"; then
+   AC_MSG_RESULT(yes)
+   epm_full=\#
+   epm_lite=\#
+   epm_hpcups_only=\#
+   epm_print_only_exclude=\#
+   epm_scan=\#
+   epm_class_driver=
+   epm_class_install=yes
+   test `sh ./createPPD.sh -f` == 0
+else
+   AC_MSG_RESULT(no)
+   test `sh ./createPPD.sh -q` == 0
+fi
+AM_CONDITIONAL(HPLIP_CLASS_DRIVER, test x$class_driver = xyes)
+
    
 AC_MSG_CHECKING([for scanner build])
 AC_ARG_ENABLE(scan_build,
@@ -271,7 +293,7 @@ if test "$fax_build" = "yes"; then
 else
    AC_MSG_RESULT(no)
 fi
-AM_CONDITIONAL(FAX_BUILD, test x$fax_build = xyes)
+AM_CONDITIONAL(FAX_BUILD, test x$fax_build = xyes && test x$class_driver = xno)
 
 #AppArmor Changes
 AC_MSG_CHECKING([for apparmor profile])
@@ -564,7 +586,7 @@ if test "$hpijs_only_build" = "no" && test "$pp_build" = "yes" && test "$hpcups_
    AC_CHECK_HEADERS(linux/ppdev.h, ,[AC_MSG_ERROR([cannot find ppdev-devel support (or --disable-pp-build)], 8)])
 fi
 
-if test "$hpijs_only_build" = "no" && test "$hpcups_only_build" = "no"; then
+if test "$class_driver" = "no" && test "$hpijs_only_build" = "no" && test "$hpcups_only_build" = "no"; then
    AC_CHECK_LIB([cups], [cupsDoFileRequest], [LIBS="$LIBS"], [AC_MSG_ERROR([cannot find libcups support], 9)])
    AC_CHECK_HEADERS(cups/cups.h, ,[AC_MSG_ERROR([cannot find cups-devel support], 3)])
    if test "$libusb01_build" = "yes"; then
@@ -576,7 +598,7 @@ if test "$hpijs_only_build" = "no" && test "$hpcups_only_build" = "no"; then
    fi
 fi
 
-if test "$hpijs_only_build" = "no" && test "$lite_build" = "no" && test "$hpcups_only_build" = "no"; then
+if test "$class_driver" = "no" && test "$hpijs_only_build" = "no" && test "$lite_build" = "no" && test "$hpcups_only_build" = "no"; then
    AC_ARG_VAR([PYTHON], [Python interpreter/compiler command])
    AM_PATH_PYTHON([2.2])
    AC_MSG_CHECKING([for path to Python.h])
@@ -658,6 +680,7 @@ AC_SUBST(drvdir)
 AC_SUBST(network_build)
 AC_SUBST(pp_build)
 AC_SUBST(gui_build)
+AC_SUBST(class_driver)
 AC_SUBST(scan_build)
 AC_SUBST(fax_build)
 AC_SUBST(dbus_build)
@@ -706,6 +729,8 @@ AC_SUBST(hpcups_only_build)
 AC_SUBST(SNMPLIB)
 AC_SUBST(prefix)
 AC_SUBST(udev_sysfs_rules)
+AC_SUBST(epm_class_driver)
+AC_SUBST(epm_class_install)
 
 AC_CONFIG_FILES(Makefile hplip.conf hplip.desktop hplip-systray.desktop prnt/drv/hpijs.drv prnt/drv/hpcups.drv hplip.list data/policykit/com.hp.hplip.service)
 AC_OUTPUT

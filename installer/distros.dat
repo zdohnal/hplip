@@ -168,7 +168,7 @@ packages=ghostscript-library
 packages=openssl
 
 [suse:12.2:libjpeg]
-packages=libjpeg-devel
+packages=libjpeg-devel,zlib-devel
 
 [suse:12.2:libnetsnmp-devel]
 packages=net-snmp-devel
@@ -177,7 +177,7 @@ packages=net-snmp-devel
 packages=glibc
 
 [suse:12.2:libtool]
-packages=libtool,libgphoto2-devel
+packages=libtool,libgphoto2-devel,rpm-build
 
 [suse:12.2:libusb]
 packages=libusb-1_0-devel,libusb-1_0-0
@@ -267,6 +267,9 @@ packages=PKG_FROM_PIP:pillow
 [suse:12.2:python3-xml]
 packages=python3-xml
 
+[suse:12.2:automake]
+packages=automake
+
 
 # ********************
 [suse:12.3]
@@ -307,7 +310,7 @@ packages=ghostscript-library
 packages=openssl
 
 [suse:12.3:libjpeg]
-packages=libjpeg-devel
+packages=libjpeg-devel,zlib-devel
 
 [suse:12.3:libnetsnmp-devel]
 packages=net-snmp-devel
@@ -316,7 +319,7 @@ packages=net-snmp-devel
 packages=glibc
 
 [suse:12.3:libtool]
-packages=libtool,libgphoto2-devel
+packages=libtool,libgphoto2-devel,rpm-build
 
 [suse:12.3:libusb]
 packages=libusb-1_0-devel,libusb-1_0-0
@@ -412,6 +415,9 @@ packages=python3-reportlab
 [suse:12.3:python3-notify2]
 packages=python3-notify2
 
+[suse:12.3:automake]
+packages=automake
+
 
 # ****************************************
 
@@ -463,7 +469,7 @@ packages=ghostscript-library
 packages=openssl
 
 [suse:13.2:libjpeg]
-packages=libjpeg-devel
+packages=libjpeg-devel,zlib-devel
 
 [suse:13.2:libnetsnmp-devel]
 packages=net-snmp-devel
@@ -472,7 +478,7 @@ packages=net-snmp-devel
 packages=glibc
 
 [suse:13.2:libtool]
-packages=libtool,libgphoto2-devel
+packages=libtool,libgphoto2-devel,rpm-build
 
 [suse:13.2:libusb]
 packages=libusb-1_0-devel,libusb-1_0-0
@@ -568,6 +574,9 @@ packages=python3-reportlab
 [suse:13.2:python3-notify2]
 packages=python3-notify2
 
+[suse:13.2:automake]
+packages=automake
+
 # ****************************************
 
 [suse:42.1]
@@ -619,7 +628,7 @@ packages=ghostscript-library
 packages=openssl
 
 [suse:42.2:libjpeg]
-packages=libjpeg-devel
+packages=libjpeg-devel,zlib-devel
 
 [suse:42.2:libnetsnmp-devel]
 packages=net-snmp-devel
@@ -628,7 +637,7 @@ packages=net-snmp-devel
 packages=glibc
 
 [suse:42.2:libtool]
-packages=libtool,libgphoto2-devel
+packages=libtool,libgphoto2-devel,rpm-build
 
 [suse:42.2:libusb]
 packages=libusb-1_0-devel,libusb-1_0-0
@@ -724,6 +733,10 @@ packages=python3-reportlab
 [suse:42.2:python3-notify2]
 packages=python3-notify2
 
+[suse:42.2:automake]
+packages=automake
+
+
 # ****************************************
 
 [suse:42.3]
@@ -765,7 +778,7 @@ packages=ghostscript-library
 packages=openssl
 
 [suse:42.3:libjpeg]
-packages=libjpeg-devel
+packages=libjpeg-devel,zlib-devel
 
 [suse:42.3:libnetsnmp-devel]
 packages=net-snmp-devel
@@ -774,7 +787,7 @@ packages=net-snmp-devel
 packages=glibc
 
 [suse:42.3:libtool]
-packages=libtool,libgphoto2-devel
+packages=libtool,libgphoto2-devel,rpm-build
 
 [suse:42.3:libusb]
 packages=libusb-1_0-devel,libusb-1_0-0
@@ -869,6 +882,9 @@ packages=python3-reportlab
 
 [suse:42.3:python3-notify2]
 packages=python3-notify2
+
+[suse:42.3:automake]
+packages=automake
 
 
 # ****************************************
@@ -1138,7 +1154,7 @@ packages=net-snmp-devel
 packages=glibc-headers
 
 [fedora:17:libtool]
-packages=libtool
+packages=libtool,rpm-build
 
 [fedora:17:libusb]
 packages=libusb1-devel
@@ -1206,6 +1222,10 @@ packages=wget
 
 [fedora:17:avahi-utils]
 packages=avahi-tools
+
+[fedora:17:automake]
+packages=automake
+
 # ********************
 [fedora:18]
 code_name=Sperical Cow
@@ -1255,7 +1275,7 @@ packages=net-snmp-devel
 packages=glibc-headers
 
 [fedora:18:libtool]
-packages=audit,libtool
+packages=audit,libtool,rpm-build
 
 [fedora:18:libusb]
 packages=libusb1-devel
@@ -1323,6 +1343,10 @@ packages=wget
 
 [fedora:18:avahi-utils]
 packages=avahi-tools
+
+[fedora:18:automake]
+packages=automake
+
 # ****************************************
 
 [fedora:19]
@@ -1404,7 +1428,7 @@ packages=net-snmp-devel
 packages=glibc-headers
 
 [fedora:22:libtool]
-packages=libtool
+packages=libtool,rpm-build
 
 [fedora:22:libusb]
 packages=libusb1-devel
@@ -1494,6 +1518,9 @@ packages=python3-pillow
 [fedora:22:python3-reportlab]
 packages=python3-reportlab
 
+[fedora:22:automake]
+packages=automake
+
 # ****************************************
 
 [fedora:23]
@@ -1576,7 +1603,7 @@ ui_toolkit=qt3
 # ****************************************
 [rhel]
 index=7
-versions=6.0,7.0
+versions=5.0,6.0,7.0
 display_name=Red Hat Enterprise Linux
 alt_names=red hat enterprise linux
 display=1
@@ -1711,6 +1738,9 @@ packages=wget
 [rhel:5.0:avahi-utils]
 packages=avahi-tools
 
+[rhel:5.0:automake]
+packages=automake1.11
+
 # ********************
 [rhel:6.0]
 code_name=Santiago
@@ -1827,6 +1857,9 @@ packages=wget
 
 [rhel:6.0:avahi-utils]
 packages=avahi-tools
+
+[rhel:6.0:automake]
+packages=automake1.11
 
 # ****************************************
 [rhel:7.0]
@@ -2166,6 +2199,10 @@ packages=wget
 
 [centos:any:avahi-utils]
 packages=avahi-tools
+
+[centos:any:automake]
+packages=automake1.11
+
 # ****************************************
 [gentoo]
 index=9
@@ -2340,6 +2377,10 @@ packages=wget
 
 [pclinuxos:2006.0:avahi-utils]
 packages=avahi
+
+[pclinuxos:2006.0:automake]
+packages=automake1.11
+
 # ********************
 [pclinuxos:2006]
 same_as_version=2006.0
@@ -2458,6 +2499,10 @@ packages=wget
 
 [pclinuxos:2007.0:avahi-utils]
 packages=avahi
+
+[pclinuxos:2007.0:automake]
+packages=automake1.11
+
 # ********************
 [pclinuxos:2007]
 same_as_version=2007.0
@@ -2576,6 +2621,10 @@ packages=wget
 
 [pclinuxos:2008.0:avahi-utils]
 packages=avahi
+
+[pclinuxos:2008.0:automake]
+packages=automake1.11
+
 # ********************
 [pclinuxos:2008]
 same_as_version=2008.0
@@ -2694,6 +2743,10 @@ packages=wget
 
 [pclinuxos:2009.0:avahi-utils]
 packages=avahi
+
+[pclinuxos:2009.0:automake]
+packages=automake1.11
+
 # ********************
 [pclinuxos:2009]
 same_as_version=2009.0
@@ -2812,6 +2865,10 @@ packages=wget
 
 [pclinuxos:2009.1:avahi-utils]
 packages=avahi
+
+[pclinuxos:2009.1:automake]
+packages=automake1.11
+
 # ****************************************
 [igos]
 index=32
@@ -2942,10 +2999,17 @@ packages=wget
 
 [igos:1.0:avahi-utils]
 packages=avahi
+
+[igos:1.0:automake]
+packages=automake1.11
+
+[igos:1.0:epm]
+packages=epm
+
 # ****************************************
 [ubuntu]
 index=12
-versions=12.04,13.10,14.04,15.04,15.10,16.04,16.10,17.04
+versions=12.04,13.10,14.04,15.04,15.10,16.04,16.10,17.04,17.10
 display_name=Ubuntu
 alt_names=kubuntu,edubuntu,xubuntu
 display=1
@@ -3081,6 +3145,13 @@ packages=wget
 
 [ubuntu:10.04:avahi-utils]
 packages=avahi-utils
+
+[ubuntu:10.04:automake]
+packages=automake1.11
+
+[ubuntu:10.04:epm]
+packages=epm
+
 # ********************
 [ubuntu:11.10]
 code_name=Oneiric
@@ -3201,6 +3272,13 @@ packages=wget
 
 [ubuntu:11.10:avahi-utils]
 packages=avahi-utils
+
+[ubuntu:11.10:automake]
+packages=automake1.11
+
+[ubuntu:11.10:epm]
+packages=epm
+
 # ********************
 [ubuntu:12.04]
 code_name=Precise
@@ -3346,19 +3424,23 @@ packages=python3-dev
 [ubuntu:12.04:python3-pil]
 packages=PKG_FROM_PIP:pillow
 
+[ubuntu:12.04:automake]
+packages=automake1.11
+
+[ubuntu:12.04:epm]
+packages=epm
 
 # ********************
 [ubuntu:12.10]
 code_name=Quantal
 packaged_version=3.12.11
 release_date=18/10/2012
-supported=0
 same_as_version=12.04
 
 # ********************
 [ubuntu:13.04]
 code_name=Raring
-supported=0
+supported=1
 scan_supported=1
 fax_supported=1
 pcard_supported=0
@@ -3500,11 +3582,16 @@ packages=python3-dev
 [ubuntu:13.04:python3-pil]
 packages=python3-imaging
 
+[ubuntu:13.04:automake]
+packages=automake1.11
+
+[ubuntu:13.04:epm]
+packages=epm
 
 # ********************
 [ubuntu:13.10]
 code_name=Saucy
-supported=0
+supported=1
 scan_supported=1
 fax_supported=1
 pcard_supported=1
@@ -3645,18 +3732,23 @@ packages=python3-imaging
 [ubuntu:13.10:python3-reportlab]
 packages=python3-reportlab
 
+[ubuntu:13.10:automake]
+packages=automake1.11
+
+[ubuntu:13.10:epm]
+packages=epm
+
 # ********************
 [ubuntu:14.04]
 code_name=Trusty
 packaged_version=3.14.1
 release_date=17/04/2014
-supported=1
 same_as_version=13.10
 
 # ********************
 [ubuntu:14.10]
 code_name=Utopic
-supported=0
+supported=1
 scan_supported=1
 fax_supported=1
 pcard_supported=1
@@ -3797,10 +3889,16 @@ packages=python3-pil
 [ubuntu:14.10:python3-reportlab]
 packages=python3-reportlab
 
+[ubuntu:14.10:automake]
+packages=automake1.11
+
+[ubuntu:14.10:epm]
+packages=epm
+
 # ********************
 [ubuntu:15.04]
 code_name=Vivid
-supported=0
+supported=1
 scan_supported=1
 fax_supported=1
 pcard_supported=1
@@ -3940,6 +4038,12 @@ packages=python3-pil
 
 [ubuntu:15.04:python3-reportlab]
 packages=python3-reportlab
+
+[ubuntu:15.04:automake]
+packages=automake1.11
+
+[ubuntu:15.04:epm]
+packages=epm
 
 # ********************
 
@@ -4110,8 +4214,15 @@ packages=python3-pil
 [ubuntu:16.04:python3-reportlab]
 packages=python3-reportlab
 
-# ****************************************
+[ubuntu:16.04:automake]
+packages=automake1.11
 
+[ubuntu:16.04:epm]
+packages=epm
+
+
+
+# ********************
 [ubuntu:16.10]
 code_name=Yakkety
 supported=1
@@ -4266,6 +4377,13 @@ packages=python3-pil
 
 [ubuntu:16.10:python3-reportlab]
 packages=python3-reportlab
+
+[ubuntu:16.10:automake]
+packages=automake1.11
+
+[ubuntu:16.10:epm]
+packages=epm
+
 
 # ****************************************
 
@@ -4424,8 +4542,177 @@ packages=python3-pil
 [ubuntu:17.04:python3-reportlab]
 packages=python3-reportlab
 
+[ubuntu:17.04:automake]
+packages=automake1.11
+
+[ubuntu:17.04:epm]
+packages=epm
+
 # ****************************************
 
+[ubuntu:17.10]
+code_name=Artful Aardvark
+supported=1
+scan_supported=1
+fax_supported=1
+pcard_supported=1
+network_supported=1
+parallel_supported=1
+usb_supported=1
+packaged_version=3.17.11
+release_date=19/10/2017
+notes=Enable the universe/multiverse repositories. Also be sure you are using the Ubuntu "Main" Repositories. See: https://help.ubuntu.com/community/Repositories/Ubuntu for more information.  Disable the CD-ROM/DVD source if you do not have the Ubuntu installation media inserted in the drive.
+ppd_install=drv
+udev_mode_fix=1
+ppd_dir=/usr/share/ppd/HP
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+ui_toolkit=qt4
+native_cups=1
+acl_rules=1
+
+libdir_path=/usr/lib
+[ubuntu:17.10:cups]
+packages=libcups2
+
+[ubuntu:17.10:cups-devel]
+packages=libcups2-dev,cups-bsd,cups-client
+
+[ubuntu:17.10:gcc]
+packages=build-essential
+
+[ubuntu:17.10:gs]
+packages=ghostscript
+
+[ubuntu:17.10:libcrypto]
+packages=openssl,libssl-dev
+
+[ubuntu:17.10:libjpeg]
+packages=libjpeg-dev
+
+[ubuntu:17.10:libnetsnmp-devel]
+packages=libsnmp-dev,snmp-mibs-downloader
+
+[ubuntu:17.10:libpthread]
+packages=build-essential
+
+[ubuntu:17.10:libtool]
+packages=libtool,libtool-bin
+
+[ubuntu:17.10:libusb]
+packages=libusb-1.0.0-dev
+
+[ubuntu:17.10:make]
+packages=build-essential
+
+[ubuntu:17.10:pil]
+packages=python-imaging
+
+[ubuntu:17.10:ppdev]
+packages=
+commands=sudo modprobe ppdev,sudo cp -f /etc/modules /etc/modules.hplip,echo ppdev | sudo tee -a /etc/modules
+
+[ubuntu:17.10:pyqt]
+packages=gtk2-engines-pixbuf,python-qt4
+
+[ubuntu:17.10:python-devel]
+packages=python-dev
+
+[ubuntu:17.10:pyqt4]
+packages=gtk2-engines-pixbuf,python-qt4
+
+[ubuntu:17.10:pyqt4-dbus]
+packages=python-qt4-dbus
+
+[ubuntu:17.10:pyqt5]
+packages=gtk2-engines-pixbuf,python-pyqt5
+
+[ubuntu:17.10:pyqt5-dbus]
+packages=python-dbus.mainloop.pyqt5
+
+#[ubuntu:17.10:python23]
+#packages=python
+
+[ubuntu:17.10:python2X]
+packages=python
+
+[ubuntu:17.10:reportlab]
+packages=python-reportlab
+
+[ubuntu:17.10:sane]
+packages=libsane
+
+[ubuntu:17.10:sane-devel]
+packages=libsane-dev
+
+[ubuntu:17.10:scanimage]
+packages=sane-utils
+
+[ubuntu:17.10:xsane]
+packages=gtk2-engines-pixbuf,xsane
+
+[ubuntu:17.10:python-dbus]
+packages=python-dbus,python-gobject
+
+[ubuntu:17.10:dbus]
+packages=libdbus-1-dev
+
+[ubuntu:17.10:cups-image]
+packages=libcupsimage2-dev
+
+[ubuntu:17.10:cups-ddk]
+packages=cups
+
+[ubuntu:17.10:policykit]
+packages=policykit-1,policykit-1-gnome
+
+[ubuntu:17.10:python-notify]
+packages=python-notify
+
+[ubuntu:17.10:network]
+packages=wget
+
+[ubuntu:17.10:avahi-utils]
+packages=avahi-utils
+
+[ubuntu:17.10:python3-notify2]
+packages=python3-notify2
+
+[ubuntu:17.10:python3-pyqt4-dbus]
+packages=python3-dbus.mainloop.qt
+
+[ubuntu:17.10:python3-pyqt4]
+packages=python3-pyqt4,gtk2-engines-pixbuf
+
+[ubuntu:17.10:python3-pyqt5-dbus]
+packages=python3-dbus.mainloop.pyqt5
+
+[ubuntu:17.10:python3-pyqt5]
+packages=python3-pyqt5,gtk2-engines-pixbuf
+
+[ubuntu:17.10:python3-dbus]
+packages=python3-dbus,python3-gi
+
+[ubuntu:17.10:python3-xml]
+packages=python3-lxml
+
+[ubuntu:17.10:python3-devel]
+packages=python3-dev
+
+[ubuntu:17.10:python3-pil]
+packages=python3-pil
+
+[ubuntu:17.10:python3-reportlab]
+packages=python3-reportlab
+
+[ubuntu:17.10:automake]
+packages=automake1.11
+
+[ubuntu:17.10:epm]
+packages=epm
+
+
+# ****************************************
 
 [debian]
 index=2
@@ -4568,6 +4855,13 @@ packages=wget
 
 [debian:6.0:avahi-utils]
 packages=avahi-utils
+
+[debian:6.0:automake]
+packages=automake1.11
+
+[debian:6.0:epm]
+packages=epm
+
 # *********************
 [debian:6.0.1]
 same_as_version=6.0
@@ -4748,6 +5042,13 @@ packages=PKG_FROM_PIP:pillow
 
 [debian:7.0:python3-reportlab]
 packages=python3-reportlab
+
+[debian:7.0:automake]
+packages=automake1.11
+
+[debian:7.0:epm]
+packages=epm
+
 
 # ****************************************
 
@@ -4932,6 +5233,13 @@ packages=python3-pil
 [debian:8.0:python3-reportlab]
 packages=python3-reportlab
 
+[debian:8.0:automake]
+packages=automake1.11
+
+[debian:8.0:epm]
+packages=epm
+
+
 # *********************
 
 [debian:8.1]
@@ -5112,6 +5420,13 @@ packages=gtk2-engines-pixbuf,python-pyqt5
 [debian:8.4:pyqt5-dbus]
 packages=python-dbus.mainloop.pyqt5
 
+[debian:8.4:automake]
+packages=automake1.11
+
+[debian:8.4:epm]
+packages=epm
+
+
 # *********************
 
 [debian:8.5]
@@ -5134,101 +5449,156 @@ drv_dir=/usr/share/cups/drv/HP
 ui_toolkit=qt5
 native_cups=1
 policykit=0
+
 # This libdir_path will be used only for 64 bit machine.
 libdir_path=/usr/lib/x86_64-linux-gnu
+
 [debian:8.5:cups]
 packages=cups,libcups2
+
 [debian:8.5:cups-devel]
 packages=libcups2-dev,cups-bsd,cups-client
+
 [debian:8.5:gcc]
 packages=g++
+
 [debian:8.5:gs]
 packages=ghostscript,ghostscript-cups,ghostscript-x
+
 [debian:8.5:libcrypto]
 packages=libssl-dev
+
 [debian:8.5:libjpeg]
 packages=libjpeg62-turbo-dev
+
 [debian:8.5:libnetsnmp-devel]
 packages=libsnmp-dev,snmp
+
 [debian:8.5:libpthread]
 packages=libc6
+
 [debian:8.5:libtool]
 packages=libtool,libtool-bin
+
 [debian:8.5:libusb]
 packages=libusb-1.0.0-dev
+
 [debian:8.5:make]
 packages=make
+
 [debian:8.5:pil]
 packages=python-imaging
+
 [debian:8.5:ppdev]
 packages=
 commands=su -c "modprobe ppdev",su -c cp -f /etc/modules /etc/modules.hplip,echo ppdev | su -c tee -a /etc/modules
+
 [debian:8.5:pyqt]
 packages=python-qt3
+
 [debian:8.5:python-devel]
 packages=python-dev
+
 [debian:8.5:pyqt4]
 packages=python-qt4
+
 [debian:8.5:pyqt4-dbus]
 packages=python-qt4-dbus
+
 [debian:8.5:python23]
 packages=python
+
 [debian:8.5:python2X]
 packages=python
+
 [debian:8.5:reportlab]
 packages=python-reportlab
+
 [debian:8.5:sane]
 packages=sane
+
 [debian:8.5:sane-devel]
 packages=libsane-dev
+
 [debian:8.5:scanimage]
 packages=sane-utils
+
 [debian:8.5:xsane]
 packages=xsane
+
 [debian:8.5:cups-ddk]
 packages=
+
 [debian:8.5:python-dbus]
 packages=python-dbus,python-gobject
+
 [debian:8.5:dbus]
 packages=libdbus-1-dev
+
 [debian:8.5:python-ctypes]
 packages=python-ctypes
+
 [debian:8.5:cups-image]
 packages=libcupsimage2,libcupsimage2-dev
+
 [debian:8.5:policykit]
 packages=policykit-1,policykit-1-gnome
+
 [debian:8.5:python-notify]
 packages=python-notify
+
 [debian:8.5:network]
 packages=wget
+
 [debian:8.5:avahi-utils]
 packages=avahi-utils
+
 [debian:8.5:gtk]
 packages=libcanberra-gtk-module
+
 [debian:8.5:python3-notify2]
 packages=python3-notify2
+
 [debian:8.5:python3-pyqt4-dbus]
 packages=python3-dbus.mainloop.qt
+
 [debian:8.5:python3-pyqt4]
 packages=python3-pyqt4,gtk2-engines-pixbuf
+
 [debian:8.5:python3-dbus]
 packages=python3-dbus,python3-gi
+
 [debian:8.5:python3-xml]
 packages=python3-lxml
+
 [debian:8.5:python3-devel]
 packages=python3-dev
+
 [debian:8.5:python3-pil]
 packages=python3-pil
+
 [debian:8.5:python3-reportlab]
 packages=python3-reportlab
+
 [debian:8.5:python3-pyqt5-dbus]
 packages=python3-dbus.mainloop.pyqt5
+
 [debian:8.5:python3-pyqt5]
 packages=python3-pyqt5,gtk2-engines-pixbuf
+
 [debian:8.5:pyqt5]
 packages=gtk2-engines-pixbuf,python-pyqt5
+
 [debian:8.5:pyqt5-dbus]
 packages=python-dbus.mainloop.pyqt5
+
+[debian:8.5:automake]
+packages=automake1.11
+
+[debian:8.5:epm]
+packages=epm
+
+
 # *********************
 
 [debian:8.6]
@@ -5346,6 +5716,13 @@ packages=python3-pyqt5,gtk2-engines-pixbuf
 packages=gtk2-engines-pixbuf,python-pyqt5
 [debian:8.6:pyqt5-dbus]
 packages=python-dbus.mainloop.pyqt5
+
+[debian:8.6:automake]
+packages=automake1.11
+
+[debian:8.6:epm]
+packages=epm
+
 
 
 # *********************
@@ -5465,6 +5842,15 @@ packages=python3-pyqt5,gtk2-engines-pixbuf
 packages=gtk2-engines-pixbuf,python-pyqt5
 [debian:8.7:pyqt5-dbus]
 packages=python-dbus.mainloop.pyqt5
+
+[debian:8.7:automake]
+packages=automake1.11
+
+[debian:8.7:epm]
+packages=epm
+
+
+
 # *********************
 
 [debian:8.8]
@@ -5583,6 +5969,13 @@ packages=gtk2-engines-pixbuf,python-pyqt5
 [debian:8.8:pyqt5-dbus]
 packages=python-dbus.mainloop.pyqt5
 
+[debian:8.8:automake]
+packages=automake1.11
+
+[debian:8.8:epm]
+packages=epm
+
+
 # *********************
 
 [debian:9.1]
@@ -5700,6 +6093,12 @@ packages=python3-pyqt5,gtk2-engines-pixbuf
 packages=gtk2-engines-pixbuf,python-pyqt5
 [debian:9.1:pyqt5-dbus]
 packages=python-dbus.mainloop.pyqt5
+
+[debian:9.1:automake]
+packages=automake1.11
+
+[debian:9.1:epm]
+packages=epm
 
 
 # *********************
@@ -6034,6 +6433,13 @@ packages=wget
 
 [mepis:6.0:avahi-utils]
 packages=avahi-utils
+
+[mepis:6.0:automake]
+packages=automake1.11
+
+[mepis:6.0:epm]
+packages=epm
+
 # ********************
 [mepis:6.5]
 code_name=
@@ -6144,6 +6550,13 @@ packages=wget
 
 [mepis:6.5:avahi-utils]
 packages=avahi-utils
+
+[mepis:6.5:automake]
+packages=automake1.11
+
+[mepis:6.5:epm]
+packages=epm
+
 # ********************
 # ********************
 [mepis:7.0]
@@ -6255,6 +6668,13 @@ packages=wget
 
 [mepis:7.0:avahi-utils]
 packages=avahi-utils
+
+[mepis:7.0:automake]
+packages=automake1.11
+
+[mepis:7.0:epm]
+packages=epm
+
 # ********************
 # ********************
 [mepis:8.0]
@@ -6366,6 +6786,13 @@ packages=wget
 
 [mepis:8.0:avahi-utils]
 packages=avahi-utils
+
+[mepis:8.0:automake]
+packages=automake1.11
+
+[mepis:8.0:epm]
+packages=epm
+
 # ********************
 # ****************************************
 [mandriva]
@@ -6558,6 +6985,13 @@ packages=wget
 
 [mandriva:10.1:avahi-utils]
 packages=avahi
+
+[mandriva:10.1:automake]
+packages=automake1.11
+
+[mandriva:10.1:epm]
+packages=epm
+
 # ********************
 # ********************
 [mandriva:10.2]
@@ -6669,6 +7103,13 @@ packages=wget
 
 [mandriva:10.2:avahi-utils]
 packages=avahi
+
+[mandriva:10.2:automake]
+packages=automake1.11
+
+[mandriva:10.2:epm]
+packages=epm
+
 # ********************
 [mandriva:2006.0]
 code_name=2k6
@@ -6779,6 +7220,13 @@ packages=wget
 
 [mandriva:2006.0:avahi-utils]
 packages=avahi
+
+[mandriva:2006.0:automake]
+packages=automake1.11
+
+[mandriva:2006.0:epm]
+packages=epm
+
 # ********************
 [mandriva:2007.0]
 code_name=2k7
@@ -6889,6 +7337,13 @@ packages=wget
 
 [mandriva:2007.0:avahi-utils]
 packages=avahi
+
+[mandriva:2007.0:automake]
+packages=automake1.11
+
+[mandriva:2007.0:epm]
+packages=epm
+
 # ********************
 [mandriva:2007.1]
 code_name=2k7
@@ -7002,6 +7457,13 @@ packages=wget
 
 [mandriva:2007.1:avahi-utils]
 packages=avahi
+
+[mandriva:2007.1:automake]
+packages=automake1.11
+
+[mandriva:2007.1:epm]
+packages=epm
+
 # ********************
 [mandriva:2008.0]
 code_name=2k7
@@ -7116,6 +7578,13 @@ packages=wget
 
 [mandriva:2008.0:avahi-utils]
 packages=avahi
+
+[mandriva:2008.0:automake]
+packages=automake1.11
+
+[mandriva:2008.0:epm]
+packages=epm
+
 # ********************
 [mandriva:2008.1]
 code_name=
@@ -7229,6 +7698,13 @@ packages=wget
 
 [mandriva:2008.1:avahi-utils]
 packages=avahi
+
+[mandriva:2008.1:automake]
+packages=automake1.11
+
+[mandriva:2008.1:epm]
+packages=epm
+
 # ********************
 [mandriva:2009]
 code_name=
@@ -7346,6 +7822,13 @@ packages=wget
 
 [mandriva:2009:avahi-utils]
 packages=avahi
+
+[mandriva:2009:automake]
+packages=automake1.11
+
+[mandriva:2009:epm]
+packages=epm
+
 # ********************
 [mandriva:2009.0]
 code_name=
@@ -7463,6 +7946,13 @@ packages=wget
 
 [mandriva:2009.0:avahi-utils]
 packages=avahi
+
+[mandriva:2009.0:automake]
+packages=automake1.11
+
+[mandriva:2009.0:epm]
+packages=epm
+
 # ********************
 [mandriva:2010.0]
 code_name=
@@ -7580,6 +8070,13 @@ packages=wget
 
 [mandriva:2010.0:avahi-utils]
 packages=avahi
+
+[mandriva:2010.0:automake]
+packages=automake1.11
+
+[mandriva:2010.0:epm]
+packages=epm
+
 # ********************
 [mandriva:2011.0]
 code_name=
@@ -7697,6 +8194,13 @@ packages=wget
 
 [mandriva:2011.0:avahi-utils]
 packages=avahi
+
+[mandriva:2011.0:automake]
+packages=automake1.11
+
+[mandriva:2011.0:epm]
+packages=epm
+
 # ****************************************
 [linuxmint]
 index=22
@@ -7861,6 +8365,13 @@ packages=python3-dev
 [linuxmint:13:python3-pil]
 packages=PKG_FROM_PIP:pillow
 
+[linuxmint:13:automake]
+packages=automake1.11
+
+[linuxmint:13:epm]
+packages=epm
+
+
 # ****************************************
 
 [linuxmint:14]
@@ -8001,6 +8512,12 @@ packages=python3-dev
 
 [linuxmint:14:python3-pil]
 packages=PKG_FROM_PIP:pillow
+
+[linuxmint:14:automake]
+packages=automake1.11
+
+[linuxmint:14:epm]
+packages=epm
 
 
 # ****************************************
@@ -8145,6 +8662,12 @@ packages=python3-dev
 
 [linuxmint:15:python3-pil]
 packages=PKG_FROM_PIP:pillow
+
+[linuxmint:15:automake]
+packages=automake1.11
+
+[linuxmint:15:epm]
+packages=epm
 
 # ****************************************
 
@@ -8300,6 +8823,11 @@ packages=python3-reportlab
 [linuxmint:17:python3-notify2]
 packages=python3-notify2
 
+[linuxmint:17:automake]
+packages=automake1.11
+
+[linuxmint:17:epm]
+packages=epm
 
 # ****************************************
 
@@ -8350,88 +8878,136 @@ drv_dir=/usr/share/cups/drv/HP
 ui_toolkit=qt4
 native_cups=1
 acl_rules=1
+
 libdir_path=/usr/lib/x86_64-linux-gnu
+
 [linuxmint:18:cups]
 packages=libcups2
+
 [linuxmint:18:cups-devel]
 packages=libcups2-dev,cups-bsd,cups-client
+
 [linuxmint:18:gcc]
 packages=build-essential
+
 [linuxmint:18:gs]
 packages=ghostscript
+
 [linuxmint:18:libcrypto]
 packages=openssl
+
 [linuxmint:18:libjpeg]
 packages=libjpeg8-dev
+
 [linuxmint:18:libnetsnmp-devel]
 packages=libsnmp-dev,snmp-mibs-downloader
+
 [linuxmint:18:libpthread]
 packages=build-essential
+
 [linuxmint:18:libtool]
 packages=libtool,libtool-bin
+
 [linuxmint:18:libusb]
 packages=libusb-1.0.0-dev
+
 [linuxmint:18:make]
 packages=build-essential
+
 [linuxmint:18:pil]
 packages=python-imaging
+
 [linuxmint:18:ppdev]
 packages=
 commands=sudo modprobe ppdev,sudo cp -f /etc/modules /etc/modules.hplip,echo ppdev | sudo tee -a /etc/modules
+
 [linuxmint:18:pyqt]
 packages=python-qt4
+
 [linuxmint:18:python-devel]
 packages=python-dev
+
 [linuxmint:18:pyqt4]
 packages=python-qt4
+
 [linuxmint:18:pyqt4-dbus]
 packages=python-qt4-dbus
+
 #[linuxmint:18:python23]
 #packages=python
+
 [linuxmint:18:python2X]
 packages=python
+
 [linuxmint:18:reportlab]
 packages=python-reportlab
+
 [linuxmint:18:sane]
 packages=libsane
+
 [linuxmint:18:sane-devel]
 packages=libsane-dev
+
 [linuxmint:18:scanimage]
 packages=sane-utils
+
 [linuxmint:18:xsane]
 packages=xsane
+
 [linuxmint:18:python-dbus]
 packages=python-dbus,python-gobject
+
 [linuxmint:18:dbus]
 packages=libdbus-1-dev
+
 [linuxmint:18:cups-image]
 packages=libcupsimage2-dev
+
 [linuxmint:18:cups-ddk]
 packages=cups,libcupsimage2-dev
+
 [linuxmint:18:policykit]
 packages=policykit-1,policykit-1-gnome
+
 [linuxmint:18:python-notify]
 packages=python-notify
+
 [linuxmint:18:network]
 packages=wget
+
 [linuxmint:18:avahi-utils]
 packages=avahi-utils
+
 [linuxmint:18:python3-pyqt4-dbus]
 packages=python3-dbus.mainloop.qt
+
 [linuxmint:18:python3-pyqt4]
 packages=python3-pyqt4
+
 [linuxmint:18:python3-dbus]
 packages=python3-dbus,python3-gi
+
 [linuxmint:18:python3-xml]
 packages=python3-lxml
+
 [linuxmint:18:python3-devel]
 packages=python3-dev
+
 [linuxmint:18:python3-pil]
 packages=python3-pil
+
 [linuxmint:18:python3-reportlab]
 packages=python3-reportlab
+
 [linuxmint:18:python3-notify2]
 packages=python3-notify2,mate-notification-daemon
+
+[linuxmint:18:automake]
+packages=automake1.11
+
+[linuxmint:18:epm]
+packages=epm
+
 # ****************************************
 [linuxmint:18.1]
 code_name=Serena
@@ -8454,87 +9030,133 @@ ui_toolkit=qt4
 native_cups=1
 acl_rules=1
 libdir_path=/usr/lib/x86_64-linux-gnu
+
 [linuxmint:18.1:cups]
 packages=libcups2
+
 [linuxmint:18.1:cups-devel]
 packages=libcups2-dev,cups-bsd,cups-client
+
 [linuxmint:18.1:gcc]
 packages=build-essential
+
 [linuxmint:18.1:gs]
 packages=ghostscript
+
 [linuxmint:18.1:libcrypto]
 packages=openssl
+
 [linuxmint:18.1:libjpeg]
 packages=libjpeg8-dev
+
 [linuxmint:18.1:libnetsnmp-devel]
 packages=libsnmp-dev,snmp-mibs-downloader
+
 [linuxmint:18.1:libpthread]
 packages=build-essential
+
 [linuxmint:18.1:libtool]
 packages=libtool,libtool-bin
+
 [linuxmint:18.1:libusb]
 packages=libusb-1.0.0-dev
+
 [linuxmint:18.1:make]
 packages=build-essential
+
 [linuxmint:18.1:pil]
 packages=python-imaging
+
 [linuxmint:18.1:ppdev]
 packages=
 commands=sudo modprobe ppdev,sudo cp -f /etc/modules /etc/modules.hplip,echo ppdev | sudo tee -a /etc/modules
+
 [linuxmint:18.1:pyqt]
 packages=python-qt4
+
 [linuxmint:18.1:python-devel]
 packages=python-dev
+
 [linuxmint:18.1:pyqt4]
 packages=python-qt4
+
 [linuxmint:18.1:pyqt4-dbus]
 packages=python-qt4-dbus
+
 #[linuxmint:18.1:python23]
 #packages=python
+
 [linuxmint:18.1:python2X]
 packages=python
+
 [linuxmint:18.1:reportlab]
 packages=python-reportlab
+
 [linuxmint:18.1:sane]
 packages=libsane
+
 [linuxmint:18.1:sane-devel]
 packages=libsane-dev
+
 [linuxmint:18.1:scanimage]
 packages=sane-utils
+
 [linuxmint:18.1:xsane]
 packages=xsane
+
 [linuxmint:18.1:python-dbus]
 packages=python-dbus,python-gobject
+
 [linuxmint:18.1:dbus]
 packages=libdbus-1-dev
+
 [linuxmint:18.1:cups-image]
 packages=libcupsimage2-dev
+
 [linuxmint:18.1:cups-ddk]
 packages=cups,libcupsimage2-dev
+
 [linuxmint:18.1:policykit]
 packages=policykit-1,policykit-1-gnome
+
 [linuxmint:18.1:python-notify]
 packages=python-notify
+
 [linuxmint:18.1:network]
 packages=wget
+
 [linuxmint:18.1:avahi-utils]
 packages=avahi-utils
+
 [linuxmint:18.1:python3-pyqt4-dbus]
 packages=python3-dbus.mainloop.qt
+
 [linuxmint:18.1:python3-pyqt4]
 packages=python3-pyqt4
+
 [linuxmint:18.1:python3-dbus]
 packages=python3-dbus,python3-gi
+
 [linuxmint:18.1:python3-xml]
 packages=python3-lxml
+
 [linuxmint:18.1:python3-devel]
 packages=python3-dev
+
 [linuxmint:18.1:python3-pil]
 packages=python3-pil
+
 [linuxmint:18.1:python3-reportlab]
 packages=python3-reportlab
+
 [linuxmint:18.1:python3-notify2]
 packages=python3-notify2,mate-notification-daemon
+
+[linuxmint:18.1:automake]
+packages=automake1.11
+
+[linuxmint:18.1:epm]
+packages=epm
 
 # ****************************************
 
@@ -8682,6 +9304,12 @@ packages=python3-reportlab
 [linuxmint:18.2:python3-notify2]
 packages=python3-notify2,mate-notification-daemon
 
+[linuxmint:18.2:automake]
+packages=automake1.11
+
+[linuxmint:18.2:epm]
+packages=epm
+
 
 # ****************************************
 [linpus]
@@ -8818,6 +9446,13 @@ packages=wget
 
 [linpus:9.5:avahi-utils]
 packages=avahi-tools
+
+[linplus:9.5:automake]
+packages=automake1.11
+
+[linplus:9.5:epm]
+packages=epm
+
 # ********************
 [linpus:9.4]
 code_name=Linpus
@@ -8933,6 +9568,13 @@ packages=wget
 
 [linpus:9.4:avahi-utils]
 packages=avahi-tools
+
+[linplus:9.4:automake]
+packages=automake1.11
+
+[linplus:9.4:epm]
+packages=epm
+
 # ****************************************
 [gos]
 index=24
@@ -9066,6 +9708,13 @@ packages=wget
 
 [gos:8.04.1:avahi-utils]
 packages=avahi
+
+[gos:8.04.1:automake]
+packages=automake1.11
+
+[gos:8.04.1:epm]
+packages=epm
+
 # ****************************************
 [boss]
 index=34
@@ -9201,6 +9850,13 @@ packages=wget
 [boss:3.0:avahi-utils]
 packages=avahi-utils
 
+[boss:3.0:automake]
+packages=automake1.11
+
+[boss:3.0:epm]
+packages=epm
+
+
 [boss:5.0]
 code_name=anokha
 supported=1
@@ -9309,6 +9965,11 @@ packages=wget
 [boss:5.0:avahi-utils]
 packages=avahi-utils
 
+[boss:5.0:automake]
+packages=automake1.11
+
+[boss:5.0:epm]
+packages=epm
 
 # ****************************************
 [lfs]
@@ -9449,3 +10110,10 @@ packages=wget
 
 [lfs:6:avahi-utils]
 packages=avahi
+
+[lfs:6:automake]
+packages=automake1.11
+
+[lfs:6:epm]
+packages=epm
+

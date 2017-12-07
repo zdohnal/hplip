@@ -65,7 +65,7 @@ DRIVER_ERROR Encapsulator::StartJob(SystemServices *pSystemServices, JobAttribut
     memset(pcl_buffer, 0, cur_pcl_buffer_size);
     cur_pcl_buffer_ptr = pcl_buffer;
 
-    err = flushPrinterBuffer();
+    err = NO_ERROR;
 
     struct    tm    *t;
     time_t    long_time;

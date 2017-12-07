@@ -1378,16 +1378,19 @@
 :model "HP LaserJet Pro MFP m125a"
 :status :good
 
+:model "HP LaserJet Pro MFP m125nr"
+:status :good
+
 :model "HP LaserJet Pro MFP m125nw"
 :status :good
 
 :model "HP LaserJet Pro MFP m125r"
 :status :good
 
-:model "HP LaserJet Pro MFP m125ra"
+:model "HP LaserJet Pro MFP m125rnw"
 :status :good
 
-:model "HP LaserJet Pro MFP m125rnw"
+:model "HP LaserJet Pro MFP m125s"
 :status :good
 
 :model "HP LaserJet Pro MFP m126a"

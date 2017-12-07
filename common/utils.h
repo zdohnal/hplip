@@ -155,6 +155,7 @@ extern "C" {
 
     int createTempFile(char* szFileName, FILE** pFilePtr);
     int getHPLogLevel();
+    unsigned char IsChromeOs(void);
 
 #ifdef __cplusplus
 }

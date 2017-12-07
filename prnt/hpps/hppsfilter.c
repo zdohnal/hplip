@@ -296,6 +296,8 @@ static unsigned char WriteSecurePrinting(char is_secure_printing_old, int num_op
               if((strlen(sec_pin)) != 4)
                  strcpy(sec_pin, "0000");
            }
+           else
+               strcpy(sec_pin, input_slot);  
          }
          else
            strcpy(sec_pin, "0000");

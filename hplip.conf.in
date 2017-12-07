@@ -47,3 +47,4 @@ udev_sysfs_rules=@udev_sysfs_rules@
 hpcups-only-build=@hpcups_only_build@
 hpijs-only-build=@hpijs_only_build@
 apparmor_build=@apparmor_build@
+class-driver=@class_driver@
