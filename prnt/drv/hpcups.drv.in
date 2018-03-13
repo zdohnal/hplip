@@ -7719,7 +7719,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 6
          "<</cupsInteger0 122/PageSize[360 504]/ImagingBBox null>>setpagedevice"
 
 // Standard
-  *CustomMedia "Letter/Letter 8.5x11in" 612 792 8.4 8.4 8.4 36 "<</cupsInteger0 2/PageSize[612 792]/ImagingBBox null>>setpagedevice"
+  *CustomMedia "Letter/Letter 8.5x11in" 612 792 8.4 8.4 8.4 8.4 "<</cupsInteger0 2/PageSize[612 792]/ImagingBBox null>>setpagedevice"
          "<</cupsInteger0 2/PageSize[612 792]/ImagingBBox null>>setpagedevice"
   CustomMedia "Letter.Duplex/Letter AutoDuplex 8.5x11in" 612 792 9.36 7.92 9.36 17.28 "<</cupsInteger0 2/PageSize[612 792]/ImagingBBox null>>setpagedevice"
          "<</cupsInteger0 2/PageSize[612 792]/ImagingBBox null>>setpagedevice"

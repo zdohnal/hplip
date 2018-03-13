@@ -1,0 +1,93 @@
+#!/usr/bin/perl
+#
+# hpijs-drv - Create hp device include file for Makefile.am.
+#
+# Copyright (c) 2003-2008, HP Co. All rights reserved.
+#
+#    Redistribution and use in source and binary forms, with or without
+#    modification, are permitted provided that the following conditions
+#    are met:
+#    1. Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#    2. Redistributions in binary form must reproduce the above copyright
+#       notice, this list of conditions and the following disclaimer in the
+#       documentation and/or other materials provided with the distribution.
+#    3. Neither the name of the Hewlett-Packard nor the names of its
+#       contributors may be used to endorse or promote products derived
+#       from this software without specific prior written permission.
+#
+#    THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+#    IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+#    OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+#    IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+#    INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+#    NOT LIMITED TO, PATENT INFRINGEMENT; PROCUREMENT OF SUBSTITUTE GOODS OR
+#    SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+#    HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+#    STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+#    IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+#    POSSIBILITY OF SUCH DAMAGE.
+#
+# Author: David Suffield <david.suffield@hp.com>
+#
+# Usage:
+#   ./hpijs-drv 
+#
+# Description: 
+#   This script will create a include file for Makefile.am.
+#
+
+$shadow = shift @ARGV;
+
+# Generate ppd list of all hpijs printers.   
+$line = "foomatic_ppd_printers = \\\n";
+$ppddir = "ppd/hpijs";
+opendir(DIR, "$ppddir") or die "Error while opening $ppddir: $!\n";
+while($file = readdir(DIR))
+{
+   if ($file =~ /(^[hp|HP].*ppd\.gz)/)
+   {
+      $line .= "    $ppddir/$file \\\n";
+   }
+}
+close DIR;
+chop($line);   # remove last "\" character
+chop($line);
+print(STDOUT "$line\n\n");
+
+# Generate ppd list of all HP postscript printers.
+$line = "foomatic_ps_printers = \\\n";
+$ppddir = "prnt/ps";
+opendir(DIR, "$ppddir") or die "Error while opening $ppddir: $!\n";
+while($file = readdir(DIR))
+{
+   if ($file =~ /(^[hp|HP].*ppd\.gz)/)
+   {
+      $line .= "    $ppddir/$file \\\n";
+   }
+}
+close DIR;
+if ($shadow eq "true")
+{
+   # Shadow build add unreleased directory. 
+   $unreldir = "$ppddir/unrelease";
+   opendir(DIR, "$unreldir") or die "Error while opening $unreldir: $!\n";
+   while($file = readdir(DIR))
+   {
+      if ($file =~ /(^[hp|HP].*ppd\.gz)/)
+      {
+         $line .= "    $unreldir/$file \\\n";
+      }
+   }
+   close DIR;
+}
+chop($line);   # remove last "\" character
+chop($line);
+print(STDOUT "$line\n\n");
+
+# Generate drv list.
+# NOTE: Shadow build does not need any additional drv files anymore.
+$line = "foomatic_drv = prnt/drv/hpijs.drv\n";
+
+print(STDOUT "$line\n");
+

@@ -13,7 +13,7 @@ docdir = $(hpdocdir)
 htmldir = $(hphtmldir)
 doc_DATA = COPYING copyright prnt/hpijs/README_LIBJPG
 EXTRA_DIST = prnt/hpijs/gdevijs-krgb-1.5-gs8.61.patch prnt/hpijs/README_LIBJPG copyright
-UNAME = $(shell uname -p)
+UNAME = $(shell uname -m)
 
 dist_noinst_SCRIPTS =
 dist_noinst_DATA =
@@ -691,6 +691,12 @@ if !HPLIP_CLASS_DRIVER
  	   if [ \( "$(UNAME)" = "x86_64" -a  -d "$(libdir)/x86_64-linux-gnu/sane" \) ]; then \
 	  	ln -sf $(libdir)/sane/libsane-hpaio.so $(libdir)/x86_64-linux-gnu/sane/ ; \
 	  	ln -sf $(libdir)/sane/libsane-hpaio.so.1 $(libdir)/x86_64-linux-gnu/sane/ ; \
+	   fi; \
+	   if [ \( \( "$(UNAME)" = "i686" -o "$(UNAME)" = "i386" \) -a -d "$(libdir)/i386-linux-gnu" \) ]; then \
+	      ln -sf $(libdir)/libhpmud.so.0.0.6  $(libdir)/i386-linux-gnu/libhpmud.so ; \ 
+	      ln -sf $(libdir)/libhpmud.so.0.0.6  $(libdir)/i386-linux-gnu/libhpmud.so.0 ; \ 
+	      ln -sf $(libdir)/sane/libsane-hpaio.so.1.0.0 $(libdir)/i386-linux-gnu/sane/libsane-hpaio.so.1 ; \
+	      ln -sf $(libdir)/sane/libsane-hpaio.so.1.0.0 $(libdir)/i386-linux-gnu/sane/libsane-hpaio.so ; \
 	   fi \
 	fi
 endif #HPLIP_CLASS_DRIVER
@@ -744,6 +750,11 @@ endif
 
 #tarfile(ignoring scan and fax files)
 dist-hook:
+if !HPLIP_CLASS_DRIVER
+	rm -rf $(distdir)/hpps
+	rm -rf $(distdir)/hpcups
+	rm -rf $(distdir)/dat2drv
+endif
 if HPLIP_CLASS_DRIVER
 	rm -rf $(distdir)/faxsetup.py
 	rm -rf $(distdir)/sendfax.py

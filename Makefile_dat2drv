@@ -1,0 +1,16 @@
+GCCVERSION := $(shell expr `gcc -dumpversion | cut -f1 ` \>= 4.7)
+ifeq "$(GCCVERSION)" "1"
+        CFLAGS = -std=c++11
+endif
+
+dat2drv: datdrv.o Normalize.o
+	g++ $(CFLAGS) -o Dat2drv Dat2drv.o Normalize.o
+
+datdrv.o: Dat2drv.cpp Dat2drv.h 
+	g++ $(CFLAGS) -c Dat2drv.cpp
+
+Normalize.o: Normalize.cpp Normalize.h
+	g++ $(CFLAGS) -c Normalize.cpp
+
+clean:
+	rm Dat2drv.o Normalize.o Dat2drv

@@ -614,14 +614,20 @@ class CoreInstall(object):
             import platform
             name = platform.dist()[0].lower()
             ver = platform.dist()[1]
-            found = True
+            if not name:
+                found = False
+                log.debug("Not able to detect distro")
+            else:
+                found = True
+                log.debug("Able to detect distro")
         except ImportError:
             found = False
+            log.debug("Not able to detect distro in exception")
 
         # Getting distro information using lsb_release command
-        # platform retrurn 'redhat' even for 'RHEL' so re-reading using
+        # platform retrurn 'redhat' even for 'RHEL' or 'arch' for ManjaroLinux so re-reading using
         # lsb_release.
-        if not found or name == 'redhat':
+        if not found or name == 'redhat' or name == 'arch':
             lsb_rel = utils.which("lsb_release", True)
             if lsb_rel:
                 log.debug("Using 'lsb_release -is/-rs'")
@@ -1353,7 +1359,7 @@ class CoreInstall(object):
             configuration['dbus-build'] = False
             configuration['qt4'] = False
             configuration['qt5'] = False
-            configuration['class-driver'] = True          
+            configuration['class-driver'] = True
         else:
             configuration['scan-build'] = self.selected_options['scan']
             configuration[
@@ -1777,7 +1783,7 @@ class CoreInstall(object):
             x = 1
             for cmd in pre_cmd:
                 status, output = utils.run(cmd, self.passwordObj)
-                if any(['yum' in cmd, 'zypper' in cmd, 'dnf' in cmd]):
+                if any(['yum' in cmd, 'zypper' in cmd, 'dnf' in cmd, 'pacman' in cmd]):
                     if status == 1:
                         log.warn("An error occurred running '%s'" % cmd)
                 else:

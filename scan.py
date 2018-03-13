@@ -1080,12 +1080,16 @@ try:
             try:
                 im.save(output)
             except IOError as e:
-                log.error("Error saving file: %s (I/O)" % e)
+                im = im.convert("RGB")
                 try:
-                    os.remove(output)
-                except OSError:
-                    pass
-                sys.exit(1)
+                  im.save(output)
+                except IOError as e:
+                  log.error("Error saving file: %s (I/O)" % e)
+                  try:
+                      os.remove(output)
+                  except OSError:
+                      pass
+                  sys.exit(1)
             except ValueError as e:
                 log.error("Error saving file: %s (PIL)" % e)
                 try:
