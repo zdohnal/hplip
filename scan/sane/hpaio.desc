@@ -1501,6 +1501,24 @@
 :model "HP LaserJet Pro MFP m27cnw"
 :status :good
 
+:model "HP LaserJet Pro MFP m28a"
+:status :good
+
+:model "HP LaserJet Pro MFP m29a"
+:status :good
+
+:model "HP LaserJet Pro MFP m30a"
+:status :good
+
+:model "HP LaserJet Pro MFP m30c"
+:status :good
+
+:model "HP LaserJet Pro MFP m31a"
+:status :good
+
+:model "HP LaserJet Pro MFP m31c"
+:status :good
+
 :model "HP LaserJet Pro MFP m426dw"
 :status :good
 

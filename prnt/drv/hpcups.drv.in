@@ -23066,6 +23066,19 @@ Group "RLT/HP Real Life Technologies"
      Attribute "Product" "" "(HP LaserJet m106w)"
    }
    {
+     ModelName "HP LaserJet m14-m17"
+     Attribute "NickName" "" "HP LaserJet m14-m17, hpcups $Version"
+     Attribute "ShortNickName" "" "HP LaserJet m14-m17 hpijs"
+     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet m14-m17;DES:hp laserjet m14-m17;"
+     PCFileName "hp-laserjet_m14-m17.ppd"
+     Attribute "Product" "" "(HP LaserJet Pro m15w)"
+     Attribute "Product" "" "(HP LaserJet Pro m14w )"
+     Attribute "Product" "" "(HP LaserJet Pro m17w)"
+     Attribute "Product" "" "(HP LaserJet Pro m16w)"
+     Attribute "Product" "" "(HP LaserJet Pro m14cw)"
+     Attribute "Product" "" "(HP LaserJet Pro m17cw)"
+   }
+   {
      ModelName "HP LaserJet MFP m129-m134"
      Attribute "NickName" "" "HP LaserJet MFP m129-m134, hpcups $Version"
      Attribute "ShortNickName" "" "HP LaserJet MFP m129-m134 hpijs"
@@ -23083,6 +23096,19 @@ Group "RLT/HP Real Life Technologies"
      Attribute "Product" "" "(HP LaserJet Pro MFP m130nw)"
      Attribute "Product" "" "(HP LaserJet Pro MFP m130fn)"
      Attribute "Product" "" "(HP LaserJet Pro MFP m130fw)"
+   }
+   {
+     ModelName "HP LaserJet MFP m28-m31"
+     Attribute "NickName" "" "HP LaserJet MFP m28-m31, hpcups $Version"
+     Attribute "ShortNickName" "" "HP LaserJet MFP m28-m31 hpijs"
+     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet mfp m28-m31;DES:hp laserjet mfp m28-m31;"
+     PCFileName "hp-laserjet_mfp_m28-m31.ppd"
+     Attribute "Product" "" "(HP LaserJet Pro MFP m28w)"
+     Attribute "Product" "" "(HP LaserJet Pro MFP m30w )"
+     Attribute "Product" "" "(HP LaserJet Pro MFP m31w)"
+     Attribute "Product" "" "(HP LaserJet Pro MFP m29w)"
+     Attribute "Product" "" "(HP LaserJet Pro MFP m30cw)"
+     Attribute "Product" "" "(HP LaserJet Pro MFP m31cw)"
    }
    {
      ModelName "HP LaserJet Pro MFP m125a"

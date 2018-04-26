@@ -3155,7 +3155,7 @@ packages=epm
 # ****************************************
 [ubuntu]
 index=12
-versions=12.04,13.10,14.04,15.04,15.10,16.04,16.10,17.04,17.10
+versions=12.04,13.10,14.04,15.04,15.10,16.04,16.10,17.04,17.10,18.04
 display_name=Ubuntu
 alt_names=kubuntu,edubuntu,xubuntu
 display=1
@@ -4857,12 +4857,19 @@ packages=automake1.11
 [ubuntu:17.10:epm]
 packages=epm
 
+# ****************************************
+
+[ubuntu:18.04]
+code_name=Bionic Beaver
+packaged_version=3.18.4
+release_date=5/04/2018
+same_as_version=17.10
 
 # ****************************************
 
 [debian]
 index=2
-versions=7.0,7.1,7.2,7.3,7.4,7.5,7.6,7.7,7.8,7.9,8.0,8.1,8.2,8.3,8.4,8.5,8.6,8.7,8.8,9.1
+versions=7.0,7.1,7.2,7.3,7.4,7.5,7.6,7.7,7.8,7.9,8.0,8.1,8.2,8.3,8.4,8.5,8.6,8.7,8.8,9.1,9.2,9.3,9.4
 display_name=Debian
 alt_names=
 display=1
@@ -6249,7 +6256,33 @@ packages=automake1.11
 packages=epm
 
 
-# *********************
+
+# ****************************************
+
+[debian:9.2]
+code_name=Stretch
+packaged_version=3.18.4
+release_date=7/10/2017
+same_as_version=9.1
+
+# ****************************************
+
+[debian:9.3]
+code_name=Stretch
+packaged_version=3.18.4
+release_date=9/12/2017
+same_as_version=9.1
+
+# ****************************************
+
+[debian:9.4]
+code_name=Stretch
+packaged_version=3.18.4
+release_date=10/3/2018
+same_as_version=9.1
+
+# ****************************************
+
 
 
 [xandros]
