@@ -127,7 +127,70 @@
 :model "HP Color LaserJet MFP m377 Fnw"
 :status :good
 
+:model "HP Color LaserJet Pro MFP m178cn"
+:status :good
+
+:model "HP Color LaserJet Pro MFP m178n"
+:status :good
+
+:model "HP Color LaserJet Pro MFP m179cfw"
+:status :good
+
+:model "HP Color LaserJet Pro MFP m179fw"
+:status :good
+
+:model "HP Color LaserJet Pro MFP m180cn"
+:status :good
+
+:model "HP Color LaserJet Pro MFP m180n"
+:status :good
+
+:model "HP Color LaserJet Pro MFP m180nw"
+:status :good
+
+:model "HP Color LaserJet Pro MFP m181cfw"
+:status :good
+
+:model "HP Color LaserJet Pro MFP m181fnw"
+:status :good
+
+:model "HP Color LaserJet Pro MFP m181fw"
+:status :good
+
 :model "HP Color LaserJet Pro MFP m274n"
+:status :good
+
+:model "HP Color LaserJet Pro MFP m278cw"
+:status :good
+
+:model "HP Color LaserJet Pro MFP m278dn"
+:status :good
+
+:model "HP Color LaserJet Pro MFP m278nw"
+:status :good
+
+:model "HP Color LaserJet Pro MFP m279fdw"
+:status :good
+
+:model "HP Color LaserJet Pro MFP m280c2"
+:status :good
+
+:model "HP Color LaserJet Pro MFP m280cnw"
+:status :good
+
+:model "HP Color LaserJet Pro MFP m280nw"
+:status :good
+
+:model "HP Color LaserJet Pro MFP m281cdw"
+:status :good
+
+:model "HP Color LaserJet Pro MFP m281dne"
+:status :good
+
+:model "HP Color LaserJet Pro MFP m281fdn"
+:status :good
+
+:model "HP Color LaserJet Pro MFP m281fdw"
 :status :good
 
 :model "HP Color LaserJet Pro MFP m476dn"

@@ -143,8 +143,8 @@ class PMLFaxDevice(FaxDevice):
 
     def getPhoneNum(self):
         if PY3:
-            data = utils.printable(self.getPML(pml.OID_FAX_LOCAL_PHONE_NUM)[1].encode('utf-8'))
-            return data.decode('utf-8')
+            data = utils.printable(self.getPML(pml.OID_FAX_LOCAL_PHONE_NUM)[1])
+            return data
         else:
             return utils.printable(self.getPML(pml.OID_FAX_LOCAL_PHONE_NUM)[1])
     phone_num = property(getPhoneNum, setPhoneNum, doc="OID_FAX_LOCAL_PHONE_NUM")
@@ -155,8 +155,8 @@ class PMLFaxDevice(FaxDevice):
 
     def getStationName(self):
         if PY3:
-            data = utils.printable(self.getPML(pml.OID_FAX_STATION_NAME)[1].encode('utf-8'))
-            return data.decode('utf-8')
+            data = utils.printable(self.getPML(pml.OID_FAX_STATION_NAME)[1])
+            return data
         else:
             return utils.printable(self.getPML(pml.OID_FAX_STATION_NAME)[1])
 
