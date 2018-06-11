@@ -10507,7 +10507,7 @@ packages=libcups2-dev,cups-bsd,cups-client
 
 [manjarolinux:17.1.4:gcc]
 packages=libusb-compat
-commands=/bin/bash -c "yes | sudo pacman -S --needed gcc"
+commands=/bin/bash -c "yes | sudo pacman -Sy gcc-multilib gcc-libs-multilib lib32-gcc-libs", /bin/bash -c "yes | sudo pacman -S --needed gcc"
 
 [manjarolinux:17.1.4:gs]
 packages=ghostscript

@@ -793,8 +793,10 @@ foomatic_ppd_printers = \
     ppd/hpijs/hp-laserjet_professional_m1137_mfp-hpijs.ppd.gz 
 
 foomatic_ps_printers = \
+    prnt/ps/hp-designjet_z6810ps_42in-ps.ppd.gz \
     prnt/ps/hp-postscript-laserjet.ppd.gz \
     prnt/ps/hp-laserjet_4v-ps.ppd.gz \
+    prnt/ps/hp-designjet_z6610ps_60in-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_2550_series-ps.ppd.gz \
     prnt/ps/hp-designjet_t1700_postscript-ps.ppd.gz \
     prnt/ps/hp-laserjet_4_plus-ps.ppd.gz \
@@ -1029,6 +1031,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-laserjet_e62555-e62575-ps.ppd.gz \
     prnt/ps/hp-laserjet_9050-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_cp1515n-ps.ppd.gz \
+    prnt/ps/hp-designjet_z6810ps_60in-ps.ppd.gz \
     prnt/ps/hp-laserjet_flow_mfp_m525-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_2700n-ps.ppd.gz \
     prnt/ps/hp-laserjet_200_colormfp_m276-ps.ppd.gz \

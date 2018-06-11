@@ -1,0 +1,138 @@
+*PPD-Adobe: "4.3"
+*%
+*% For information on using this, and to obtain the required backend
+*% script, consult http://www.linuxprinting.org/
+*%
+*% This file is published under the GNU General Public License
+*%
+*% PPD-O-MATIC (3.0.0 or newer) generated this PPD file. It is for use with
+*% all programs and environments which use PPD files for dealing with
+*% printer capability information. The printer must be configured with the
+*% "foomatic-rip" backend filter script of Foomatic 3.0.0 or newer. This
+*% file and "foomatic-rip" work together to support PPD-controlled printer
+*% driver option access with arbitrary free software printer drivers and
+*% printing spoolers.
+*%
+*% To save this file on your disk, wait until the download has completed
+*% (the animation of the browser logo must stop) and then use the
+*% "Save as..." command in the "File" menu of your browser or in the
+*% pop-up manu when you click on this document with the right mouse button.
+*% DO NOT cut and paste this file into an editor with your mouse. This can
+*% introduce additional line breaks which lead to unexpected results.
+*%
+*% You may save this file as 'HPLIPFax.ppd'
+*%
+*%
+*FormatVersion:	"4.3"
+*FileVersion:	"1.1"
+*LanguageVersion: English
+*LanguageEncoding: ISOLatin1
+*PCFileName:	"HPFAX3.PPD"
+*Manufacturer:	"HP"
+*Product:	"(HP Fax3)"
+*cupsVersion:   1.0
+*cupsManualCopies: True
+*cupsModelNumber:  2
+*cupsFilter:    "application/postscript 0 foomatic-rip"
+*ModelName:     "HP Fax3 hpijs"
+*ShortNickName: "HP Fax3 hpijs"
+*NickName:      "HP Fax3 hpijs"
+*PSVersion:	"(2017.000) 0"
+*LanguageLevel:	"3"
+*ColorDevice:	True
+*DefaultColorSpace: RGB
+*FileSystem:	False
+*Throughput:	"1"
+*LandscapeOrientation: Plus90
+*VariablePaperSize: True
+*TTRasterizer:	Type42
+*HWMargins: 18 36 18 18
+*1284DeviceID: "MFG:HP;MDL:Fax 3;DES:HP Fax 3;"
+*FoomaticIDs: HPLIPFax hpijs
+*FoomaticRIPCommandLine: "gs -q -dBATCH -dPARANOIDSAFER -dQUIET -dNOPAUSE &&
+-sDEVICE=tiffg4 -sIjsServer=hpijs %A%B%D -dIjsUseOutputFD%Z -sOutputFile=-  -sDeviceModel=HPFax3 -"
+*End
+
+*DefaultImageableArea: Letter
+*ImageableArea Letter/Letter:	"36 36 594 756"
+*ImageableArea A4/A4: "9.72 36 585.28 833"
+*ImageableArea Legal/Legal: "18 36 594 999"
+
+*DefaultPaperDimension: Letter
+*PaperDimension Letter/Letter:		"612 792"
+*PaperDimension A4/A4: "595 842"
+*PaperDimension Legal/Legal: "612 1008"
+
+*OpenGroup: General/General
+
+*OpenUI *PageSize/Page Size: PickOne
+*FoomaticRIPOption PageSize: enum CmdLine A
+*OrderDependency: 10 AnySetup *PageSize
+*DefaultPageSize: Letter
+*PageSize Letter/Letter:	"%% FoomaticRIPOptionSetting: PageSize=Letter"
+*FoomaticRIPOptionSetting PageSize=Letter: "-dDEVICEWIDTHPOINTS=612 &&
+-dDEVICEHEIGHTPOINTS=792"
+*End
+*PageSize A4/A4:	"%% FoomaticRIPOptionSetting: PageSize=A4"
+*FoomaticRIPOptionSetting PageSize=A4: "-dDEVICEWIDTHPOINTS=595 &&
+-dDEVICEHEIGHTPOINTS=842"
+*End
+*PageSize Legal/Legal:	"%% FoomaticRIPOptionSetting: PageSize=Legal"
+*FoomaticRIPOptionSetting PageSize=Legal: "-dDEEVICEWIDTHPOINTS=612 &&
+-dDEVICEHEIGHTPOINTS=1008"
+*End
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 105 AnySetup *PageRegion
+*DefaultPageRegion: Letter
+*PageRegion Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
+*PageRegion A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
+*PageRegion Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
+*CloseUI: *PageRegion
+
+*OpenUI *Quality/Quality & Color: PickOne
+*FoomaticRIPOption Quality: enum CmdLine B
+*OrderDependency: 20 AnySetup *Quality
+*DefaultQuality: BWFine
+*Quality BWStandard/Standard, Black and White: "%% FoomaticRIPOptionSetting: &&
+Quality=BWStandard"
+*FoomaticRIPOptionSetting Quality=BWStandard: " -r300x300 -sIjsParams=Quality:Quality=1,&&
+Quality:ColorMode=1"
+*End
+*Quality BWFine/Fine, Black and White: "%% FoomaticRIPOptionSetting: Quality=BWFine"
+*FoomaticRIPOptionSetting Quality=BWFine: " -r300x300 -sIjsParams=Quality:Quality=2,&&
+Quality:ColorMode=1"
+*End
+*%Quality StdCol/Fine, Color: "%% FoomaticRIPOptionSetting: Quality=StdCol"
+*%FoomaticRIPOptionSetting Quality=StdCol: " -r300x300 -sIjsParams=Quality:Quality=2,&&
+*%Quality:ColorMode=2"
+*%End
+*CloseUI: *Quality
+
+*%OpenUI *Color/Output Type: PickOne
+*%FoomaticRIPOption Color: enum CmdLine C
+*%OrderDependency: 20 AnySetup *Color
+*%DefaultColor: Monochrome
+*%Color Monochrome/Black and White: "%% FoomaticRIPOptionSetting: Color=Monochrome"
+*%FoomaticRIPOptionSetting Color=Monochrome: ",Quality:ColorMode=1"
+*%End
+*%*Color RGB/Color: "%% FoomaticRIPOptionSetting: Color=RGB"
+*%*FoomaticRIPOptionSetting Color=RGB: ",Quality:ColorMode=2"
+*%*End
+*%CloseUI: *Color
+*CloseGroup: General
+
+*OpenGroup: Advanced/Advanced
+
+*Encoding TIFF/TIFF: "%% FoomaticRIPOptionSetting: Encoding=TIFF"
+*FoomaticRIPOptionSetting Encoding=TIFF: ",FaxEncoding=10 "
+
+*CloseGroup: Advanced
+
+*OpenUI *Encoding/Fax Encoding: PickOne
+*OrderDependency: 20 AnySetup *Encoding
+*DefaultEncoding: TIFF
+*Encoding TIFF/TIFF: "<</cupsCompression 10>>setpagedevice"
+*CloseUI: Encoding
+
