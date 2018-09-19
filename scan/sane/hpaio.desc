@@ -58,7 +58,7 @@
 :model "HP Color LaserJet cm1312nfi Multifunction Printer"
 :status :good
 
-:model "HP Color LaserJet cm2320 Multifuntion Printer"
+:model "HP Color LaserJet cm2320 Multifunction Printer"
 :status :good
 
 :model "HP Color LaserJet cm2320fxi Multifunction Printer"
@@ -1093,6 +1093,12 @@
 :model "HP Hotspot LaserJet Pro m1218nfs MFP"
 :status :good
 
+:model "HP Ink Tank 310"
+:status :good
+
+:model "HP Ink Tank Wireless 410"
+:status :good
+
 :model "HP LaserJet 100 Color MFP m175"
 :status :good
 
@@ -1277,6 +1283,12 @@
 :status :good
 
 :model "HP LaserJet 9040 Multifunction Printer"
+:status :good
+
+:model "HP LaserJet 9040dn Printer"
+:status :good
+
+:model "HP LaserJet 9040n Printer"
 :status :good
 
 :model "HP LaserJet 9050 Multifunction Printer"
@@ -2068,6 +2080,9 @@
 :model "HP Officejet 6500 e710"
 :status :good
 
+:model "HP Officejet 6500 e710n-z"
+:status :good
+
 :model "HP Officejet 6500 Wireless All-in-one Printer - e709n"
 :status :good
 
@@ -2630,9 +2645,6 @@
 :status :good
 
 :model "HP Officejet v45 All-in-one Printer"
-:status :good
-
-:model "HP Oficejet 6500 e710n-z"
 :status :good
 
 :model "HP Pagewide Managed MFP p57750dw"
@@ -3394,7 +3406,7 @@
 :model "HP Photosmart Wireless All-in-one Printer - b109q"
 :status :good
 
-:model "HP Photosmart Wireless All-in-one Printer - b109q=r"
+:model "HP Photosmart Wireless All-in-one Printer - b109qr"
 :status :good
 
 :model "HP Photosmart Wireless All-in-one Printer - b110"
@@ -3761,5 +3773,11 @@
 :status :good
 
 :model "HP Scanjet Pro 4500 fn1"
+:status :good
+
+:model "HP Smart Tank 350"
+:status :good
+
+:model "HP Smart Tank Wireless 450"
 :status :good
 

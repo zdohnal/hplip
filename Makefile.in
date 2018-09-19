@@ -103,7 +103,7 @@ DIST_COMMON = $(am__configure_deps) \
 
 # ip library
 @HPLIP_BUILD_TRUE@am__append_12 = libhpip.la
-@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@am__append_13 = prnt/drv/hpijs.drv.in.template prnt/drv/hpcups.drv.in.template
+@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@am__append_13 = prnt/drv/hpijs.drv.in.template prnt/drv/hpcups.drv.in.template prnt/hpcups/libImageProcessor-x86_64.so prnt/hpcups/libImageProcessor-x86_32.so
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@am__append_14 = dat2drv.py install.py  hplip-install init-suse-firewall init-iptables-firewall class_rpm_build.sh hplipclassdriver.spec createPPD.sh Makefile_dat2drv hpijs-drv
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@am__append_15 = scan/sane/hpaio.desc \
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	installer/text_install.py \
@@ -114,7 +114,6 @@ DIST_COMMON = $(am__configure_deps) \
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	data/localization/hplip_pt.ts \
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	data/localization/hplip_ru.ts \
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	data/localization/hplip_zh.ts
-
 # ptest
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@am__append_16 = ptest
 
@@ -496,7 +495,8 @@ am__hpcups_SOURCES_DIST = prnt/hpcups/HPCupsFilter.cpp \
 	prnt/hpcups/RunLenEncoding.h prnt/hpcups/common_defines.h \
 	prnt/hpcups/genPCLm.h common/utils.c common/utils.h \
 	prnt/hpcups/Hbpl1_Wrapper.cpp prnt/hpcups/genPCLm.cpp \
-	prnt/hpcups/genJPEGStrips.cpp prnt/hpcups/RunLenEncoding.cpp
+	prnt/hpcups/genJPEGStrips.cpp prnt/hpcups/RunLenEncoding.cpp \
+	prnt/hpcups/ImageProcessor.h
 @HPCUPS_INSTALL_TRUE@am_hpcups_OBJECTS =  \
 @HPCUPS_INSTALL_TRUE@	hpcups-HPCupsFilter.$(OBJEXT) \
 @HPCUPS_INSTALL_TRUE@	hpcups-dbuscomm.$(OBJEXT) \
@@ -717,7 +717,9 @@ am__dist_localz_DATA_DIST = data/localization/hplip_de.qm \
 am__dist_locatedriver_DATA_DIST = locatedriver
 am__dist_models_DATA_DIST = data/models/models.dat
 am__dist_noinst_DATA_DIST = prnt/drv/hpijs.drv.in.template \
-	prnt/drv/hpcups.drv.in.template scan/sane/hpaio.desc \
+	prnt/drv/hpcups.drv.in.template \
+	prnt/hpcups/libImageProcessor-x86_64.so \
+	prnt/hpcups/libImageProcessor-x86_32.so scan/sane/hpaio.desc \
 	installer/text_install.py data/localization/hplip_de.ts \
 	data/localization/hplip_es.ts data/localization/hplip_fr.ts \
 	data/localization/hplip_it.ts data/localization/hplip_pt.ts \
@@ -865,6 +867,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-designjet_z6810ps_42in-ps.ppd.gz \
 	prnt/ps/hp-pagewide_xl_5000ps-ps.ppd.gz \
 	prnt/ps/hp-laserjet_m1522nf_mfp-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_4650-ps.ppd.gz \
+	prnt/ps/hp-designjet_Z9_24in-ps.ppd.gz \
 	prnt/ps/hp-designjet_t1120ps_44in-ps.ppd.gz \
 	prnt/ps/hp-laserjet_pro_m201_m202-ps.ppd.gz \
 	prnt/ps/hp-laserjet_2430-ps.ppd.gz \
@@ -883,6 +886,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-designjet_z6810ps_42in-ps.ppd.gz \
 	prnt/ps/hp-laserjet_pro_m402_m403-ps.ppd.gz \
 	prnt/ps/hp-pagewide_pro_750-ps.ppd.gz \
 	prnt/ps/hp-designjet_z6100ps_60in_photo-ps.ppd.gz \
+	prnt/ps/hp-designjet_Z6dr_44in-ps.ppd.gz \
 	prnt/ps/hp-laserjet_4345_mfp-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_8500-ps.ppd.gz \
@@ -910,6 +914,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-designjet_z6810ps_42in-ps.ppd.gz \
 	prnt/ps/hp-laserjet_9000_mfp-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_4700-ps.ppd.gz \
 	prnt/ps/hp-laserjet_4si-ps.ppd.gz \
+	prnt/ps/hp-designjet_Z6_24in-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_pro_m252-ps.ppd.gz \
 	prnt/ps/hp-pagewide_xl_4000ps-ps.ppd.gz \
 	prnt/ps/hp-pagewide_P77440_P77940-60-ps.ppd.gz \
@@ -938,6 +943,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-designjet_z6810ps_42in-ps.ppd.gz \
 	prnt/ps/hp-laserjet_8000-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_2800-ps.ppd.gz \
 	prnt/ps/hp-laserjet_pro_m701-ps.ppd.gz \
+	prnt/ps/hp-designjet_Z9_44in-ps.ppd.gz \
 	prnt/ps/hp-laserjet_m9040_mfp-ps.ppd.gz \
 	prnt/ps/hp-laserjet_1300-ps.ppd.gz \
 	prnt/ps/hp-pagewide_pro_mfp_772-777-ps.ppd.gz \
@@ -980,6 +986,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-designjet_z6810ps_42in-ps.ppd.gz \
 	prnt/ps/hp-laserjet_1320tn-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_cp5520_series-ps.ppd.gz \
 	prnt/ps/hp-laserjet_200_color_m251-ps.ppd.gz \
+	prnt/ps/hp-designjet_Z6_44in-ps.ppd.gz \
 	prnt/ps/hp-pagewide_xl_4000ps_mfp-ps.ppd.gz \
 	prnt/ps/hp-laserjet_p4010_series-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_m651-ps.ppd.gz \
@@ -1007,6 +1014,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-designjet_z6810ps_42in-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_3700n-ps.ppd.gz \
 	prnt/ps/hp-laserjet_p3010_series-ps.ppd.gz \
 	prnt/ps/hp-laserjet_2100-ps.ppd.gz \
+	prnt/ps/hp-designjet_Z9dr_44in-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_3700-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_2500-ps.ppd.gz \
 	prnt/ps/hp-officejet_pro_251dw_printer-ps.ppd.gz \
@@ -1388,6 +1396,9 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-designjet_z6810ps_42in-ps.ppd.gz \
 	ppd/hpcups/hp-envy_photo_6200_series.ppd.gz \
 	ppd/hpcups/hp-envy_photo_7100_series.ppd.gz \
 	ppd/hpcups/hp-envy_photo_7800_series.ppd.gz \
+	ppd/hpcups/hp-ink_tank_110_series.ppd.gz \
+	ppd/hpcups/hp-ink_tank_310_series.ppd.gz \
+	ppd/hpcups/hp-ink_tank_wireless_410_series.ppd.gz \
 	ppd/hpcups/hp-laserjet_1000.ppd.gz \
 	ppd/hpcups/hp-laserjet_1005_series.ppd.gz \
 	ppd/hpcups/hp-laserjet_1010.ppd.gz \
@@ -1890,6 +1901,8 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-designjet_z6810ps_42in-ps.ppd.gz \
 	ppd/hpcups/hp-psc_900_series.ppd.gz \
 	ppd/hpcups/hp-psc_920.ppd.gz ppd/hpcups/hp-psc_950.ppd.gz \
 	ppd/hpcups/hp-psc_950vr.ppd.gz ppd/hpcups/hp-psc_950xi.ppd.gz \
+	ppd/hpcups/hp-smart_tank_350_series.ppd.gz \
+	ppd/hpcups/hp-smart_tank_wireless_450_series.ppd.gz \
 	ppd/classppd/hpcups/hp-LJ-Class1.ppd.gz \
 	ppd/classppd/hpcups/hp-LJ-Class2.ppd.gz \
 	ppd/classppd/hpcups/hp-LJ-Class3.ppd.gz \
@@ -1921,7 +1934,8 @@ am__dist_rules_DATA_DIST = data/rules/56-hpmud.rules \
 am__dist_rulessystem_DATA_DIST = data/rules/hplip-printer@.service
 am__dist_scan_DATA_DIST = scan/__init__.py scan/sane.py
 am__dist_selinux_DATA_DIST = selinux/hplip.te selinux/hplip.fc \
-	selinux/hplip.pp selinux/hplip.if
+	selinux/hplip.pp selinux/hplip.if selinux/mypol.pp \
+	selinux/mypol.te
 am__dist_ui_DATA_DIST = ui/alignform.py ui/colorcalform_base.py \
 	ui/colorcalform.py ui/coloradjform_base.py ui/coloradjform.py \
 	ui/devmgr4_base.py ui/devmgr4.py ui/__init__.py \
@@ -2227,6 +2241,8 @@ hplipdir = $(datadir)/hplip
 doc_DATA = COPYING copyright prnt/hpijs/README_LIBJPG
 EXTRA_DIST = prnt/hpijs/gdevijs-krgb-1.5-gs8.61.patch prnt/hpijs/README_LIBJPG copyright
 UNAME = $(shell uname -m)
+EXPORT_PATH = $(shell export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/prnt/hpcups/)
+EXPORT_PATH1 = $(shell export LIBRARY_PATH=$LIBRARY_PATH:$PWD/prnt/hpcups/)
 dist_noinst_SCRIPTS = $(am__append_14)
 dist_noinst_DATA = $(am__append_13) $(am__append_15) $(am__append_21) \
 	$(am__append_22) $(am__append_23)
@@ -2293,6 +2309,7 @@ foomatic_ppd_printers = \
     ppd/hpijs/hp-deskjet_f4200_series-hpijs.ppd.gz \
     ppd/hpijs/hp-psc_1300_series-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_m4349_mfp-pcl3-hpijs.ppd.gz \
+    ppd/hpijs/hp-ink_tank_110_series-hpijs.ppd.gz \
     ppd/hpijs/hp-officejet_9100_series-pcl3-hpijs.ppd.gz \
     ppd/hpijs/hp-deskjet_933c-hpijs.ppd.gz \
     ppd/hpijs/hp-business_inkjet_2600-pcl3-hpijs.ppd.gz \
@@ -2536,6 +2553,7 @@ foomatic_ppd_printers = \
     ppd/hpijs/hp-photosmart_c7200_series-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_pro_mfp_m126a-hpijs.ppd.gz \
     ppd/hpijs/hp-psc_950xi-hpijs.ppd.gz \
+    ppd/hpijs/hp-smart_tank_wireless_450_series-hpijs.ppd.gz \
     ppd/hpijs/hp-color_laserjet_3600-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_p2014n-zxs-hpijs.ppd.gz \
     ppd/hpijs/hp-color_laserjet_8550-pcl3-hpijs.ppd.gz \
@@ -2840,6 +2858,7 @@ foomatic_ppd_printers = \
     ppd/hpijs/hp-color_laserjet_5m-pcl3-hpijs.ppd.gz \
     ppd/hpijs/hp-photosmart_7345-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_pro_mfp_m127fw-hpijs.ppd.gz \
+    ppd/hpijs/hp-smart_tank_350_series-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_4100_mfp-pcl3-hpijs.ppd.gz \
     ppd/hpijs/hp-deskjet_d1300_series-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_professional_p1102w-hpijs.ppd.gz \
@@ -2999,9 +3018,11 @@ foomatic_ppd_printers = \
     ppd/hpijs/hp-laserjet_pro_mfp_m25nw-hpijs.ppd.gz \
     ppd/hpijs/hp-officejet_pro_l7500-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_professional_m1219nfs_mfp-hpijs.ppd.gz \
+    ppd/hpijs/hp-ink_tank_310_series-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_p3004-pcl3-hpijs.ppd.gz \
     ppd/hpijs/hp-officejet_j4660_series-hpijs.ppd.gz \
     ppd/hpijs/hp-officejet_150_mobile_l511-hpijs.ppd.gz \
+    ppd/hpijs/hp-ink_tank_wireless_410_series-hpijs.ppd.gz \
     ppd/hpijs/hp-deskjet_3810-hpijs.ppd.gz \
     ppd/hpijs/hp-910-hpijs.ppd.gz \
     ppd/hpijs/hp-officejet_v40-hpijs.ppd.gz \
@@ -3131,6 +3152,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-pagewide_xl_5000ps-ps.ppd.gz \
     prnt/ps/hp-laserjet_m1522nf_mfp-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_4650-ps.ppd.gz \
+    prnt/ps/hp-designjet_Z9_24in-ps.ppd.gz \
     prnt/ps/hp-designjet_t1120ps_44in-ps.ppd.gz \
     prnt/ps/hp-laserjet_pro_m201_m202-ps.ppd.gz \
     prnt/ps/hp-laserjet_2430-ps.ppd.gz \
@@ -3149,6 +3171,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-laserjet_pro_m402_m403-ps.ppd.gz \
     prnt/ps/hp-pagewide_pro_750-ps.ppd.gz \
     prnt/ps/hp-designjet_z6100ps_60in_photo-ps.ppd.gz \
+    prnt/ps/hp-designjet_Z6dr_44in-ps.ppd.gz \
     prnt/ps/hp-laserjet_4345_mfp-ps.ppd.gz \
     prnt/ps/hp-color_laserjet-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_8500-ps.ppd.gz \
@@ -3176,6 +3199,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-laserjet_9000_mfp-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_4700-ps.ppd.gz \
     prnt/ps/hp-laserjet_4si-ps.ppd.gz \
+    prnt/ps/hp-designjet_Z6_24in-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_pro_m252-ps.ppd.gz \
     prnt/ps/hp-pagewide_xl_4000ps-ps.ppd.gz \
     prnt/ps/hp-pagewide_P77440_P77940-60-ps.ppd.gz \
@@ -3204,6 +3228,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-laserjet_8000-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_2800-ps.ppd.gz \
     prnt/ps/hp-laserjet_pro_m701-ps.ppd.gz \
+    prnt/ps/hp-designjet_Z9_44in-ps.ppd.gz \
     prnt/ps/hp-laserjet_m9040_mfp-ps.ppd.gz \
     prnt/ps/hp-laserjet_1300-ps.ppd.gz \
     prnt/ps/hp-pagewide_pro_mfp_772-777-ps.ppd.gz \
@@ -3246,6 +3271,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-laserjet_1320tn-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_cp5520_series-ps.ppd.gz \
     prnt/ps/hp-laserjet_200_color_m251-ps.ppd.gz \
+    prnt/ps/hp-designjet_Z6_44in-ps.ppd.gz \
     prnt/ps/hp-pagewide_xl_4000ps_mfp-ps.ppd.gz \
     prnt/ps/hp-laserjet_p4010_series-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_m651-ps.ppd.gz \
@@ -3273,6 +3299,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-color_laserjet_3700n-ps.ppd.gz \
     prnt/ps/hp-laserjet_p3010_series-ps.ppd.gz \
     prnt/ps/hp-laserjet_2100-ps.ppd.gz \
+    prnt/ps/hp-designjet_Z9dr_44in-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_3700-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_2500-ps.ppd.gz \
     prnt/ps/hp-officejet_pro_251dw_printer-ps.ppd.gz \
@@ -3666,6 +3693,9 @@ dist_unrel_DATA =
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_photo_6200_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_photo_7100_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_photo_7800_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-ink_tank_110_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-ink_tank_310_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-ink_tank_wireless_410_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-laserjet_1000.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-laserjet_1005_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-laserjet_1010.ppd.gz \
@@ -4172,7 +4202,9 @@ dist_unrel_DATA =
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-psc_920.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-psc_950.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-psc_950vr.ppd.gz \
-@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-psc_950xi.ppd.gz
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-psc_950xi.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-smart_tank_350_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-smart_tank_wireless_450_series.ppd.gz
 
 @HPLIP_CLASS_DRIVER_FALSE@cups_drv = prnt/drv/hpcups.drv
 @HPLIP_CLASS_DRIVER_TRUE@cups_drv = prnt/drv/hpcups.drv
@@ -4359,8 +4391,8 @@ dist_unrel_DATA =
 @APPARMOR_BUILD_TRUE@@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@apparmor_abstractiondir = /etc/apparmor.d/abstractions
 @APPARMOR_BUILD_TRUE@@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@apparmor_abstraction_DATA = apparmor/abstractions/hplip
 @APPARMOR_BUILD_TRUE@@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@dist_apparmor_abstraction_DATA = apparmor/abstractions/hplip
-@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@selinuxdir = 
-@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@dist_selinux_DATA = selinux/hplip.te selinux/hplip.fc selinux/hplip.pp selinux/hplip.if
+@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@selinuxdir = 
+@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@dist_selinux_DATA = selinux/hplip.te selinux/hplip.fc selinux/hplip.pp selinux/hplip.if selinux/mypol.pp selinux/mypol.te
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@ptest_SOURCES = pcard/ptest.c pcard/ptest.h pcard/fat.c pcard/fat.h
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@ptest_LDADD = libhpmud.la
 
@@ -4611,10 +4643,11 @@ libapdk_la_CFLAGS = $(libapdk_la_CXXFLAGS) -Iprnt/hpijs
 @HPCUPS_INSTALL_TRUE@	prnt/hpcups/flate_colorspace.h prnt/hpcups/RunLenEncoding.h prnt/hpcups/common_defines.h \
 @HPCUPS_INSTALL_TRUE@	prnt/hpcups/genPCLm.h \
 @HPCUPS_INSTALL_TRUE@	common/utils.c common/utils.h prnt/hpcups/Hbpl1_Wrapper.cpp prnt/hpcups/genPCLm.cpp \
-@HPCUPS_INSTALL_TRUE@	prnt/hpcups/genJPEGStrips.cpp prnt/hpcups/RunLenEncoding.cpp
+@HPCUPS_INSTALL_TRUE@	prnt/hpcups/genJPEGStrips.cpp prnt/hpcups/RunLenEncoding.cpp \
+@HPCUPS_INSTALL_TRUE@	prnt/hpcups/ImageProcessor.h
 
 @HPCUPS_INSTALL_TRUE@hpcups_CXXFLAGS = $(APDK_ENDIAN_FLAG) $(DBUS_CFLAGS)
-@HPCUPS_INSTALL_TRUE@hpcups_LDADD = -ljpeg -ldl -lcups -lcupsimage -lz $(DBUS_LIBS)
+@HPCUPS_INSTALL_TRUE@hpcups_LDADD = -L./prnt/hpcups/ -ljpeg -ldl -lImageProcessor -lcups -lcupsimage -lz $(DBUS_LIBS)
 
 #else
 #hpcupsdir = $(cupsfilterdir)
@@ -9295,6 +9328,16 @@ uninstall-am: uninstall-apparmor_abstractionDATA \
 
 
 install-data-hook:
+@HPLIP_BUILD_TRUE@	if [ \( "$(UNAME)" = "x86_64" -a  -d "$(libdir)/" \) ]; then \
+@HPLIP_BUILD_TRUE@		cp prnt/hpcups/libImageProcessor-x86_64.so $(libdir)/ ; \
+@HPLIP_BUILD_TRUE@		chmod 775 $(libdir)/libImageProcessor-x86_64.so ; \
+@HPLIP_BUILD_TRUE@		ln -sf $(libdir)/libImageProcessor-x86_64.so $(libdir)/libImageProcessor.so ; \
+@HPLIP_BUILD_TRUE@	fi; \
+@HPLIP_BUILD_TRUE@	if [ \( \( "$(UNAME)" = "i686" -o "$(UNAME)" = "i386" \) -a -d "$(libdir)/" \) ]; then \
+@HPLIP_BUILD_TRUE@		cp prnt/hpcups/libImageProcessor-x86_32.so $(libdir)/ ; \
+@HPLIP_BUILD_TRUE@		chmod 775 $(libdir)/libImageProcessor-x86_32.so ; \
+@HPLIP_BUILD_TRUE@		ln -sf $(libdir)/libImageProcessor-x86_32.so $(libdir)/libImageProcessor.so ; \
+@HPLIP_BUILD_TRUE@	fi
 #	   If scanner build, add hpaio entry to sane dll.conf.
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	if [ "$(scan_build)" = "yes" ]; then \
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	   $(mkinstalldirs) $(DESTDIR)/etc/sane.d; \
@@ -9388,7 +9431,7 @@ dist-hook:
 @HPLIP_CLASS_DRIVER_TRUE@	rm -rf $(distdir)/logcapture.py
 @HPLIP_CLASS_DRIVER_TRUE@	rm -rf $(distdir)/doctor.py
 @HPLIP_CLASS_DRIVER_TRUE@	rm -rf $(distdir)/devicesettings.py
-@HPLIP_CLASS_DRIVER_TRUE@	rm -rf $(distdir)/selinux/
+#	rm -rf $(distdir)/selinux/
 @HPLIP_CLASS_DRIVER_TRUE@	rm -rf $(distdir)/installer/
 @HPLIP_CLASS_DRIVER_TRUE@	rm -rf $(distdir)/copier/
 @HPLIP_CLASS_DRIVER_TRUE@	rm -rf $(distdir)/apparmor/

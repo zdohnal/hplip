@@ -14,6 +14,8 @@ htmldir = $(hphtmldir)
 doc_DATA = COPYING copyright prnt/hpijs/README_LIBJPG
 EXTRA_DIST = prnt/hpijs/gdevijs-krgb-1.5-gs8.61.patch prnt/hpijs/README_LIBJPG copyright
 UNAME = $(shell uname -m)
+EXPORT_PATH=$(shell export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/prnt/hpcups/)
+EXPORT_PATH1=$(shell export LIBRARY_PATH=$LIBRARY_PATH:$PWD/prnt/hpcups/)
 
 dist_noinst_SCRIPTS =
 dist_noinst_DATA =
@@ -162,7 +164,7 @@ if !HPLIP_CLASS_DRIVER
 dist_hplip_SCRIPTS = hpssd.py __init__.py hpdio.py
 endif #HPLIP_CLASS_DRIVER
 
-dist_noinst_DATA += prnt/drv/hpijs.drv.in.template prnt/drv/hpcups.drv.in.template
+dist_noinst_DATA += prnt/drv/hpijs.drv.in.template prnt/drv/hpcups.drv.in.template prnt/hpcups/libImageProcessor-x86_64.so prnt/hpcups/libImageProcessor-x86_32.so
 dist_noinst_SCRIPTS += dat2drv.py install.py  hplip-install init-suse-firewall init-iptables-firewall class_rpm_build.sh hplipclassdriver.spec createPPD.sh Makefile_dat2drv hpijs-drv
 
 if !HPLIP_CLASS_DRIVER
@@ -240,10 +242,9 @@ dist_apparmor_abstraction_DATA = apparmor/abstractions/hplip
 endif #APPARMOR_BUILD
 endif #!HPLIP_CLASS_DRIVER
 
-if !HPLIP_CLASS_DRIVER
 selinuxdir = 
-dist_selinux_DATA = selinux/hplip.te selinux/hplip.fc selinux/hplip.pp selinux/hplip.if
-
+dist_selinux_DATA = selinux/hplip.te selinux/hplip.fc selinux/hplip.pp selinux/hplip.if selinux/mypol.pp selinux/mypol.te
+if !HPLIP_CLASS_DRIVER
 # ptest
 noinst_PROGRAMS += ptest
 ptest_SOURCES = pcard/ptest.c pcard/ptest.h pcard/fat.c pcard/fat.h
@@ -583,10 +584,11 @@ hpcups_SOURCES = prnt/hpcups/HPCupsFilter.cpp prnt/hpcups/HPCupsFilter.h prnt/hp
 	prnt/hpcups/flate_colorspace.h prnt/hpcups/RunLenEncoding.h prnt/hpcups/common_defines.h \
 	prnt/hpcups/genPCLm.h \
 	common/utils.c common/utils.h prnt/hpcups/Hbpl1_Wrapper.cpp prnt/hpcups/genPCLm.cpp \
-	prnt/hpcups/genJPEGStrips.cpp prnt/hpcups/RunLenEncoding.cpp
+	prnt/hpcups/genJPEGStrips.cpp prnt/hpcups/RunLenEncoding.cpp \
+	prnt/hpcups/ImageProcessor.h
 
 hpcups_CXXFLAGS = $(APDK_ENDIAN_FLAG) $(DBUS_CFLAGS)
-hpcups_LDADD = -ljpeg -ldl -lcups -lcupsimage -lz $(DBUS_LIBS)
+hpcups_LDADD = -L./prnt/hpcups/ -ljpeg -ldl -lImageProcessor -lcups -lcupsimage -lz $(DBUS_LIBS)
 
 #else
 #hpcupsdir = $(cupsfilterdir)
@@ -677,6 +679,16 @@ endif #HPLIP_CLASS_DRIVER
 
 install-data-hook:
 if HPLIP_BUILD
+	if [ \( "$(UNAME)" = "x86_64" -a  -d "$(libdir)/" \) ]; then \
+		cp prnt/hpcups/libImageProcessor-x86_64.so $(libdir)/ ; \
+		chmod 775 $(libdir)/libImageProcessor-x86_64.so ; \
+		ln -sf $(libdir)/libImageProcessor-x86_64.so $(libdir)/libImageProcessor.so ; \
+	fi; \
+	if [ \( \( "$(UNAME)" = "i686" -o "$(UNAME)" = "i386" \) -a -d "$(libdir)/" \) ]; then \
+		cp prnt/hpcups/libImageProcessor-x86_32.so $(libdir)/ ; \
+		chmod 775 $(libdir)/libImageProcessor-x86_32.so ; \
+		ln -sf $(libdir)/libImageProcessor-x86_32.so $(libdir)/libImageProcessor.so ; \
+	fi
 if !HPLIP_CLASS_DRIVER
 #	   If scanner build, add hpaio entry to sane dll.conf.
 	if [ "$(scan_build)" = "yes" ]; then \
@@ -784,7 +796,7 @@ if HPLIP_CLASS_DRIVER
 	rm -rf $(distdir)/logcapture.py
 	rm -rf $(distdir)/doctor.py
 	rm -rf $(distdir)/devicesettings.py
-	rm -rf $(distdir)/selinux/
+#	rm -rf $(distdir)/selinux/
 	rm -rf $(distdir)/installer/
 	rm -rf $(distdir)/copier/
 	rm -rf $(distdir)/apparmor/

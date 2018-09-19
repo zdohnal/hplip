@@ -37,6 +37,7 @@ AUTH_TYPES = {'mepis': 'su',
               'suse': 'su',
               'mandriva': 'su',
               'fedora': 'su',
+              'fedora28': 'sudo',
               'redhat': 'su',
               'rhel': 'su',
               'slackware': 'su',
@@ -137,6 +138,11 @@ class Password(object):
         if self.__authType != "su" and self.__authType != "sudo":
             try:
                 self.__authType = AUTH_TYPES[distro_name]
+                if distro_name == 'fedora':
+                    import platform
+                    ver = int(platform.dist()[1])
+                    if ver >= 28:
+                       self.__authType = AUTH_TYPES['fedora28']
             except KeyError:
                 log.warn("%s distro is not found in AUTH_TYPES" % distro_name)
                 self.__authType = 'su'

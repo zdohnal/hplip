@@ -109,5 +109,16 @@ fi
 #aclocal
 #automake --foreign --add-missing
 #autoconf
+UNAME='uname -m'
+VER=`$UNAME`
+
+cd prnt/hpcups
+if [ "$VER" = "x86_64" ] 
+then
+	ln -sf libImageProcessor-x86_64.so libImageProcessor.so
+else
+	ln -sf libImageProcessor-x86_32.so libImageProcessor.so
+fi
+cd ../../
 
 exit 0

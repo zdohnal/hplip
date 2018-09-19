@@ -300,6 +300,9 @@ cups_ppd_printers = \
    ppd/hpcups/hp-envy_photo_6200_series.ppd.gz \
    ppd/hpcups/hp-envy_photo_7100_series.ppd.gz \
    ppd/hpcups/hp-envy_photo_7800_series.ppd.gz \
+   ppd/hpcups/hp-ink_tank_110_series.ppd.gz \
+   ppd/hpcups/hp-ink_tank_310_series.ppd.gz \
+   ppd/hpcups/hp-ink_tank_wireless_410_series.ppd.gz \
    ppd/hpcups/hp-laserjet_1000.ppd.gz \
    ppd/hpcups/hp-laserjet_1005_series.ppd.gz \
    ppd/hpcups/hp-laserjet_1010.ppd.gz \
@@ -806,5 +809,7 @@ cups_ppd_printers = \
    ppd/hpcups/hp-psc_920.ppd.gz \
    ppd/hpcups/hp-psc_950.ppd.gz \
    ppd/hpcups/hp-psc_950vr.ppd.gz \
-   ppd/hpcups/hp-psc_950xi.ppd.gz
+   ppd/hpcups/hp-psc_950xi.ppd.gz \
+   ppd/hpcups/hp-smart_tank_350_series.ppd.gz \
+   ppd/hpcups/hp-smart_tank_wireless_450_series.ppd.gz
 cups_drv = prnt/drv/hpcups.drv

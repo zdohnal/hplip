@@ -5,10 +5,10 @@ from PyQt5.QtWidgets import *
 class Ui_MainWindow_Derived(object):
     def setupUi(self, MainWindow, latest_available_version, Is_autoInstaller_distro):
         super(Ui_MainWindow_Derived, self).setupUi(MainWindow)
-        self.DiagnoseQueueAction = QAction(MainWindow)
-        self.DiagnoseQueueAction.setObjectName("DiagnoseQueueAction")
-        self.DiagnoseHPLIPAction = QAction(MainWindow)
-        self.DiagnoseHPLIPAction.setObjectName("DiagnoseHPLIPAction")
+        #self.DiagnoseQueueAction = QAction(MainWindow)
+        #self.DiagnoseQueueAction.setObjectName("DiagnoseQueueAction")
+        #self.DiagnoseHPLIPAction = QAction(MainWindow)
+        #self.DiagnoseHPLIPAction.setObjectName("DiagnoseHPLIPAction")
 
         self.latest_available_version = latest_available_version
         self.Is_autoInstaller_distro = Is_autoInstaller_distro

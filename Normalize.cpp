@@ -79,7 +79,8 @@ string TECH_CLASSES[MAX_TECH_CLASS] = {
     "CLE",
     "SPDOfficejetProBsize",
     "CLE17",
-    "Mimas17"
+    "Mimas17",
+    "P15_CISS"
 };
 
 /** string array of tech sub classes                 */
@@ -223,6 +224,7 @@ PAIR_VECTOR TechClassPdlKeySvalues()
     TECH_CLASS_KEY_VALUE.push_back(make_pair("SPDOfficejetProBsize", "pcl3"));
     TECH_CLASS_KEY_VALUE.push_back(make_pair("CLE17", "pcl3"));
     TECH_CLASS_KEY_VALUE.push_back(make_pair("Mimas17", "pcl3"));
+    TECH_CLASS_KEY_VALUE.push_back(make_pair("P15_CISS", "pcl3"));
     return TECH_CLASS_KEY_VALUE;
 }
 

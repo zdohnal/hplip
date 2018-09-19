@@ -127,7 +127,8 @@ TECH_CLASSES = [
 	"CLE",
     "SPDOfficejetProBsize",
         "CLE17",
-    "Mimas17"
+    "Mimas17",
+    "P15_CISS"
 ]
 
 TECH_CLASSES.sort()
@@ -202,7 +203,8 @@ TECH_CLASS_PDLS = {
 	"CLE"                  :'pcl3',
     "SPDOfficejetProBsize" : 'pcl3',
     "CLE17"                : 'pcl3',
-    "Mimas17"              : 'pcl3'
+    "Mimas17"              : 'pcl3',
+    "P15_CISS"             : 'pcl3'
 }
 
 PDL_TYPE_PCL = 0  # less preferred

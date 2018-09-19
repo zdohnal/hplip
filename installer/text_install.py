@@ -723,6 +723,20 @@ def start(language, auto=True, test_depends=False,
                 log.info("%s is installed. " % sec_package_name)
                 log.info(
                     "%s protects the application from external intrusion attempts making the application secure" % sec_package_name)
+                
+                if core.distro_name.lower() == 'fedora' and core.distro_version < '28':
+                    print("SELinux enabling the 'cups_execmem' boolean ")
+                    cds_cmd  = 'su -c "setsebool -P cups_execmem 1" '                    
+                    status, output = utils.run(cds_cmd, core.passwordObj)
+                    if status != 0:
+                        log.error("SELinux 'cups_execmem ' Boolean set it '1' failed with status %d" % status) 
+                elif core.distro_name.lower() == 'fedora':
+                    print("SELinux enabling the 'cups_execmem' boolean ")
+                    cds_cmd  = 'sudo setsebool -P cups_execmem 1'                    
+                    status, output = utils.run(cds_cmd, core.passwordObj)
+                    if status != 0:
+                        log.error("SELinux 'cups_execmem ' Boolean set it '1' failed with status %d" % status) 
+						
                 ok, answer = tui.enter_yes_no(
                     "\nWould you like to have this installer install the hplip specific policy/profile")
                 if not ok:

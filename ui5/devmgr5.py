@@ -322,7 +322,7 @@ class DevMgr5(Ui_MainWindow_Derived, Ui_MainWindow, QMainWindow):
         self.PreferencesAction.triggered.connect(self.PreferencesAction_activated)
 
         self.DiagnoseQueueAction.setIcon(QIcon(load_pixmap('warning', '16x16')))
-        self.DiagnoseQueueAction.triggered.connect(self.DiagnoseQueue_activated)
+        self.DiagnoseQueueAction.triggered.connect(self.DiagnoseQueueAction_activated)
 
         self.DiagnoseHPLIPAction.setIcon(QIcon(load_pixmap('troubleshoot', '16x16')))
         self.DiagnoseHPLIPAction.triggered.connect(self.DiagnoseHPLIP_activated)
@@ -783,7 +783,7 @@ class DevMgr5(Ui_MainWindow_Derived, Ui_MainWindow, QMainWindow):
                     self.cur_device = None
                     self.DeviceRefreshAction.setEnabled(False)
                     self.RemoveDeviceAction.setEnabled(False)
-                    self.DiagnoseQueueAction.setEnabled(False)
+                    #self.DiagnoseQueueAction.setEnabled(False)
                     self.updating = False
                     self.statusBar().showMessage(self.__tr("Press F6 to refresh."))
 
@@ -806,7 +806,7 @@ class DevMgr5(Ui_MainWindow_Derived, Ui_MainWindow, QMainWindow):
 
             if self.cur_device is not None:
                 self.RemoveDeviceAction.setEnabled(True)
-                self.DiagnoseQueueAction.setEnabled(True)
+                #self.DiagnoseQueueAction.setEnabled(True)
 
                 self.statusBar().showMessage(self.cur_device_uri)
                 self.updateWindowTitle()
@@ -2166,7 +2166,7 @@ class DevMgr5(Ui_MainWindow_Derived, Ui_MainWindow, QMainWindow):
         self.updatePrinterCombos()
 
 
-    def DiagnoseQueue_activated(self):
+    def DiagnoseQueueAction_activated(self):
         if utils.which('hp-diagnose_queues'):
             cmd= 'hp-diagnose_queues --gui'
         else:

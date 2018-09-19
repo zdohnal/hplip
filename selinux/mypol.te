@@ -1,0 +1,10 @@
+
+module mypol 1.0;
+
+require {
+	type cupsd_t;
+	class process execmem;
+}
+
+#============= cupsd_t ==============
+allow cupsd_t self:process execmem;

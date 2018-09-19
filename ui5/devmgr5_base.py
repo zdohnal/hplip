@@ -333,6 +333,10 @@ class Ui_MainWindow(object):
         self.ViewAsListAction.setObjectName("ViewAsListAction")
         self.ViewAsIconsAction = QtWidgets.QAction(MainWindow)
         self.ViewAsIconsAction.setObjectName("ViewAsIconsAction")
+        self.DiagnoseQueueAction = QtWidgets.QAction(MainWindow)
+        self.DiagnoseQueueAction.setObjectName("DiagnoseQueueAction")
+        self.DiagnoseHPLIPAction = QtWidgets.QAction(MainWindow)
+        self.DiagnoseHPLIPAction.setObjectName("DiagnoseHPLIPAction")
         self.DeviceMenu.addAction(self.DeviceSettingsAction)
         self.DeviceMenu.addSeparator()
         self.DeviceMenu.addAction(self.DeviceRefreshAction)
@@ -340,6 +344,9 @@ class Ui_MainWindow(object):
         self.DeviceMenu.addSeparator()
         self.DeviceMenu.addAction(self.SetupDeviceAction)
         self.DeviceMenu.addAction(self.RemoveDeviceAction)
+        self.DeviceMenu.addSeparator()
+        self.DeviceMenu.addAction(self.DiagnoseQueueAction)
+        self.DeviceMenu.addAction(self.DiagnoseHPLIPAction)
         self.DeviceMenu.addSeparator()
         self.DeviceMenu.addAction(self.QuitAction)
         self.ConfigureMenu.addAction(self.PreferencesAction)
@@ -356,6 +363,9 @@ class Ui_MainWindow(object):
         self.toolBar.addSeparator()
         self.toolBar.addAction(self.SetupDeviceAction)
         self.toolBar.addAction(self.RemoveDeviceAction)
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.DiagnoseQueueAction)
+        self.toolBar.addAction(self.DiagnoseHPLIPAction)
         self.toolBar.addSeparator()
         self.toolBar.addAction(self.ContentsAction)
 
@@ -405,5 +415,7 @@ class Ui_MainWindow(object):
         self.ViewAsListAction.setToolTip(_translate("MainWindow", "View Devices as a list"))
         self.ViewAsIconsAction.setText(_translate("MainWindow", "View as Icons"))
         self.ViewAsIconsAction.setToolTip(_translate("MainWindow", "View device list as icons"))
+        self.DiagnoseQueueAction.setText(_translate("MainWindow", "Diagnose Queues..."))
+        self.DiagnoseHPLIPAction.setText(_translate("MainWindow", "Diagnose HPLIP Driver..."))
 
 from .printsettingstoolbox import PrintSettingsToolbox
