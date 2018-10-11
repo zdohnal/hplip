@@ -38,7 +38,6 @@ import time
 import socket
 import operator
 import scanext
-
 # Local
 from base.g import *
 from base.sixext import PY3
@@ -46,6 +45,15 @@ from base import tui, device, module, utils, os_utils
 from prnt import cups
 from scan import sane
 
+#if con_device == 5000 or con_device == 7500:
+import platform
+#from datetime import datetime
+try:
+    from base import imageprocessing
+except ImportError:
+    print (" ")
+
+#from PIL import ImageStat
 
 username = prop.username
 r = res = 300
@@ -62,11 +70,11 @@ email_to = []
 email_subject = 'hp-scan from %s' % socket.gethostname()
 email_note = ''
 resize = 100
-contrast = 0
-set_contrast = False
 brightness = 0
 set_brightness = False
-brightness = 0
+contrast = 0
+set_contrast = False
+
 page_size = ''
 size_desc = ''
 page_units = 'mm'
@@ -76,6 +84,46 @@ adf = False
 duplex = False
 dest_printer = None
 dest_devUri = None
+uiscan = False
+#if con_device == 5000 or con_device == 7500:
+sharpness = 0
+set_sharpness = False
+color_value = 0
+set_color_value = False
+barcode_found = 0
+barcode_data = list()
+barcode_count =0
+barcode_first_occurence = True
+barcode_first_page = False
+save_file = ''
+output_path = os.getcwd()
+ext = ".png"
+multipick = False
+blank_page = False
+isBlankPage = False
+auto_orient = False
+crushed = False
+auto_crop = False
+deskew_image = False
+lineart_mode = False
+document_merge = False
+mixed_feed = False
+batchsepBC = False
+batchsepBP = False
+barcode = False
+merge_ADF_Flatbed = False
+temp_list = []
+blankpage_found = 0
+bp_no = 0
+pyPlatform = 0
+blankpage_data = list()
+blankpage_count =0
+blankpage_first_occurence = True
+blankpage_first_page = False
+orient = 0
+orient_list = []
+multipick_error_message = "The scan operation has been cancelled or a multipick or paper is jammed in the ADF.\nIf you cancelled the scan,click OK.\nIf the scan was terminated due to a multi-feed or paper jam in the ADF,\ndo the following:\n\n1)Clear the ADF path. For instructions see your product documentation.\n2)Check the sheets are not stuck together. Remove any staples, sticky notes,tape or other objects.\n3)Restart the scan\n\nNote:If necessary, turn off automatic detection of multi-pick before starting a new scan\n"
+SANE_STATUS_MULTIPICK=12
 
 PAGE_SIZES = { # in mm
     '5x7' : (127, 178, "5x7 photo", 'in'),
@@ -103,6 +151,64 @@ PAGE_SIZES = { # in mm
     "super_b" : (330, 483, "Super B", 'in'),
     }
 
+def createPagesFile(adf_page_files,pages_file,file_type='.png'):
+    #print ("called create page files")
+    #print (adf_page_files)
+    if not 'hpscan' in pages_file:
+        pages_file=pages_file+'_'
+    output = utils.createBBSequencedFilename(pages_file, file_type, output_path)
+
+    if file_type == '.pdf':
+        if len(adf_page_files):
+            try:      
+                output = imageprocessing.generatePdfFile(adf_page_files,output)
+            except ImportError:
+                try:
+                    output = imageprocessing.generatePdfFile_canvas(adf_page_files,output,orient_list,brx,bry,tlx,tly,output_path)
+                except ImportError as error:
+                    if error.message.split(' ')[-1] == 'PIL':
+                        log.error("PDF output requires PIL.")
+                    else:
+                        log.error("PDF output requires ReportLab.")
+                    sys.exit(1)				
+            temp_list.append(output)
+            #print temp_list
+            #imageprocessing.merge_PDF_viewer(output)
+            #cmd = "%s %s &" % (pdf_viewer, output)               
+            #os_utils.execute(cmd)
+    elif file_type == '.tiff':
+         file_name = ''
+         #print "entered tiff"
+         #print adf_page_files
+         for p in adf_page_files:           
+             file_name = file_name + " " + p
+             cmd = "convert %s %s" %(file_name,output)
+             status = utils.run(cmd)
+             #print ("***********************")
+             #print (status[0])
+             #print (status[1])
+             if status[0] == -1:
+                 #print ("entered status -1")  
+                 log.error("Convert command not found.")
+                 sys.exit(6)
+         #print adf_page_files
+         for p in adf_page_files:
+             os.remove(p)
+         #temp_list.append(output)
+    else:
+        for p in adf_page_files:
+            im = Image.open(p)
+            output = utils.createBBSequencedFilename(pages_file, file_type, output_path)
+            '''pyPlatform = platform.python_version()
+            num = pyPlatform.split('.')
+            if num[0] >= '3':
+                im = im.convert("RGB")'''
+            try:
+                im.save(output,compress_level=1)
+            except:
+                im = im.convert("RGB")
+                im.save(output,compress_level=1)
+            os.unlink(p)
 
 try:
     viewer = ''
@@ -123,7 +229,7 @@ try:
             break
 
     pdf_viewer = ''
-    pdf_viewer_list = ['kpdf', 'acroread', 'xpdf', 'evince',]
+    pdf_viewer_list = ['kpdf', 'acroread', 'xpdf', 'evince', 'xdg-open']
     for v in pdf_viewer_list:
         vv = utils.which(v)
         if vv:
@@ -133,8 +239,8 @@ try:
     mod = module.Module(__mod__, __title__, __version__, __doc__, None,
                         (INTERACTIVE_MODE,))
 
-    mod.setUsage(module.USAGE_FLAG_DEVICE_ARGS,
-        extra_options=[utils.USAGE_SPACE,
+    
+    extra_options=[utils.USAGE_SPACE,
         ("[OPTIONS] (General)", "", "header", False),
         ("Scan destinations:", "-s<dest_list> or --dest=<dest_list>", "option", False),
         ("", "where <dest_list> is a comma separated list containing one or more of: 'file'\*, ", "option", False),
@@ -178,6 +284,7 @@ try:
         utils.USAGE_SPACE,
         ("[OPTIONS] ('file' dest)", "", "header", False),
         ("Filename for 'file' destination:", "-o<file> or -f<file> or --file=<file> or --output=<file>", "option", False),
+        #("Destination:", "--path=<destination>", "option", False),
         utils.USAGE_SPACE,
         ("[OPTIONS] ('pdf' dest)", "", "header", False),
         ("PDF viewer application:", "--pdf=<pdf_viewer>", "option", False),
@@ -201,13 +308,29 @@ try:
         ("Printer device-URI dest:", "--dd=<device-uri> or --dest-device=<device-uri>", "option", False),
         utils.USAGE_SPACE,
         ("[OPTIONS] (advanced)", "", "header", False),
-        ("Set the scanner compression mode:", "-x<mode> or --compression=<mode>, <mode>='raw', 'none' or 'jpeg' ('jpeg' is default) ('raw' and 'none' are equivalent)", "option", False),],
-        see_also_list=[])
+        ("Set the scanner compression mode:", "-x<mode> or --compression=<mode>, <mode>='raw', 'none' or 'jpeg' ('jpeg' is default) ('raw' and 'none' are equivalent)", "option", False),]
 
-    opts, device_uri, printer_name, mode, ui_toolkit, lang = \
-        mod.parseStdOpts('s:m:r:c:t:a:b:o:v:f:c:x:e:',
-                         ['dest=', 'mode=', 'res=', 'resolution=',
-                          'resize=', 'contrast=', 'adf', 'duplex', 'dup', 'unit=',
+    '''scanjet=[utils.USAGE_SPACE,("[OPTIONS] (Scanjet)", "", "header", False),("multi-pick mode:", "--multipick (multipick detection enabled)", "option", False),
+        ("Auto-orientation mode:", "--autoorient (auto orientation enabled)", "option", False),
+        ("Crushed:", "--crushed (crushed enabled)", "option", False),
+        ("batchsep and blankpage mode:", "--batchsepBP (Batch Seperation Blankpage enabled)", "option", False),
+        ("batchsep and Barcode mode:", "--batchsepBC (Batch Seperation barcode enabled)", "option", False),
+        ("Auto-Crop mode:", "--autocrop (auto crop enabled)", "option", False),
+	("Deskew mode:", "--deskew (deskew enabled)", "option", False),
+	("Mixed-feed mode:", "--mixedfeed (multi feed enabled)", "option", False),
+        ("Document merge:", "--docmerge (document merge enabled)", "option", False),
+        ("Document merge ADF Flatbed:", "--adf_fladbed_merge (document merge ADF and Flatbed UI application enabled)", "option", False),
+        ("Image contrast:", "--contrast=<contrast>", "option", False),
+        ("", "The contrast range varies from device to device.", "option", False),
+        ("Image brightness:", "--brightness=<brightness>", "option", False),
+        ("", "The brightness range varies from device to device.", "option", False),
+        ("Image sharpness:", "--sharpness=<sharpness>", "option", False),
+        ("", "The sharpness range varies from device to device.", "option", False),
+        ("Image color:", "--color_value=<color_value>", "option", False),
+        ("", "The color range varies from device to device.", "option", False),
+	("Blank Page Removal:", "--blankpage(blank page removal enabled)", "option", False)]'''
+    scan_parseStdOpts = ['dest=', 'mode=', 'res=', 'resolution=',
+                          'resize=', 'adf', 'duplex', 'dup', 'unit=',
                           'units=', 'area=', 'box=', 'tlx=',
                           'tly=', 'brx=', 'bry=', 'size=',
                           'file=', 'output=', 'pdf=', 'viewer=',
@@ -220,9 +343,68 @@ try:
                           'subject=', 'to=', 'from=', 'jpg',
                           'grey-scale', 'gray-scale', 'about=',
                           'editor=', 'dp=', 'dest-printer=', 'dd=',
-                          'dest-device=', 'brightness=', 
-                         ])
+                          'dest-device=', 'brightness=', 'contrast=','filetype=', 'path=', 'uiscan', 'sharpness=', 'color_value=','multipick','autoorient','blankpage','batchsepBP','mixedfeed', 'crushed','docmerge','adf_fladbed_merge','batchsepBC','deskew','autocrop',]
 
+    '''scanjet_parseStdOpts = [ 'brightness=', 'sharpness=', 'contrast=', 'color_value=','multipick','autoorient','blankpage','batchsepBP','mixedfeed', 'crushed','docmerge','adf_fladbed_merge','batchsepBC','deskew','autocrop',]
+
+    scanjet_flag_pil=imageprocessing.check_pil()
+    scanjet_flag_numpy=imageprocessing.check_numpy()
+    scanjet_flag_opencv=imageprocessing.check_opencv()
+    scanjet_flag_tesser_utils=imageprocessing.check_tesserocr_imutils()
+    scanjet_flag_pypdf2=imageprocessing.check_pypdf2()
+    scanjet_flag_barcode=imageprocessing.check_zbar()
+    try:
+        if scanjet_flag_pil == 'PIL':
+            scanjet_parseStdOpts = []
+        if scanjet_flag_numpy == 'numpy':
+            parse_list = ['multipick','autoorient','batchsepBP','mixedfeed', 'crushed','docmerge','adf_fladbed_merge','batchsepBC','deskew','autocrop']
+            for thing in parse_list: 
+                try:
+                    scanjet_parseStdOpts.remove(thing)
+                except ValueError:
+                    print ('')
+        if scanjet_flag_opencv == 'cv2':
+            parse_list = ['deskew','autocrop','mixedfeed']
+            for thing in parse_list: 
+                try:
+                    scanjet_parseStdOpts.remove(thing)
+                except ValueError:
+                    print ('')
+        if scanjet_flag_tesser_utils == 'tesserocr' or scanjet_flag_tesser_utils == 'imutils':
+            parse_list = ['autoorient']
+            for thing in parse_list: 
+                try:
+                    scanjet_parseStdOpts.remove(thing)
+                except ValueError:
+                    print ('')
+        if scanjet_flag_pypdf2 == 'PyPDF2':
+            parse_list = ['docmerge','adf_fladbed_merge']
+            for thing in parse_list: 
+                try:
+                    scanjet_parseStdOpts.remove(thing)
+                except ValueError:
+                    print ('')
+        if scanjet_flag_barcode == 'False':
+            parse_list = ['batchsepBC']
+            for thing in parse_list: 
+                try:
+                    scanjet_parseStdOpts.remove(thing)
+                except ValueError:
+                    print ('')
+    except TypeError:
+        print ('')'''
+    #if con_device == 5000 or con_device == 7500:
+	#scanjet=[("Destination:", "--path=<destination>", "option", False),]
+        #extra_options.extend(scanjet)
+        #scanjet_parseStdOpts = ['filetype=', 'path=', 'uiscan', 'sharpness=', 'color_value=','multipick','autoorient','blankpage','batchsepBP','mixedfeed', 'crushed','docmerge','adf_fladbed_merge','batchsepBC','deskew','autocrop',] 
+        #scan_parseStdOpts.extend(scanjet_parseStdOpts)
+    mod.setUsage(module.USAGE_FLAG_DEVICE_ARGS, extra_options, see_also_list=[])
+
+    #print devicelist 
+    #print "parse scan opts"
+    opts, device_uri, printer_name, mode, ui_toolkit, lang = \
+        mod.parseStdOpts('s:m:r:c:t:a:b:o:v:f:c:x:e:', scan_parseStdOpts)
+    #print device_uri
 
     sane.init()
     sane_devices = sane.getDevices()
@@ -235,9 +417,12 @@ try:
         else:
             devicelist[d].append(mdl)
     sane.deInit()
+
+    #print devicelist
+    #print "near getdevice uri"
     device_uri = mod.getDeviceUri(device_uri, printer_name,
         back_end_filter=['hpaio'], filter={'scan-type': (operator.gt, 0)}, devices=devicelist)
-
+    #print device_uri
     if not device_uri:
         sys.exit(1)
 
@@ -256,6 +441,28 @@ try:
                 log.error("Using default value of 'jpeg'.")
                 scanner_compression = 'JPEG'
 
+        elif o == '--filetype':
+            #a=a.strp().lower()
+            #print (a)
+            if a == 'png':
+                save_file = 'png'
+                ext = ".png"
+            elif a == 'jpg':
+                save_file = 'jpg'
+                ext = ".jpg"
+            elif a == 'pdf':
+                save_file = 'pdf'
+                ext = ".pdf"
+            elif a == 'tiff':
+                save_file = 'tiff'
+                ext = '.tiff'
+            else:
+                save_file = 'png'
+                ext = ".png"
+        
+        elif o == '--path':
+            output_path = a
+        
         elif o == 'raw':
             scanner_compression = 'None'
 
@@ -278,6 +485,9 @@ try:
                 scan_mode = 'color'
 
             elif a in ('lineart', 'bw', 'b&w'):
+                if (re.search(r'_7500', device_uri)):
+                    log.error("lineart mode is not supported for this device.")
+                    sys.exit(1)
                 scan_mode = 'lineart'
 
             elif a in ('gray', 'grayscale', 'grey', 'greyscale'):
@@ -538,7 +748,7 @@ try:
         elif o in ('-b', '--brightness'):
             try:
                 set_brightness = True
-                brightness = int(a.strip())
+                brightness = float(a.strip())
             except ValueError:
                 log.error("Invalid brightness value. Using default of 0.")
                 brightness = 0
@@ -546,21 +756,119 @@ try:
         elif o in ('-c', '--contrast'):
             try:
                 set_contrast = True
-                contrast = int(a.strip())
+                contrast = float(a.strip())
             except ValueError:
                 log.error("Invalid contrast value. Using default of 0.")
                 contrast = 0
+                
+        elif o in ('--sharpness'):
+            try:
+                set_sharpness = True
+                #contrast = int(a.strip())
+                sharpness = float(a.strip())
+                #print sharpness
+            except ValueError:
+                log.error("Invalid sharpness value. Using default of 0.")
+                sharpness = 0
+                
+        elif o in ('--color_value'):
+            try:
+                set_color_value = True
+                #contrast = int(a.strip())
+                color_value = float(a.strip())
+                #print color_value
+            except ValueError:
+                log.error("Invalid color_value. Using default of 0.")
+                color_value = 0
 
         elif o == '--adf':
             adf = True
-            output_type = 'pdf'
+            if uiscan == False:
+                output_type = 'pdf'
         elif o in ('--dup', '--duplex'):
             duplex = True
             adf = True
-            output_type = 'pdf'
+            if uiscan == False:
+                output_type = 'pdf'
+        elif o == '--blankpage':
+            try:
+                blank_page = True		
+            except ValueError:
+                log.error("Invalid Option.Using default of False")
+                blank_page = False
+        elif o == '--multipick':
+            try:
+                multipick = True
+                #scanext.setMultipick(multipick)	
+            except ValueError:
+                log.error("Invalid Option.Using default of False")
+                multipick = False
+        elif o == '--autocrop':
+            try:
+                auto_crop = True	
+            except ValueError:
+                log.error("Invalid Option.Using default of False")
+                auto_crop = False
+        elif o == '--deskew':
+            try:
+                deskew_image = True		
+            except ValueError:
+                log.error("Invalid Option.Using default of False")
+                deskew_image = False
+        elif o == '--autoorient':
+            #print o
+            try:
+                auto_orient = True                
+            except ValueError:
+                log.error("Invalid Option.Using default of False")
+                auto_orient = False
+        elif o == '--crushed':
+            #print o
+            try:
+                crushed = True                
+            except ValueError:
+                log.error("Invalid Option.Using default of False")
+                crushed = False
+        elif o == '--mixedfeed':
+            try:
+                mixed_feed = True
+            except ValueError:
+                log.error("Invalid Option.Using default of False")
+                mixed_feed = False
+        elif o == '--docmerge':
+            try:
+                document_merge = True                
+            except ValueError:
+                log.error("Invalid Option.Using default of False")
+                document_merge = False
+        elif o == '--adf_fladbed_merge':
+            try:
+                merge_ADF_Flatbed = True                
+            except ValueError:
+                log.error("Invalid Option.Using default of False")
+                merge_ADF_Flatbed = False					
+        elif o == '--batchsepBC':
+            try:
+                batchsepBC = True
+            except ValueError:
+                log.error("Invalid Option.Using default of False")
+                batchsepBC = False
+        elif o == '--batchsepBP':
+            try:
+                batchsepBP = True
+            except ValueError:
+                log.error("Invalid Option.Using default of False")
+                batchsepBP = False
+        elif o == '--uiscan':
+            try:
+                uiscan = True	
+            except ValueError:
+                log.error("Invalid Option.Using default of False")
+                uiscan = False
 
     if not dest:
-        log.warn("No destinations specified. Adding 'file' destination by default.")
+        if uiscan == False:
+            log.warn("No destinations specified. Adding 'file' destination by default.")
         dest.append('file')
 
     if 'email' in dest and (not email_from or not email_to):
@@ -641,12 +949,16 @@ try:
             log.error("Unable to locate device %s using SANE backend hpaio:. Please check HPLIP installation." % device_uri)
             sys.exit(1)
 
-        log.info(log.bold("Using device %s" % device_uri))
-        log.info("Opening connection to device...")
+        if uiscan == False:
+            log.info(log.bold("Using device %s" % device_uri))
+            log.info("Opening connection to device...")
 
         try:
             device = sane.openDevice(device_uri)
         except scanext.error as e:
+            if multipick and e.args[0] == SANE_STATUS_MULTIPICK:
+                 log.error(multipick_error_message)
+                 sys.exit(2)
             sane.reportError(e.args[0])
             sys.exit(1)
 
@@ -673,6 +985,8 @@ try:
                     if duplex == True:
                         if 'Duplex' in source_option:
                             device.setOption("source", "Duplex")
+                        elif 'ADF-MultiPage-Duplex' in source_option:
+                            device.setOption("source", "ADF-MultiPage-Duplex")
                         else:
                             log.warn("Device doesn't support Duplex scanning. Continuing with Simplex ADF scan.")
                             device.setOption("source", "ADF")
@@ -740,89 +1054,108 @@ try:
 
         device.setOption('compression', scanner_compression)
 
-        if set_contrast:
-            valid_contrast = device.getOptionObj('contrast').constraint
-            if contrast >= int(valid_contrast[0]) and contrast <= int(valid_contrast[1]):
-                contrast = device.getOptionObj('contrast').limitAndSet(contrast)
-            else:
-                log.warn("Invalid contrast. Contrast range is (%d, %d). Using closest valid contrast of %d " % (int(valid_contrast[0]), int(valid_contrast[1]), contrast))
-                if contrast < int(valid_contrast[0]):
-                    contrast = int(valid_contrast[0])
-                elif contrast > int(valid_contrast[1]):
-                    contrast = int(valid_contrast[1])
+        if uiscan == False and set_contrast:
+            contrast = int(contrast)
+            try:
+                valid_contrast = device.getOptionObj('contrast').constraint
+                if contrast >= int(valid_contrast[0]) and contrast <= int(valid_contrast[1]):
+                    contrast = device.getOptionObj('contrast').limitAndSet(contrast)
+                else:
+                    log.warn("Invalid contrast. Contrast range is (%d, %d). Using closest valid contrast of %d " % (int(valid_contrast[0]), int(valid_contrast[1]), contrast))
+                    if contrast < int(valid_contrast[0]):
+                        contrast = int(valid_contrast[0])
+                    elif contrast > int(valid_contrast[1]):
+                        contrast = int(valid_contrast[1])
+                device.setOption('contrast', contrast)
+            except:
+                log.warn("Unable to set contrast for this device. Using default of 0.")
+                contrast = 0
 
-
-            device.setOption('contrast', contrast)
-
-        if set_brightness:
-            valid_brightness = device.getOptionObj('brightness').constraint
-            if brightness >= int(valid_brightness[0]) and brightness <= int(valid_brightness[1]):
-                brightness = device.getOptionObj('brightness').limitAndSet(brightness)
-            else:
-                log.warn("Invalid brightness. Brightness range is (%d, %d). Using closest valid brightness of %d " % (int(valid_brightness[0]), int(valid_brightness[1]), brightness))
-                if brightness < int(valid_brightness[0]):
-                    brightness = int(valid_brightness[0])
-                elif brightness > int(valid_brightness[1]):
-                    brightness = int(valid_brightness[1])
-            device.setOption('brightness', brightness)
-
+        if uiscan == False and set_brightness:
+            brightness = int(brightness)
+            #print device
+            try:
+                valid_brightness = device.getOptionObj('brightness').constraint
+                if brightness >= int(valid_brightness[0]) and brightness <= int(valid_brightness[1]):
+                    brightness = device.getOptionObj('brightness').limitAndSet(brightness)
+                else:
+                    log.warn("Invalid brightness. Brightness range is (%d, %d). Using closest valid brightness of %d " % (int(valid_brightness[0]), int(valid_brightness[1]), brightness))
+                    if brightness < int(valid_brightness[0]):
+                        brightness = int(valid_brightness[0])
+                    elif brightness > int(valid_brightness[1]):
+                        brightness = int(valid_brightness[1])
+                device.setOption('brightness', brightness)
+            except:
+                log.warn("Unable to set brightness for this device. Using default of 0.")
+                brightness = 0
         if brx - tlx <= 0.0 or bry - tly <= 0.0:
             log.error("Invalid scan area (width or height is negative).")
             sys.exit(1)
 
-        log.info("")
-        log.info("Resolution: %ddpi" % res)
-        log.info("Mode: %s" % scan_mode)
-        log.info("Compression: %s" % scanner_compression)
+        if uiscan == False:
+            log.info("")
+            log.info("Resolution: %ddpi" % res)
+            log.info("Mode: %s" % scan_mode)
+            log.info("Compression: %s" % scanner_compression)
         if(set_contrast):
-            log.info("Contrast: %d" % contrast)
+            if uiscan == False:
+                log.info("Contrast: %d" % contrast)
         if(set_brightness):
-            log.info("Brightness: %d" % brightness)
+            if uiscan == False:
+                log.info("Brightness: %d" % brightness)
         if units == 'mm':
-            log.info("Scan area (mm):")
-            log.info("  Top left (x,y): (%fmm, %fmm)" % (tlx, tly))
-            log.info("  Bottom right (x,y): (%fmm, %fmm)" % (brx, bry))
-            log.info("  Width: %fmm" % (brx - tlx))
-            log.info("  Height: %fmm" % (bry - tly))
+            if uiscan == False:
+                log.info("Scan area (mm):")
+                log.info("  Top left (x,y): (%fmm, %fmm)" % (tlx, tly))
+                log.info("  Bottom right (x,y): (%fmm, %fmm)" % (brx, bry))
+                log.info("  Width: %fmm" % (brx - tlx))
+                log.info("  Height: %fmm" % (bry - tly))
 
         if page_size:
             units = page_units # for display purposes only
-            log.info("Page size: %s" % size_desc)
+            if uiscan == False:
+                log.info("Page size: %s" % size_desc)
             if units != 'mm':
-                log.note("This scan area below in '%s' units may not be exact due to rounding errors." % units)
+                if uiscan == False:
+                    log.note("This scan area below in '%s' units may not be exact due to rounding errors." % units)
 
         if units == 'in':
-            log.info("Scan area (in):")
-            log.info("  Top left (x,y): (%fin, %fin)" % (tlx/25.4, tly/25.4))
-            log.info("  Bottom right (x,y): (%fin, %fin)" % (brx/25.4, bry/25.4))
-            log.info("  Width: %fin" % ((brx - tlx)/25.4))
-            log.info("  Height: %fin" % ((bry - tly)/25.4))
+            if uiscan == False:
+                log.info("Scan area (in):")
+                log.info("  Top left (x,y): (%fin, %fin)" % (tlx/25.4, tly/25.4))
+                log.info("  Bottom right (x,y): (%fin, %fin)" % (brx/25.4, bry/25.4))
+                log.info("  Width: %fin" % ((brx - tlx)/25.4))
+                log.info("  Height: %fin" % ((bry - tly)/25.4))
 
         elif units == 'cm':
-            log.info("Scan area (cm):")
-            log.info("  Top left (x,y): (%fcm, %fcm)" % (tlx/10.0, tly/10.0))
-            log.info("  Bottom right (x,y): (%fcm, %fcm)" % (brx/10.0, bry/10.0))
-            log.info("  Width: %fcm" % ((brx - tlx)/10.0))
-            log.info("  Height: %fcm" % ((bry - tly)/10.0))
+            if uiscan == False:
+                log.info("Scan area (cm):")
+                log.info("  Top left (x,y): (%fcm, %fcm)" % (tlx/10.0, tly/10.0))
+                log.info("  Bottom right (x,y): (%fcm, %fcm)" % (brx/10.0, bry/10.0))
+                log.info("  Width: %fcm" % ((brx - tlx)/10.0))
+                log.info("  Height: %fcm" % ((bry - tly)/10.0))
 
         elif units == 'px':
-            log.info("Scan area (px @ %ddpi):" % res)
-            log.info("  Top left (x,y): (%fpx, %fpx)" % (tlx*res/25.4, tly*res/25.4))
-            log.info("  Bottom right (x,y): (%fpx, %fpx)" % (brx*res/25.4, bry*res/25.4))
-            log.info("  Width: %fpx" % ((brx - tlx)*res/25.4))
-            log.info("  Height: %fpx" % ((bry - tly)*res/25.4))
+            if uiscan == False:
+                log.info("Scan area (px @ %ddpi):" % res)
+                log.info("  Top left (x,y): (%fpx, %fpx)" % (tlx*res/25.4, tly*res/25.4))
+                log.info("  Bottom right (x,y): (%fpx, %fpx)" % (brx*res/25.4, bry*res/25.4))
+                log.info("  Width: %fpx" % ((brx - tlx)*res/25.4))
+                log.info("  Height: %fpx" % ((bry - tly)*res/25.4))
 
         elif units == 'pt':
-            log.info("Scan area (pt):")
-            log.info("  Top left (x,y): (%fpt, %fpt)" % (tlx/0.3528, tly/0.3528))
-            log.info("  Bottom right (x,y): (%fpt, %fpt)" % (brx/0.3528, bry/0.3528))
-            log.info("  Width: %fpt" % ((brx - tlx)/0.3528))
-            log.info("  Height: %fpt" % ((bry - tly)/0.3528))
-
-        log.info("Destination(s): %s" % ', '.join(dest))
+            if uiscan == False:
+                log.info("Scan area (pt):")
+                log.info("  Top left (x,y): (%fpt, %fpt)" % (tlx/0.3528, tly/0.3528))
+                log.info("  Bottom right (x,y): (%fpt, %fpt)" % (brx/0.3528, bry/0.3528))
+                log.info("  Width: %fpt" % ((brx - tlx)/0.3528))
+                log.info("  Height: %fpt" % ((bry - tly)/0.3528))
+        if uiscan == False:
+            log.info("Destination(s): %s" % ', '.join(dest))
 
         if 'file' in dest:
-            log.info("Output file: %s" % output)
+            if uiscan == False:
+                log.info("Output file: %s" % output)
 
         update_queue = queue.Queue()
         event_queue = queue.Queue()
@@ -840,58 +1173,68 @@ try:
         #For some devices, resolution is changed when we set 'source'.
         #Hence we need to set resolution here, after setting the 'source'
         device.setOption("resolution", res)
+        if uiscan == False:
+            if 'file' in dest and not output:
+                if uiscan == False:
+                    log.warn("File destination enabled with no output file specified.")
 
-        if 'file' in dest and not output:
-            log.warn("File destination enabled with no output file specified.")
-
-            if adf:
-               log.info("Setting output format to PDF for ADF mode.")
-               output = utils.createSequencedFilename("hpscan", ".pdf")
-               output_type = 'pdf'
+                if adf:
+                    if uiscan == False:
+                        log.info("Setting output format to PDF for ADF mode.")
+                    '''if merge_ADF_Flatbed == True:
+                        output = utils.createSequencedFilename("hpscanMerge", ext,output_path)
+                    else:'''
+                    output = utils.createSequencedFilename("hpscan", ".pdf")
+                    output_type = 'pdf'
+                else:
+                    if scan_mode == 'gray':
+                        if uiscan == False:
+                            log.info("Setting output format to PNG for greyscale mode.")
+                        output = utils.createSequencedFilename("hpscan", ".png")
+                        output_type = 'png'
+                    else:
+                        if uiscan == False:
+                            log.info("Setting output format to JPEG for color/lineart mode.")
+                        output = utils.createSequencedFilename("hpscan", ".jpg")
+                        output_type = 'jpeg'
+                if uiscan == False:
+                    log.warn("Defaulting to '%s'." % output)
+                #print (output_type)
             else:
-               if scan_mode == 'gray':
-                  log.info("Setting output format to PNG for greyscale mode.")
-                  output = utils.createSequencedFilename("hpscan", ".png")
-                  output_type = 'png'
-               else:
-                  log.info("Setting output format to JPEG for color/lineart mode.")
-                  output = utils.createSequencedFilename("hpscan", ".jpg")
-                  output_type = 'jpeg'
+                try:
+                    output_type = os.path.splitext(output)[1].lower()[1:]
+                    if output_type == 'jpg':
+                        output_type = 'jpeg'
+                except IndexError:
+                    output_type = ''
 
-            log.warn("Defaulting to '%s'." % output)
+            if output_type and output_type not in ('jpeg', 'png', 'pdf'):
+                log.error("Invalid output file format. File formats must be 'jpeg', 'png' or 'pdf'.")
+                sys.exit(1)
 
-        else:
-            try:
-               output_type = os.path.splitext(output)[1].lower()[1:]
-               if output_type == 'jpg':
-                  output_type = 'jpeg'
-            except IndexError:
-               output_type = ''
-
-        if output_type and output_type not in ('jpeg', 'png', 'pdf'):
-            log.error("Invalid output file format. File formats must be 'jpeg', 'png', or 'pdf'.")
-            sys.exit(1)
-
-        if adf and output_type and output_type != 'pdf':
-            log.error("ADF scans must be saved in PDF file format.")
-            sys.exit(1)
-
-        log.info("\nWarming up...")
+            if adf and output_type and output_type != 'pdf':
+                log.error("ADF scans must be saved in PDF file format.")
+                sys.exit(1)
+            log.info("\nWarming up...")
 
         no_docs = False
         page = 1
+        barcode_index=0
+        blankpage_index=0
         adf_page_files = []
-        #adf_pages = []
-
+        blank_cnt=0
+        page_list=[]
         cleanup_spinner()
         log.info("")
-
         try:
+            #start=datetime.now()
             while True:
                 if adf:
-                    log.info("\nPage %d: Scanning..." % page)
+                    if uiscan == False:
+                        log.info("\nPage %d: Scanning..." % page)
                 else:
-                    log.info("\nScanning...")
+                    if uiscan == False:
+                        log.info("\nScanning...")
 
                 bytes_read = 0
 
@@ -901,31 +1244,42 @@ try:
                         # Note: On some scanners (Marvell) expected_bytes will be < 0 (if lines == -1)
                         log.debug("expected_bytes = %d" % expected_bytes)
                     except scanext.error as e:
+                        if adf and e.args[0] == SANE_STATUS_MULTIPICK and multipick:
+                            log.error(multipick_error_message)
+                            sys.exit(2)
                         sane.reportError(e.args[0])
                         sys.exit(1)
                     except KeyboardInterrupt:
                         log.error("Aborted.")
                         device.cancelScan()
                         sys.exit(1)
-
                     if adf and status == scanext.SANE_STATUS_NO_DOCS:
                         if page-1 == 0:
-                            log.error("No document(s). Please load documents and try again.")
-                            sys.exit(0)
+                            if uiscan == False:
+                                log.error("No document(s). Please load documents and try again.")
+                            sys.exit(3)
                         else:
-                            log.info("Out of documents. Scanned %d pages total." % (page-1))
+                            if uiscan == False:
+                                log.info("Out of documents. Scanned %d pages total." % (page-1))
                             no_docs = True
                             break
+                    if adf and status == SANE_STATUS_MULTIPICK:
+                        if multipick:
+                            log.error(multipick_error_message)
+                            sys.exit(2)
 
                     if expected_bytes > 0:
                         if adf:
-                            log.debug("Expecting to read %s from scanner (per page)." % utils.format_bytes(expected_bytes))
+                            if uiscan == False:
+                                log.debug("Expecting to read %s from scanner (per page)." % utils.format_bytes(expected_bytes))
                         else:
-                            log.debug("Expecting to read %s from scanner." % utils.format_bytes(expected_bytes))
+                            if uiscan == False:
+                                log.debug("Expecting to read %s from scanner." % utils.format_bytes(expected_bytes))
 
                     device.waitForScanActive()
-
-                    pm = tui.ProgressMeter("Reading data:")
+                    
+                    if uiscan == False:
+                        pm = tui.ProgressMeter("Reading data:")
 
                     while device.isScanActive():
                         while update_queue.qsize():
@@ -934,15 +1288,22 @@ try:
 
                                 if not log.is_debug():
                                     if expected_bytes > 0:
-                                        pm.update(int(100*bytes_read/expected_bytes),
-                                            utils.format_bytes(bytes_read))
+                                        if uiscan == False:
+                                            pm.update(int(100*bytes_read/expected_bytes),
+                                                utils.format_bytes(bytes_read))
                                     else:
-                                        pm.update(0,
-                                            utils.format_bytes(bytes_read))
+                                        if uiscan == False:
+                                            pm.update(0,
+                                                utils.format_bytes(bytes_read))
 
                                 if status != scanext.SANE_STATUS_GOOD:
-                                    log.error("Error in reading data. Status=%d bytes_read=%d." % (status, bytes_read))
-                                    sys.exit(1)
+                                    if status == SANE_STATUS_MULTIPICK and multipick:
+                                        log.error("ADF_MPD multipick error %d" % (status))
+                                        log.error("Error in reading data. Status=%d " % (status))
+					#sys.exit(2)
+					
+				#device.cancelScan()		#Added by wipro
+                                #sys.exit(1)
 
                             except queue.Empty:
                                 break
@@ -961,24 +1322,29 @@ try:
 
                     if not log.is_debug():
                         if expected_bytes > 0:
-                            pm.update(int(100*bytes_read/expected_bytes),
-                                utils.format_bytes(bytes_read))
+                            if uiscan == False:
+                                pm.update(int(100*bytes_read/expected_bytes),
+                                    utils.format_bytes(bytes_read))
                         else:
-                            pm.update(0,
-                                utils.format_bytes(bytes_read))
+                            if uiscan == False:
+                                pm.update(0,
+                                    utils.format_bytes(bytes_read))
 
                 # For Marvell devices, making scan progress bar to 100%
                 if bytes_read and bytes_read != expected_bytes:
-                     pm.update(int(100),utils.format_bytes(bytes_read))
+                     if uiscan == False:
+                         pm.update(int(100),utils.format_bytes(bytes_read))
                 log.info("")
 
                 if bytes_read:
-                    log.info("Read %s from scanner." % utils.format_bytes(bytes_read))
+                    if uiscan == False:
+                        log.info("Read %s from scanner." % utils.format_bytes(bytes_read))
 
                     buffer, format, format_name, pixels_per_line, \
                         lines, depth, bytes_per_line, pad_bytes, total_read, total_write = device.getScan()
-
-                    log.debug("PPL=%d lines=%d depth=%d BPL=%d pad=%d total_read=%d total_write=%d" %
+                    
+                    if uiscan == False:
+                        log.debug("PPL=%d lines=%d depth=%d BPL=%d pad=%d total_read=%d total_write=%d" %
                         (pixels_per_line, lines, depth, bytes_per_line, pad_bytes, total_read, total_write))
 
                     #For Marvell devices, expected bytes is not same as total_read
@@ -986,41 +1352,302 @@ try:
                         lines = int(total_read / bytes_per_line)
 
                     if scan_mode in ('color', 'gray'):
-                        try:
-                            im = Image.frombuffer('RGBA', (pixels_per_line, lines), buffer.read(),
+                       try:
+                           im = Image.frombuffer('RGBA', (pixels_per_line, lines), buffer.read(),
                                 'raw', 'RGBA', 0, 1)
-                        except ValueError:
+                       except ValueError:
                             log.error("Did not read enough data from scanner (I/O Error?)")
                             sys.exit(1)
                     elif scan_mode == 'lineart':
                         try:
                             pixels_per_line = bytes_per_line * 8          # Calculation of pixels_per_line for Lineart must be 8 time of bytes_per_line
-                                                                          # Otherwise, scanned image will be corrupted (slanted)
+                            lineart_mode = True                                              # Otherwise, scanned image will be corrupted (slanted)
                             im = Image.frombuffer('RGBA', (pixels_per_line, lines), buffer.read(),
                                 'raw', 'RGBA', 0, 1).convert('L')
                         except ValueError:
                             log.error("Did not read enough data from scanner (I/O Error?)")
                             sys.exit(1)
+                    #if blank_page:
+                    isBlankPage = imageprocessing.blankpage(im,lineart_mode)
+                    
+                    if document_merge and duplex and blank_page:   
+                        if isBlankPage:
+                            if blank_cnt == 0:
+                                if page%2 != 0:
+                                    blank_cnt += 1
+                                    page_list.append(page)
+                            else:
+                                if page-1 in page_list:
+                                    blank_cnt += 1
+                                else:
+                                    if page%2 != 0:
+                                        blank_cnt = 1
+                                        page_list[:]
+                                        page_list.append(page)			  
+                    if blank_page and isBlankPage:
+                        if adf:
+                            if batchsepBP:
+                                blankpage_found=1
+                                blankpage_count=blankpage_count+1
+                                blankpage_index=blankpage_index+1
+                                if page == 1:
+                                    blankpage_first_page = True
+                            if not (document_merge and duplex): 
+                                page += 1
+                                continue
+                        else:
+                            sys.exit(0)
+                    elif isBlankPage:
+                        if adf and batchsepBP:
+                            blankpage_found=1
+                            blankpage_count=blankpage_count+1
+                            blankpage_index=blankpage_index+1
+                            if page == 1:
+                                blankpage_first_page = True
+                    #if crushed:
+                        #im = imageprocessing.crushed(im)
+                    if deskew_image and (isBlankPage == False):
+                        if adf:
+                            im = imageprocessing.deskew(im)
+                        else:
+                            im = imageprocessing.autocrop(im)
+                            im = imageprocessing.deskew(im) 
+                    if mixed_feed:
+                        im = imageprocessing.mixedfeed(im)
+                    if auto_crop and (isBlankPage == False):
+                        im = imageprocessing.autocrop(im)
+                    if auto_orient:
+                        if not isBlankPage:
+                            orient = imageprocessing.orientangle(im)
+                            orient_list.append(orient)                                                     
+                            im = imageprocessing.autoorient(im, orient)
+                        else:
+                            orient_list.append(0)
+                    if uiscan == True and set_brightness:
+                        factor = brightness/100
+                        #print factor
+                        im = imageprocessing.adjust_brightness(im, factor)
+                    if uiscan == True and set_contrast:
+                        factor = contrast/100
+                        #print factor
+                        im = imageprocessing.adjust_contrast(im, factor)
+                    if set_sharpness:
+                        factor = sharpness/100
+                        #print factor
+                        im = imageprocessing.adjust_sharpness(im, factor)  
+                    if set_color_value:
+                        factor = color_value/100
+                        #print factor
+                        im = imageprocessing.adjust_color(im, factor)  
+                    pyPlatform = platform.python_version()
+                    num = pyPlatform.split('.')       					
+                    if batchsepBC and num[0] < '3':
+                        import zbar
+                        scanner = zbar.ImageScanner()
+                        scanner.parse_config('enable')
+                        log.debug("Here in barcode detection")
+			
+                        bar_image = im.convert('L')
 
-                    if adf or output_type == 'pdf':
-                        temp_output = utils.createSequencedFilename("hpscan_pg%d_" % page, ".png")
-                        adf_page_files.append(temp_output)
-                        im.save(temp_output)
-                        #log.debug("Saved page %d to file %s" % (page, temp_output))
+                        width, height = bar_image.size
+                   
+                        raw_bar = bar_image.tobytes()
+
+                        my_stream = zbar.Image(width, height, 'Y800', raw_bar)
+                        scanner.scan(my_stream)
+                    
+                        #if barcode and batchsep:
+                        for symbol in my_stream:
+                            #print 'decoded', symbol.type, 'symbol', '"%s"' % symbol.data
+                            if symbol.data!='':
+                                barcode_found=1
+                                barcode_data.append(symbol.data)
+                                barcode_count=barcode_count+1
+                                barcode_index=barcode_index+1
+                                if page == 1:
+                                    barcode_first_page = True
+                                break;
+                            else:
+                                barcode_found=0
+                    if crushed:
+                        im = imageprocessing.crushed(im)
+                    if uiscan == True:
+                        if adf:
+                            if (save_file == 'pdf'):
+                                #ext = ".png"
+                                im = im.convert("RGB")
+                            if barcode_count>0:
+                                if barcode_first_occurence == True:
+                                    if barcode_first_page == False:
+                                        createPagesFile(adf_page_files,'hpscan', ext)
+                                    barcode_first_occurence = False
+                                else:
+                                    createPagesFile(adf_page_files,barcode_data[len(barcode_data)-2], ext)                                    
+                                barcode_count=barcode_count-1
+                                del adf_page_files[:]
+                            if blankpage_count>0:
+                                if blankpage_first_occurence == True:
+                                    if blankpage_first_page == False:
+                                        createPagesFile(adf_page_files,'hpscan', ext)
+                                    blankpage_first_occurence = False
+                                else:
+                                    createPagesFile(adf_page_files,"batchSep_00%d"%bp_no, ext)
+                                blankpage_count=blankpage_count-1
+                                bp_no += 1
+                                del adf_page_files[:]
+                            '''if (save_file == 'pdf'):
+                                #ext = ".png"
+                                im = im.convert("RGB")'''
+                            if merge_ADF_Flatbed == True and save_file == 'pdf':
+                                temp_output = utils.createSequencedFilename("hpscanMerge", ext,output_path)
+                            else:
+                                temp_output = utils.createSequencedFilename("hpscan", ext, output_path)
+                            adf_page_files.append(temp_output)
+                            #print "entered flatbed save"
+                            '''pyPlatform = platform.python_version()
+                            num = pyPlatform.split('.')
+                            if num[0] >= '3':
+                                im = im.convert("RGB")'''                           
+                            try:
+                                im.save(temp_output,compress_level=1)
+                            except:
+                                im = im.convert("RGB")
+                                im.save(temp_output,compress_level=1)
+                            '''if (save_file == 'pdf'):
+                                ext = ".pdf"'''        
+                            if document_merge and duplex and blank_page:
+                                if blank_cnt == 2:
+                                    os.unlink(adf_page_files.pop())
+                                    os.unlink(adf_page_files.pop())
+                                    blank_cnt = 0
+                                    page_list[:]
+
+                    elif uiscan == False:
+                        if adf or output_type == 'pdf':
+                            temp_output = utils.createSequencedFilename("hpscan_pg%d_" % page, ".png")
+                            adf_page_files.append(temp_output)
+                            im.save(temp_output,compress_level=1)
+                elif uiscan == True and status == scanext.SANE_STATUS_MULTIPICK and multipick:
+                    log.error("ADF_MPD multipick error %d" % (status))
+                    log.error("Error in reading data. Status=%d bytes_read=%d." % (status, bytes_read))
+                    sys.exit(2)
                 else:
                     log.error("No data read.")
                     sys.exit(1)
 
                 if not adf or (adf and no_docs):
                     break
-
+                
                 page += 1
-
+            #print "*** Total Time Taken \n"
+            #print datetime.now()-start
         finally:
-            log.info("Closing device.")
-            device.cancelScan()
-
-        if adf or output_type == 'pdf':
+            if uiscan == False:
+                log.info("Closing device.")
+            device.cancelScan()     
+        #print "outside while"   
+        #if adf or output_type == 'pdf':
+        #print (output_type) 
+        if adf and (save_file =='jpg' or save_file == 'png' or save_file == 'tiff' or save_file == 'pdf'):
+            #print save_file
+            #start = datetime.now()
+            #print "**** Starting Save File Process\n"     
+            if barcode_found == 1:
+                createPagesFile(adf_page_files,barcode_data[len(barcode_data)-1], ext)
+                #print "Saving File process Over\n"
+                #print datetime.now()-start
+                #print "\n#######################\n"
+                #print temp_list
+                if save_file == 'pdf':
+                    if len(temp_list):
+                        if uiscan == True:          
+                            log.error("%s" % (temp_list))
+                            sys.exit(5)
+                sys.exit(0)
+            if blankpage_found == 1:
+                createPagesFile(adf_page_files,"batchSep_00%d"%bp_no, ext)
+                #print "Saving File process Over\n"
+                #print datetime.now()-start
+                if save_file == 'pdf':
+                    if len(temp_list):
+                        if uiscan == True:
+                            log.error("%s" % (temp_list))
+                            sys.exit(5)
+                sys.exit(0)
+            if document_merge and duplex :
+                #print "entered docmerge"
+                #print adf_page_files
+                if len(adf_page_files):             
+                    output = imageprocessing.documentmerge(adf_page_files,ext,output_path)
+                    if (save_file == 'pdf'):
+                        #cmd = "%s %s &" % (pdf_viewer, output)               
+                        #os_utils.execute(cmd)
+                        if uiscan == True:
+                            log.error("%s" % (output))
+                            #print "Saving File process Over\n"
+                            #print datetime.now()-start
+                            sys.exit(4)
+                sys.exit(0)  
+            elif (save_file == 'tiff'):
+                if len(adf_page_files) > 1:
+                    outputtiff = utils.createSequencedFilename("hpscandoc", ext,output_path)
+                    #print outputtiff
+                    file_name = '' 
+                    for p in adf_page_files:
+                        file_name = file_name + " " + p
+                        cmd = "convert %s %s" %(file_name,outputtiff)
+                        status = utils.run(cmd)
+                        #print ("***********************")
+                        #print (status[0])
+                        #print (status[1])
+                        if status[0] == -1: 
+                            #print ("entered status -1") 
+                            log.error("Convert command not found.")
+                            sys.exit(6)
+                    for p in adf_page_files:
+                        #print p
+                        os.unlink(p) 
+                sys.exit(0)                
+            elif (save_file == 'pdf'):        
+                '''if not output:
+                    if merge_ADF_Flatbed == True:
+                        output = utils.createSequencedFilename("hpscanMerge", ext,output_path)
+                    else:
+                        output = utils.createSequencedFilename("hpscan", ext,output_path)'''
+                if len(adf_page_files) > 1:
+                    #print "adf page files greater than 1"
+                    if merge_ADF_Flatbed == True:
+                        output = utils.createSequencedFilename("hpscanMerge", ext,output_path)
+                    else:
+                        output = utils.createSequencedFilename("hpscandoc", ext,output_path)
+                    try:      
+                        output = imageprocessing.generatePdfFile(adf_page_files,output)
+                    except ImportError:
+                        try:
+                            output = imageprocessing.generatePdfFile_canvas(adf_page_files,output,orient_list,brx,bry,tlx,tly,output_path)
+                        except ImportError as error:
+                            if error.message.split(' ')[-1] == 'PIL':
+                                log.error("PDF output requires PIL.")
+                            else:
+                                log.error("PDF output requires ReportLab.")
+                            sys.exit(1)  
+                if merge_ADF_Flatbed == False:
+                    #cmd = "%s %s &" % (pdf_viewer, output)               
+                    #os_utils.execute(cmd)
+                    #imageprocessing.merge_PDF_viewer(output)
+                    if len(adf_page_files):
+                        if uiscan == True:
+                            if output:
+                                log.error("%s" % (output))
+                            elif temp_output:
+                                log.error("%s" % (temp_output))
+                            sys.exit(4)
+                #print "Saving File process Over\n"
+                #print datetime.now()-start
+                sys.exit(0)
+            else:
+                sys.exit(0)
+        elif  (uiscan == False) and (adf or output_type == 'pdf'):
             try:
                 from reportlab.pdfgen import canvas
             except ImportError:
@@ -1069,20 +1696,75 @@ try:
             else:
                 new_w = int(pixels_per_line * resize / 100)
                 new_h = int(lines * resize / 100)
-                log.info("Resizing image from %dx%d to %dx%d..." % (pixels_per_line, lines, new_w, new_h))
+                if uiscan == False:
+                    log.info("Resizing image from %dx%d to %dx%d..." % (pixels_per_line, lines, new_w, new_h))
                 im = im.resize((new_w, new_h), Image.ANTIALIAS)
 
         file_saved = False
         if 'file' in dest:
-            log.info("\nOutputting to destination 'file':")
-            log.info("Saving to file %s" % output)
+            if (save_file == 'png' or save_file == 'jpg' or save_file == 'tiff' or save_file == 'pdf'):
+                if barcode_found == 1:
+                    output = utils.createBBSequencedFilename(barcode_data[0]+'_', ext, output_path)
+                else:
+                    if (save_file == 'pdf') and (merge_ADF_Flatbed == True):
+                         output = utils.createSequencedFilename("hpscanMerge", ext,output_path)
+                    else:
+                         output = utils.createSequencedFilename("hpscan",ext,output_path)
+
+            if uiscan == False:
+                log.info("\nOutputting to destination 'file':")
 
             try:
-                im.save(output)
+                if uiscan == True:
+                    log.info("Saving to file %s" % output)
+                
+                    if save_file != 'pdf':
+                        '''pyPlatform = platform.python_version()
+                        num = pyPlatform.split('.')
+                        if num[0] >= '3':
+                            im = im.convert("RGB")'''
+                        try:
+                            im.save(output,compress_level=1)
+                        except:
+                            im = im.convert("RGB")
+                            im.save(output,compress_level=1)
+                    else:                    
+                        try:
+                            im.save(output,compress_level=1)
+                        except:
+                            im = im.convert("RGB")
+                            im.save(output,compress_level=1)
+                        '''from reportlab.pdfgen import canvas
+                        print "entered canvas"
+                        c = canvas.Canvas(output)
+                        if auto_orient and (orient == 1 or orient == 3):
+                                c.setPageSize(((bry-tly)/0.3528, (brx-tlx)/0.3528))
+                                c.drawInlineImage(im, (tlx/0.3528), (tly/0.3528), ((bry-tly)/0.3528), ((brx-tlx)/0.3528))
+                        else:
+                            c.setPageSize(((brx-tlx)/0.3528, (bry-tly)/0.3528))
+                            c.drawInlineImage(im, (tlx/0.3528), (tly/0.3528), ((brx-tlx)/0.3528),((bry-tly)/0.3528))
+                        c.showPage()
+                        c.save()'''
+                        #For Doc Merge feature, updating Flatbed to use pdfmerger instead of canvas for PDF creation.  
+                        '''temp = 'temp.png'
+                        im.save(temp,compress_level=1)
+                        adf_page_files.append(temp)
+                        output = imageprocessing.generatePdfFile(adf_page_files,output)'''
+                        if uiscan == False:
+                            log.info("Viewing PDF file in %s" % pdf_viewer)
+                            log.info("Saving to file %s" % output)
+                        if merge_ADF_Flatbed == False:
+                            #cmd = "%s %s &" % (pdf_viewer, output)                        
+                            #os_utils.execute(cmd)
+                            log.error("%s" % (output))
+                            sys.exit(4)
+                            #imageprocessing.merge_PDF_viewer(output)
+                elif uiscan == False:
+                    im.save(output,compress_level=1)
             except IOError as e:
                 im = im.convert("RGB")
                 try:
-                  im.save(output)
+                  im.save(output,compress_level=1)
                 except IOError as e:
                   log.error("Error saving file: %s (I/O)" % e)
                   try:
@@ -1107,7 +1789,15 @@ try:
 
             output_fd, output = utils.make_temp_file(suffix='.png')
             try:
-                im.save(output)
+                '''pyPlatform = platform.python_version()
+                num = pyPlatform.split('.')
+                if num[0] >= '3':
+                    im = im.convert("RGB")'''
+                try:
+                    im.save(output,compress_level=1)
+                except:
+                    im = im.convert("RGB")
+                    im.save(output,compress_level=1)
             except IOError as e:
                 log.error("Error saving temporary file: %s" % e)
 
@@ -1130,8 +1820,10 @@ try:
                 except ImportError:
                     log.error("PDF output requires ReportLab.")
                     continue
-
-                pdf_output = utils.createSequencedFilename("hpscan", ".pdf")
+                if merge_ADF_Flatbed == True:
+                    pdf_output = utils.createSequencedFilename("hpscanMerge", ".pdf",output_path)
+                else:
+                    pdf_output = utils.createSequencedFilename("hpscan", ".pdf", output_path)
                 c = canvas.Canvas(pdf_output, (brx/0.3528, bry/0.3528))
 
                 try:
@@ -1141,12 +1833,19 @@ try:
                     continue
 
                 c.showPage()
-                log.info("Saving to file %s" % pdf_output)
+                if uiscan == False:
+                    log.info("Saving to file %s" % pdf_output)
                 c.save()
-                log.info("Viewing PDF file in %s" % pdf_viewer)
-                cmd = "%s %s &" % (pdf_viewer, pdf_output)
-                os_utils.execute(cmd)
-                sys.exit(0)
+                if uiscan == False:
+                    log.info("Viewing PDF file in %s" % pdf_viewer)
+                #cmd = "%s %s &" % (pdf_viewer, pdf_output)
+                #os_utils.execute(cmd)
+                #sys.exit(0)
+                if uiscan == True:
+                    log.error("%s" % (pdf_output))
+                    sys.exit(4)
+                else:
+                    sys.exit(0)
 
             elif d == 'print':
                 hp_print = utils.which("hp-print", True)

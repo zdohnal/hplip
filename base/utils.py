@@ -1423,6 +1423,24 @@ def collapse_range(x): # x --> sorted list of ints
 
     return ''.join(s)
 
+def createBBSequencedFilename(basename, ext, dir=None, digits=3):
+    if dir is None:
+        dir = os.getcwd()
+
+    m = 0
+    for f in walkFiles(dir, recurse=False, abs_paths=False, return_folders=False, pattern='*', path=None):
+        r, e = os.path.splitext(f)
+
+        if r.startswith(basename) and ext == e:
+            try:
+                i = int(r[len(basename):])
+            except ValueError:
+                continue
+            else:
+                m = max(m, i)
+
+    return os.path.join(dir, "%s%0*d%s" % (basename, digits, m+1, ext))
+
 
 def createSequencedFilename(basename, ext, dir=None, digits=3):
     if dir is None:

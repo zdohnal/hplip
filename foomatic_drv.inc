@@ -912,10 +912,12 @@ foomatic_ps_printers = \
     prnt/ps/hp-color_laserjet_4500-ps.ppd.gz \
     prnt/ps/hp-laserjet_p2015_series-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_5m-ps.ppd.gz \
+    prnt/ps/hp-pagewide_color_755-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_5500-ps.ppd.gz \
     prnt/ps/hp-laserjet_3050-ps.ppd.gz \
     prnt/ps/hp-pagewide_color_mfp_e58650-ps.ppd.gz \
     prnt/ps/hp-designjet_t795ps_44in-ps.ppd.gz \
+    prnt/ps/hp-laserjet_pro_m148-m149-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_cp5225dn-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_m552-ps.ppd.gz \
     prnt/ps/hp-laserjet_pro_m402_m403-ps.ppd.gz \
@@ -927,6 +929,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-color_laserjet_8500-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_4600-ps.ppd.gz \
     prnt/ps/hp-pagewide_p55250-ps.ppd.gz \
+    prnt/ps/hp-laserjet_pro_m118-m119-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_pro_mfp_m477d-ps.ppd.gz \
     prnt/ps/hp-laserjet_500_color_m551-ps.ppd.gz \
     prnt/ps/hp-laserjet_4300-ps.ppd.gz \
@@ -938,6 +941,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-laserjet_mfp_m725-ps.ppd.gz \
     prnt/ps/hp-business_inkjet_2300-ps.ppd.gz \
     prnt/ps/hp-officejet_color_mfp_x585.ppd.gz \
+    prnt/ps/hp-pagewide_color_mfp_774-779-ps.ppd.gz \
     prnt/ps/hp-laserjet_3052-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_2605-ps.ppd.gz \
     prnt/ps/hp-laserjet_p2055_series-ps.ppd.gz \
@@ -980,6 +984,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-laserjet_pro_m701-ps.ppd.gz \
     prnt/ps/hp-designjet_Z9_44in-ps.ppd.gz \
     prnt/ps/hp-laserjet_m9040_mfp-ps.ppd.gz \
+    prnt/ps/hp-laserjet_pro_m148f-m149f-ps.ppd.gz \
     prnt/ps/hp-laserjet_1300-ps.ppd.gz \
     prnt/ps/hp-pagewide_pro_mfp_772-777-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_4600_series-ps.ppd.gz \

@@ -188,6 +188,7 @@ f 0644 root root $ppd/HP prnt/pdf/*.ppd.gz
 @epm_scan@@epm_full@f 0755 root root $pyexecdir/scanext.so .libs/scanext.so
 @epm_full@%system all
 @epm_full@f 644 root root $icondir/hplip.desktop hplip.desktop
+@epm_full@f 644 root root $icondir/hp-uiscan.desktop hp-uiscan.desktop
 @epm_full@f 644 root root $systraydir/hplip-systray.desktop hplip-systray.desktop
 @epm_full@f 0700 root root $cupsbackend/hpfax fax/backend/hpfax.py
 @epm_full@f 644 root root $ppd/HP fax/ppd/*.ppd.gz
@@ -227,6 +228,7 @@ f 0644 root root $ppd/HP prnt/pdf/*.ppd.gz
 @epm_full@f 755 root root $home/makecopies.py makecopies.py
 @epm_full@f 755 root root $home/unload.py unload.py
 @epm_full@f 755 root root $home/scan.py scan.py
+@epm_full@f 755 root root $home/uiscan.py uiscan.py
 @epm_full@f 755 root root $home/sendfax.py sendfax.py
 @epm_full@f 755 root root $home/faxsetup.py faxsetup.py
 
@@ -353,6 +355,7 @@ f 0644 root root $ppd/HP prnt/pdf/*.ppd.gz
 @epm_full@l 755 root root $bindir/hp-logcapture ../share/hplip/logcapture.py
 @epm_full@l 755 root root $bindir/hp-info ../share/hplip/info.py
 @epm_full@l 755 root root $bindir/hp-makecopies ../share/hplip/makecopies.py
+@epm_full@l 755 root root $bindir/hp-uiscan ../share/hplip/uiscan.py
 @epm_full@l 755 root root $bindir/hp-scan ../share/hplip/scan.py
 @epm_full@l 755 root root $bindir/hp-faxsetup ../share/hplip/faxsetup.py
 @epm_full@l 755 root root $bindir/hp-linefeedcal ../share/hplip/linefeedcal.py
@@ -429,6 +432,18 @@ EOF
 %if UBUNTU804
 @epm_full@%requires python-qt4
 @epm_full@%requires python-qt4-dbus
+@epm_full@%requires libzbar-dev
+@epm_full@%requires python-zbar
+@epm_full@%requires python-pip
+@epm_full@%requires tesseract-ocr
+@epm_full@%requires libtesseract-dev
+@epm_full@%requires libleptonica-dev
+@epm_full@%requires tesserocr
+@epm_full@%requires imutils
+@epm_full@%requires python-opencv
+@epm_full@%requires python-pypdf2
+@epm_full@%requires python-pil
+@epm_full@%requires python-dbus
 @epm_full@%replaces foomatic-db-hpijs
 @epm_full@%replaces hpijs
 @epm_full@%replaces hplip

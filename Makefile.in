@@ -78,10 +78,10 @@ DIST_COMMON = $(am__configure_deps) \
 	$(dist_plugins4_SCRIPTS) $(dist_plugins5_SCRIPTS) \
 	$(dist_unrel_DATA) $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(srcdir)/class_cups_drv.inc $(srcdir)/cups_drv.inc \
-	$(srcdir)/foomatic_drv.inc $(srcdir)/hplip-systray.desktop.in \
-	$(srcdir)/hplip.conf.in $(srcdir)/hplip.desktop.in \
-	$(srcdir)/hplip.list.in $(srcdir)/unreleased.inc \
-	$(top_srcdir)/configure \
+	$(srcdir)/foomatic_drv.inc $(srcdir)/hp-uiscan.desktop.in \
+	$(srcdir)/hplip-systray.desktop.in $(srcdir)/hplip.conf.in \
+	$(srcdir)/hplip.desktop.in $(srcdir)/hplip.list.in \
+	$(srcdir)/unreleased.inc $(top_srcdir)/configure \
 	$(top_srcdir)/data/policykit/com.hp.hplip.service.in \
 	$(top_srcdir)/prnt/drv/hpcups.drv.in \
 	$(top_srcdir)/prnt/drv/hpijs.drv.in COPYING config.guess \
@@ -151,9 +151,9 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
-CONFIG_CLEAN_FILES = hplip.conf hplip.desktop hplip-systray.desktop \
-	prnt/drv/hpijs.drv prnt/drv/hpcups.drv hplip.list \
-	data/policykit/com.hp.hplip.service
+CONFIG_CLEAN_FILES = hplip.conf hplip.desktop hp-uiscan.desktop \
+	hplip-systray.desktop prnt/drv/hpijs.drv prnt/drv/hpcups.drv \
+	hplip.list data/policykit/com.hp.hplip.service
 CONFIG_CLEAN_VPATH_FILES =
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
 am__vpath_adj = case $$p in \
@@ -217,6 +217,7 @@ am__installdirs = "$(DESTDIR)$(cupsextdir)" "$(DESTDIR)$(hpmudextdir)" \
 	"$(DESTDIR)$(ui5dir)" "$(DESTDIR)$(unreldir)" \
 	"$(DESTDIR)$(www0dir)" "$(DESTDIR)$(www3dir)" \
 	"$(DESTDIR)$(www4dir)" "$(DESTDIR)$(docdir)" \
+	"$(DESTDIR)$(hp_uiscan_desktopdir)" \
 	"$(DESTDIR)$(hplip_confdir)" "$(DESTDIR)$(hplip_desktopdir)" \
 	"$(DESTDIR)$(hplip_systraydir)"
 LTLIBRARIES = $(cupsext_LTLIBRARIES) $(hpmudext_LTLIBRARIES) \
@@ -374,7 +375,10 @@ am__libsane_hpaio_la_SOURCES_DIST = scan/sane/hpaio.c \
 	scan/sane/ledmi.h scan/sane/ledm.c scan/sane/bb_ledm.c \
 	scan/sane/http.h scan/sane/http.c scan/sane/sclpml.c \
 	scan/sane/sclpml.h common/utils.c common/utils.h \
-	scan/sane/escl.h scan/sane/escli.h scan/sane/escl.c
+	scan/sane/escl.h scan/sane/escli.h scan/sane/escl.c \
+	scan/sane/orblitei.h scan/sane/orblite.h scan/sane/orblite.c \
+	scan/sane/OrbliteScan/LinuxCommon.h \
+	scan/sane/OrbliteScan/MacCommon.h
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@am_libsane_hpaio_la_OBJECTS = libsane_hpaio_la-hpaio.lo \
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@	libsane_hpaio_la-mfpdtf.lo \
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@	libsane_hpaio_la-pml.lo \
@@ -391,7 +395,8 @@ am__libsane_hpaio_la_SOURCES_DIST = scan/sane/hpaio.c \
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@	libsane_hpaio_la-http.lo \
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@	libsane_hpaio_la-sclpml.lo \
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@	libsane_hpaio_la-utils.lo \
-@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@	libsane_hpaio_la-escl.lo
+@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@	libsane_hpaio_la-escl.lo \
+@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@	libsane_hpaio_la-orblite.lo
 libsane_hpaio_la_OBJECTS = $(am_libsane_hpaio_la_OBJECTS)
 libsane_hpaio_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libsane_hpaio_la_CFLAGS) \
@@ -611,7 +616,7 @@ am__dist_cmd_SCRIPTS_DIST = align.py info.py print.py toolbox.py \
 	printsettings.py query.py pkservice.py wificonfig.py \
 	diagnose_plugin.py uninstall.py upgrade.py \
 	config_usb_printer.py diagnose_queues.py logcapture.py \
-	doctor.py
+	doctor.py uiscan.py
 am__dist_fin_SCRIPTS_DIST = prnt/filters/hpps
 am__dist_hpfax_SCRIPTS_DIST = fax/backend/hpfax.py
 am__dist_hplip_SCRIPTS_DIST = hpssd.py __init__.py hpdio.py
@@ -677,7 +682,7 @@ am__dist_base_DATA_DIST = base/maint.py base/codes.py base/g.py \
 	base/tui.py base/dime.py base/ldif.py base/vcard.py \
 	base/module.py base/pkit.py base/queues.py base/password.py \
 	base/services.py base/os_utils.py base/smart_install.py \
-	base/six.py
+	base/six.py base/imageprocessing.py
 am__dist_basepexpect_DATA_DIST = base/pexpect/__init__.py
 am__dist_copier_DATA_DIST = copier/copier.py copier/__init__.py
 am__dist_fax_DATA_DIST = fax/fax.py fax/__init__.py fax/coverpages.py \
@@ -877,10 +882,12 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-designjet_z6810ps_42in-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_4500-ps.ppd.gz \
 	prnt/ps/hp-laserjet_p2015_series-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_5m-ps.ppd.gz \
+	prnt/ps/hp-pagewide_color_755-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_5500-ps.ppd.gz \
 	prnt/ps/hp-laserjet_3050-ps.ppd.gz \
 	prnt/ps/hp-pagewide_color_mfp_e58650-ps.ppd.gz \
 	prnt/ps/hp-designjet_t795ps_44in-ps.ppd.gz \
+	prnt/ps/hp-laserjet_pro_m148-m149-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_cp5225dn-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_m552-ps.ppd.gz \
 	prnt/ps/hp-laserjet_pro_m402_m403-ps.ppd.gz \
@@ -892,6 +899,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-designjet_z6810ps_42in-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_8500-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_4600-ps.ppd.gz \
 	prnt/ps/hp-pagewide_p55250-ps.ppd.gz \
+	prnt/ps/hp-laserjet_pro_m118-m119-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_pro_mfp_m477d-ps.ppd.gz \
 	prnt/ps/hp-laserjet_500_color_m551-ps.ppd.gz \
 	prnt/ps/hp-laserjet_4300-ps.ppd.gz \
@@ -903,6 +911,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-designjet_z6810ps_42in-ps.ppd.gz \
 	prnt/ps/hp-laserjet_mfp_m725-ps.ppd.gz \
 	prnt/ps/hp-business_inkjet_2300-ps.ppd.gz \
 	prnt/ps/hp-officejet_color_mfp_x585.ppd.gz \
+	prnt/ps/hp-pagewide_color_mfp_774-779-ps.ppd.gz \
 	prnt/ps/hp-laserjet_3052-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_2605-ps.ppd.gz \
 	prnt/ps/hp-laserjet_p2055_series-ps.ppd.gz \
@@ -945,6 +954,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-designjet_z6810ps_42in-ps.ppd.gz \
 	prnt/ps/hp-laserjet_pro_m701-ps.ppd.gz \
 	prnt/ps/hp-designjet_Z9_44in-ps.ppd.gz \
 	prnt/ps/hp-laserjet_m9040_mfp-ps.ppd.gz \
+	prnt/ps/hp-laserjet_pro_m148f-m149f-ps.ppd.gz \
 	prnt/ps/hp-laserjet_1300-ps.ppd.gz \
 	prnt/ps/hp-pagewide_pro_mfp_772-777-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_4600_series-ps.ppd.gz \
@@ -2011,7 +2021,8 @@ DATA = $(apparmor_abstraction_DATA) $(apparmor_profile_DATA) \
 	$(dist_selinux_DATA) $(dist_ui_DATA) $(dist_ui4_DATA) \
 	$(dist_ui5_DATA) $(dist_unrel_DATA) $(dist_www0_DATA) \
 	$(dist_www3_DATA) $(dist_www4_DATA) $(doc_DATA) \
-	$(hplip_conf_DATA) $(hplip_desktop_DATA) $(hplip_systray_DATA)
+	$(hp_uiscan_desktop_DATA) $(hplip_conf_DATA) \
+	$(hplip_desktop_DATA) $(hplip_systray_DATA)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -3162,10 +3173,12 @@ foomatic_ps_printers = \
     prnt/ps/hp-color_laserjet_4500-ps.ppd.gz \
     prnt/ps/hp-laserjet_p2015_series-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_5m-ps.ppd.gz \
+    prnt/ps/hp-pagewide_color_755-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_5500-ps.ppd.gz \
     prnt/ps/hp-laserjet_3050-ps.ppd.gz \
     prnt/ps/hp-pagewide_color_mfp_e58650-ps.ppd.gz \
     prnt/ps/hp-designjet_t795ps_44in-ps.ppd.gz \
+    prnt/ps/hp-laserjet_pro_m148-m149-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_cp5225dn-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_m552-ps.ppd.gz \
     prnt/ps/hp-laserjet_pro_m402_m403-ps.ppd.gz \
@@ -3177,6 +3190,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-color_laserjet_8500-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_4600-ps.ppd.gz \
     prnt/ps/hp-pagewide_p55250-ps.ppd.gz \
+    prnt/ps/hp-laserjet_pro_m118-m119-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_pro_mfp_m477d-ps.ppd.gz \
     prnt/ps/hp-laserjet_500_color_m551-ps.ppd.gz \
     prnt/ps/hp-laserjet_4300-ps.ppd.gz \
@@ -3188,6 +3202,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-laserjet_mfp_m725-ps.ppd.gz \
     prnt/ps/hp-business_inkjet_2300-ps.ppd.gz \
     prnt/ps/hp-officejet_color_mfp_x585.ppd.gz \
+    prnt/ps/hp-pagewide_color_mfp_774-779-ps.ppd.gz \
     prnt/ps/hp-laserjet_3052-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_2605-ps.ppd.gz \
     prnt/ps/hp-laserjet_p2055_series-ps.ppd.gz \
@@ -3230,6 +3245,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-laserjet_pro_m701-ps.ppd.gz \
     prnt/ps/hp-designjet_Z9_44in-ps.ppd.gz \
     prnt/ps/hp-laserjet_m9040_mfp-ps.ppd.gz \
+    prnt/ps/hp-laserjet_pro_m148f-m149f-ps.ppd.gz \
     prnt/ps/hp-laserjet_1300-ps.ppd.gz \
     prnt/ps/hp-pagewide_pro_mfp_772-777-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_4600_series-ps.ppd.gz \
@@ -4252,7 +4268,9 @@ dist_unrel_DATA =
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@	  scan/sane/sanei_init_debug.c scan/sane/marvell.h scan/sane/marvelli.h scan/sane/marvell.c scan/sane/soapht.c scan/sane/soap.c \
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@        scan/sane/soaphti.h scan/sane/soapi.h scan/sane/xml.c scan/sane/xml.h scan/sane/ledm.h scan/sane/ledmi.h scan/sane/ledm.c \
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@        scan/sane/bb_ledm.c scan/sane/http.h scan/sane/http.c scan/sane/sclpml.c scan/sane/sclpml.h common/utils.c common/utils.h \
-@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@	scan/sane/escl.h scan/sane/escli.h scan/sane/escl.c
+@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@	scan/sane/escl.h scan/sane/escli.h scan/sane/escl.c \
+@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@	scan/sane/orblitei.h scan/sane/orblite.h scan/sane/orblite.c \
+@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@	scan/sane/OrbliteScan/LinuxCommon.h scan/sane/OrbliteScan/MacCommon.h
 
 @DARWIN_BUILD_FALSE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@libsane_hpaio_la_LDFLAGS = -version-info 1:0:0
 @DARWIN_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@libsane_hpaio_la_LDFLAGS = -module -framework CoreFoundation -version-info 1:0:0
@@ -4344,7 +4362,7 @@ dist_unrel_DATA =
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@dist_cmd_SCRIPTS = align.py info.py print.py toolbox.py clean.py colorcal.py unload.py testpage.py makeuri.py check.py fab.py levels.py \
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	sendfax.py setup.py makecopies.py probe.py timedate.py firmware.py scan.py systray.py plugin.py linefeedcal.py pqdiag.py \
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	faxsetup.py devicesettings.py printsettings.py query.py pkservice.py wificonfig.py diagnose_plugin.py uninstall.py \
-@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	upgrade.py config_usb_printer.py diagnose_queues.py logcapture.py doctor.py
+@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	upgrade.py config_usb_printer.py diagnose_queues.py logcapture.py doctor.py uiscan.py
 
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@homedir = $(hplipdir)
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@dist_home_DATA = check-plugin.py \
@@ -4358,7 +4376,7 @@ dist_unrel_DATA =
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	base/imagesize.py base/models.py base/validation.py base/sixext.py base/avahi.py \
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	base/mdns.py base/tui.py base/dime.py base/ldif.py base/vcard.py base/module.py \
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	base/pkit.py base/queues.py base/password.py base/services.py base/os_utils.py \
-@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	base/smart_install.py base/six.py
+@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	base/smart_install.py base/six.py base/imageprocessing.py
 
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@basepexpectdir = $(hplipdir)/base/pexpect
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@dist_basepexpect_DATA = base/pexpect/__init__.py
@@ -4547,6 +4565,10 @@ dist_unrel_DATA =
 @FULL_BUILD_TRUE@@GUI_BUILD_TRUE@@HPLIP_BUILD_TRUE@hplip_systraydir = $(systraydir)
 @FULL_BUILD_TRUE@@GUI_BUILD_TRUE@@HPLIP_BUILD_TRUE@hplip_systray_DATA = hplip-systray.desktop
 
+#hp-uiscan_desktop
+@FULL_BUILD_TRUE@@GUI_BUILD_TRUE@@HPLIP_BUILD_TRUE@hp_uiscan_desktopdir = $(icondir)
+@FULL_BUILD_TRUE@@GUI_BUILD_TRUE@@HPLIP_BUILD_TRUE@hp_uiscan_desktop_DATA = hp-uiscan.desktop
+
 # hpps (Finishing PS filter)
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@findir = $(cupsfilterdir)
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@dist_fin_SCRIPTS = prnt/filters/hpps
@@ -4648,7 +4670,6 @@ libapdk_la_CFLAGS = $(libapdk_la_CXXFLAGS) -Iprnt/hpijs
 
 @HPCUPS_INSTALL_TRUE@hpcups_CXXFLAGS = $(APDK_ENDIAN_FLAG) $(DBUS_CFLAGS)
 @HPCUPS_INSTALL_TRUE@hpcups_LDADD = -L./prnt/hpcups/ -ljpeg -ldl -lImageProcessor -lcups -lcupsimage -lz $(DBUS_LIBS)
-
 #else
 #hpcupsdir = $(cupsfilterdir)
 #hpcups_PROGRAMS = hpcups
@@ -4738,6 +4759,8 @@ $(am__aclocal_m4_deps):
 hplip.conf: $(top_builddir)/config.status $(srcdir)/hplip.conf.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 hplip.desktop: $(top_builddir)/config.status $(srcdir)/hplip.desktop.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+hp-uiscan.desktop: $(top_builddir)/config.status $(srcdir)/hp-uiscan.desktop.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 hplip-systray.desktop: $(top_builddir)/config.status $(srcdir)/hplip-systray.desktop.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
@@ -5740,6 +5763,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsane_hpaio_la-ledm.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsane_hpaio_la-marvell.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsane_hpaio_la-mfpdtf.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsane_hpaio_la-orblite.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsane_hpaio_la-pml.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsane_hpaio_la-sanei_init_debug.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsane_hpaio_la-scl.Plo@am__quote@
@@ -6252,6 +6276,13 @@ libsane_hpaio_la-escl.lo: scan/sane/escl.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='scan/sane/escl.c' object='libsane_hpaio_la-escl.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsane_hpaio_la_CFLAGS) $(CFLAGS) -c -o libsane_hpaio_la-escl.lo `test -f 'scan/sane/escl.c' || echo '$(srcdir)/'`scan/sane/escl.c
+
+libsane_hpaio_la-orblite.lo: scan/sane/orblite.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsane_hpaio_la_CFLAGS) $(CFLAGS) -MT libsane_hpaio_la-orblite.lo -MD -MP -MF $(DEPDIR)/libsane_hpaio_la-orblite.Tpo -c -o libsane_hpaio_la-orblite.lo `test -f 'scan/sane/orblite.c' || echo '$(srcdir)/'`scan/sane/orblite.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libsane_hpaio_la-orblite.Tpo $(DEPDIR)/libsane_hpaio_la-orblite.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='scan/sane/orblite.c' object='libsane_hpaio_la-orblite.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsane_hpaio_la_CFLAGS) $(CFLAGS) -c -o libsane_hpaio_la-orblite.lo `test -f 'scan/sane/orblite.c' || echo '$(srcdir)/'`scan/sane/orblite.c
 
 pcardext_la-pcardext.lo: pcard/pcardext/pcardext.c
 @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcardext_la_CFLAGS) $(CFLAGS) -MT pcardext_la-pcardext.lo -MD -MP -MF $(DEPDIR)/pcardext_la-pcardext.Tpo -c -o pcardext_la-pcardext.lo `test -f 'pcard/pcardext/pcardext.c' || echo '$(srcdir)/'`pcard/pcardext/pcardext.c
@@ -8757,6 +8788,26 @@ uninstall-docDATA:
 	test -n "$$files" || exit 0; \
 	echo " ( cd '$(DESTDIR)$(docdir)' && rm -f" $$files ")"; \
 	cd "$(DESTDIR)$(docdir)" && rm -f $$files
+install-hp_uiscan_desktopDATA: $(hp_uiscan_desktop_DATA)
+	@$(NORMAL_INSTALL)
+	test -z "$(hp_uiscan_desktopdir)" || $(MKDIR_P) "$(DESTDIR)$(hp_uiscan_desktopdir)"
+	@list='$(hp_uiscan_desktop_DATA)'; test -n "$(hp_uiscan_desktopdir)" || list=; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(hp_uiscan_desktopdir)'"; \
+	  $(INSTALL_DATA) $$files "$(DESTDIR)$(hp_uiscan_desktopdir)" || exit $$?; \
+	done
+
+uninstall-hp_uiscan_desktopDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(hp_uiscan_desktop_DATA)'; test -n "$(hp_uiscan_desktopdir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	test -n "$$files" || exit 0; \
+	echo " ( cd '$(DESTDIR)$(hp_uiscan_desktopdir)' && rm -f" $$files ")"; \
+	cd "$(DESTDIR)$(hp_uiscan_desktopdir)" && rm -f $$files
 install-hplip_confDATA: $(hplip_conf_DATA)
 	@$(NORMAL_INSTALL)
 	test -z "$(hplip_confdir)" || $(MKDIR_P) "$(DESTDIR)$(hplip_confdir)"
@@ -9026,7 +9077,7 @@ all-am: Makefile $(LTLIBRARIES) $(PROGRAMS) $(SCRIPTS) $(DATA)
 install-binPROGRAMS: install-libLTLIBRARIES
 
 installdirs:
-	for dir in "$(DESTDIR)$(cupsextdir)" "$(DESTDIR)$(hpmudextdir)" "$(DESTDIR)$(libdir)" "$(DESTDIR)$(libsane_hpaiodir)" "$(DESTDIR)$(pcardextdir)" "$(DESTDIR)$(scanextdir)" "$(DESTDIR)$(bindir)" "$(DESTDIR)$(dat2drvdir)" "$(DESTDIR)$(hpdir)" "$(DESTDIR)$(hpcupsdir)" "$(DESTDIR)$(hpcupsfaxdir)" "$(DESTDIR)$(hppsdir)" "$(DESTDIR)$(locatedriverdir)" "$(DESTDIR)$(cmddir)" "$(DESTDIR)$(findir)" "$(DESTDIR)$(hpfaxdir)" "$(DESTDIR)$(hplipdir)" "$(DESTDIR)$(plugins4dir)" "$(DESTDIR)$(plugins5dir)" "$(DESTDIR)$(ripdir)" "$(DESTDIR)$(pstotiffdir)" "$(DESTDIR)$(apparmor_abstractiondir)" "$(DESTDIR)$(apparmor_profiledir)" "$(DESTDIR)$(cupsdrvdir)" "$(DESTDIR)$(cupsdrv2dir)" "$(DESTDIR)$(apparmor_abstractiondir)" "$(DESTDIR)$(apparmor_profiledir)" "$(DESTDIR)$(basedir)" "$(DESTDIR)$(basepexpectdir)" "$(DESTDIR)$(copierdir)" "$(DESTDIR)$(faxdir)" "$(DESTDIR)$(fax_filtersdir)" "$(DESTDIR)$(filterdir)" "$(DESTDIR)$(halpredir)" "$(DESTDIR)$(homedir)" "$(DESTDIR)$(hpcupsfaxppddir)" "$(DESTDIR)$(hpijsfaxppddir)" "$(DESTDIR)$(hplip_statedir)" "$(DESTDIR)$(images_128x128dir)" "$(DESTDIR)$(images_16x16dir)" "$(DESTDIR)$(images_24x24dir)" "$(DESTDIR)$(images_256x256dir)" "$(DESTDIR)$(images_32x32dir)" "$(DESTDIR)$(images_64x64dir)" "$(DESTDIR)$(images_devicesdir)" "$(DESTDIR)$(images_otherdir)" "$(DESTDIR)$(installdir)" "$(DESTDIR)$(ldldir)" "$(DESTDIR)$(localzdir)" "$(DESTDIR)$(locatedriverdir)" "$(DESTDIR)$(modelsdir)" "$(DESTDIR)$(pcarddir)" "$(DESTDIR)$(pcldir)" "$(DESTDIR)$(pluginsdir)" "$(DESTDIR)$(policykit_dbus_etcdir)" "$(DESTDIR)$(policykit_dbus_sharedir)" "$(DESTDIR)$(policykit_policydir)" "$(DESTDIR)$(postscriptdir)" "$(DESTDIR)$(ppddir)" "$(DESTDIR)$(printpluginsdir)" "$(DESTDIR)$(prntdir)" "$(DESTDIR)$(rulesdir)" "$(DESTDIR)$(rulessystemdir)" "$(DESTDIR)$(scandir)" "$(DESTDIR)$(selinuxdir)" "$(DESTDIR)$(uidir)" "$(DESTDIR)$(ui4dir)" "$(DESTDIR)$(ui5dir)" "$(DESTDIR)$(unreldir)" "$(DESTDIR)$(www0dir)" "$(DESTDIR)$(www3dir)" "$(DESTDIR)$(www4dir)" "$(DESTDIR)$(docdir)" "$(DESTDIR)$(hplip_confdir)" "$(DESTDIR)$(hplip_desktopdir)" "$(DESTDIR)$(hplip_systraydir)"; do \
+	for dir in "$(DESTDIR)$(cupsextdir)" "$(DESTDIR)$(hpmudextdir)" "$(DESTDIR)$(libdir)" "$(DESTDIR)$(libsane_hpaiodir)" "$(DESTDIR)$(pcardextdir)" "$(DESTDIR)$(scanextdir)" "$(DESTDIR)$(bindir)" "$(DESTDIR)$(dat2drvdir)" "$(DESTDIR)$(hpdir)" "$(DESTDIR)$(hpcupsdir)" "$(DESTDIR)$(hpcupsfaxdir)" "$(DESTDIR)$(hppsdir)" "$(DESTDIR)$(locatedriverdir)" "$(DESTDIR)$(cmddir)" "$(DESTDIR)$(findir)" "$(DESTDIR)$(hpfaxdir)" "$(DESTDIR)$(hplipdir)" "$(DESTDIR)$(plugins4dir)" "$(DESTDIR)$(plugins5dir)" "$(DESTDIR)$(ripdir)" "$(DESTDIR)$(pstotiffdir)" "$(DESTDIR)$(apparmor_abstractiondir)" "$(DESTDIR)$(apparmor_profiledir)" "$(DESTDIR)$(cupsdrvdir)" "$(DESTDIR)$(cupsdrv2dir)" "$(DESTDIR)$(apparmor_abstractiondir)" "$(DESTDIR)$(apparmor_profiledir)" "$(DESTDIR)$(basedir)" "$(DESTDIR)$(basepexpectdir)" "$(DESTDIR)$(copierdir)" "$(DESTDIR)$(faxdir)" "$(DESTDIR)$(fax_filtersdir)" "$(DESTDIR)$(filterdir)" "$(DESTDIR)$(halpredir)" "$(DESTDIR)$(homedir)" "$(DESTDIR)$(hpcupsfaxppddir)" "$(DESTDIR)$(hpijsfaxppddir)" "$(DESTDIR)$(hplip_statedir)" "$(DESTDIR)$(images_128x128dir)" "$(DESTDIR)$(images_16x16dir)" "$(DESTDIR)$(images_24x24dir)" "$(DESTDIR)$(images_256x256dir)" "$(DESTDIR)$(images_32x32dir)" "$(DESTDIR)$(images_64x64dir)" "$(DESTDIR)$(images_devicesdir)" "$(DESTDIR)$(images_otherdir)" "$(DESTDIR)$(installdir)" "$(DESTDIR)$(ldldir)" "$(DESTDIR)$(localzdir)" "$(DESTDIR)$(locatedriverdir)" "$(DESTDIR)$(modelsdir)" "$(DESTDIR)$(pcarddir)" "$(DESTDIR)$(pcldir)" "$(DESTDIR)$(pluginsdir)" "$(DESTDIR)$(policykit_dbus_etcdir)" "$(DESTDIR)$(policykit_dbus_sharedir)" "$(DESTDIR)$(policykit_policydir)" "$(DESTDIR)$(postscriptdir)" "$(DESTDIR)$(ppddir)" "$(DESTDIR)$(printpluginsdir)" "$(DESTDIR)$(prntdir)" "$(DESTDIR)$(rulesdir)" "$(DESTDIR)$(rulessystemdir)" "$(DESTDIR)$(scandir)" "$(DESTDIR)$(selinuxdir)" "$(DESTDIR)$(uidir)" "$(DESTDIR)$(ui4dir)" "$(DESTDIR)$(ui5dir)" "$(DESTDIR)$(unreldir)" "$(DESTDIR)$(www0dir)" "$(DESTDIR)$(www3dir)" "$(DESTDIR)$(www4dir)" "$(DESTDIR)$(docdir)" "$(DESTDIR)$(hp_uiscan_desktopdir)" "$(DESTDIR)$(hplip_confdir)" "$(DESTDIR)$(hplip_desktopdir)" "$(DESTDIR)$(hplip_systraydir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -9116,13 +9167,13 @@ install-data-am: install-apparmor_abstractionDATA \
 	install-dist_ui4DATA install-dist_ui5DATA install-dist_uiDATA \
 	install-dist_unrelDATA install-dist_www0DATA \
 	install-dist_www3DATA install-dist_www4DATA install-docDATA \
-	install-hpPROGRAMS install-hpcupsPROGRAMS \
-	install-hpcupsfaxPROGRAMS install-hplip_confDATA \
-	install-hplip_desktopDATA install-hplip_systrayDATA \
-	install-hpmudextLTLIBRARIES install-hppsPROGRAMS \
-	install-libsane_hpaioLTLIBRARIES install-locatedriverPROGRAMS \
-	install-pcardextLTLIBRARIES install-pstotiffSCRIPTS \
-	install-scanextLTLIBRARIES
+	install-hpPROGRAMS install-hp_uiscan_desktopDATA \
+	install-hpcupsPROGRAMS install-hpcupsfaxPROGRAMS \
+	install-hplip_confDATA install-hplip_desktopDATA \
+	install-hplip_systrayDATA install-hpmudextLTLIBRARIES \
+	install-hppsPROGRAMS install-libsane_hpaioLTLIBRARIES \
+	install-locatedriverPROGRAMS install-pcardextLTLIBRARIES \
+	install-pstotiffSCRIPTS install-scanextLTLIBRARIES
 	@$(NORMAL_INSTALL)
 	$(MAKE) $(AM_MAKEFLAGS) install-data-hook
 install-dvi: install-dvi-am
@@ -9209,11 +9260,11 @@ uninstall-am: uninstall-apparmor_abstractionDATA \
 	uninstall-dist_unrelDATA uninstall-dist_www0DATA \
 	uninstall-dist_www3DATA uninstall-dist_www4DATA \
 	uninstall-docDATA uninstall-hpPROGRAMS \
-	uninstall-hpcupsPROGRAMS uninstall-hpcupsfaxPROGRAMS \
-	uninstall-hplip_confDATA uninstall-hplip_desktopDATA \
-	uninstall-hplip_systrayDATA uninstall-hpmudextLTLIBRARIES \
-	uninstall-hppsPROGRAMS uninstall-libLTLIBRARIES \
-	uninstall-libsane_hpaioLTLIBRARIES \
+	uninstall-hp_uiscan_desktopDATA uninstall-hpcupsPROGRAMS \
+	uninstall-hpcupsfaxPROGRAMS uninstall-hplip_confDATA \
+	uninstall-hplip_desktopDATA uninstall-hplip_systrayDATA \
+	uninstall-hpmudextLTLIBRARIES uninstall-hppsPROGRAMS \
+	uninstall-libLTLIBRARIES uninstall-libsane_hpaioLTLIBRARIES \
 	uninstall-locatedriverPROGRAMS uninstall-pcardextLTLIBRARIES \
 	uninstall-pstotiffSCRIPTS uninstall-scanextLTLIBRARIES
 	@$(NORMAL_INSTALL)
@@ -9267,20 +9318,21 @@ uninstall-am: uninstall-apparmor_abstractionDATA \
 	install-dist_unrelDATA install-dist_www0DATA \
 	install-dist_www3DATA install-dist_www4DATA install-docDATA \
 	install-dvi install-dvi-am install-exec install-exec-am \
-	install-hpPROGRAMS install-hpcupsPROGRAMS \
-	install-hpcupsfaxPROGRAMS install-hplip_confDATA \
-	install-hplip_desktopDATA install-hplip_systrayDATA \
-	install-hpmudextLTLIBRARIES install-hppsPROGRAMS install-html \
-	install-html-am install-info install-info-am \
-	install-libLTLIBRARIES install-libsane_hpaioLTLIBRARIES \
-	install-locatedriverPROGRAMS install-man \
-	install-pcardextLTLIBRARIES install-pdf install-pdf-am \
-	install-ps install-ps-am install-pstotiffSCRIPTS \
-	install-scanextLTLIBRARIES install-strip installcheck \
-	installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
-	tags uninstall uninstall-am uninstall-apparmor_abstractionDATA \
+	install-hpPROGRAMS install-hp_uiscan_desktopDATA \
+	install-hpcupsPROGRAMS install-hpcupsfaxPROGRAMS \
+	install-hplip_confDATA install-hplip_desktopDATA \
+	install-hplip_systrayDATA install-hpmudextLTLIBRARIES \
+	install-hppsPROGRAMS install-html install-html-am install-info \
+	install-info-am install-libLTLIBRARIES \
+	install-libsane_hpaioLTLIBRARIES install-locatedriverPROGRAMS \
+	install-man install-pcardextLTLIBRARIES install-pdf \
+	install-pdf-am install-ps install-ps-am \
+	install-pstotiffSCRIPTS install-scanextLTLIBRARIES \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
+	pdf pdf-am ps ps-am tags uninstall uninstall-am \
+	uninstall-apparmor_abstractionDATA \
 	uninstall-apparmor_profileDATA uninstall-binPROGRAMS \
 	uninstall-cupsdrv2DATA uninstall-cupsdrvDATA \
 	uninstall-cupsextLTLIBRARIES uninstall-dat2drvPROGRAMS \
@@ -9318,11 +9370,11 @@ uninstall-am: uninstall-apparmor_abstractionDATA \
 	uninstall-dist_unrelDATA uninstall-dist_www0DATA \
 	uninstall-dist_www3DATA uninstall-dist_www4DATA \
 	uninstall-docDATA uninstall-hook uninstall-hpPROGRAMS \
-	uninstall-hpcupsPROGRAMS uninstall-hpcupsfaxPROGRAMS \
-	uninstall-hplip_confDATA uninstall-hplip_desktopDATA \
-	uninstall-hplip_systrayDATA uninstall-hpmudextLTLIBRARIES \
-	uninstall-hppsPROGRAMS uninstall-libLTLIBRARIES \
-	uninstall-libsane_hpaioLTLIBRARIES \
+	uninstall-hp_uiscan_desktopDATA uninstall-hpcupsPROGRAMS \
+	uninstall-hpcupsfaxPROGRAMS uninstall-hplip_confDATA \
+	uninstall-hplip_desktopDATA uninstall-hplip_systrayDATA \
+	uninstall-hpmudextLTLIBRARIES uninstall-hppsPROGRAMS \
+	uninstall-libLTLIBRARIES uninstall-libsane_hpaioLTLIBRARIES \
 	uninstall-locatedriverPROGRAMS uninstall-pcardextLTLIBRARIES \
 	uninstall-pstotiffSCRIPTS uninstall-scanextLTLIBRARIES
 
@@ -9413,6 +9465,7 @@ dist-hook:
 @HPLIP_CLASS_DRIVER_TRUE@	rm -rf $(distdir)/ui5/
 @HPLIP_CLASS_DRIVER_TRUE@	rm -rf $(distdir)/align.py
 @HPLIP_CLASS_DRIVER_TRUE@	rm -rf $(distdir)/info.py
+@HPLIP_CLASS_DRIVER_TRUE@	rm -rf $(distdir)/uiscan.py
 @HPLIP_CLASS_DRIVER_TRUE@	rm -rf $(distdir)/toolbox.py
 @HPLIP_CLASS_DRIVER_TRUE@	rm -rf $(distdir)/clean.py
 @HPLIP_CLASS_DRIVER_TRUE@	rm -rf $(distdir)/colorcal.py
@@ -9456,6 +9509,7 @@ dist-hook:
 @HPLIP_CLASS_DRIVER_TRUE@	rm -rf $(distdir)/__init__.py
 @HPLIP_CLASS_DRIVER_TRUE@	rm -rf $(distdir)/hpdio.py
 @HPLIP_CLASS_DRIVER_TRUE@	rm -rf $(distdir)/hplip.desktop.in
+@HPLIP_CLASS_DRIVER_TRUE@	rm -rf $(distdir)/hp-uiscan.desktop.in
 @HPLIP_CLASS_DRIVER_TRUE@	rm -rf $(distdir)/hplip-systray.desktop.in
 @HPLIP_CLASS_DRIVER_TRUE@	rm -rf $(distdir)/print.py
 @HPLIP_CLASS_DRIVER_TRUE@	rm -rf $(distdir)/printsettings.py

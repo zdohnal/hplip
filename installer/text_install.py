@@ -725,13 +725,13 @@ def start(language, auto=True, test_depends=False,
                     "%s protects the application from external intrusion attempts making the application secure" % sec_package_name)
                 
                 if core.distro_name.lower() == 'fedora' and core.distro_version < '28':
-                    print("SELinux enabling the 'cups_execmem' boolean ")
+                    #print("SELinux enabling the 'cups_execmem' boolean ")
                     cds_cmd  = 'su -c "setsebool -P cups_execmem 1" '                    
                     status, output = utils.run(cds_cmd, core.passwordObj)
                     if status != 0:
                         log.error("SELinux 'cups_execmem ' Boolean set it '1' failed with status %d" % status) 
                 elif core.distro_name.lower() == 'fedora':
-                    print("SELinux enabling the 'cups_execmem' boolean ")
+                    #print("SELinux enabling the 'cups_execmem' boolean ")
                     cds_cmd  = 'sudo setsebool -P cups_execmem 1'                    
                     status, output = utils.run(cds_cmd, core.passwordObj)
                     if status != 0:
@@ -1255,6 +1255,14 @@ def start(language, auto=True, test_depends=False,
 
             if not num_opt_missing and not num_req_missing:
                 log.info("OK")
+
+        #
+        # SCANJET DEPENDENCIES
+        #
+        if bClassDriver == False:
+            tui.title("RUNNING SCANJET DEPENDENCY COMMANDS")
+            core.run_scanjet_depend(progress_callback)
+            log.info("OK")                   
 
         #
         # INSTALL LOCATION

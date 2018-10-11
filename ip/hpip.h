@@ -68,8 +68,17 @@ typedef unsigned short USHORT, *PUSHORT, FAR *LPUSHORT;
 typedef unsigned int DWORD, *PDWORD, FAR *LPDWORD;
 typedef unsigned int UINT, *PUINT, FAR *LPUINT;
 typedef unsigned long ULONG, *PULONG, FAR *LPULONG;
-typedef enum { FALSE=0, TRUE=1 } BOOL;
-typedef void VOID, *PVOID, FAR *LPVOID;
+#ifndef FALSE
+#define FALSE			0
+#endif
+#ifndef TRUE
+#define TRUE			1
+#endif
+typedef int				BOOL;
+//typedef enum { FALSE=0, TRUE=1 } BOOL;
+
+typedef void VOID;
+typedef void *PVOID, FAR *LPVOID;
 typedef long long int __int64;
 
 typedef struct {

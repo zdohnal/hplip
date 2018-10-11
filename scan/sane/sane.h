@@ -57,7 +57,9 @@ typedef enum
     SANE_STATUS_COVER_OPEN,	/* scanner cover is open */
     SANE_STATUS_IO_ERROR,	/* error during device I/O */
     SANE_STATUS_NO_MEM,		/* out of memory */
-    SANE_STATUS_ACCESS_DENIED	/* access to resource has been denied */
+    SANE_STATUS_ACCESS_DENIED,	/* access to resource has been denied */
+    SANE_STATUS_MULTIPICK      /*multipick error*/
+    
   }
 SANE_Status;
 

@@ -23,6 +23,7 @@
 #define SCAN_PLUGIN_SOAP "bb_soap.so"
 #define SCAN_PLUGIN_SOAPHT "bb_soapht.so"
 #define SCAN_PLUGIN_ESCL "bb_escl.so"
+#define SCAN_PLUGIN_ORBLITE "bb_orblite.so"
 
 #define HPLIP_PLUGIN_STATE  "/var/lib/hp/hplip.state"
 #define CUPS_TMP_DIR   getenv("TMPDIR") ? : getenv("HOME") ?:"/tmp"

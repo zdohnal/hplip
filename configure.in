@@ -26,7 +26,7 @@
 #   104 = no libdl
 
 #AC_PREREQ(2.59)
-AC_INIT([HP Linux Imaging and Printing], [3.18.7], [3.18.7], [hplip])
+AC_INIT([HP Linux Imaging and Printing], [3.18.9], [3.18.9], [hplip])
 #AM_INIT_AUTOMAKE([1.9 foreign])
 AM_INIT_AUTOMAKE
 AC_DISABLE_STATIC
@@ -374,6 +374,9 @@ AC_ARG_WITH(cupsfilterdir, AC_HELP_STRING([--with-cupsfilterdir=DIR], [set cups 
    cupsfilterdir=$withval, cupsfilterdir="/usr/lib/cups/filter")
 
 AC_ARG_WITH(icondir, AC_HELP_STRING([--with-icondir=DIR], [set hplip.desktop install directory [default=/usr/share/applications]]),
+   icondir=$withval, icondir="/usr/share/applications")
+
+AC_ARG_WITH(icondir, AC_HELP_STRING([--with-icondir=DIR], [set hp-uiscan.desktop install directory [default=/usr/share/applications]]),
    icondir=$withval, icondir="/usr/share/applications")
 
 AC_ARG_WITH(systraydir, AC_HELP_STRING([--with-systraydir=DIR], [set hplip-systray.desktop install directory [default=/etc/xdg/autostart]]),
@@ -732,5 +735,5 @@ AC_SUBST(udev_sysfs_rules)
 AC_SUBST(epm_class_driver)
 AC_SUBST(epm_class_install)
 
-AC_CONFIG_FILES(Makefile hplip.conf hplip.desktop hplip-systray.desktop prnt/drv/hpijs.drv prnt/drv/hpcups.drv hplip.list data/policykit/com.hp.hplip.service)
+AC_CONFIG_FILES(Makefile hplip.conf hplip.desktop hp-uiscan.desktop hplip-systray.desktop prnt/drv/hpijs.drv prnt/drv/hpcups.drv hplip.list data/policykit/com.hp.hplip.service)
 AC_OUTPUT

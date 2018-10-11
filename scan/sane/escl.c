@@ -824,6 +824,9 @@ static void escl_send_event(struct escl_session *ps, SANE_Status stat)
    case SANE_STATUS_NO_DOCS:
      event =  EVENT_SCAN_ADF_NO_DOCS;
      break;
+   case SANE_STATUS_MULTIPICK:
+     event = EVENT_SCAN_ADF_MISPICK;
+     break;
    case SANE_STATUS_JAMMED:
      event =  EVENT_SCAN_ADF_JAM;
      break;

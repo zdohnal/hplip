@@ -37,6 +37,8 @@
 # pre_install_cmd=<commands to run before installer checks dependencies (comma sep. list)> [TYPE_LIST]
 # pre_depend_cmd=<commands to run before packages are installed (comma sep. list)> [TYPE_LIST]
 # post_depend_cmd=<commands to run after packages are installed (comma sep. list)> [TYPE_LIST]
+# scanjet_depend_cmd=<commands to run for installing python2 packages related to scanjet features (comma sep. list)> [TYPE_LIST]
+# scanjet_py3_depend_cmd=<commands to run for installing python3 packages related to scanjet features (comma sep. list)> [TYPE_LIST]
 # hplip_remove_cmd=<command to remove package version of hplip> [TYPE_LIST]
 # su_sudo=su|sudo  [TYPE_STRING] # su is default
 # ppd_install=ppd|drv  [TYPE_STRING] # ppd is default
@@ -112,7 +114,7 @@ supported=0
 
 [suse]
 index=3
-versions=13.2,42.1,42.2,42.3
+versions=12.2,12.3,13.1,13.2,42.1,42.2,42.3
 display_name=SUSE Linux
 alt_names=
 display=1
@@ -121,6 +123,10 @@ package_mgrs=yast,yast2,opensuse-updater,zypper,package-manager
 package_mgr_cmd=su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses $packages_to_install"
 pre_depend_cmd=
 post_depend_cmd=
+scanjet_depend_cmd=su -c "zypper --non-interactive --no-gpg-checks remove python-numpy",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses python-pip",su -c "pip2 install --upgrade pip",su -c "pip2 install setuptools",su -c "pip2 install opencv-python",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses leptonica-devel",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr-devel",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr-traineddata-*",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses libzbar-devel",su -c "pip2 install zbar",su -c "pip2 install PyPDF2",su -c "pip2 install imutils",su -c "pip2 install tesserocr"
+#su -c "pip2 install --upgrade setuptools"
+scanjet_py3_depend_cmd=su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses python3-pip",su -c "pip3 install --upgrade pip",su -c "pip3 install opencv-python",su -c "pip3 install setuptools",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses leptonica-devel",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr-devel",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr-traineddata-*",su -c "pip3 install PyPDF2",su -c "pip3 install imutils",su -c "pip3 install tesserocr"
+#su -c "pip3 install --upgrade setuptools",
 hplip_remove_cmd=su -c "zypper --non-interactive rm hplip"
 su_sudo=su
 ppd_install=ppd
@@ -132,7 +138,7 @@ drv_dir=/usr/share/cups/drv/HP
 # ********************
 [suse:12.2]
 code_name=Mantis
-supported=0
+supported=1
 scan_supported=1
 fax_supported=1
 pcard_supported=0
@@ -274,7 +280,7 @@ packages=automake
 # ********************
 [suse:12.3]
 code_name=Dartmouth
-supported=0
+supported=1
 scan_supported=1
 fax_supported=1
 pcard_supported=0
@@ -423,7 +429,7 @@ packages=automake
 
 [suse:13.1]
 code_name=Evergreen
-supported=0
+supported=1
 packaged_version=3.13.7
 release_date=19.09.2013
 same_as_version=12.3
@@ -744,7 +750,6 @@ code_name=Harlequin
 supported=1
 packaged_version=3.17.9
 release_date=26.07.2017
-post_depend_cmd=su -c "zypper --non-interactive --no-gpg-checks in --force --auto-agree-with-licenses cups-filters-ghostscript",su -c "service cups restart"
 scan_supported=1
 fax_supported=1
 pcard_supported=0
@@ -761,6 +766,9 @@ cups_path_with_bitness=0
 ui_toolkit=qt4
 native_cups=1
 pre_depend_cmd=su -c "zypper refresh"
+post_depend_cmd=su -c "zypper --non-interactive --no-gpg-checks in --force --auto-agree-with-licenses cups-filters-ghostscript",su -c "service cups restart"
+#scanjet_depend_cmd=su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses python2-pip",su -c "pip2 install --upgrade pip",su -c "pip2 install setuptools",su -c "pip2 install --upgrade setuptools",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses leptonica-devel",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr-devel",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr-traineddata-*",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses libzbar-devel",su -c "pip2 install zbar",su -c "pip2 install opencv-python",su -c "pip2 install PyPDF2",su -c "pip2 install imutils",su -c "pip2 install tesserocr"
+#scanjet_py3_depend_cmd=su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses python3-pip",su -c "pip3 install --upgrade pip",su -c "pip3 install setuptools",su -c "pip3 install --upgrade setuptools",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses leptonica-devel",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr-devel",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr-traineddata-*",su -c "pip3 install opencv-python",su -c "pip3 install PyPDF2",su -c "pip3 install imutils",su -c "pip3 install tesserocr"
 
 [suse:42.3:cups]
 packages=cups,cups-client
@@ -1088,7 +1096,7 @@ ui_toolkit=qt3
 # ****************************************
 [fedora]
 index=5
-versions=22,23,24,25,26,27,28
+versions=17,18,19,20,21,22,23,24,25,26,27,28
 display_name=Fedora
 alt_names=Fedora Core
 display=1
@@ -1097,6 +1105,10 @@ package_mgrs=yum,rpm,up2date
 package_mgr_cmd=su -c "yum -y -d 10 -e 1 install $packages_to_install"
 pre_depend_cmd=su -c "yum clean all",su -c "yum check-update"
 post_depend_cmd=
+#scanjet_depend_cmd=su -c "dnf -y -d 10 -e 1 install python2-pip",su -c "dnf -y -d 10 -e 1 install leptonica",su -c "dnf -y -d 10 -e 1 install leptonica-devel",su -c "dnf -y -d 10 -e 1 install tesseract",su -c "dnf -y -d 10 -e 1 install tesseract-devel",su -c "pip2 install tesserocr",su -c "dnf -y -d 10 -e 1 install tesseract-langpack-*",su -c "dnf -y -d 10 -e 1 install zbar-devel",su -c "pip2 install zbar",su -c "pip2 install opencv-python",su -c "pip2 install pypdf2",su -c "pip2 install imutils"
+scanjet_depend_cmd=su -c "dnf -y -d 10 -e 1 install python-pip",su -c "pip install opencv-python",su -c "pip install pypdf2",su -c "pip install imutils",su -c "dnf -y -d 10 -e 1 install zbar-devel",su -c "dnf update gcc",su -c "dnf -y -d 10 -e 1 install zbar-*",su -c "dnf -y -d 10 -e 1 install ImageMagick*",su -c "dnf -y -d 10 -e 1 install leptonica",su -c "dnf -y -d 10 -e 1 install leptonica-devel",su -c "dnf -y -d 10 -e 1 install tesseract",su -c "dnf -y -d 10 -e 1 install tesseract-devel",su -c "pip install tesserocr",su -c "dnf -y -d 10 -e 1 install tesseract-langpack-*",su -c "dnf -y -d 10 -e 1 install tesseract-osd"
+scanjet_py3_depend_cmd=su -c "dnf -y -d 10 -e 1 install python3-pip",su -c "pip3 install opencv-python",su -c "pip3 install pypdf2",su -c "pip3 install imutils",su -c "dnf -y -d 10 -e 1 install ImageMagick*",su -c "dnf -y -d 10 -e 1 install leptonica",su -c "dnf -y -d 10 -e 1 install leptonica-devel",su -c "dnf -y -d 10 -e 1 install tesseract",su -c "dnf -y -d 10 -e 1 install tesseract-devel",su -c "pip3 install tesserocr",su -c "dnf -y -d 10 -e 1 install tesseract-langpack-*",su -c "dnf -y -d 10 -e 1 install tesseract-osd"
+#hplip_remove_cmd=su -c "dnf -y -d 10 -e 1 remove hplip"
 hplip_remove_cmd=su -c "yum -y -d 10 -e 1 remove hplip"
 su_sudo=su
 ppd_install=ppd
@@ -1108,7 +1120,7 @@ drv_dir=/usr/share/cups/drv/HP
 # ********************
 [fedora:17]
 code_name=Beefy Miracle
-supported=0
+supported=1
 scan_supported=1
 fax_supported=1
 pcard_supported=1
@@ -1229,7 +1241,7 @@ packages=automake
 # ********************
 [fedora:18]
 code_name=Sperical Cow
-supported=0
+supported=1
 scan_supported=1
 fax_supported=1
 pcard_supported=1
@@ -1351,7 +1363,7 @@ packages=automake
 
 [fedora:19]
 code_name=Schrodinger's Cat
-supported=0
+supported=1
 packaged_version=3.13.5
 release_date=02/07/2013
 same_as_version=17
@@ -1362,16 +1374,18 @@ same_as_version=17
 
 [fedora:20]
 code_name=Heisenbug
-supported=0
+supported=1
 packaged_version=3.13.9
 release_date=12/11/2013
 same_as_version=19
+
+
 
 # ****************************************
 
 [fedora:21]
 code_name=
-supported=0
+supported=1
 packaged_version=3.14.10
 release_date=09/12/2014
 same_as_version=17
@@ -1583,6 +1597,8 @@ native_cups=1
 open_mdns_port=/bin/bash ./init-iptables-firewall
 package_mgr_cmd=su -c "dnf -y -d 10 -e 1 install $packages_to_install"
 pre_depend_cmd=su -c "dnf check-update"
+#scanjet_depend_cmd=su -c "dnf -y -d 10 -e 1 install python2-pip",su -c "dnf -y -d 10 -e 1 install leptonica",su -c "dnf -y -d 10 -e 1 install leptonica-devel",su -c "dnf -y -d 10 -e 1 install tesseract",su -c "dnf -y -d 10 -e 1 install tesseract-devel",su -c "pip2 install tesserocr",su -c "dnf -y -d 10 -e 1 install tesseract-langpack-*",su -c "dnf -y -d 10 -e 1 install zbar-devel",su -c "pip2 install zbar",su -c "pip2 install opencv-python",su -c "pip2 install pypdf2",su -c "pip2 install imutils"
+#scanjet_py3_depend_cmd=su -c "dnf -y -d 10 -e 1 install python3-pip",su -c "dnf -y -d 10 -e 1 install leptonica",su -c "dnf -y -d 10 -e 1 install leptonica-devel",su -c "dnf -y -d 10 -e 1 install tesseract",su -c "dnf -y -d 10 -e 1 install tesseract-devel",su -c "pip3 install tesserocr",su -c "dnf -y -d 10 -e 1 install tesseract-langpack-*",su -c "pip3 install opencv-python",su -c "pip3 install pypdf2",su -c "pip3 install imutils"
 hplip_remove_cmd=su -c "dnf -y -d 10 -e 1 remove hplip"
 
 [fedora:27:cups]
@@ -1729,6 +1745,8 @@ native_cups=1
 open_mdns_port=/bin/bash ./init-iptables-firewall
 package_mgr_cmd= sudo dnf -y -d 10 -e 1 install $packages_to_install
 pre_depend_cmd=sudo dnf check-update
+scanjet_depend_cmd=sudo dnf -y -d 10 -e 1 install python-pip,sudo pip install opencv-python,sudo pip install pypdf2,sudo pip install imutils,sudo dnf -y -d 10 -e 1 install zbar-devel,sudo dnf update gcc,sudo dnf -y -d 10 -e 1 install zbar-*,sudo dnf -y -d 10 -e 1 install leptonica,sudo dnf -y -d 10 -e 1 install leptonica-devel,sudo dnf -y -d 10 -e 1 install tesseract,sudo dnf -y -d 10 -e 1 install tesseract-devel,sudo pip install tesserocr,sudo dnf -y -d 10 -e 1 install tesseract-langpack-*,sudo dnf -y -d 10 -e 1 install tesseract-osd
+scanjet_py3_depend_cmd=sudo dnf -y -d 10 -e 1 install python3-pip,sudo pip3 install opencv-python,sudo pip3 install pypdf2,sudo pip3 install imutils,sudo dnf -y -d 10 -e 1 install leptonica,sudo dnf -y -d 10 -e 1 install leptonica-devel,sudo dnf -y -d 10 -e 1 install tesseract,sudo dnf -y -d 10 -e 1 install tesseract-devel,sudo pip3 install tesserocr,sudo dnf -y -d 10 -e 1 install tesseract-langpack-*,sudo dnf -y -d 10 -e 1 install tesseract-osd
 hplip_remove_cmd=sudo dnf -y -d 10 -e 1 remove hplip
 
 [fedora:28:cups]
@@ -2162,7 +2180,13 @@ same_as_version=6.0
 [rhel:7.1]
 packaged_version=3.14.7
 release_date=05/03/2015
-same_as_version=7.0
+same_as_version=6.0
+
+# ****************************************
+[rhel:7.2]
+packaged_version=3.14.7
+release_date=21/09/2015
+same_as_version=6.0
 
 # ****************************************
 [rhel:7.3]
@@ -3299,7 +3323,7 @@ packages=epm
 # ****************************************
 [ubuntu]
 index=12
-versions=12.04,13.10,14.04,15.04,15.10,16.04,16.10,17.04,17.10,18.04
+versions=10.04,11.10,12.04,12.10,13.04,13.10,14.04,14.10,15.04,15.10,16.04,16.10,17.04,17.10,18.04
 display_name=Ubuntu
 alt_names=kubuntu,edubuntu,xubuntu
 display=1
@@ -3308,7 +3332,11 @@ package_mgrs=dpkg,apt-get,synaptic,update-manager,adept,aptitude,adept-updater
 package_mgr_cmd=sudo apt-get install --assume-yes $packages_to_install
 pre_depend_cmd=sudo dpkg --configure -a,sudo apt-get install --yes --force-yes -f,sudo apt-get update
 post_depend_cmd=
+scanjet_depend_cmd=sudo apt-get install --assume-yes python-pip,sudo pip2 install --upgrade pip,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip2 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-all,sudo apt-get install --assume-yes libzbar-dev,sudo apt-get install --assume-yes python-zbar,sudo -H pip2 install opencv-python,sudo -H pip2 install PyPDF2,sudo -H pip2 install imutils
+#sudo apt-get install --assume-yes tesseract-ocr-all
+scanjet_py3_depend_cmd=sudo apt-get install --assume-yes python3-pip,sudo pip3 install --upgrade pip,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip3 install tesserocr,sudo -H pip3 install opencv-python,sudo -H pip3 install PyPDF2,sudo -H pip3 install imutils
 hplip_remove_cmd=sudo apt-get remove --assume-yes hplip hpijs hplip-cups hplip-data libhpmud0 foomatic-db-hpijs
+#sudo apt-get install --assume-yes tesseract-ocr-all,
 su_sudo=sudo
 ppd_install=ppd
 udev_mode_fix=1
@@ -3319,7 +3347,7 @@ drv_dir=/usr/share/cups/drv/HP
 # ********************
 [ubuntu:10.04]
 code_name=Lucid
-supported=0
+supported=1
 scan_supported=1
 fax_supported=1
 pcard_supported=1
@@ -3367,7 +3395,7 @@ packages=build-essential
 packages=libtool
 
 [ubuntu:10.04:libusb]
-packages=libusb-1.0-0-dev
+packages=libusb-1.0-0-dev,libusb-0.1-4
 
 [ubuntu:10.04:make]
 packages=build-essential
@@ -3445,7 +3473,7 @@ packages=epm
 # ********************
 [ubuntu:11.10]
 code_name=Oneiric
-supported=0
+supported=1
 scan_supported=1
 fax_supported=1
 pcard_supported=1
@@ -3494,7 +3522,7 @@ packages=build-essential
 packages=libtool
 
 [ubuntu:11.10:libusb]
-packages=libusb-1.0.0-dev
+packages=libusb-1.0.0-dev,libusb-0.1-4
 
 [ubuntu:11.10:make]
 packages=build-essential
@@ -3621,7 +3649,7 @@ packages=build-essential
 packages=libtool
 
 [ubuntu:12.04:libusb]
-packages=libusb-1.0.0-dev
+packages=libusb-1.0.0-dev,libusb-0.1-4
 
 [ubuntu:12.04:make]
 packages=build-essential
@@ -3779,7 +3807,7 @@ packages=build-essential
 packages=libtool
 
 [ubuntu:13.04:libusb]
-packages=libusb-1.0.0-dev
+packages=libusb-1.0.0-dev,libusb-0.1-4
 
 [ubuntu:13.04:make]
 packages=build-essential
@@ -3929,7 +3957,7 @@ packages=build-essential
 packages=libtool
 
 [ubuntu:13.10:libusb]
-packages=libusb-1.0.0-dev
+packages=libusb-1.0.0-dev,libusb-0.1-4
 
 [ubuntu:13.10:make]
 packages=build-essential
@@ -4086,7 +4114,7 @@ packages=build-essential
 packages=libtool
 
 [ubuntu:14.10:libusb]
-packages=libusb-1.0.0-dev
+packages=libusb-1.0.0-dev,libusb-0.1-4
 
 [ubuntu:14.10:make]
 packages=build-essential
@@ -4236,7 +4264,7 @@ packages=build-essential
 packages=libtool,libtool-bin
 
 [ubuntu:15.04:libusb]
-packages=libusb-1.0.0-dev
+packages=libusb-1.0.0-dev,libusb-0.1-4
 
 [ubuntu:15.04:make]
 packages=build-essential
@@ -4341,14 +4369,12 @@ packages=epm
 code_name=Willy
 packaged_version=3.15.7
 release_date=22/10/2015
-supported=1
 same_as_version=15.04
 
 [ubuntu:15.10:python3-devel]
 packages=python3-dev,python3.4-dev,python3.5-dev
 
 # ********************
-
 [ubuntu:16.04]
 code_name=Xenial
 supported=1
@@ -4369,6 +4395,9 @@ drv_dir=/usr/share/cups/drv/HP
 ui_toolkit=qt4
 native_cups=1
 acl_rules=1
+scanjet_depend_cmd=sudo apt-get install --assume-yes python-pip,sudo pip install --upgrade pip,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip install tesserocr,sudo apt-get install --assume-yes libzbar-dev,sudo apt-get install --assume-yes python-zbar,sudo apt-get install --assume-yes python-opencv,sudo apt-get install --assume-yes python-pypdf2,sudo -H pip install imutils
+#sudo apt-get install --assume-yes tesseract-ocr-all,
+#scanjet_py3_depend_cmd=sudo apt-get install --assume-yes python3-pip,sudo pip3 install --upgrade pip,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip3 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-all,sudo -H pip3 install opencv-python,sudo -H pip3 install PyPDF2,sudo -H pip3 install imutils
 
 libdir_path=/usr/lib
 [ubuntu:16.04:cups]
@@ -4399,7 +4428,7 @@ packages=build-essential
 packages=libtool,libtool-bin
 
 [ubuntu:16.04:libusb]
-packages=libusb-1.0.0-dev
+packages=libusb-1.0.0-dev,libusb-0.1-4
 
 [ubuntu:16.04:make]
 packages=build-essential
@@ -4563,7 +4592,7 @@ packages=build-essential
 packages=libtool,libtool-bin
 
 [ubuntu:16.10:libusb]
-packages=libusb-1.0.0-dev
+packages=libusb-1.0.0-dev,libusb-0.1-4
 
 [ubuntu:16.10:make]
 packages=build-essential
@@ -4727,7 +4756,7 @@ packages=build-essential
 packages=libtool,libtool-bin
 
 [ubuntu:17.04:libusb]
-packages=libusb-1.0.0-dev
+packages=libusb-1.0.0-dev,libusb-0.1-4
 
 [ubuntu:17.04:make]
 packages=build-essential
@@ -4860,6 +4889,8 @@ drv_dir=/usr/share/cups/drv/HP
 ui_toolkit=qt4
 native_cups=1
 acl_rules=1
+#scanjet_depend_cmd=sudo apt-get install --assume-yes python2-pip,sudo pip2 install --upgrade pip,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip2 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-all,sudo apt-get install --assume-yes libzbar-dev,sudo apt-get install --assume-yes python-zbar,sudo -H pip2 install opencv-python,sudo -H pip2 install PyPDF2,sudo -H pip2 install imutils
+#scanjet_py3_depend_cmd=sudo apt-get install --assume-yes python3-pip,sudo pip3 install --upgrade pip,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip3 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-all,sudo -H pip3 install opencv-python,sudo -H pip3 install PyPDF2,sudo -H pip3 install imutils
 
 libdir_path=/usr/lib
 [ubuntu:17.10:cups]
@@ -4890,7 +4921,7 @@ packages=build-essential
 packages=libtool,libtool-bin
 
 [ubuntu:17.10:libusb]
-packages=libusb-1.0.0-dev
+packages=libusb-1.0.0-dev,libusb-0.1-4
 
 [ubuntu:17.10:make]
 packages=build-essential
@@ -5005,15 +5036,170 @@ packages=epm
 
 [ubuntu:18.04]
 code_name=Bionic Beaver
+supported=1
+scan_supported=1
+fax_supported=1
+pcard_supported=1
+network_supported=1
+parallel_supported=1
+usb_supported=1
 packaged_version=3.18.4
 release_date=5/04/2018
-same_as_version=17.10
+notes=Enable the universe/multiverse repositories. Also be sure you are using the Ubuntu "Main" Repositories. See: https://help.ubuntu.com/community/Repositories/Ubuntu for more information.  Disable the CD-ROM/DVD source if you do not have the Ubuntu installation media inserted in the drive.
+ppd_install=drv
+udev_mode_fix=1
+ppd_dir=/usr/share/ppd/HP
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+ui_toolkit=qt4
+native_cups=1
+acl_rules=1
+#scanjet_depend_cmd=sudo apt-get install --assume-yes python-pip,sudo pip2 install --upgrade pip,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip2 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-all,sudo apt-get install --assume-yes libzbar-dev,sudo apt-get install --assume-yes python-zbar,sudo -H pip2 install opencv-python,sudo -H pip2 install PyPDF2,sudo -H pip2 install imutils
+#scanjet_py3_depend_cmd=sudo apt-get install --assume-yes python3-pip,sudo pip3 install --upgrade pip,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip3 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-all,sudo -H pip3 install opencv-python,sudo -H pip3 install PyPDF2,sudo -H pip3 install imutils
+
+libdir_path=/usr/lib
+
+[ubuntu:18.04:cups]
+packages=libcups2
+
+[ubuntu:18.04:cups-devel]
+packages=libcups2-dev,cups-bsd,cups-client
+
+[ubuntu:18.04:gcc]
+packages=build-essential
+
+[ubuntu:18.04:gs]
+packages=ghostscript
+
+[ubuntu:18.04:libcrypto]
+packages=openssl
+
+[ubuntu:18.04:libjpeg]
+packages=libjpeg-dev
+
+[ubuntu:18.04:libnetsnmp-devel]
+packages=libsnmp-dev,snmp-mibs-downloader
+
+[ubuntu:18.04:libpthread]
+packages=build-essential
+
+[ubuntu:18.04:libtool]
+packages=libtool,libtool-bin
+
+[ubuntu:18.04:libusb]
+packages=libusb-1.0.0-dev,libusb-0.1-4
+
+[ubuntu:18.04:make]
+packages=build-essential
+
+[ubuntu:18.04:ppdev]
+packages=
+commands=sudo modprobe ppdev,sudo cp -f /etc/modules /etc/modules.hplip,echo ppdev | sudo tee -a /etc/modules
+
+[ubuntu:18.04:pyqt]
+packages=gtk2-engines-pixbuf,python-qt4
+
+[ubuntu:18.04:python-devel]
+packages=python-dev
+
+[ubuntu:18.04:pyqt4]
+packages=gtk2-engines-pixbuf,python-qt4
+
+[ubuntu:18.04:pyqt4-dbus]
+packages=python-qt4-dbus
+
+[ubuntu:18.04:pyqt5]
+packages=gtk2-engines-pixbuf,python-pyqt5
+
+[ubuntu:18.04:pyqt5-dbus]
+packages=python-dbus.mainloop.pyqt5
+
+#[ubuntu:18.04:python23]
+#packages=python
+
+[ubuntu:18.04:python2X]
+packages=python
+
+[ubuntu:18.04:reportlab]
+packages=python-reportlab
+
+[ubuntu:18.04:sane]
+packages=libsane
+
+[ubuntu:18.04:sane-devel]
+packages=libsane-dev
+
+[ubuntu:18.04:scanimage]
+packages=sane-utils
+
+[ubuntu:18.04:xsane]
+packages=gtk2-engines-pixbuf,xsane
+
+[ubuntu:18.04:python-dbus]
+packages=python-dbus,python-gobject
+
+[ubuntu:18.04:dbus]
+packages=libdbus-1-dev
+
+[ubuntu:18.04:cups-image]
+packages=libcupsimage2-dev
+
+[ubuntu:18.04:cups-ddk]
+packages=cups
+
+[ubuntu:18.04:policykit]
+packages=policykit-1,policykit-1-gnome
+
+[ubuntu:18.04:python-notify]
+packages=python-notify
+
+[ubuntu:18.04:network]
+packages=wget
+
+[ubuntu:18.04:avahi-utils]
+packages=avahi-utils
+
+[ubuntu:18.04:python3-notify2]
+packages=python3-notify2
+
+[ubuntu:18.04:python3-pyqt4-dbus]
+packages=python3-dbus.mainloop.qt
+
+[ubuntu:18.04:python3-pyqt4]
+packages=python3-pyqt4,gtk2-engines-pixbuf
+
+[ubuntu:18.04:python3-pyqt5-dbus]
+packages=python3-dbus.mainloop.pyqt5
+
+[ubuntu:18.04:python3-pyqt5]
+packages=python3-pyqt5,gtk2-engines-pixbuf
+
+[ubuntu:18.04:python3-dbus]
+packages=python3-dbus,python3-gi
+
+[ubuntu:18.04:python3-xml]
+packages=python3-lxml
+
+[ubuntu:18.04:python3-devel]
+packages=python3-dev
+
+[ubuntu:18.04:python3-pil]
+packages=python3-pil
+
+[ubuntu:18.04:python3-reportlab]
+packages=python3-reportlab
+
+[ubuntu:18.04:automake]
+packages=automake1.11
+
+[ubuntu:18.04:epm]
+packages=epm
 
 # ****************************************
 
 [debian]
 index=2
-versions=7.0,7.1,7.2,7.3,7.4,7.5,7.6,7.7,7.8,7.9,8.0,8.1,8.2,8.3,8.4,8.5,8.6,8.7,8.8,9.1,9.2,9.3,9.4
+versions=6.0,6.0.1,6.0.2,6.0.3,6.0.4,6.0.5,6.0.6,6.0.7,6.0.8,6.0.9,6.0.10,7.0,7.1,7.2,7.3,7.4,7.5,7.6,7.7,7.8,7.9,8.0,8.1,8.2,8.3,8.4,8.5,8.6,8.7,8.8,9.1,9.2,9.3,9.4,9.5
 display_name=Debian
 alt_names=
 display=1
@@ -5022,6 +5208,12 @@ package_mgrs=dpkg,apt-get,synaptic,update-manager,adept,aptitude
 package_mgr_cmd=su -c "apt-get install --force-yes -y $packages_to_install"
 pre_depend_cmd=su -c "dpkg --configure -a",su -c "apt-get install -f",su -c "apt-get update"
 post_depend_cmd=
+#su -c "apt-get install --force-yes -y python-qt4",su -c "apt-get install --force-yes -y python-qt4-dbus",
+scanjet_depend_cmd=su -c "apt-get install --force-yes -y python-pip",su -c "pip install --upgrade pip",su -c "apt-get install --force-yes -y libleptonica-dev",su -c "apt-get install --force-yes -y tesseract-ocr",su -c "apt-get install --force-yes -y libtesseract-dev",su -c "pip install tesserocr",su -c "apt-get install --force-yes -y libzbar-dev",su -c "apt-get install --force-yes -y python-zbar",su -c "apt-get install --force-yes -y python-opencv",su -c "apt-get install --force-yes -y python-pypdf2",su -c "pip install imutils"
+#su -c "apt-get install --force-yes -y tesseract-ocr-all",
+#su -c "apt-get install --force-yes -y python3-pyqt4",su -c "apt-get install --force-yes -y gtk2-engines-pixbuf",su -c "apt-get install --force-yes -y python3-dbus.mainloop.qt",
+scanjet_py3_depend_cmd=su -c "apt-get install --force-yes -y python3-pip",su -c "pip3 install --upgrade pip",su -c "apt-get install --force-yes -y libleptonica-dev",su -c "apt-get install --force-yes -y tesseract-ocr",su -c "apt-get install --force-yes -y libtesseract-dev",su -c "pip3 install tesserocr",su -c "pip3 install opencv-python",su -c "pip3 install PyPDF2",su -c "pip3 install imutils
+#su -c "apt-get install --force-yes -y tesseract-ocr-all",
 hplip_remove_cmd=su -c "apt-get remove --yes hplip hpijs hplip-data"
 su_sudo=su
 ppd_install=ppd
@@ -5033,7 +5225,7 @@ drv_dir=/usr/share/cups/drv/HP
 # ********************
 [debian:6.0]
 code_name=Squeeze
-supported=0
+supported=1
 scan_supported=1
 fax_supported=1
 pcard_supported=1
@@ -5571,7 +5763,7 @@ udev_mode_fix=1
 ppd_dir=/usr/share/ppd/HP
 fix_ppd_symlink=0
 drv_dir=/usr/share/cups/drv/HP
-ui_toolkit=qt4
+ui_toolkit=qt5
 native_cups=1
 policykit=0
 
@@ -6423,11 +6615,25 @@ same_as_version=9.1
 code_name=Stretch
 packaged_version=3.18.4
 release_date=10/3/2018
+#su -c "apt-get install --force-yes -y python-qt4",su -c "apt-get install --force-yes -y python-qt4-dbus",
+#scanjet_depend_cmd=su -c "apt-get install --force-yes -y python2-pip",su -c "pip2 install --upgrade pip",su -c "apt-get install --force-yes -y libleptonica-dev",su -c "apt-get install --force-yes -y tesseract-ocr",su -c "apt-get install --force-yes -y libtesseract-dev",su -c "pip2 install tesserocr",su -c "apt-get install --force-yes -y tesseract-ocr-all",su -c "apt-get install --force-yes -y libzbar-dev",su -c "apt-get install --force-yes -y python-zbar",su -c "apt-get install --force-yes -y python-opencv",su -c "apt-get install --force-yes -y python-pypdf2",su -c "pip2 install imutils"
+#su -c "apt-get install --force-yes -y python3-pyqt4",su -c "apt-get install --force-yes -y gtk2-engines-pixbuf",su -c "apt-get install --force-yes -y python3-dbus.mainloop.qt",
+#scanjet_py3_depend_cmd=su -c "apt-get install --force-yes -y python3-pip",su -c "pip3 install --upgrade pip",su -c "apt-get install --force-yes -y libleptonica-dev",su -c "apt-get install --force-yes -y tesseract-ocr",su -c "apt-get install --force-yes -y libtesseract-dev",su -c "pip3 install tesserocr",su -c "apt-get install --force-yes -y tesseract-ocr-all",su -c "pip3 install opencv-python",su -c "pip3 install PyPDF2",su -c "pip3 install imutils"
 same_as_version=9.1
 
 # ****************************************
 
+[debian:9.5]
+code_name=Stretch
+packaged_version=3.18.9
+release_date=10/3/2018
+#su -c "apt-get install --force-yes -y python-qt4",su -c "apt-get install --force-yes -y python-qt4-dbus",
+#scanjet_depend_cmd=su -c "apt-get install --force-yes -y python2-pip",su -c "pip2 install --upgrade pip",su -c "apt-get install --force-yes -y libleptonica-dev",su -c "apt-get install --force-yes -y tesseract-ocr",su -c "apt-get install --force-yes -y libtesseract-dev",su -c "pip2 install tesserocr",su -c "apt-get install --force-yes -y tesseract-ocr-all",su -c "apt-get install --force-yes -y libzbar-dev",su -c "apt-get install --force-yes -y python-zbar",su -c "apt-get install --force-yes -y python-opencv",su -c "apt-get install --force-yes -y python-pypdf2",su -c "pip2 install imutils"
+#su -c "apt-get install --force-yes -y python3-pyqt4",su -c "apt-get install --force-yes -y gtk2-engines-pixbuf",su -c "apt-get install --force-yes -y python3-dbus.mainloop.qt",
+#scanjet_py3_depend_cmd=su -c "apt-get install --force-yes -y python3-pip",su -c "pip3 install --upgrade pip",su -c "apt-get install --force-yes -y libleptonica-dev",su -c "apt-get install --force-yes -y tesseract-ocr",su -c "apt-get install --force-yes -y libtesseract-dev",su -c "pip3 install tesserocr",su -c "apt-get install --force-yes -y tesseract-ocr-all",su -c "pip3 install opencv-python",su -c "pip3 install PyPDF2",su -c "pip3 install imutils"
+same_as_version=9.1
 
+# ****************************************
 
 [xandros]
 index=13
@@ -8529,7 +8735,7 @@ packages=epm
 # ****************************************
 [linuxmint]
 index=22
-versions=17,17.1,17.2,17.3,18,18.1,18.2,18.3
+versions=13,14,15,16,17,17.1,17.2,17.3,18,18.1,18.2,18.3,19
 display_name=Linux Mint
 alt_names=mint, mint linux
 display=1
@@ -8538,6 +8744,8 @@ package_mgrs=dpkg,apt-get,synaptic,update-manager,adept,aptitude,adept-updater
 package_mgr_cmd=sudo apt-get install --assume-yes $packages_to_install
 pre_depend_cmd=sudo dpkg --configure -a,sudo apt-get install --yes --force-yes -f,sudo apt-get update
 post_depend_cmd=
+scanjet_depend_cmd=sudo apt-get install --assume-yes python-pip,sudo pip install --upgrade pip,sudo -H pip install setuptools,sudo pip install --upgrade setuptools,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-eng,sudo apt-get install --assume-yes libzbar-dev,sudo apt-get install --assume-yes python-zbar,sudo apt-get install --assume-yes python-opencv,sudo apt-get install --assume-yes python-pypdf2,sudo -H pip install imutils,sudo apt-get install --assume-yes imagemagick*
+scanjet_py3_depend_cmd=sudo apt-get install --assume-yes python3-pip,sudo pip3 install --upgrade pip,sudo -H pip3 install setuptools,sudo pip3 install --upgrade setuptools,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip3 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-eng,sudo -H pip3 install opencv-python,sudo -H pip3 install PyPDF2,sudo -H pip3 install imutils,sudo apt-get install --assume-yes imagemagick*
 hplip_remove_cmd=sudo aptitude remove --assume-yes hplip hpijs
 su_sudo=sudo
 ppd_install=ppd
@@ -8551,7 +8759,7 @@ drv_dir=/usr/share/cups/drv/HP
 
 [linuxmint:13]
 code_name=Maya
-supported=0
+supported=1
 scan_supported=1
 fax_supported=1
 pcard_supported=0
@@ -8701,7 +8909,7 @@ packages=epm
 
 [linuxmint:14]
 code_name=Nadia
-supported=0
+supported=1
 scan_supported=1
 fax_supported=1
 pcard_supported=0
@@ -8849,7 +9057,7 @@ packages=epm
 
 [linuxmint:15]
 code_name=Olivia
-supported=0
+supported=1
 scan_supported=1
 fax_supported=1
 pcard_supported=1
@@ -8966,6 +9174,7 @@ packages=wget
 
 [linuxmint:15:avahi-utils]
 packages=avahi-utils
+
 
 [linuxmint:15:python3-notify2]
 packages=python3-notify2
@@ -9334,6 +9543,7 @@ packages=automake1.11
 packages=epm
 
 # ****************************************
+
 [linuxmint:18.1]
 code_name=Serena
 packaged_version=3.17.4
@@ -9354,6 +9564,7 @@ drv_dir=/usr/share/cups/drv/HP
 ui_toolkit=qt4
 native_cups=1
 acl_rules=1
+
 libdir_path=/usr/lib/x86_64-linux-gnu
 
 [linuxmint:18.1:cups]
@@ -9658,6 +9869,8 @@ drv_dir=/usr/share/cups/drv/HP
 ui_toolkit=qt4
 native_cups=1
 acl_rules=1
+#scanjet_depend_cmd=sudo apt-get install --assume-yes python2-pip,sudo pip2 install --upgrade pip,sudo -H pip2 install setuptools,sudo pip2 install --upgrade setuptools,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip2 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-all,sudo apt-get install --assume-yes libzbar-dev,sudo apt-get install --assume-yes python-zbar,sudo apt-get install --assume-yes python-opencv,sudo apt-get install --assume-yes python-pypdf2,sudo -H pip2 install imutils
+#scanjet_py3_depend_cmd=sudo apt-get install --assume-yes python3-pip,sudo pip3 install --upgrade pip,sudo -H pip3 install setuptools,sudo pip3 install --upgrade setuptools,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip3 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-all,sudo -H pip3 install opencv-python,sudo -H pip3 install PyPDF2,sudo -H pip3 install imutils
 
 libdir_path=/usr/lib/x86_64-linux-gnu
 
@@ -9786,6 +9999,161 @@ packages=python3-notify2,mate-notification-daemon
 packages=automake1.11
 
 [linuxmint:18.3:epm]
+packages=epm
+
+
+# ****************************************
+
+[linuxmint:19]
+code_name=Tara
+packaged_version=3.18.9
+release_date=9/8/18
+supported=1
+scan_supported=1
+fax_supported=1
+pcard_supported=1
+network_supported=1
+parallel_supported=1
+usb_supported=1
+notes=Enable the universe/multiverse repositories. Also be sure you are using the Ubuntu "Main" Repositories. See: https://help.ubuntu.com/community/Repositories/Ubuntu for more information.  Disable the CD-ROM/DVD source if you do not have the Ubuntu installation media inserted in the drive.
+ppd_install=drv
+udev_mode_fix=1
+ppd_dir=/usr/share/ppd/HP
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+ui_toolkit=qt4
+native_cups=1
+acl_rules=1
+#scanjet_depend_cmd=sudo apt-get install --assume-yes python2-pip,sudo pip2 install --upgrade pip,sudo -H pip2 install setuptools,sudo pip2 install --upgrade setuptools,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip2 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-all,sudo apt-get install --assume-yes libzbar-dev,sudo apt-get install --assume-yes python-zbar,sudo apt-get install --assume-yes python-opencv,sudo apt-get install --assume-yes python-pypdf2,sudo -H pip2 install imutils
+#scanjet_py3_depend_cmd=sudo apt-get install --assume-yes python3-pip,sudo pip3 install --upgrade pip,sudo -H pip3 install setuptools,sudo pip3 install --upgrade setuptools,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip3 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-all,sudo -H pip3 install opencv-python,sudo -H pip3 install PyPDF2,sudo -H pip3 install imutils
+
+libdir_path=/usr/lib/x86_64-linux-gnu
+
+[linuxmint:19:cups]
+packages=libcups2
+
+[linuxmint:19:cups-devel]
+packages=libcups2-dev,cups-bsd,cups-client
+
+[linuxmint:19:gcc]
+packages=build-essential
+
+[linuxmint:19:gs]
+packages=ghostscript
+
+[linuxmint:19:libcrypto]
+packages=openssl
+
+[linuxmint:19:libjpeg]
+packages=libjpeg8-dev
+
+[linuxmint:19:libnetsnmp-devel]
+packages=libsnmp-dev,snmp-mibs-downloader
+
+[linuxmint:19:libpthread]
+packages=build-essential
+
+[linuxmint:19:libtool]
+packages=libtool,libtool-bin
+
+[linuxmint:19:libusb]
+packages=libusb-1.0.0-dev
+
+[linuxmint:19:make]
+packages=build-essential
+
+#[linuxmint:19:pil]
+#packages=python-imaging
+
+[linuxmint:19:ppdev]
+packages=
+commands=sudo modprobe ppdev,sudo cp -f /etc/modules /etc/modules.hplip,echo ppdev | sudo tee -a /etc/modules
+
+[linuxmint:19:pyqt]
+packages=python-qt4
+
+[linuxmint:19:python-devel]
+packages=python-dev
+
+[linuxmint:19:pyqt4]
+packages=python-qt4
+
+[linuxmint:19:pyqt4-dbus]
+packages=python-qt4-dbus
+
+#[linuxmint:19:python23]
+#packages=python
+
+[linuxmint:19:python2X]
+packages=python
+
+[linuxmint:19:reportlab]
+packages=python-reportlab
+
+[linuxmint:19:sane]
+packages=libsane
+
+[linuxmint:19:sane-devel]
+packages=libsane-dev
+
+[linuxmint:19:scanimage]
+packages=sane-utils
+
+[linuxmint:19:xsane]
+packages=xsane
+
+[linuxmint:19:python-dbus]
+packages=python-dbus,python-gobject
+
+[linuxmint:19:dbus]
+packages=libdbus-1-dev
+
+[linuxmint:19:cups-image]
+packages=libcupsimage2-dev
+
+[linuxmint:19:cups-ddk]
+packages=cups,libcupsimage2-dev
+
+[linuxmint:19:policykit]
+packages=policykit-1,policykit-1-gnome
+
+[linuxmint:19:python-notify]
+packages=python-notify
+
+[linuxmint:19:network]
+packages=wget
+
+[linuxmint:19:avahi-utils]
+packages=avahi-utils
+
+[linuxmint:19:python3-pyqt4-dbus]
+packages=python3-dbus.mainloop.qt
+
+[linuxmint:19:python3-pyqt4]
+packages=python3-pyqt4
+
+[linuxmint:19:python3-dbus]
+packages=python3-dbus,python3-gi
+
+[linuxmint:19:python3-xml]
+packages=python3-lxml
+
+[linuxmint:19:python3-devel]
+packages=python3-dev
+
+[linuxmint:19:python3-pil]
+packages=python3-pil
+
+[linuxmint:19:python3-reportlab]
+packages=python3-reportlab
+
+[linuxmint:19:python3-notify2]
+packages=python3-notify2,mate-notification-daemon
+
+[linuxmint:19:automake]
+packages=automake1.11
+
+[linuxmint:19:epm]
 packages=epm
 
 
@@ -10198,7 +10566,7 @@ packages=epm
 # ****************************************
 [boss]
 index=34
-versions=5.0
+versions=3.0,5.0
 display_name=Boss
 alt_names=
 display=1
@@ -10217,7 +10585,7 @@ drv_dir=/usr/share/cups/drv/HP
 
 [boss:3.0]
 code_name=tejas
-supported=0
+supported=1
 scan_supported=1
 fax_supported=1
 pcard_supported=0
@@ -10610,6 +10978,8 @@ package_mgrs=pacman,yaourt
 package_mgr_cmd=sudo pacman -S --force --noconfirm $packages_to_install
 pre_depend_cmd=sudo pacman -Sy
 post_depend_cmd=
+scanjet_depend_cmd=sudo pacman -Sy --force --noconfirm python2-pip,sudo pacman -Sy --force --noconfirm tesseract,sudo pacman -Sy --force --noconfirm leptonica,sudo pip2 install tesserocr,sudo pacman -Sy --force --noconfirm tesseract-data-eng,sudo pip2 install opencv-python,sudo pip2 install PyPDF2,sudo pip2 install imutils,sudo pacman -Sy --force --noconfirm zbar
+scanjet_py3_depend_cmd=sudo pacman -Sy --force --noconfirm llvm,sudo pacman -Sy --force --noconfirm llvm-libs,sudo pacman -Sy --force --noconfirm python-pip,sudo easy_install pip==18.0,sudo pip install Pillow,sudo pacman -Sy --force --noconfirm tesseract,sudo pacman -Sy --force --noconfirm leptonica,sudo pip3 install tesserocr,sudo pacman -Sy --force --noconfirm tesseract-data-eng,sudo pip3 install opencv-python,sudo pip3 install PyPDF2,sudo pip3 install imutils
 hplip_remove_cmd=sudo pacman -Rs --noconfirm hplip
 su_sudo=
 ppd_install=ppd
@@ -10638,9 +11008,11 @@ udev_mode_fix=1
 ppd_dir=/usr/share/ppd/HP
 fix_ppd_symlink=0
 drv_dir=/usr/share/cups/drv/HP
-ui_toolkit=qt4
+ui_toolkit=qt5
 native_cups=1
 acl_rules=1
+#scanjet_depend_cmd=sudo pacman -Sy --force --noconfirm python2-pip,sudo pacman -Sy --force --noconfirm tesseract,sudo pacman -Sy --force --noconfirm leptonica,sudo pip2 install tesserocr,sudo pacman -Sy --force --noconfirm tesseract-data-*,sudo pip2 install opencv-python,sudo pip2 install PyPDF2,sudo pip2 install imutils
+#scanjet_py3_depend_cmd=sudo pacman -Sy --force --noconfirm python3-pip,sudo pacman -Sy --force --noconfirm tesseract,sudo pacman -Sy --force --noconfirm leptonica,sudo pip3 install tesserocr,sudo pacman -Sy --force --noconfirm tesseract-data-*,sudo pip3 install opencv-python,sudo pip3 install PyPDF2,sudo pip3 install imutils
 
 libdir_path=/usr/lib
 [manjarolinux:17.1.4:cups]
@@ -10651,7 +11023,7 @@ packages=libcups2-dev,cups-bsd,cups-client
 
 [manjarolinux:17.1.4:gcc]
 packages=libusb-compat
-commands=/bin/bash -c "yes | sudo pacman -Sy gcc-multilib gcc-libs-multilib lib32-gcc-libs", /bin/bash -c "yes | sudo pacman -S --needed gcc"
+commands=/bin/bash -c "yes | sudo pacman -Sy gcc-multilib gcc-libs-multilib lib32-gcc-libs",/bin/bash -c "yes | sudo pacman -S --needed gcc"
 
 [manjarolinux:17.1.4:gs]
 packages=ghostscript
@@ -10704,7 +11076,7 @@ packages=dbus-python
 packages=python2-pyqt5
 
 [manjarolinux:17.1.4:pyqt5-dbus]
-packages=pyqt5-dbus
+packages=
 
 [manjarolinux:17.1.4:python23]
 packages=python2

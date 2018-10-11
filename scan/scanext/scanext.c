@@ -86,7 +86,7 @@ PERFORMANCE OF THIS SOFTWARE.
           ob = Py_InitModule3(name, methods, doc);	\
 
 #endif
-
+int multipick;
 static char scanext_documentation[] = "Python extension for HP scan sane driver";
 static PyObject *ErrorObject;
 
@@ -245,7 +245,8 @@ static PyObject *startScan (_ScanDevice * self, PyObject * args)
 
     if (st != SANE_STATUS_GOOD &&
         st != SANE_STATUS_EOF &&
-        st != SANE_STATUS_NO_DOCS)
+        st != SANE_STATUS_NO_DOCS &&
+        st != SANE_STATUS_MULTIPICK)
           return raiseSaneError(st);
 
     return Py_BuildValue("i", st);
@@ -404,7 +405,18 @@ static PyObject *setOption (_ScanDevice * self, PyObject * args)
     SANE_Int i;
     PyObject *value;
     int n;
+    multipick = 1;
 
+if(1)
+{
+SANE_Bool b = SANE_TRUE;
+    sane_control_option (self->h, 9, SANE_ACTION_SET_VALUE, (void *)&b, &i);
+}
+else
+{
+SANE_Bool b = SANE_FALSE;
+    sane_control_option (self->h, 9, SANE_ACTION_SET_VALUE, (void *)&b, &i);
+}
     if (!PyArg_ParseTuple (args, "iO", &n, &value))
         raiseError("Invalid arguments.");
 
@@ -512,7 +524,8 @@ static PyObject *readScan (_ScanDevice * self, PyObject * args)
 
     if (st != SANE_STATUS_GOOD &&
         st != SANE_STATUS_EOF &&
-        st != SANE_STATUS_NO_DOCS)
+        st != SANE_STATUS_NO_DOCS &&
+        st != SANE_STATUS_MULTIPICK)
     {
         sane_cancel(self->h);
         //Py_BLOCK_THREADS
@@ -687,6 +700,14 @@ static PyObject *isOptionActive (PyObject * self, PyObject * args)
     return PyInt_FromLong (SANE_OPTION_IS_ACTIVE (cap));
 }
 
+static PyObject *setMultipick (PyObject * self, PyObject * args)
+{
+
+    if (!PyArg_ParseTuple (args, "i", &multipick))
+        raiseError("Invalid arguments");
+	Py_INCREF ( Py_None );
+    return Py_None;
+}
 static PyObject *isOptionSettable (PyObject * self, PyObject * args)
 {
     SANE_Int cap;
@@ -710,6 +731,7 @@ static PyMethodDef ScanExt_methods[] = {
     {"isOptionActive", isOptionActive, METH_VARARGS},
     {"isOptionSettable", isOptionSettable, METH_VARARGS},
     {"getErrorMessage", getErrorMessage, METH_VARARGS},
+    {"setMultipick", setMultipick, METH_VARARGS},
     {NULL, NULL}                /* sentinel */
 };
 
@@ -815,6 +837,7 @@ MOD_INIT(scanext)  {
     insint (d, "SANE_STATUS_IO_ERROR", SANE_STATUS_IO_ERROR); // Error during device I/O.
     insint (d, "SANE_STATUS_NO_MEM", SANE_STATUS_NO_MEM); // Out of memory.
     insint (d, "SANE_STATUS_ACCESS_DENIED", SANE_STATUS_ACCESS_DENIED);  // Access to resource has been denied.
+    insint (d, "SANE_STATUS_MULTIPICK", SANE_STATUS_MULTIPICK);  // multipick error.
 
     // Maximum buffer size for read()
     insint(d, "MAX_READSIZE", MAX_READSIZE);

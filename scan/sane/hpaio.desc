@@ -1531,6 +1531,18 @@
 :model "HP LaserJet Pro MFP m134fn"
 :status :good
 
+:model "HP LaserJet Pro MFP m148dw"
+:status :good
+
+:model "HP LaserJet Pro MFP m148fdw"
+:status :good
+
+:model "HP LaserJet Pro MFP m149dw"
+:status :good
+
+:model "HP LaserJet Pro MFP m149fdw"
+:status :good
+
 :model "HP LaserJet Pro MFP m225dn"
 :status :good
 
@@ -3755,6 +3767,9 @@
 :status :good
 
 :model "HP PSC 950xi All-in-one Printer"
+:status :good
+
+:model "HP Scanjet Enterprise 7500"
 :status :good
 
 :model "HP Scanjet Enterprise Flow 5000 s4"

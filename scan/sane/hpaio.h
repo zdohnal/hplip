@@ -31,9 +31,10 @@
 #include "sane.h"
 #include "common.h"
 #include "mfpdtf.h"
-#include "hpip.h"
 #include "scl.h"
 #include "pml.h"
+#include "orblitei.h"
+#include "../../ip/hpip.h"
 
 /************************************************************************************/
 

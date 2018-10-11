@@ -36,7 +36,6 @@
 #include <string.h>
 #include <cups/cups.h>
 #include "hpmud.h"
-#include "hpip.h"
 #include "hp_ipp.h"
 #include "soap.h"
 #include "soapht.h"
@@ -46,6 +45,8 @@
 #include "sclpml.h"
 #include "escl.h"
 #include "io.h"
+#include "orblitei.h"
+
 
 #define DEBUG_DECLARE_ONLY
 #include "sanei_debug.h"
@@ -240,6 +241,8 @@ static int AddDevice(char *uri)
 {
     struct hpmud_model_attributes ma;
     char model[HPMUD_LINE_SIZE];
+    char new_uri[256];
+    int len = 0, i = 0, j = 0;
     int scan_type;
     int device_added = 0;
 
@@ -252,7 +255,29 @@ static int AddDevice(char *uri)
     }
     else
     {
-       DBG(6,"unsupported scantype=%d %s\n", ma.scantype, uri);
+       // This is added to make the uri hp:/net/hp_model_name?ip-xxx.xxx.xxx.xxx&queue=false
+       // For some of the devices the scan MDL recevied would be model_name instead of hp_model_name
+       len = strlen(uri);
+       strncpy(new_uri, uri, 9);
+       new_uri[8] = 'h';
+       new_uri[9] = 'p';
+       new_uri[10] = '_';
+       for (i = 11,j = 8; j<=len; ++i, ++j)
+         new_uri[i] = uri[j];
+      
+       hpmud_query_model(new_uri, &ma);
+       DBG(6,"scantype=%d %s\n", ma.scantype, new_uri);
+       
+       if(ma.scantype>0)
+       {
+          hpmud_get_uri_model(new_uri, model, sizeof(model));
+          AddDeviceList(new_uri, model, &DeviceList);
+          device_added = 1;
+       }
+       else
+       {
+         DBG(6,"unsupported scantype=%d %s\n", ma.scantype, new_uri);
+       }
     }
 
     return device_added;
@@ -326,7 +351,9 @@ extern SANE_Status sane_hpaio_init(SANE_Int * pVersionCode, SANE_Auth_Callback a
     {
        *pVersionCode = SANE_VERSION_CODE( 1, 0, 0 );
     }
-    stat = SANE_STATUS_GOOD;
+
+
+    stat = orblite_init(pVersionCode, authorize);
 
     return stat;
 }  /* sane_hpaio_init() */
@@ -343,6 +370,9 @@ extern SANE_Status sane_hpaio_get_devices(const SANE_Device ***deviceList, SANE_
    ResetDeviceList(&DeviceList);
    DevDiscovery(localOnly);
    *deviceList = (const SANE_Device **)DeviceList;
+   SANE_Device*** devList;
+   orblite_get_devices(devList, localOnly);
+
    return SANE_STATUS_GOOD;
 }
 
@@ -368,6 +398,8 @@ extern SANE_Status sane_hpaio_open(SANE_String_Const devicename, SANE_Handle * p
        return sclpml_open(devicename, pHandle);
     if (ma.scantype == HPMUD_SCANTYPE_ESCL)
        return escl_open(devicename, pHandle);
+    if (ma.scantype == HPMUD_SCANTYPE_ORBLITE)
+       return orblite_open(devicename, pHandle);
     else
        return SANE_STATUS_UNSUPPORTED;
 }   /* sane_hpaio_open() */
@@ -386,6 +418,8 @@ extern void sane_hpaio_close(SANE_Handle handle)
        return sclpml_close(handle);
     if (strcmp(*((char **)handle), "ESCL") == 0)
        return escl_close(handle);
+    if (strcmp(*((char **)handle), "ORBLITE") == 0)
+       return orblite_close(handle);
 }  /* sane_hpaio_close() */
 
 extern const SANE_Option_Descriptor * sane_hpaio_get_option_descriptor(SANE_Handle handle, SANE_Int option)
@@ -402,6 +436,20 @@ extern const SANE_Option_Descriptor * sane_hpaio_get_option_descriptor(SANE_Hand
        return sclpml_get_option_descriptor(handle, option);
     if (strcmp(*((char **)handle), "ESCL") == 0)
        return escl_get_option_descriptor(handle, option);
+    if (strcmp(*((char **)handle), "ORBLITE") == 0)
+	{
+   	  struct t_SANE* h = (struct t_SANE*)handle;
+	  if (option < optCount || option < optLast)
+		{	
+		DBG(8, "1. sane_hpaio_get_option_descriptor optCount = %d, option = %d, optLast = %d \n",(int)optCount,option,(int)optLast );
+          	return &h->Options[option];
+		}
+	  else
+		{	
+		DBG(8, "2. sane_hpaio_get_option_descriptor optCount = %d, option = %d, optLast = %d \n",(int)optCount,option,(int)optLast );
+       		return NULL;
+		}
+	}
     else
        return NULL;
 }  /* sane_hpaio_get_option_descriptor() */
@@ -420,6 +468,8 @@ extern SANE_Status sane_hpaio_control_option(SANE_Handle handle, SANE_Int option
        return sclpml_control_option(handle, option, action, pValue, pInfo);
     if (strcmp(*((char **)handle), "ESCL") == 0)
        return escl_control_option(handle, option, action, pValue, pInfo);
+    if (strcmp(*((char **)handle), "ORBLITE") == 0)
+       return orblite_control_option(handle, option, action, pValue, pInfo);
     else
        return SANE_STATUS_UNSUPPORTED;
 }   /* sane_hpaio_control_option() */
@@ -438,6 +488,8 @@ extern SANE_Status sane_hpaio_get_parameters(SANE_Handle handle, SANE_Parameters
        return sclpml_get_parameters(handle, pParams);
     if (strcmp(*((char **)handle), "ESCL") == 0)
        return escl_get_parameters(handle, pParams);
+    if (strcmp(*((char **)handle), "ORBLITE") == 0)
+       return orblite_get_parameters(handle, pParams);
     else
        return SANE_STATUS_UNSUPPORTED;
 }  /* sane_hpaio_get_parameters() */
@@ -456,6 +508,8 @@ extern SANE_Status sane_hpaio_start(SANE_Handle handle)
        return sclpml_start(handle);
     if (strcmp(*((char **)handle), "ESCL") == 0)
        return escl_start(handle);
+    if (strcmp(*((char **)handle), "ORBLITE") == 0)
+       return orblite_start(handle);
     else
        return SANE_STATUS_UNSUPPORTED;
 }   /* sane_hpaio_start() */
@@ -475,6 +529,8 @@ extern SANE_Status sane_hpaio_read(SANE_Handle handle, SANE_Byte *data, SANE_Int
        return sclpml_read(handle, data, maxLength, pLength);
     if (strcmp(*((char **)handle), "ESCL") == 0)
        return escl_read(handle, data, maxLength, pLength);
+    if (strcmp(*((char **)handle), "ORBLITE") == 0)
+       return orblite_read(handle, data, maxLength, pLength);
     else
        return SANE_STATUS_UNSUPPORTED;
 
@@ -495,6 +551,8 @@ extern void sane_hpaio_cancel( SANE_Handle handle )
        return sclpml_cancel(handle);
     if (strcmp(*((char **)handle), "ESCL") == 0)
        return escl_cancel(handle);
+    if (strcmp(*((char **)handle), "ORBLITE") == 0)
+       return orblite_cancel(handle);
 }  /* sane_hpaio_cancel() */
 
 extern SANE_Status sane_hpaio_set_io_mode(SANE_Handle handle, SANE_Bool nonBlocking)
