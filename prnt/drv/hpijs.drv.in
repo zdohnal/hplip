@@ -16236,6 +16236,15 @@ lity:PenSet=2,Quality:FullBleed=1"
     Attribute "Product" "" "(HP Officejet 252c Mobile All-in-one)"
     Attribute "Product" "" "(HP Officejet 258 Mobile All-in-one)"
   }
+  {
+    ModelName "HP Tango hpijs"
+    Attribute "NickName" "" "HP Tango hpijs, $Version"
+    Attribute "ShortNickName" "" "HP Tango hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:tango;DES:tango;"
+    PCFileName "hp-tango-hpijs.ppd"
+    Attribute "Product" "" "(HP Tango X)"
+    Attribute "Product" "" "(HP Tango)"
+  }
 
 }
 

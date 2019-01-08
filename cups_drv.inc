@@ -811,5 +811,6 @@ cups_ppd_printers = \
    ppd/hpcups/hp-psc_950vr.ppd.gz \
    ppd/hpcups/hp-psc_950xi.ppd.gz \
    ppd/hpcups/hp-smart_tank_350_series.ppd.gz \
-   ppd/hpcups/hp-smart_tank_wireless_450_series.ppd.gz
+   ppd/hpcups/hp-smart_tank_wireless_450_series.ppd.gz \
+   ppd/hpcups/hp-tango.ppd.gz
 cups_drv = prnt/drv/hpcups.drv

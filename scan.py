@@ -72,6 +72,11 @@ email_note = ''
 resize = 100
 brightness = 0
 set_brightness = False
+color_dropout_red = 0
+set_color_dropout = False
+color_dropout_green = 0
+color_dropout_blue = 0
+color_range_value = 0
 contrast = 0
 set_contrast = False
 
@@ -103,6 +108,8 @@ blank_page = False
 isBlankPage = False
 auto_orient = False
 crushed = False
+bg_color_removal = False
+punchhole_removal = False
 auto_crop = False
 deskew_image = False
 lineart_mode = False
@@ -204,10 +211,10 @@ def createPagesFile(adf_page_files,pages_file,file_type='.png'):
             if num[0] >= '3':
                 im = im.convert("RGB")'''
             try:
-                im.save(output,compress_level=1)
+                im.save(output,compress_level=1,quality=55)
             except:
                 im = im.convert("RGB")
-                im.save(output,compress_level=1)
+                im.save(output,compress_level=1,quality=55)
             os.unlink(p)
 
 try:
@@ -249,6 +256,10 @@ try:
         ("Scanning resolution:", "-r<resolution_in_dpi> or --res=<resolution_in_dpi> or --resolution=<resolution_in_dpi>", "option", False),
         ("", "where 300 is default.", "option", False),
         ("Image resize:", "--resize=<scale_in_%> (min=1%, max=400%, default=100%)", "option", False),
+        ("Color Dropout Red :", "-color_dropout_red_value=<color_dropout_red_value> or --color_dropout_red_value=<color_dropout_red_value>", "option", False),
+        ("Color Dropout Green :", "-color_dropout_green_value=<color_dropout_green_value> or --color_dropout_green_value=<color_dropout_green_value>", "option", False),
+        ("Color Dropout Blue :", "-color_dropout_blue_value=<color_dropout_blue_value> or --color_dropout_blue_value=<color_dropout_blue_value>", "option", False),
+        ("Color Dropout Range :", "-color_range=<color_range> or --color_range=<color_range>", "option", False),
         ("Image contrast:", "-c=<contrast> or --contrast=<contrast>", "option", False),
         ("", "The contrast range varies from device to device.", "option", False),
         ("Image brightness:", "-b=<brightness> or --brightness=<brightness>", "option", False),
@@ -313,6 +324,8 @@ try:
     '''scanjet=[utils.USAGE_SPACE,("[OPTIONS] (Scanjet)", "", "header", False),("multi-pick mode:", "--multipick (multipick detection enabled)", "option", False),
         ("Auto-orientation mode:", "--autoorient (auto orientation enabled)", "option", False),
         ("Crushed:", "--crushed (crushed enabled)", "option", False),
+        ("Background Color Removal:", "--bg_color_removal (Background Color Removal(make white) enabled)", "option", False),
+        ("Punch Hole Removal:", "--punchhole_removal (Background Color Removal(make white) enabled)", "option", False),
         ("batchsep and blankpage mode:", "--batchsepBP (Batch Seperation Blankpage enabled)", "option", False),
         ("batchsep and Barcode mode:", "--batchsepBC (Batch Seperation barcode enabled)", "option", False),
         ("Auto-Crop mode:", "--autocrop (auto crop enabled)", "option", False),
@@ -320,6 +333,11 @@ try:
 	("Mixed-feed mode:", "--mixedfeed (multi feed enabled)", "option", False),
         ("Document merge:", "--docmerge (document merge enabled)", "option", False),
         ("Document merge ADF Flatbed:", "--adf_fladbed_merge (document merge ADF and Flatbed UI application enabled)", "option", False),
+        ("Color Dropout Red :", "-color_dropout_red_value=<color_dropout_red_value> or --color_dropout_red_value=<color_dropout_red_value>", "option", False),
+        ("Color Dropout Green :", "-color_dropout_green_value=<color_dropout_green_value> or --color_dropout_green_value=<color_dropout_green_value>", "option", False),
+        ("Color Dropout Blue :", "-color_dropout_blue_value=<color_dropout_blue_value> or --color_dropout_blue_value=<color_dropout_blue_value>", "option", False),
+        ("Color Dropout Range :", "-color_range=<color_range> or --color_range=<color_range>", "option", False),
+        ("", "Example:color_dropout = [0,0,0,0].", "option", False),
         ("Image contrast:", "--contrast=<contrast>", "option", False),
         ("", "The contrast range varies from device to device.", "option", False),
         ("Image brightness:", "--brightness=<brightness>", "option", False),
@@ -343,7 +361,7 @@ try:
                           'subject=', 'to=', 'from=', 'jpg',
                           'grey-scale', 'gray-scale', 'about=',
                           'editor=', 'dp=', 'dest-printer=', 'dd=',
-                          'dest-device=', 'brightness=', 'contrast=','filetype=', 'path=', 'uiscan', 'sharpness=', 'color_value=','multipick','autoorient','blankpage','batchsepBP','mixedfeed', 'crushed','docmerge','adf_fladbed_merge','batchsepBC','deskew','autocrop',]
+                          'dest-device=', 'brightness=', 'contrast=','filetype=', 'path=', 'uiscan', 'sharpness=','color_dropout_red_value=','color_dropout_green_value=','color_dropout_blue_value=','color_range=', 'color_value=','multipick','autoorient','blankpage','batchsepBP','mixedfeed', 'crushed', 'bg_color_removal','punchhole_removal','docmerge','adf_fladbed_merge','batchsepBC','deskew','autocrop',]
 
     '''scanjet_parseStdOpts = [ 'brightness=', 'sharpness=', 'contrast=', 'color_value=','multipick','autoorient','blankpage','batchsepBP','mixedfeed', 'crushed','docmerge','adf_fladbed_merge','batchsepBC','deskew','autocrop',]
 
@@ -456,6 +474,9 @@ try:
             elif a == 'tiff':
                 save_file = 'tiff'
                 ext = '.tiff'
+            elif a == 'bmp':
+                save_file = 'bmp'
+                ext = '.bmp'
             else:
                 save_file = 'png'
                 ext = ".png"
@@ -744,6 +765,34 @@ try:
             except ValueError:
                 resize = 100
                 log.error("Invalid resize value. Using default of 100%.")
+        elif o in ('-color_dropout_red_value', '--color_dropout_red_value'):
+            try:
+                set_color_dropout = True
+                color_dropout_red = int(a)
+            except ValueError:
+                log.error("Invalid color dropout value. Using default 0 .")
+                color_dropout_red = 0
+        elif o in ('-color_dropout_green_value', '--color_dropout_green_value'):
+            try:
+                set_color_dropout = True
+                color_dropout_green = int(a)
+            except ValueError:
+                log.error("Invalid color dropout value. Using default 0 .")
+                color_dropout_green = 0
+        elif o in ('-color_dropout_blue_value', '--color_dropout_blue_value'):
+            try:
+                set_color_dropout = True
+                color_dropout_blue = int(a)
+            except ValueError:
+                log.error("Invalid color dropout value. Using default of [0:0:0] .")
+                color_dropout_blue = 0
+        elif o in ('-color_range', '--color_range'):
+            try:
+                set_color_dropout = True
+                color_range_value = int(a)
+            except ValueError:
+                log.error("Invalid color dropout value. Using default of [0:0:0] .")
+                color_range_value = 49
 
         elif o in ('-b', '--brightness'):
             try:
@@ -829,6 +878,21 @@ try:
             except ValueError:
                 log.error("Invalid Option.Using default of False")
                 crushed = False
+        elif o == '--bg_color_removal':
+            #print o
+            try:
+                bg_color_removal = True                
+            except ValueError:
+                log.error("Invalid Option.Using default of False")
+                bg_color_removal = False
+
+        elif o == '--punchhole_removal':
+            #print o
+            try:
+                punchhole_removal = True                
+            except ValueError:
+                log.error("Invalid Option.Using default of False")
+                punchhole_removal = False
         elif o == '--mixedfeed':
             try:
                 mixed_feed = True
@@ -975,12 +1039,15 @@ try:
         if len(source_option) == 1 and 'ADF' in source_option:
              log.debug("Device has only ADF support")
              adf = True
+        elif len(source_option) == 3 and ('ADF-SinglePage' in source_option) and ('ADF-MultiPage-Simplex' in source_option) and ('ADF-MultiPage-Duplex' in source_option):
+             log.debug("Device has only ADF support")
+             adf = True 
 
         if adf:
             try:
-                if 'ADF' not in source_option:
-                    log.error("Failed to set ADF mode. This device doesn't support ADF.")
-                    sys.exit(1)
+                if ('ADF' not in source_option) and ('ADF-SinglePage' not in source_option) and ('ADF-MultiPage-Simplex' not in source_option) and ('ADF-MultiPage-Duplex' not in source_option):
+                        log.error("Failed to set ADF mode. This device doesn't support ADF.")
+                        sys.exit(1)               
                 else:
                     if duplex == True:
                         if 'Duplex' in source_option:
@@ -989,9 +1056,19 @@ try:
                             device.setOption("source", "ADF-MultiPage-Duplex")
                         else:
                             log.warn("Device doesn't support Duplex scanning. Continuing with Simplex ADF scan.")
-                            device.setOption("source", "ADF")
+                            if 'ADF-SinglePage' in source_option:
+                                device.setOption("source", "ADF-SinglePage")
+                            elif 'ADF-MultiPage-Simplex' in source_option:
+                                device.setOption("source", "ADF-MultiPage-Simplex")
+                            else:
+                                device.setOption("source", "ADF")
                     else:
-                        device.setOption("source", "ADF")
+                        if 'ADF-SinglePage' in source_option:
+                            device.setOption("source", "ADF-SinglePage")
+                        elif 'ADF-MultiPage-Simplex' in source_option:
+                            device.setOption("source", "ADF-MultiPage-Simplex")
+                        else:
+                            device.setOption("source", "ADF")
                     device.setOption("batch-scan", True)
             except scanext.error:
                 log.error("Error in setting ADF mode Duplex=%d." % duplex)
@@ -1167,7 +1244,15 @@ try:
             log.warn("Device doesn't support %s mode. Continuing with %s mode."%(scan_mode,available_scan_mode[0]))
             scan_mode = available_scan_mode[0]
 
-        device.setOption("mode", scan_mode)
+        if re.search(r'hp2000S1', device_uri):
+            if scan_mode == 'gray':
+                device.setOption("mode", 'Gray')
+            elif scan_mode == 'color':
+                device.setOption("mode", 'Color')
+            elif scan_mode == 'lineart':
+                device.setOption("mode", 'Lineart')
+        else:
+            device.setOption("mode", scan_mode)
 
 
         #For some devices, resolution is changed when we set 'source'.
@@ -1469,8 +1554,16 @@ try:
                                 break;
                             else:
                                 barcode_found=0
+
+                    if punchhole_removal:
+                        im = imageprocessing.punchhole_removal(im)
+                    if set_color_dropout:
+                        im = imageprocessing.color_dropout(im,[color_dropout_red,color_dropout_green,color_dropout_blue],color_range_value)
+                    if bg_color_removal:
+                        im = imageprocessing.bg_color_removal(im)
                     if crushed:
                         im = imageprocessing.crushed(im)
+
                     if uiscan == True:
                         if adf:
                             if (save_file == 'pdf'):
@@ -1513,10 +1606,10 @@ try:
                             if num[0] >= '3':
                                 im = im.convert("RGB")'''                           
                             try:
-                                im.save(temp_output,compress_level=1)
+                                im.save(temp_output,compress_level=1,quality=55)
                             except:
                                 im = im.convert("RGB")
-                                im.save(temp_output,compress_level=1)
+                                im.save(temp_output,compress_level=1,quality=55)
                             '''if (save_file == 'pdf'):
                                 ext = ".pdf"'''        
                             if document_merge and duplex and blank_page:
@@ -1530,7 +1623,7 @@ try:
                         if adf or output_type == 'pdf':
                             temp_output = utils.createSequencedFilename("hpscan_pg%d_" % page, ".png")
                             adf_page_files.append(temp_output)
-                            im.save(temp_output,compress_level=1)
+                            im.save(temp_output,compress_level=1,quality=55)
                 elif uiscan == True and status == scanext.SANE_STATUS_MULTIPICK and multipick:
                     log.error("ADF_MPD multipick error %d" % (status))
                     log.error("Error in reading data. Status=%d bytes_read=%d." % (status, bytes_read))
@@ -1552,7 +1645,7 @@ try:
         #print "outside while"   
         #if adf or output_type == 'pdf':
         #print (output_type) 
-        if adf and (save_file =='jpg' or save_file == 'png' or save_file == 'tiff' or save_file == 'pdf'):
+        if adf and (save_file =='jpg' or save_file == 'png' or save_file == 'tiff' or save_file == 'pdf' or save_file == 'bmp'):
             #print save_file
             #start = datetime.now()
             #print "**** Starting Save File Process\n"     
@@ -1709,7 +1802,7 @@ try:
 
         file_saved = False
         if 'file' in dest:
-            if (save_file == 'png' or save_file == 'jpg' or save_file == 'tiff' or save_file == 'pdf'):
+            if (save_file == 'png' or save_file == 'jpg' or save_file == 'tiff' or save_file == 'pdf' or save_file == 'bmp'):
                 if barcode_found == 1:
                     output = utils.createBBSequencedFilename(barcode_data[0]+'_', ext, output_path)
                 else:
@@ -1731,16 +1824,16 @@ try:
                         if num[0] >= '3':
                             im = im.convert("RGB")'''
                         try:
-                            im.save(output,compress_level=1)
+                            im.save(output,compress_level=1,quality=55)
                         except:
                             im = im.convert("RGB")
-                            im.save(output,compress_level=1)
+                            im.save(output,compress_level=1,quality=55)
                     else:                    
                         try:
-                            im.save(output,compress_level=1)
+                            im.save(output,compress_level=1,quality=55)
                         except:
                             im = im.convert("RGB")
-                            im.save(output,compress_level=1)
+                            im.save(output,compress_level=1,quality=55)
                         '''from reportlab.pdfgen import canvas
                         print "entered canvas"
                         c = canvas.Canvas(output)
@@ -1767,11 +1860,11 @@ try:
                             sys.exit(4)
                             #imageprocessing.merge_PDF_viewer(output)
                 elif uiscan == False:
-                    im.save(output,compress_level=1)
+                    im.save(output,compress_level=1,quality=55)
             except IOError as e:
                 im = im.convert("RGB")
                 try:
-                  im.save(output,compress_level=1)
+                  im.save(output,compress_level=1,quality=55)
                 except IOError as e:
                   log.error("Error saving file: %s (I/O)" % e)
                   try:
@@ -1801,10 +1894,10 @@ try:
                 if num[0] >= '3':
                     im = im.convert("RGB")'''
                 try:
-                    im.save(output,compress_level=1)
+                    im.save(output,compress_level=1,quality=55)
                 except:
                     im = im.convert("RGB")
-                    im.save(output,compress_level=1)
+                    im.save(output,compress_level=1,quality=55)
             except IOError as e:
                 log.error("Error saving temporary file: %s" % e)
 

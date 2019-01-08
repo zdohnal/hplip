@@ -350,7 +350,7 @@ boolean writeOutputFile(int numBytes, ubyte *ptr, char *user_name)
 	static int fileCntr=0;
 
 	if(1)
-		return true;
+		return TRUE;
 	snprintf(outFileName,sizeof(outFileName),"%s/hp_%s_cups_outfile_%04d",CUPS_TMP_DIR, user_name, fileCntr);
  
 	fileCntr++;
@@ -364,7 +364,7 @@ boolean writeOutputFile(int numBytes, ubyte *ptr, char *user_name)
 	}
 	fwrite(ptr,numBytes,1,outputFile);
 	fclose(outputFile); 
-	return(true);
+	return(TRUE);
 }
 
 void PCLmGenerator::initOutBuff(char *buff, sint32 size)
@@ -1110,7 +1110,7 @@ boolean prepImageForBacksideDuplex(ubyte *imagePtr, sint32 imageHeight, sint32 i
 		}
 	}
 	//origTail++;
-	return(true);
+	return(TRUE);
 }
 
 char* PCLmGenerator::getInputBinString(jobInputBin bin)

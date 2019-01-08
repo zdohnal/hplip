@@ -1915,6 +1915,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-designjet_z6810ps_42in-ps.ppd.gz \
 	ppd/hpcups/hp-psc_950vr.ppd.gz ppd/hpcups/hp-psc_950xi.ppd.gz \
 	ppd/hpcups/hp-smart_tank_350_series.ppd.gz \
 	ppd/hpcups/hp-smart_tank_wireless_450_series.ppd.gz \
+	ppd/hpcups/hp-tango.ppd.gz \
 	ppd/classppd/hpcups/hp-LJ-Class1.ppd.gz \
 	ppd/classppd/hpcups/hp-LJ-Class2.ppd.gz \
 	ppd/classppd/hpcups/hp-LJ-Class3.ppd.gz \
@@ -4224,7 +4225,8 @@ dist_unrel_DATA =
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-psc_950vr.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-psc_950xi.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-smart_tank_350_series.ppd.gz \
-@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-smart_tank_wireless_450_series.ppd.gz
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-smart_tank_wireless_450_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-tango.ppd.gz
 
 @HPLIP_CLASS_DRIVER_FALSE@cups_drv = prnt/drv/hpcups.drv
 @HPLIP_CLASS_DRIVER_TRUE@cups_drv = prnt/drv/hpcups.drv

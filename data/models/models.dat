@@ -64352,6 +64352,47 @@ usb-pid=c72a
 usb-vid=3f0
 wifi-config=3
 
+[tango]
+align-type=15
+clean-type=1
+color-cal-type=0
+copy-type=0
+embedded-server-type=1
+fax-type=0
+fw-download=False
+icon=hp_deskjet_f4200.png
+io-mfp-mode=1
+io-mode=1
+io-support=8
+job-storage=0
+linefeed-cal-type=0
+model1=HP Tango X
+model2=HP Tango
+monitor-type=0
+panel-check-type=0
+pcard-type=0
+plugin=0
+plugin-reason=0
+power-settings=0
+pq-diag-type=0
+r-type=0
+scan-src=0
+scan-type=-1
+status-battery-check=0
+status-dynamic-counters=0
+status-type=10
+support-released=True
+support-subtype=219b2b
+support-type=2
+support-ver=3.18.11
+tech-class=Gemstone
+family-class=undefined
+tech-subclass=Normal
+tech-type=2
+usb-pid=0000
+usb-vid=0000
+wifi-config=3
+
 [hp_designjet_Z6810ps_42in]
 align-type=15
 clean-type=0

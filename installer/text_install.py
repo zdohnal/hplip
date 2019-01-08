@@ -192,6 +192,22 @@ def start(language, auto=True, test_depends=False,
             global Fedora_Py3
             Fedora_Py3 = True
 
+        if core.distro_name.lower() == 'manjarolinux':
+            # Workaround to install Manjaro dependency package.
+            #print("Installing libidn")
+            cmd2 = 'sudo pacman -Sy --force --noconfirm libidn'
+            if os_utils.execute(cmd2) != 0:
+                log.warning("Missing ghost script dependency,installation may fail")
+            #print("Installing libjpeg-turbo")
+            cmd = 'sudo pacman -Sy --force --noconfirm libjpeg-turbo'
+            if os_utils.execute(cmd) != 0:
+                log.warning("Missing libjpeg-turbo dependency,installation may fail")
+            #print("Installing ghostscript")
+            cmd1 = 'sudo pacman -Sy --force --noconfirm ghostscript'
+            if os_utils.execute(cmd1) != 0:
+                log.warning("Missing ghost script dependency,installation may fail")
+	
+
         if distro_alternate_version:
             core.distro_version = distro_alternate_version
 
@@ -1218,6 +1234,22 @@ def start(language, auto=True, test_depends=False,
             core.run_post_depend(progress_callback)
             log.info("OK")
 
+
+            if core.distro_name.lower() == 'manjarolinux':
+                # Workaround to install Manjaro dependency package.
+                #print("Installing libidn")
+                cmd2 = 'sudo pacman -Sy --force --noconfirm libidn'
+                if os_utils.execute(cmd2) != 0:
+                    log.warning("Missing ghost script dependency,installation may fail")
+                #print("Installing libjpeg-turbo")
+                cmd = 'sudo pacman -Sy --force --noconfirm libjpeg-turbo'
+                if os_utils.execute(cmd) != 0:
+                    log.warning("Missing libjpeg-turbo dependency,installation may fail")
+                #print("Installing ghostscript")
+                cmd1 = 'sudo pacman -Sy --force --noconfirm ghostscript'
+                if os_utils.execute(cmd1) != 0:
+                    log.warning("Missing ghost script dependency,installation may fail")
+
             #
             # DEPENDENCIES RE-CHECK
             #
@@ -1342,14 +1374,16 @@ def start(language, auto=True, test_depends=False,
 
         tui.title("POST-BUILD COMMANDS")
         core.run_post_build(progress_callback, distro_alternate_version)
-        try:
-            from prnt import cups
-            # This call is just to update the cups PPD cache file@
-            # /var/cache/cups/ppds.dat. If this is not called, hp-setup picks
-            # incorrect ppd 1st time for some printers.
-            cups.getSystemPPDs()
-        except ImportError:
-            log.error("Failed to Import Cups")
+
+        if not (core.distro_name.lower() == 'manjarolinux'):
+            try:
+                from prnt import cups
+                # This call is just to update the cups PPD cache file@
+                # /var/cache/cups/ppds.dat. If this is not called, hp-setup picks
+                # incorrect ppd 1st time for some printers.
+                cups.getSystemPPDs()
+            except ImportError:
+                log.error("Failed to Import Cups")
 
         #
         # OPEN MDNS MULTICAST PORT

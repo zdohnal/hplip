@@ -3796,3 +3796,9 @@
 :model "HP Smart Tank Wireless 450"
 :status :good
 
+:model "HP Tango"
+:status :good
+
+:model "HP Tango X"
+:status :good
+

@@ -66,7 +66,10 @@ class Ui_HpScan(object):
     document_merge =False
     auto_orient =False
     crushed = False
-    #searchablePDF = False
+    bg_color_removal = False
+    punchhole_removal = False
+    color_dropout = False
+    searchablePDF = False
     mixed_feed =False
     blank_page = False
     batch_seperation = False
@@ -76,32 +79,42 @@ class Ui_HpScan(object):
     document_merge_adf_flatbed = False
     image_enhancement = False
     brightness = False
+    dropout_color_red_value = 0
+    dropout_color_green_value = 0
+    dropout_color_blue_value = 0
     contrast = False
     sharpness = False
     color_value = False
+    color_range = True
     sizel1 = 0
     sizel2 = 0
     sizel3 = 0
     sizel4 = 0
+    sizel5 = 49
     deskew_image_pri = True
     auto_crop_pri = True
     mixed_feed_pri = True
     auto_orient_pri = True
     document_merge_adf_flatbed_pri = True
     multi_pick_pri = True
+    searchablePDF_pri = True
     #batch_seperation_pri = True
     crushed_pri = True
+    bg_color_removal_pri = True
+    punchhole_removal_pri =True
+    color_dropout_pri = True
     document_merge_pri = True
     image_enhancement_pri = True
     blank_page_pri = True
     batchsepBC_pri = True
     other_device_cnt = 0
+    ocr = False
 	
     def setupUi(self, HpScan):
         pyPlatform = platform.python_version()
         HpScan.setObjectName(_fromUtf8("HpScan"))
-        HpScan.setMinimumSize(QtCore.QSize(680, 620))
-        HpScan.setMaximumSize(QtCore.QSize(680, 620))
+        HpScan.setMinimumSize(QtCore.QSize(900, 600))
+        HpScan.setMaximumSize(QtCore.QSize(900, 600))
         font = QtGui.QFont()
         font.setBold(False)
         font.setWeight(50)
@@ -121,6 +134,7 @@ class Ui_HpScan(object):
         self.comboBox_Type = QtGui.QComboBox(self.dockWidgetContents)
         self.comboBox_Type.setGeometry(QtCore.QRect(85, 90, 171, 41))
         self.comboBox_Type.setObjectName(_fromUtf8("comboBox_Type"))
+        self.comboBox_Type.addItem(_fromUtf8(""))
         self.comboBox_Type.addItem(_fromUtf8(""))
         self.comboBox_Type.addItem(_fromUtf8(""))
         self.comboBox_Type.addItem(_fromUtf8(""))
@@ -201,7 +215,7 @@ class Ui_HpScan(object):
         self.pushButton_Change.clicked.connect(self.selectFile)
         
         self.pushButton_Merge = QtGui.QPushButton(self.dockWidgetContents)
-        self.pushButton_Merge.setGeometry(QtCore.QRect(450, 355, 81, 31))
+        self.pushButton_Merge.setGeometry(QtCore.QRect(450, 305, 81, 31))
         font = QtGui.QFont()
         font.setBold(True)
         font.setWeight(75)
@@ -226,44 +240,63 @@ class Ui_HpScan(object):
         self.label_Resolution.setPixmap(QtGui.QPixmap(_fromUtf8("/usr/share/hplip/data/images/other/resolution.png")))
         self.label_Resolution.setObjectName(_fromUtf8("label_Resolution"))
         self.auto_orient = QtGui.QCheckBox(self.dockWidgetContents)
-        self.auto_orient.setGeometry(QtCore.QRect(300,60,117, 22))
+        self.auto_orient.setGeometry(QtCore.QRect(300,70,117, 22))
         self.auto_orient.setObjectName(_fromUtf8("auto_orient"))
         self.auto_orient.stateChanged.connect(self.Auto_orient)
         self.crushed = QtGui.QCheckBox(self.dockWidgetContents)
-        self.crushed.setGeometry(QtCore.QRect(300,390,200, 22))
+        self.crushed.setGeometry(QtCore.QRect(550,30,240, 22))
         self.crushed.setObjectName(_fromUtf8("crushed"))
         self.crushed.stateChanged.connect(self.Crushed)
-        #self.searchablePDF = QtGui.QCheckBox(self.dockWidgetContents)
-        #self.searchablePDF.setGeometry(QtCore.QRect(300,420,200, 22))
-        #self.searchablePDF.setObjectName(_fromUtf8("searchablePDF"))
-        #self.searchablePDF.stateChanged.connect(self.SearchablePDF)
+        self.searchablePDF = QtGui.QCheckBox(self.dockWidgetContents)
+        self.searchablePDF.setGeometry(QtCore.QRect(300,350,200, 22))
+        self.searchablePDF.setObjectName(_fromUtf8("searchablePDF"))
+        self.searchablePDF.stateChanged.connect(self.SearchablePDF)
+        self.punchhole_removal = QtGui.QCheckBox(self.dockWidgetContents)
+        self.punchhole_removal.setGeometry(QtCore.QRect(300,390,200, 22))
+        self.punchhole_removal.setObjectName(_fromUtf8("punchhole_removal"))
+        self.punchhole_removal.stateChanged.connect(self.Punchhole_removal)
+        #self.punchhole_removal.stateChanged.connect(self.SearchablePDF)
+        self.color_dropout = QtGui.QCheckBox(self.dockWidgetContents)
+        self.color_dropout.setGeometry(QtCore.QRect(550,360,240, 22))
+        self.color_dropout.setObjectName(_fromUtf8("color_dropout"))
+        self.color_dropout.stateChanged.connect(self.Color_dropout)
+        self.label_CR = QtGui.QLabel(self.dockWidgetContents)
+        self.label_CR.setGeometry(QtCore.QRect(560,390, 250, 22))
+        self.label_CR.setMouseTracking(True)
+        self.label_CR.setObjectName(_fromUtf8("label_CR"))
+        self.bg_color_removal = QtGui.QCheckBox(self.dockWidgetContents)
+        self.bg_color_removal.setGeometry(QtCore.QRect(300,430,240, 22))
+        self.bg_color_removal.setObjectName(_fromUtf8("bg_color_removal"))
+        self.bg_color_removal.stateChanged.connect(self.Bg_color_removal)
+        #self.bg_color_removal.stateChanged.connect(self.SearchablePDF)
+        
         self.auto_crop = QtGui.QCheckBox(self.dockWidgetContents)
-        self.auto_crop.setGeometry(QtCore.QRect(300, 90, 241, 20))
+        self.auto_crop.setGeometry(QtCore.QRect(300, 110, 241, 20))
         self.auto_crop.setObjectName(_fromUtf8("auto_crop"))
         self.auto_crop.stateChanged.connect(self.Auto_crop)
         self.multi_pick = QtGui.QCheckBox(self.dockWidgetContents)
-        self.multi_pick.setGeometry(QtCore.QRect(300, 120, 231, 22))
+        self.multi_pick.setGeometry(QtCore.QRect(300, 150, 231, 22))
         self.multi_pick.setObjectName(_fromUtf8("multi_pick"))
         self.multi_pick.stateChanged.connect(self.Multi_pick)
         self.blank_page = QtGui.QCheckBox(self.dockWidgetContents)
-        self.blank_page.setGeometry(QtCore.QRect(300, 150, 241, 22))
+        self.blank_page.setGeometry(QtCore.QRect(300, 190, 241, 22))
         self.blank_page.setObjectName(_fromUtf8("blank_page"))
         self.blank_page.stateChanged.connect(self.Blank_page)
         self.batch_seperation = QtGui.QCheckBox(self.dockWidgetContents)
-        self.batch_seperation.setGeometry(QtCore.QRect(300, 180, 201, 22))
+        self.batch_seperation.setGeometry(QtCore.QRect(550, 230, 201, 22))
         self.batch_seperation.setObjectName(_fromUtf8("batch_seperation"))
         self.batch_seperation.stateChanged.connect(self.batch_Seperation)
         #self.batch_seperation.setEnabled(False)
         self.bp_blankpage = QtGui.QCheckBox(self.dockWidgetContents)
-        self.bp_blankpage.setGeometry(QtCore.QRect(330, 210, 201, 22))
+        self.bp_blankpage.setGeometry(QtCore.QRect(570, 260, 201, 22))
         self.bp_blankpage.setObjectName(_fromUtf8("bp_blankpage"))
         self.bp_blankpage.setEnabled(False)
         self.bp_barcode = QtGui.QCheckBox(self.dockWidgetContents)
-        self.bp_barcode.setGeometry(QtCore.QRect(330, 240, 311, 22))
+        self.bp_barcode.setGeometry(QtCore.QRect(570, 290, 311, 22))
         self.bp_barcode.setObjectName(_fromUtf8("bp_barcode"))
         self.bp_barcode.setEnabled(False)
         self.comboBox_Barcode_Type = QtGui.QComboBox(self.dockWidgetContents)
-        self.comboBox_Barcode_Type.setGeometry(QtCore.QRect(360, 270, 261, 27))
+        self.comboBox_Barcode_Type.setGeometry(QtCore.QRect(590, 320, 261, 27))
         self.comboBox_Barcode_Type.setObjectName(_fromUtf8("comboBox_Barcode_Type"))
         self.comboBox_Barcode_Type.addItem(_fromUtf8(""))
         self.comboBox_Barcode_Type.addItem(_fromUtf8(""))
@@ -276,20 +309,20 @@ class Ui_HpScan(object):
         self.comboBox_Barcode_Type.setEnabled(False)
         #self.comboBox_Barcode_Type.currentIndexChanged.connect(self.comboBox_ResIndexChanged)
         self.document_merge = QtGui.QCheckBox(self.dockWidgetContents)
-        self.document_merge.setGeometry(QtCore.QRect(300, 300, 161, 22))
+        self.document_merge.setGeometry(QtCore.QRect(300, 230, 161, 22))
         self.document_merge.setObjectName(_fromUtf8("document_merge"))
         self.document_merge.stateChanged.connect(self.Document_merge)
         self.mixed_feed = QtGui.QCheckBox(self.dockWidgetContents)
-        self.mixed_feed.setGeometry(QtCore.QRect(300, 330, 200, 22))
+        self.mixed_feed.setGeometry(QtCore.QRect(300, 270, 200, 22))
         self.mixed_feed.setObjectName(_fromUtf8("mixed_feed"))
         self.mixed_feed.stateChanged.connect(self.Mixed_feed)
         self.deskew_image = QtGui.QCheckBox(self.dockWidgetContents)
         self.document_merge_adf_flatbed = QtGui.QCheckBox(self.dockWidgetContents)
-        self.document_merge_adf_flatbed.setGeometry(QtCore.QRect(300, 360, 150, 22))
+        self.document_merge_adf_flatbed.setGeometry(QtCore.QRect(300, 310, 150, 22))
         self.document_merge_adf_flatbed.setObjectName(_fromUtf8("document_merge_adf_flatbed"))
         self.document_merge_adf_flatbed.stateChanged.connect(self.Document_merge_adf_flatbed)
         self.label_Brightness = QtGui.QLabel(self.dockWidgetContents)
-        self.label_Brightness.setGeometry(QtCore.QRect(310,445, 250, 22))
+        self.label_Brightness.setGeometry(QtCore.QRect(560,100, 250, 22))
         #font = QtGui.QFont()
         #font.setBold(True)
         #font.setWeight(75)
@@ -297,7 +330,7 @@ class Ui_HpScan(object):
         self.label_Brightness.setMouseTracking(True)
         self.label_Brightness.setObjectName(_fromUtf8("label_Brightness"))
         self.label_Contrast = QtGui.QLabel(self.dockWidgetContents)
-        self.label_Contrast.setGeometry(QtCore.QRect(310,475, 250, 22))
+        self.label_Contrast.setGeometry(QtCore.QRect(560,130, 250, 22))
         #font = QtGui.QFont()
         #font.setBold(True)
         #font.setWeight(75)
@@ -305,7 +338,7 @@ class Ui_HpScan(object):
         self.label_Contrast.setMouseTracking(True)
         self.label_Contrast.setObjectName(_fromUtf8("label_Contrast"))
         self.label_Sharpness = QtGui.QLabel(self.dockWidgetContents)
-        self.label_Sharpness.setGeometry(QtCore.QRect(310,505, 250, 22))
+        self.label_Sharpness.setGeometry(QtCore.QRect(560,160, 250, 22))
         #font = QtGui.QFont()
         #font.setBold(True)
         #font.setWeight(75)
@@ -313,7 +346,7 @@ class Ui_HpScan(object):
         self.label_Sharpness.setMouseTracking(True)
         self.label_Sharpness.setObjectName(_fromUtf8("label_Sharpness"))
         self.label_Color_value = QtGui.QLabel(self.dockWidgetContents)
-        self.label_Color_value.setGeometry(QtCore.QRect(310,535, 250, 22))
+        self.label_Color_value.setGeometry(QtCore.QRect(560,190, 250, 22))
         #font = QtGui.QFont()
         #font.setBold(True)
         #font.setWeight(75)
@@ -321,7 +354,7 @@ class Ui_HpScan(object):
         self.label_Color_value.setMouseTracking(True)
         self.label_Color_value.setObjectName(_fromUtf8("label_Color_value"))
         self.image_enhancement = QtGui.QCheckBox(self.dockWidgetContents)
-        self.image_enhancement.setGeometry(QtCore.QRect(300, 420, 250, 22))
+        self.image_enhancement.setGeometry(QtCore.QRect(550, 70, 250, 22))
         self.image_enhancement.setObjectName(_fromUtf8("image_enhancement"))
         self.image_enhancement.stateChanged.connect(self.Image_enhancement)
         self.deskew_image.setGeometry(QtCore.QRect(300,30, 241, 20))
@@ -344,7 +377,7 @@ class Ui_HpScan(object):
         #self.s1 = QtGui.QSlider(Qt.Horizontal)
         self.s1 = QtGui.QSlider(Qt.Horizontal,self.dockWidgetContents)
         self.s1.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.s1.setGeometry(410, 440, 100, 30)
+        self.s1.setGeometry(660, 95, 100, 30)
 
         #self.s1 = QSlider(Qt.Horizontal)
         #self.s1.setGeometry(320, 460, 250, 22)
@@ -362,7 +395,7 @@ class Ui_HpScan(object):
         
         self.s2 = QtGui.QSlider(Qt.Horizontal,self.dockWidgetContents)
         self.s2.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.s2.setGeometry(410, 470, 100, 30)
+        self.s2.setGeometry(660, 125, 100, 30)
         #self.s2 = QSlider(Qt.Horizontal)
         #self.s2.setGeometry(1320, 480, 250, 22)
         self.s2.setMinimum(0)
@@ -380,7 +413,7 @@ class Ui_HpScan(object):
         
         self.s3 = QtGui.QSlider(Qt.Horizontal,self.dockWidgetContents)
         self.s3.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.s3.setGeometry(410, 500, 100, 30)
+        self.s3.setGeometry(660, 155, 100, 30)
         #self.s3 = QSlider(Qt.Horizontal)
         #self.s3.setGeometry(1320, 500, 250, 22)
         self.s3.setMinimum(0)
@@ -395,7 +428,7 @@ class Ui_HpScan(object):
         
         self.s4 = QtGui.QSlider(Qt.Horizontal,self.dockWidgetContents)
         self.s4.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.s4.setGeometry(410, 530, 100, 30)
+        self.s4.setGeometry(660, 185, 100, 30)
         #self.s4 = QSlider(Qt.Horizontal)
         #self.s4.setGeometry(1320, 520, 250, 22)
         self.s4.setMinimum(0)
@@ -407,6 +440,18 @@ class Ui_HpScan(object):
         #self.layout.addWidget(self.s4,0,QtCore.Qt.AlignRight)
         self.s4.setEnabled(False)
         self.s4.valueChanged.connect(self.valuechange_color)
+
+        self.s5 = QtGui.QSlider(Qt.Horizontal,self.dockWidgetContents)
+        self.s5.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.s5.setGeometry(660, 385, 100, 30)
+        self.s5.setMinimum(0)
+        self.s5.setMaximum(99)
+        self.s5.setValue(49)
+        self.s5.setTickPosition(QSlider.TicksBelow)
+        self.s5.setTickInterval(10)
+
+        self.s5.setEnabled(False)
+        self.s5.valueChanged.connect(self.valuechange_range)
         
         
         #self.pushButton_Cancel = QtGui.QPushButton(self.dockWidgetContents)
@@ -449,8 +494,13 @@ class Ui_HpScan(object):
         self.sizel4 = self.s4.value()
         #print "printing new value color"
         #print self.sizel4
-    #def initUI(self):
+	#def initUI(self):
         #self.connect(self.pushButton_Scan,SIGNAL("clicked()"),self.scanButton_clicked())
+    def valuechange_range(self):
+        #print "entered value changed color" 
+        #global sizel5
+        self.color_range = True
+        self.sizel5 = self.s5.value()
     def comboBox_Path(self, new_path = None):
         path = new_path
         
@@ -474,8 +524,18 @@ class Ui_HpScan(object):
             cmd = cmd + ' --' + 'autoorient'
         if self.crushed.isChecked() == True:
             cmd = cmd + ' --' + 'crushed'
-        #if self.searchablePDF.isChecked() == True:
-	    #cmd = cmd + ' --' + 'searchablePDF'
+        if self.bg_color_removal.isChecked() == True:
+            cmd = cmd + ' --' + 'bg_color_removal'
+        if self.punchhole_removal.isChecked() == True:
+            cmd = cmd + ' --' + 'punchhole_removal'
+        if self.color_dropout.isChecked() == True:
+            cmd = cmd + ' --' + 'color_dropout_red_value'+ '=' + str(self.dropout_color_red_value)
+        if self.color_dropout.isChecked() == True:
+            cmd = cmd + ' --' + 'color_dropout_green_value'+ '=' + str(self.dropout_color_green_value)
+        if self.color_dropout.isChecked() == True:
+            cmd = cmd + ' --' + 'color_dropout_blue_value'+ '=' + str(self.dropout_color_blue_value)
+        if self.color_dropout.isChecked() == True and self.color_range == True:
+            cmd = cmd + ' --' + 'color_range'+ '=' + str(self.sizel5)
         if self.mixed_feed.isChecked() == True:
             cmd = re.sub(r'\--size=.+\ ', '', cmd)
             cmd = cmd + ' --' + 'mixedfeed'
@@ -519,8 +579,14 @@ class Ui_HpScan(object):
         elif status[0] == 4:
             output_pdf = status[1].split("error: ", 1)[1]
             output_pdf = output_pdf.split('.pdf', 1)[0]+".pdf"
-            imageprocessing.merge_PDF_viewer(output_pdf)
+            ocr = False
+            if self.searchablePDF.isChecked() == True:
+                ocr = True
+            imageprocessing.merge_PDF_viewer(output_pdf,ocr)
+            self.pushButton_Scan.setEnabled(True)
+
         elif status[0] == 5:
+            ocr = False
             output_pdf = status[1].split("error: ", 1)[1]
             #print output_pdf
             output_pdf = output_pdf.split(']', 1)[0]+"]"
@@ -532,8 +598,12 @@ class Ui_HpScan(object):
             output_pdf = output_pdf.split(',')
             #print output_pdf
             #print type(output_pdf)
+            ocr = False
             for p in output_pdf:
-                imageprocessing.merge_PDF_viewer(p)
+                if self.searchablePDF.isChecked() == True:
+                    ocr = True
+                imageprocessing.merge_PDF_viewer(p,ocr)
+                self.pushButton_Scan.setEnabled(True)
         elif status[0] == 6:
             self.failureMessage(convert_error_message)
         self.pushButton_Scan.setEnabled(True)
@@ -565,13 +635,13 @@ class Ui_HpScan(object):
         #print self.file_type
 
     def comboBox_SourceChanged(self,device):
-        if device != '5000' and device != '7500' and device != '9120' and device != '8500' and device != '3500' and device != '4500' and device != '3000' and device != '7000':
+        if device != '5000' and device != '7500' and device != '9120' and device != '8500' and device != '3500' and device != '4500' and device != '3000' and device != '7000' and device != '2000':
             self.multi_pick_pri = False
         else:
             self.comboBox_Flatbed.clear()
             self.comboBox_Flatbed.addItem(_fromUtf8(""))
             self.comboBox_Flatbed.addItem(_fromUtf8(""))
-            if device == '5000' or device == '3000' or device == '7000': 
+            if device == '5000' or device == '3000' or device == '7000' or device == '2000': 
                 self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "Duplex", None))
                 self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
                 self.comboBox_Flatbed.setCurrentIndex(1)
@@ -581,7 +651,7 @@ class Ui_HpScan(object):
                 self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
                 self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "Duplex", None))
                 self.comboBox_Flatbed.setCurrentIndex(1)
-            if device == '5000' or device == '7500' or device == '9120' or device == '8500' or device == '3500' or device == '4500' or device == '3000' or device == '7000':
+            if device == '5000' or device == '7500' or device == '9120' or device == '8500' or device == '3500' or device == '4500' or device == '3000' or device == '7000' or device == '2000':
                 self.source = str(self.comboBox_Flatbed.currentText()).lower()
                 self.comboBox_Flatbed.currentIndexChanged.connect(self.comboBox_SourceSelected)
         
@@ -639,7 +709,7 @@ class Ui_HpScan(object):
                 self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
                 self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "Duplex", None))
                 self.comboBox_Flatbed.setCurrentIndex(1)
-            elif (re.search(r'_5000_', self.device_uri)) or (re.search(r'_7000_s3', self.device_uri)) or (re.search(r'_3000_s3', self.device_uri)):
+            elif (re.search(r'_5000_', self.device_uri)) or (re.search(r'_7000_s3', self.device_uri)) or (re.search(r'_3000_s3', self.device_uri)) or (re.search(r'hp2000S1', self.device_uri)):
                 self.comboBox_Flatbed.clear()
                 self.comboBox_Flatbed.addItem(_fromUtf8(""))
                 self.comboBox_Flatbed.addItem(_fromUtf8(""))
@@ -712,7 +782,7 @@ class Ui_HpScan(object):
                 self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
                 self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "Duplex", None))
                 self.comboBox_Flatbed.setCurrentIndex(1)
-            elif (re.search(r'_5000_', self.device_uri)) or (re.search(r'_7000_s3', self.device_uri)) or (re.search(r'_3000_s3', self.device_uri)):
+            elif (re.search(r'_5000_', self.device_uri)) or (re.search(r'_7000_s3', self.device_uri)) or (re.search(r'_3000_s3', self.device_uri)) or (re.search(r'hp2000S1', self.device_uri)):
                 self.comboBox_Flatbed.clear()
                 self.comboBox_Flatbed.addItem(_fromUtf8(""))
                 self.comboBox_Flatbed.addItem(_fromUtf8(""))
@@ -730,23 +800,38 @@ class Ui_HpScan(object):
             self.CheckEnable()
 
     def CheckEnable(self):
-        if self.auto_orient.isChecked() == False and self.auto_crop.isChecked() == False and self.image_enhancement.isChecked() == False and self.deskew_image.isChecked() == False and self.blank_page.isChecked() == False and self.document_merge_adf_flatbed.isChecked() == False and self.multi_pick.isChecked() == False and self.batch_seperation.isChecked() == False:
-            self.crushed.setChecked(False)
+        if self.auto_orient.isChecked() == False and self.auto_crop.isChecked() == False and self.image_enhancement.isChecked() == False and self.deskew_image.isChecked() == False and self.blank_page.isChecked() == False and self.document_merge_adf_flatbed.isChecked() == False and self.multi_pick.isChecked() == False and self.batch_seperation.isChecked() == False and self.searchablePDF.isChecked() == False and self.crushed.isChecked()== False and self.bg_color_removal.isChecked() == False and self.bg_color_removal.isChecked() == False and self.color_dropout.isChecked() == False:
+            #self.crushed.setChecked(False)
             self.mixed_feed.setChecked(False)
             self.document_merge.setChecked(False)
-            if self.crushed_pri == True:
-                self.crushed.setEnabled(True)
+            #self.bg_color_removal.setChecked(False)
+            #self.punchhole_removal.setChecked(False)
+            #self.color_dropout.setChecked(False)
+            #if self.crushed_pri == True:
+                #self.crushed.setEnabled(True)
             if self.mixed_feed_pri == True:
                 self.mixed_feed.setEnabled(True)
             if self.document_merge_pri == True:
                 self.document_merge.setEnabled(True)
+            #if self.bg_color_removal_pri == True:
+                #self.bg_color_removal.setEnabled(True)
+            #if self.punchhole_removal_pri == True:
+                #self.punchhole_removal.setEnabled(True)
+            #if self.color_dropout_pri == True:
+                #self.color_dropout.setEnabled(True)
         else:
-            self.crushed.setChecked(False)
+            #self.crushed.setChecked(False)
             self.mixed_feed.setChecked(False)
             self.document_merge.setChecked(False)
-            self.crushed.setEnabled(False)
+            #self.bg_color_removal.setChecked(False)
+            #self.punchhole_removal.setChecked(False)
+            #self.color_dropout.setChecked(False)
+            #self.crushed.setEnabled(False)
             self.mixed_feed.setEnabled(False)
             self.document_merge.setEnabled(False)
+            #self.bg_color_removal.setEnabled(False)
+            #self.punchhole_removal.setEnabled(False)
+            #self.color_dropout.setEnabled(False)
 
     def DisableAllScanjet(self):
         self.auto_orient.setChecked(False)
@@ -758,8 +843,12 @@ class Ui_HpScan(object):
         self.deskew_image.setChecked(False)
         self.blank_page.setChecked(False)
         self.crushed.setChecked(False)
+        self.bg_color_removal.setChecked(False)
+        self.punchhole_removal.setChecked(False)
+        self.color_dropout.setChecked(False)
         self.mixed_feed.setChecked(False)
         self.document_merge.setChecked(False)
+        self.searchablePDF.setChecked(False)
         self.auto_orient.setEnabled(False)
         self.auto_crop.setEnabled(False)
         self.image_enhancement.setEnabled(False)
@@ -769,11 +858,15 @@ class Ui_HpScan(object):
         self.deskew_image.setEnabled(False)
         self.blank_page.setEnabled(False)
         self.crushed.setEnabled(False)
+        self.bg_color_removal.setEnabled(False)
+        self.punchhole_removal.setEnabled(False)
+        self.color_dropout.setEnabled(False)
         self.mixed_feed.setEnabled(False)
-        self.document_merge.setEnabled(False)      
+        self.document_merge.setEnabled(False)
+        self.searchablePDF.setEnabled(False)      
             
     def DisableAll(self):
-        if self.crushed.isChecked() == True or self.mixed_feed.isChecked() == True or self.document_merge.isChecked() == True:
+        if self.mixed_feed.isChecked() == True or self.document_merge.isChecked() == True:
             self.auto_orient.setChecked(False)
             self.auto_crop.setChecked(False)
             self.image_enhancement.setChecked(False)
@@ -782,6 +875,11 @@ class Ui_HpScan(object):
             self.batch_seperation.setChecked(False)
             self.deskew_image.setChecked(False)
             self.blank_page.setChecked(False)
+            self.searchablePDF.setChecked(False)
+            self.crushed.setChecked(False)
+            self.bg_color_removal.setChecked(False)
+            self.punchhole_removal.setChecked(False)
+            self.color_dropout.setChecked(False)
             self.auto_orient.setEnabled(False)
             self.auto_crop.setEnabled(False)
             self.image_enhancement.setEnabled(False)
@@ -790,6 +888,11 @@ class Ui_HpScan(object):
             self.batch_seperation.setEnabled(False)
             self.deskew_image.setEnabled(False)
             self.blank_page.setEnabled(False)
+            self.searchablePDF.setEnabled(False)
+            self.crushed.setEnabled(False)
+            self.bg_color_removal.setEnabled(False)
+            self.punchhole_removal.setEnabled(False)
+            self.color_dropout.setEnabled(False)
         else:
             self.auto_orient.setChecked(False)
             self.auto_crop.setChecked(False)
@@ -799,8 +902,15 @@ class Ui_HpScan(object):
             self.batch_seperation.setChecked(False)
             self.deskew_image.setChecked(False)
             self.blank_page.setChecked(False)
+            self.searchablePDF.setChecked(False)
+            self.crushed.setChecked(False)
+            self.bg_color_removal.setChecked(False)
+            self.punchhole_removal.setChecked(False)
+            self.color_dropout.setChecked(False)
             if self.auto_orient_pri == True:
                 self.auto_orient.setEnabled(True)
+            if self.searchablePDF_pri == True:
+                self.searchablePDF.setEnabled(True)
             if self.auto_crop_pri == True:
                 #print ("auto_crop_pri is still true")
                 self.auto_crop.setEnabled(True)
@@ -816,32 +926,65 @@ class Ui_HpScan(object):
                 self.deskew_image.setEnabled(True)
             if self.blank_page_pri == True:
                 self.blank_page.setEnabled(True)
+            if self.bg_color_removal_pri == True:
+                self.bg_color_removal.setEnabled(True)
+            if self.punchhole_removal_pri == True:
+                self.punchhole_removal.setEnabled(True)
+            if self.color_dropout_pri == True:
+                self.color_dropout.setEnabled(True)
+            if self.crushed_pri == True:
+                self.crushed.setEnabled(True)
             
     def Crushed(self):
         if self.crushed.isChecked() == True:
             if self.crushed_pri == True:	    
                 self.crushed.setEnabled(True)
-            self.comboBox_Color.setCurrentIndex(1)
-            self.comboBox_Color.setEnabled(False)
-            self.DisableAll()
+            self.CheckEnable()
+            #self.comboBox_Color.setCurrentIndex(1)
+            #self.comboBox_Color.setEnabled(False)
+            '''self.DisableAll()
             self.mixed_feed.setChecked(False)
             self.document_merge.setChecked(False)
             self.mixed_feed.setEnabled(False)
             self.document_merge.setEnabled(False)
+            self.bg_color_removal.setChecked(False)
+            self.bg_color_removal.setEnabled(False)
+            self.punchhole_removal.setChecked(False)
+            self.punchhole_removal.setEnabled(False)
+            self.color_dropout.setChecked(False)
+            self.color_dropout.setEnabled(False)'''
         else:
-            self.comboBox_Color.setEnabled(True)
-            self.DisableAll()
+            self.CheckEnable()
+            #self.comboBox_Color.setEnabled(True)
+            '''self.DisableAll()
             self.mixed_feed.setChecked(False)
             self.document_merge.setChecked(False)
+            self.bg_color_removal.setChecked(False)
+            self.punchhole_removal.setChecked(False)
+            self.color_dropout.setChecked(False)
             if self.mixed_feed_pri == True:
                 self.mixed_feed.setEnabled(True)
             if self.document_merge_pri == True:
                 self.document_merge.setEnabled(True)
+            if self.bg_color_removal_pri == True:
+                self.bg_color_removal.setEnabled(True)
+            if self.punchhole_removal_pri == True:
+                self.punchhole_removal.setEnabled(True)
+            if self.color_dropout_pri == True:
+                self.color_dropout.setEnabled(True)'''
             
 
-    #def SearchablePDF(self):
-        #if self.searchablePDF.isChecked() == True:
-            #self.searchablePDF.setEnabled(True)
+    def SearchablePDF(self):
+        if self.searchablePDF.isChecked() == True:
+            self.searchablePDF.setEnabled(True)
+            self.comboBox_Type.setCurrentIndex(2)
+            self.comboBox_Type.setEnabled(False)
+            if self.searchablePDF_pri == True:
+                self.searchablePDF.setEnabled(True)
+            self.CheckEnable()
+        else:
+            self.comboBox_Type.setEnabled(True) 
+            self.CheckEnable()           
 
 
     def Auto_crop(self):
@@ -884,6 +1027,12 @@ class Ui_HpScan(object):
             self.document_merge.setEnabled(False)
             self.crushed.setEnabled(False)
             self.comboBox_Papersize.setEnabled(False)
+            self.bg_color_removal.setChecked(False)
+            self.bg_color_removal.setEnabled(False)
+            self.punchhole_removal.setChecked(False)
+            self.punchhole_removal.setEnabled(False)
+            self.color_dropout.setChecked(False)
+            self.color_dropout.setEnabled(False)
         else:
             if (re.search(r'_7500', self.device_uri)) or (re.search(r'_N9120', self.device_uri)) or (re.search(r'_8500fn2', self.device_uri)) or (re.search(r'_3500_f1', self.device_uri)) or (re.search(r'_4500_fn1', self.device_uri)):
                 self.comboBox_Flatbed.clear()
@@ -894,7 +1043,7 @@ class Ui_HpScan(object):
                 self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
                 self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "Duplex", None))
                 self.comboBox_Flatbed.setCurrentIndex(1)
-            elif (re.search(r'_5000_', self.device_uri)) or (re.search(r'_7000_s3', self.device_uri)) or (re.search(r'_3000_s3', self.device_uri)):
+            elif (re.search(r'_5000_', self.device_uri)) or (re.search(r'_7000_s3', self.device_uri)) or (re.search(r'_3000_s3', self.device_uri)) or (re.search(r'hp2000S1', self.device_uri)):
                 self.comboBox_Flatbed.clear()
                 self.comboBox_Flatbed.addItem(_fromUtf8(""))
                 self.comboBox_Flatbed.addItem(_fromUtf8(""))
@@ -904,6 +1053,9 @@ class Ui_HpScan(object):
             self.document_merge.setChecked(False)
             self.DisableAll()
             self.crushed.setChecked(False)
+            self.bg_color_removal.setChecked(False)
+            self.punchhole_removal.setChecked(False)
+            self.color_dropout.setChecked(False)
             if self.document_merge_pri == True:
                 self.document_merge.setEnabled(True)
             if self.crushed_pri == True:
@@ -911,6 +1063,126 @@ class Ui_HpScan(object):
             if self.mixed_feed_pri == True:
                 self.mixed_feed.setEnabled(True)
             self.comboBox_Papersize.setEnabled(True)
+            if self.bg_color_removal_pri == True:
+                self.bg_color_removal.setEnabled(True)
+            if self.punchhole_removal_pri == True:
+                self.punchhole_removal.setEnabled(True)
+            if self.color_dropout_pri == True:
+                self.color_dropout.setEnabled(True)
+
+    def Bg_color_removal(self):
+        if self.bg_color_removal.isChecked() == True:
+            if self.bg_color_removal_pri == True:
+                self.bg_color_removal.setEnabled(True)
+            self.CheckEnable()
+            '''self.document_merge.setChecked(False)
+            self.crushed.setChecked(False)
+            self.document_merge.setEnabled(False)
+            self.crushed.setEnabled(False)
+            self.mixed_feed.setChecked(False)
+            self.mixed_feed.setEnabled(False)
+            self.punchhole_removal.setChecked(False)
+            self.punchhole_removal.setEnabled(False)
+            self.color_dropout.setChecked(False)
+            self.color_dropout.setEnabled(False)
+            #self.comboBox_Papersize.setEnabled(False)'''
+        else:
+            self.CheckEnable()		
+            '''self.document_merge.setChecked(False)
+            self.DisableAll()
+            self.crushed.setChecked(False)            
+            if self.document_merge_pri == True:
+                self.document_merge.setEnabled(True)
+            if self.crushed_pri == True:
+                self.crushed.setEnabled(True)
+            if self.mixed_feed_pri == True:
+                self.mixed_feed.setEnabled(True)
+            if self.bg_color_removal_pri == True:
+                self.bg_color_removal.setEnabled(True)
+            if self.punchhole_removal_pri == True:
+                self.punchhole_removal.setEnabled(True)
+            if self.color_dropout_pri == True:
+                self.color_dropout.setEnabled(True)
+            #self.comboBox_Papersize.setEnabled(True)'''
+
+    def Punchhole_removal(self):
+        if self.punchhole_removal.isChecked() == True:
+            if self.punchhole_removal_pri == True:
+                self.punchhole_removal.setEnabled(True)
+            self.CheckEnable()
+            '''self.DisableAll()
+            self.document_merge.setChecked(False)
+            self.crushed.setChecked(False)
+            self.document_merge.setEnabled(False)
+            self.crushed.setEnabled(False)
+            self.mixed_feed.setChecked(False)
+            self.mixed_feed.setEnabled(False)
+            self.bg_color_removal.setChecked(False)
+            self.bg_color_removal.setEnabled(False)
+            self.color_dropout.setChecked(False)
+            self.color_dropout.setEnabled(False)
+            #self.comboBox_Papersize.setEnabled(False)'''
+        else:
+            self.CheckEnable()
+            '''self.document_merge.setChecked(False)
+            self.DisableAll()
+            self.crushed.setChecked(False)            
+            if self.document_merge_pri == True:
+                self.document_merge.setEnabled(True)
+            if self.crushed_pri == True:
+                self.crushed.setEnabled(True)
+            if self.mixed_feed_pri == True:
+                self.mixed_feed.setEnabled(True)
+            if self.punchhole_removal_pri == True:
+                self.punchhole_removal.setEnabled(True)
+            if self.color_dropout_pri == True:
+                self.color_dropout.setEnabled(True)
+            if self.bg_color_removal_pri == True:
+                self.bg_color_removal.setEnabled(True)
+            #self.comboBox_Papersize.setEnabled(True)'''
+
+    def Color_dropout(self):
+        if self.color_dropout.isChecked() == True:
+            if self.color_dropout_pri == True:
+                self.color_dropout.setEnabled(True)
+            '''self.DisableAll()
+            self.document_merge.setChecked(False)
+            self.crushed.setChecked(False)
+            self.document_merge.setEnabled(False)
+            self.crushed.setEnabled(False)
+            self.mixed_feed.setChecked(False)
+            self.mixed_feed.setEnabled(False)
+            self.bg_color_removal.setChecked(False)
+            self.bg_color_removal.setEnabled(False)
+            self.punchhole_removal.setChecked(False)
+            self.punchhole_removal.setEnabled(False)'''
+            color = QtGui.QColorDialog.getColor()
+            self.s5.setEnabled(True)
+            RGBVALUE = list(color.getRgb())
+            self.dropout_color_red_value = str(RGBVALUE[0])
+            self.dropout_color_green_value = str(RGBVALUE[1])
+            self.dropout_color_blue_value = str(RGBVALUE[2])
+            #print (RGBVALUE)
+            #self.comboBox_Papersize.setEnabled(False)
+        else:
+            #self.document_merge.setChecked(False)
+            #self.DisableAll()
+            #self.crushed.setChecked(False)
+            self.CheckEnable() 
+            self.s5.setEnabled(False)           
+            '''if self.document_merge_pri == True:
+                self.document_merge.setEnabled(True)
+            if self.crushed_pri == True:
+                self.crushed.setEnabled(True)
+            if self.mixed_feed_pri == True:
+                self.mixed_feed.setEnabled(True)
+            if self.punchhole_removal_pri == True:
+                self.punchhole_removal.setEnabled(True)
+            if self.color_dropout_pri == True:
+                self.color_dropout.setEnabled(True)
+            if self.bg_color_removal_pri == True:
+                self.bg_color_removal.setEnabled(True)
+            #self.comboBox_Papersize.setEnabled(True)'''
    
     def Document_merge(self):
         if self.document_merge.isChecked() == True:
@@ -921,9 +1193,15 @@ class Ui_HpScan(object):
             self.crushed.setChecked(False)
             self.mixed_feed.setEnabled(False)
             self.crushed.setEnabled(False)
+            self.bg_color_removal.setChecked(False)
+            self.bg_color_removal.setEnabled(False)
+            self.punchhole_removal.setChecked(False)
+            self.punchhole_removal.setEnabled(False)
+            self.color_dropout.setChecked(False)
+            self.color_dropout.setEnabled(False)
             #name = re.search(r'_5000_', self.device_uri)
             #if name:
-            if re.search(r'_5000_', self.device_uri) or re.search(r'_7000_s3', self.device_uri) or re.search(r'_3000_s3', self.device_uri):
+            if re.search(r'_5000_', self.device_uri) or re.search(r'_7000_s3', self.device_uri) or re.search(r'_3000_s3', self.device_uri) or re.search(r'hp2000S1', self.device_uri):
                 self.comboBox_Flatbed.setCurrentIndex(0)
             else:
                 self.comboBox_Flatbed.setCurrentIndex(2)
@@ -933,10 +1211,19 @@ class Ui_HpScan(object):
             self.DisableAll()
             self.mixed_feed.setChecked(False)
             self.crushed.setChecked(False)
+            self.bg_color_removal.setChecked(False)
+            self.punchhole_removal.setChecked(False)
+            self.color_dropout.setChecked(False)
             if self.mixed_feed_pri == True:
                 self.mixed_feed.setEnabled(True)
             if self.crushed_pri == True:
                 self.crushed.setEnabled(True)
+            if self.bg_color_removal_pri == True:
+                self.bg_color_removal.setEnabled(True)
+            if self.punchhole_removal_pri == True:
+                self.punchhole_removal.setEnabled(True)
+            if self.color_dropout_pri == True:
+                self.color_dropout.setEnabled(True)
             self.comboBox_Flatbed.setEnabled(True)
             self.comboBox_Flatbed.setCurrentIndex(1)
             self.source = str(self.comboBox_Flatbed.currentText()).lower()
@@ -991,7 +1278,10 @@ class Ui_HpScan(object):
                 os.remove(p)
 
             merger.write(output_pdf)
-            imageprocessing.merge_PDF_viewer(output_pdf)
+            ocr = False
+            if self.searchablePDF.isChecked() == True:
+                ocr = True
+            imageprocessing.merge_PDF_viewer(output_pdf,ocr)
             '''pdf_viewer = ''
             pdf_viewer_list = ['kpdf', 'acroread', 'xpdf', 'evince',]
             for v in pdf_viewer_list:
@@ -1014,6 +1304,8 @@ class Ui_HpScan(object):
             self.device_name = '5000'
         elif re.search(r'_7500', self.device_uri):
             self.device_name = '7500'
+        elif re.search(r'hp2000S1', self.device_uri):
+            self.device_name = '2000'
         elif re.search(r'_N9120', self.device_uri):
             self.device_name = '9120'
         elif re.search(r'_8500fn2', self.device_uri):
@@ -1027,7 +1319,7 @@ class Ui_HpScan(object):
         elif re.search(r'_3000_s3', self.device_uri):
             self.device_name = '3000'
         #print (self.device_uri)
-        if self.device_name == '7500' or self.device_name == '5000' or self.device_name == '9120' or self.device_name == '8500' or self.device_name == '3500' or self.device_name == '4500' or self.device_name == '7000' or self.device_name == '3000':
+        if self.device_name == '7500' or self.device_name == '5000' or self.device_name == '9120' or self.device_name == '8500' or self.device_name == '3500' or self.device_name == '4500' or self.device_name == '7000' or self.device_name == '3000' or self.device_name == '2000':
             self.comboBox_SourceChanged(self.device_name)
         
         
@@ -1045,6 +1337,7 @@ class Ui_HpScan(object):
         self.label_Device.setText(_translate("HpScan", "    Device", None))
         #self.label_Color.setText(_translate("HpScan", "    Color", None))
         self.label_Brightness.setText(_translate("HpScan", "    Brightness", None))
+        self.label_CR.setText(_translate("HpScan", "    Range", None))
         self.label_Contrast.setText(_translate("HpScan", "    Contrast", None))
         self.label_Sharpness.setText(_translate("HpScan", "    Sharpness", None))
         self.label_Color_value.setText(_translate("HpScan", "    Color", None))	
@@ -1052,6 +1345,7 @@ class Ui_HpScan(object):
         self.comboBox_Type.setItemText(1, _translate("HpScan", "JPG", None))
         self.comboBox_Type.setItemText(2, _translate("HpScan", "PDF", None))
         self.comboBox_Type.setItemText(3, _translate("HpScan", "TIFF", None))
+        self.comboBox_Type.setItemText(4, _translate("HpScan", "BMP", None))
         '''self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "Flatbed", None))
         self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
         self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "Duplex", None))
@@ -1096,8 +1390,11 @@ class Ui_HpScan(object):
         self.pushButton_Change.setText(_translate("HpScan", "Change Path", None))
         self.pushButton_Merge.setText(_translate("HpScan", "Merge", None))
         self.auto_orient.setText(_translate("HpScan", "Auto Orient ", None))
-        self.crushed.setText(_translate("HpScan", "Crushed page scan ", None))
-        #self.searchablePDF.setText(_translate("HpScan", "Searchable PDF ", None))
+        self.crushed.setText(_translate("HpScan", "Background noise Removal ", None))
+        self.searchablePDF.setText(_translate("HpScan", "Searchable PDF ", None))
+        self.punchhole_removal.setText(_translate("HpScan", "Punch Hole Removal ", None))
+        self.color_dropout.setText(_translate("HpScan", "Color Removal/Dropout ", None))
+        self.bg_color_removal.setText(_translate("HpScan", "Background Color Removal", None))
         self.auto_crop.setText(_translate("HpScan", "Crop to content on page ", None))
         self.deskew_image.setText(_translate("HpScan", "Straighten page content ", None))
         self.multi_pick.setText(_translate("HpScan", "Misfeed(multipick) detection", None))
@@ -1122,7 +1419,7 @@ class Ui_HpScan(object):
         #print (self.devicelist)
         for device in self.devicelist:
             #print(device)
-            if re.search(r'_5000_', device) or re.search(r'_7500', device) or re.search(r'_N9120', device) or re.search(r'_8500fn2', device) or (re.search(r'_3500_f1', device)) or (re.search(r'_4500_fn1', device)) or (re.search(r'_7000_s3', device)) or (re.search(r'_3000_s3', device)):
+            if re.search(r'_5000_', device) or re.search(r'_7500', device) or re.search(r'_N9120', device) or re.search(r'_8500fn2', device) or re.search(r'_3500_f1', device) or re.search(r'_4500_fn1', device) or re.search(r'_7000_s3', device) or re.search(r'_3000_s3', device) or re.search(r'hp2000S1', device):
                 self.comboBox_Device_URI.addItem(device)
                 self.comboBox_Device_URI.setItemText(i, _translate("HpScan", device, None))
                 i += 1
@@ -1170,6 +1467,7 @@ class SetupDialog():
         if scanjet_flag is not None:
             #ui.DisableAllScanjet()
             ui.auto_orient.setEnabled(False)
+            ui.searchablePDF.setEnabled(False)
             ui.auto_crop.setEnabled(False)
             ui.image_enhancement.setEnabled(False)
             ui.document_merge_adf_flatbed.setEnabled(False)
@@ -1178,6 +1476,9 @@ class SetupDialog():
             ui.deskew_image.setEnabled(False)
             ui.blank_page.setEnabled(False)
             ui.crushed.setEnabled(False)
+            ui.bg_color_removal.setEnabled(False)
+            ui.punchhole_removal.setEnabled(False)
+            ui.color_dropout.setEnabled(False)
             ui.mixed_feed.setEnabled(False)
             ui.document_merge.setEnabled(False)        
 
@@ -1185,10 +1486,14 @@ class SetupDialog():
             ui.auto_crop_pri = False
             ui.mixed_feed_pri = False
             ui.auto_orient_pri = False
+            ui.searchablePDF_pri = False
             ui.document_merge_adf_flatbed_pri = False
             #ui.multi_pick_pri = False
             #ui.batch_seperation_pri = False
             ui.crushed_pri = False
+            ui.bg_color_removal_pri = False
+            ui.punchhole_removal_pri = False
+            ui.color_dropout_pri = False
             ui.document_merge_pri = False
             ui.image_enhancement_pri = False
             ui.blank_page_pri = False
@@ -1197,6 +1502,7 @@ class SetupDialog():
         if scanjet_flag is not None:
             #ui.DisableAllScanjet()
             ui.auto_orient.setEnabled(False)
+            #ui.searchablePDF.setEnabled(False)
             ui.auto_crop.setEnabled(False)
             #ui.image_enhancement.setEnabled(False)
             ui.document_merge_adf_flatbed.setEnabled(False)
@@ -1205,6 +1511,9 @@ class SetupDialog():
             ui.deskew_image.setEnabled(False)
             #ui.blank_page.setEnabled(False)
             ui.crushed.setEnabled(False)
+            ui.bg_color_removal.setEnabled(False)
+            ui.punchhole_removal.setEnabled(False)
+            ui.color_dropout.setEnabled(False)
             ui.mixed_feed.setEnabled(False)
             ui.document_merge.setEnabled(False)   
 
@@ -1218,24 +1527,38 @@ class SetupDialog():
             ui.auto_crop_pri = False
             ui.mixed_feed_pri = False
             ui.auto_orient_pri = False
+            ui.searchablePDF_pri = False
             ui.document_merge_adf_flatbed_pri = False
             #ui.multi_pick_pri = False
             #ui.batch_seperation_pri = False
             ui.crushed_pri = False
             ui.document_merge_pri = False
+            ui.bg_color_removal_pri = False
+            ui.punchhole_removal_pri = False
+            ui.color_dropout_pri = False
 
         scanjet_flag=imageprocessing.check_opencv()
         if scanjet_flag is not None:
             ui.deskew_image.setEnabled(False)
             ui.auto_crop.setEnabled(False)
             ui.mixed_feed.setEnabled(False)
+            ui.bg_color_removal.setEnabled(False)
             #ui.deskew_image.setChecked(False)
             #ui.auto_crop.setChecked(False)
             #ui.mixed_feed.setChecked(False)
+            ui.color_dropout.setEnabled(False)
 
+            
+            ui.color_dropout_pri = False
             ui.deskew_image_pri = False
             ui.auto_crop_pri = False
             ui.mixed_feed_pri = False
+            ui.bg_color_removal_pri = False
+
+        scanjet_flag=imageprocessing.check_skimage()
+        if scanjet_flag is not None:
+            ui.punchhole_removal.setEnabled(False)
+            ui.punchhole_removal_pri = False
 
         scanjet_flag=imageprocessing.check_tesserocr_imutils()
         if scanjet_flag is not None:
@@ -1243,6 +1566,11 @@ class SetupDialog():
             #ui.auto_orient.setChecked(False)
 
             ui.auto_orient_pri = False
+
+        scanjet_flag=imageprocessing.check_pypdfocr()
+        if scanjet_flag is not None:
+            ui.searchablePDF.setEnabled(False)
+            ui.searchablePDF_pri = False
 
         scanjet_flag=imageprocessing.check_pypdf2()
         if scanjet_flag is not None:
