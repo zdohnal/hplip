@@ -1104,6 +1104,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-laserjet_2420-ps.ppd.gz \
     prnt/ps/hp-laserjet_8000_series-ps.ppd.gz \
     prnt/ps/hp-pagewide_color_P75250-ps.ppd.gz \
+    prnt/ps/hp-designjet_t1708_postscript-ps.ppd.gz \
     prnt/ps/hp-mopier_320-ps.ppd.gz \
     prnt/ps/hp-business_inkjet_2600-ps.ppd.gz \
     prnt/ps/hp-laserjet_pro_m402_m403d-ps.ppd.gz \
@@ -1124,6 +1125,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-laserjet_cm1410_series-ps.ppd.gz \
     prnt/ps/hp-designjet_4020ps-ps.ppd.gz \
     prnt/ps/hp-designjet_t7100ps-ps.ppd.gz \
+    prnt/ps/hp-designjet_t1708dr_postscript-ps.ppd.gz \
     prnt/ps/hp-pagewide_xl_8000ps_blueprinter-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_9500_mfp-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_m553-ps.ppd.gz \

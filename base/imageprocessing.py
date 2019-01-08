@@ -154,6 +154,7 @@ def deskew(im):
     import numpy as np
     import cv2
     from PIL import Image
+    median_flag = False
     '''image=np.array(im)
     image_height, image_width = image.shape[0:2]
     
@@ -177,7 +178,7 @@ def deskew(im):
             median_angle = item
     #print(median_angle)
     if not (median_angle != 90 and median_angle != -90):
-        return im
+        return imbase/imageprocessing.py
     if (median_angle >= 45 or median_angle <= -45):
         return im'''
     '''# construct the argument parse and parse the arguments
@@ -219,7 +220,39 @@ def deskew(im):
     # it positive
     else:
         angle = -angle
-    #print (angle)
+    if abs(angle) == 90 or abs(angle) == 0:
+        median_flag = True
+        '''image=np.array(im)
+        image_height, image_width = image.shape[0:2]'''
+    
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        edges = cv2.Canny(gray, 100, 100, apertureSize=3)
+        lines = cv2.HoughLinesP(edges, 1, math.pi / 180.0, 100, minLineLength=100, maxLineGap=5)
+
+        angles = []
+        temp_angles = []
+
+        for x1, y1, x2, y2 in lines[0]:
+            angle = math.degrees(math.atan2(y2 - y1, x2 - x1))
+            temp_angles.append(angle)
+            angle = abs(angle)
+            if angle != 0:
+                angles.append(angle)
+        median_angle = min(angles)
+        for item in temp_angles:
+            if median_angle == abs(item):
+                median_angle = item
+        '''if median_angle > 0:
+            median_angle = median_angle + 1
+        else:
+            median_angle = abs(median_angle) + 1
+            median_angle = -(median_angle)'''
+        if not (median_angle != 90 and median_angle != -90):
+            return im
+        if (median_angle >= 45 or median_angle <= -45):
+            return im
+    if median_flag:
+        angle = median_angle
     image_orig = np.copy(image)
     image_rotated = rotate_image(image, angle)
     image_rotated_cropped = crop_around_center(
@@ -338,18 +371,18 @@ def getbox(img):
     retval[1] = find_line(forupper)
 
     #next, do lower bounds
-    forlower = vals.copy()
-    forlower = np.flipud(forlower)
+    #forlower = vals.copy()
+    forlower = np.flipud(forupper)
     retval[3] = height - find_line(forlower)
 
     #left edge, same as before but roatate the data so left edge is top edge
-    forleft = vals.copy()
-    forleft = np.swapaxes(forleft,0,1)
+    #forleft = vals.copy()
+    forleft = np.swapaxes(forupper,0,1)
     retval[0] = find_line(forleft)
 
     #and right edge is bottom edge of rotated array
-    forright = vals.copy()
-    forright = np.swapaxes(forright,0,1)
+    #forright = vals.copy()
+    forright = np.swapaxes(forupper,0,1)
     forright = np.flipud(forright)
     retval[2] = width - find_line(forright)
 
@@ -414,7 +447,7 @@ def generatePdfFile_canvas(adf_page_files,outputfile,orient_list,brx,bry,tlx,tly
     #print ("called canvas")
     from reportlab.pdfgen import canvas
     from PIL import Image
-    adf_page_files2 = []
+    '''adf_page_files2 = []
     for p in adf_page_files:
         output = utils.createSequencedFilename("hpscan", ".png", output_path)
         cmd = "convert %s %s" %(p,output)
@@ -432,7 +465,7 @@ def generatePdfFile_canvas(adf_page_files,outputfile,orient_list,brx,bry,tlx,tly
     adf_page_files = adf_page_files2
     #print (adf_page_files)
     #print (adf_page_files2)
-    #print (outputfile)
+    #print (outputfile)'''
     c = canvas.Canvas(outputfile, (brx/0.3528, bry/0.3528))
     i=0
     for p in adf_page_files:
@@ -479,10 +512,12 @@ def documentmerge(adf_page_files,ext,output_path):
     from PIL import Image
     from PyPDF2 import PdfFileMerger
     #print(output_type)
-    adf_page_files2 = []
+    #adf_page_files2 = []
     list_im = []
     i = 0
     if ext == ".pdf":
+        merger = PdfFileMerger()
+    '''if ext == ".pdf":
         merger = PdfFileMerger()
         for p in adf_page_files:
             output = utils.createSequencedFilename("hpscan", ".png", output_path)
@@ -500,7 +535,7 @@ def documentmerge(adf_page_files,ext,output_path):
             os.unlink(p) 
         adf_page_files = adf_page_files2
         #del adf_page_files2[:]
-        #print(adf_page_files)      	
+        #print(adf_page_files)'''      	
     while i < len(adf_page_files):       
         list_im = [adf_page_files[i], adf_page_files[i+1]]        	
         imgs    = [Image.open(y) for y in list_im ]
@@ -512,6 +547,14 @@ def documentmerge(adf_page_files,ext,output_path):
         imgs_comb = Image.fromarray( imgs_comb)
         for p in list_im:
             os.remove(p)        
+        '''if ext == ".pdf":
+            temp = 'temp.pdf'
+            imgs_comb = imgs_comb.convert("RGB")
+            imgs_comb.save( temp )
+            merger.append(open(temp,'rb'))
+            cmd = 'rm -f ' + temp
+            utils.run(cmd)
+        else:'''
         if ext == ".pdf":
             temp = 'temp.pdf'
             imgs_comb = imgs_comb.convert("RGB")
@@ -519,6 +562,8 @@ def documentmerge(adf_page_files,ext,output_path):
             merger.append(open(temp,'rb'))
             cmd = 'rm -f ' + temp
             utils.run(cmd)
+            #adf_page_files2.append(temp)
+            #merger = PdfFileMerger()
         else:
             temp = utils.createSequencedFilename("hpscandoc", ext, output_path)
             imgs_comb.save( temp )
@@ -527,13 +572,8 @@ def documentmerge(adf_page_files,ext,output_path):
         output = utils.createSequencedFilename("hpscandoc", ext, output_path)
         with open(output, 'wb') as fout:
             merger.write(fout)
-        #print(output)
-        #print(adf_page_files2)
-        #print(adf_page_files)
-        del adf_page_files2[:]
-        del adf_page_files[:]
-        #print(adf_page_files2)
-        #print(adf_page_files)
+        '''del adf_page_files2[:]
+        del adf_page_files[:]'''
         return output
     else:
         return None

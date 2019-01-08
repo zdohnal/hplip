@@ -1474,8 +1474,9 @@ try:
                     if uiscan == True:
                         if adf:
                             if (save_file == 'pdf'):
-                                #ext = ".png"
-                                im = im.convert("RGB")
+                                if (not (document_merge and duplex and save_file == 'pdf')) or (imageprocessing.check_pypdf2() == None):
+                                    #ext = ".png"
+                                    im = im.convert("RGB")
                             if barcode_count>0:
                                 if barcode_first_occurence == True:
                                     if barcode_first_page == False:
@@ -1501,7 +1502,10 @@ try:
                             if merge_ADF_Flatbed == True and save_file == 'pdf':
                                 temp_output = utils.createSequencedFilename("hpscanMerge", ext,output_path)
                             else:
-                                temp_output = utils.createSequencedFilename("hpscan", ext, output_path)
+                                if (document_merge and duplex and save_file == 'pdf') or (imageprocessing.check_pypdf2() != None):
+                                    temp_output = utils.createSequencedFilename("hpscan", '.png', output_path)
+                                else:
+                                    temp_output = utils.createSequencedFilename("hpscan", ext, output_path)
                             adf_page_files.append(temp_output)
                             #print "entered flatbed save"
                             '''pyPlatform = platform.python_version()
@@ -1577,7 +1581,10 @@ try:
             if document_merge and duplex :
                 #print "entered docmerge"
                 #print adf_page_files
-                if len(adf_page_files):             
+                if len(adf_page_files):
+                    '''if document_merge and duplex and save_file == 'pdf':             
+                        output = imageprocessing.documentmerge(adf_page_files,'.png',output_path)
+                    else:'''
                     output = imageprocessing.documentmerge(adf_page_files,ext,output_path)
                     if (save_file == 'pdf'):
                         #cmd = "%s %s &" % (pdf_viewer, output)               

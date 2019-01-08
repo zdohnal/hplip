@@ -552,23 +552,23 @@ class Ui_HpScan(object):
         #print self.file_type
 
     def comboBox_SourceChanged(self,device):
-        if device != '5000' and device != '7500':
+        if device != '5000' and device != '7500' and device != '9120' and device != '8500' and device != '3500' and device != '4500' and device != '3000' and device != '7000':
             self.multi_pick_pri = False
         else:
             self.comboBox_Flatbed.clear()
             self.comboBox_Flatbed.addItem("")
             self.comboBox_Flatbed.addItem("")
-            if device == '5000': 
+            if device == '5000' or device == '3000' or device == '7000': 
                 self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "Duplex", None))
                 self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
                 self.comboBox_Flatbed.setCurrentIndex(1)
-            elif device == '7500':
+            elif device == '7500' or device == '9120' or device == '8500' or device == '3500' or device == '4500':
                 self.comboBox_Flatbed.addItem("")
                 self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "Flatbed", None))
                 self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
                 self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "Duplex", None))
                 self.comboBox_Flatbed.setCurrentIndex(1)
-            if device == '5000' or device == '7500':
+            if device == '5000' or device == '7500' or device == '9120' or device == '8500' or device == '3500' or device == '4500' or device == '3000' or device == '7000':
                 self.source = str(self.comboBox_Flatbed.currentText()).lower()
                 self.comboBox_Flatbed.currentIndexChanged.connect(self.comboBox_SourceSelected)
         
@@ -592,6 +592,12 @@ class Ui_HpScan(object):
 
     def batch_Seperation(self):
         if self.batch_seperation.isChecked() == True:
+            self.comboBox_Flatbed.clear()
+            self.comboBox_Flatbed.addItem("")
+            self.comboBox_Flatbed.addItem("")
+            self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "Duplex", None))
+            self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
+            self.comboBox_Flatbed.setCurrentIndex(1)
             pyPlatform = platform.python_version()
             num = pyPlatform.split('.')
             if num[0] >= '3':
@@ -611,6 +617,22 @@ class Ui_HpScan(object):
                 self.bp_barcode.stateChanged.connect(self.bp_Barcode)
                 self.bp_blankpage.stateChanged.connect(self.bp_Blankpage)
         else:
+            if (re.search(r'_7500', self.device_uri)) or (re.search(r'_N9120', self.device_uri)) or (re.search(r'_8500fn2', self.device_uri)) or (re.search(r'_3500_f1', self.device_uri)) or (re.search(r'_4500_fn1', self.device_uri)):
+                self.comboBox_Flatbed.clear()
+                self.comboBox_Flatbed.addItem("")
+                self.comboBox_Flatbed.addItem("")
+                self.comboBox_Flatbed.addItem("")
+                self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "Flatbed", None))
+                self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
+                self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "Duplex", None))
+                self.comboBox_Flatbed.setCurrentIndex(1)
+            elif (re.search(r'_5000_', self.device_uri)) or (re.search(r'_7000_s3', self.device_uri)) or (re.search(r'_3000_s3', self.device_uri)):
+                self.comboBox_Flatbed.clear()
+                self.comboBox_Flatbed.addItem("")
+                self.comboBox_Flatbed.addItem("")
+                self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "ADF", None))
+                self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "Duplex", None))
+                self.comboBox_Flatbed.setCurrentIndex(0)
             #if pyPlatform < 3:
             self.CheckEnable()
             self.bp_blankpage.setChecked(False)
@@ -668,7 +690,7 @@ class Ui_HpScan(object):
                 self.multi_pick.setEnabled(True)
             self.CheckEnable()
         else:
-            if (re.search(r'_7500', self.device_uri)):
+            if (re.search(r'_7500', self.device_uri)) or (re.search(r'_N9120', self.device_uri)) or (re.search(r'_8500fn2', self.device_uri)) or (re.search(r'_3500_f1', self.device_uri)) or (re.search(r'_4500_fn1', self.device_uri)):
                 self.comboBox_Flatbed.clear()
                 self.comboBox_Flatbed.addItem("")
                 self.comboBox_Flatbed.addItem("")
@@ -677,7 +699,7 @@ class Ui_HpScan(object):
                 self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
                 self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "Duplex", None))
                 self.comboBox_Flatbed.setCurrentIndex(1)
-            elif (re.search(r'_5000_', self.device_uri)):
+            elif (re.search(r'_5000_', self.device_uri)) or (re.search(r'_7000_s3', self.device_uri)) or (re.search(r'_3000_s3', self.device_uri)):
                 self.comboBox_Flatbed.clear()
                 self.comboBox_Flatbed.addItem("")
                 self.comboBox_Flatbed.addItem("")
@@ -834,6 +856,12 @@ class Ui_HpScan(object):
 
     def Mixed_feed(self):
         if self.mixed_feed.isChecked() == True:
+            self.comboBox_Flatbed.clear()
+            self.comboBox_Flatbed.addItem("")
+            self.comboBox_Flatbed.addItem("")
+            self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "Duplex", None))
+            self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
+            self.comboBox_Flatbed.setCurrentIndex(1)
             if self.mixed_feed_pri == True:
                 self.mixed_feed.setEnabled(True)
             self.DisableAll()
@@ -843,6 +871,22 @@ class Ui_HpScan(object):
             self.crushed.setEnabled(False)
             self.comboBox_Papersize.setEnabled(False)
         else:
+            if (re.search(r'_7500', self.device_uri)) or (re.search(r'_N9120', self.device_uri)) or (re.search(r'_8500fn2', self.device_uri)) or (re.search(r'_3500_f1', self.device_uri)) or (re.search(r'_4500_fn1', self.device_uri)):
+                self.comboBox_Flatbed.clear()
+                self.comboBox_Flatbed.addItem("")
+                self.comboBox_Flatbed.addItem("")
+                self.comboBox_Flatbed.addItem("")
+                self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "Flatbed", None))
+                self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
+                self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "Duplex", None))
+                self.comboBox_Flatbed.setCurrentIndex(1)
+            elif (re.search(r'_5000_', self.device_uri)) or (re.search(r'_7000_s3', self.device_uri)) or (re.search(r'_3000_s3', self.device_uri)):
+                self.comboBox_Flatbed.clear()
+                self.comboBox_Flatbed.addItem("")
+                self.comboBox_Flatbed.addItem("")
+                self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "ADF", None))
+                self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "Duplex", None))
+                self.comboBox_Flatbed.setCurrentIndex(0)
             self.document_merge.setChecked(False)
             self.DisableAll()
             self.crushed.setChecked(False)
@@ -863,8 +907,9 @@ class Ui_HpScan(object):
             self.crushed.setChecked(False)
             self.mixed_feed.setEnabled(False)
             self.crushed.setEnabled(False)
-            name = re.search(r'_5000_', self.device_uri)
-            if name:
+            #name = re.search(r'_5000_', self.device_uri)
+            #if name:
+            if re.search(r'_5000_', self.device_uri) or re.search(r'_7000_s3', self.device_uri) or re.search(r'_3000_s3', self.device_uri):
                 self.comboBox_Flatbed.setCurrentIndex(0)
             else:
                 self.comboBox_Flatbed.setCurrentIndex(2)
@@ -955,8 +1000,20 @@ class Ui_HpScan(object):
             self.device_name = '5000'
         elif re.search(r'_7500', self.device_uri):
             self.device_name = '7500'
+        elif re.search(r'_N9120', self.device_uri):
+            self.device_name = '9120'
+        elif re.search(r'_8500fn2', self.device_uri):
+            self.device_name = '8500'
+        elif re.search(r'_3500_f1', self.device_uri):
+            self.device_name = '3500'
+        elif re.search(r'_4500_fn1', self.device_uri):
+            self.device_name = '4500'
+        elif re.search(r'_7000_s3', self.device_uri):
+            self.device_name = '7000'
+        elif re.search(r'_3000_s3', self.device_uri):
+            self.device_name = '3000'
         #print (self.device_uri)
-        if self.device_name == '7500' or self.device_name == '5000':
+        if self.device_name == '7500' or self.device_name == '5000' or self.device_name == '9120' or self.device_name == '8500' or self.device_name == '3500' or self.device_name == '4500' or self.device_name == '7000' or self.device_name == '3000':
             self.comboBox_SourceChanged(self.device_name)
         
         
@@ -1049,7 +1106,7 @@ class Ui_HpScan(object):
         i = 0
         #print self.devicelist
         for device in self.devicelist:
-            if re.search(r'_5000_', device) or re.search(r'_7500', device):
+            if re.search(r'_5000_', device) or re.search(r'_7500', device) or re.search(r'_N9120', device) or re.search(r'_8500fn2', device) or (re.search(r'_3500_f1', device)) or (re.search(r'_4500_fn1', device)) or (re.search(r'_7000_s3', device)) or (re.search(r'_3000_s3', device)):
                 self.comboBox_Device_URI.addItem(device)
                 self.comboBox_Device_URI.setItemText(i, _translate("HpScan", device, None))
                 i += 1
