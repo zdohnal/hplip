@@ -1045,7 +1045,7 @@ try:
 
         if adf:
             try:
-                if ('ADF' not in source_option) and ('ADF-SinglePage' not in source_option) and ('ADF-MultiPage-Simplex' not in source_option) and ('ADF-MultiPage-Duplex' not in source_option):
+                if ('ADF' not in source_option) and ('ADF-SinglePage' not in source_option) and ('ADF-MultiPage-Simplex' not in source_option) and ('ADF-MultiPage-Duplex' not in source_option) and ('ADF Simplex' not in source_option) and ('ADF Duplex' not in source_option):
                         log.error("Failed to set ADF mode. This device doesn't support ADF.")
                         sys.exit(1)               
                 else:
@@ -1054,6 +1054,8 @@ try:
                             device.setOption("source", "Duplex")
                         elif 'ADF-MultiPage-Duplex' in source_option:
                             device.setOption("source", "ADF-MultiPage-Duplex")
+                        elif 'ADF Duplex' in source_option:
+                            device.setOption("source", "ADF Duplex")
                         else:
                             log.warn("Device doesn't support Duplex scanning. Continuing with Simplex ADF scan.")
                             if 'ADF-SinglePage' in source_option:
@@ -1067,6 +1069,8 @@ try:
                             device.setOption("source", "ADF-SinglePage")
                         elif 'ADF-MultiPage-Simplex' in source_option:
                             device.setOption("source", "ADF-MultiPage-Simplex")
+                        elif 'ADF Simplex' in source_option:
+                            device.setOption("source", "ADF Simplex")
                         else:
                             device.setOption("source", "ADF")
                     device.setOption("batch-scan", True)
@@ -1244,7 +1248,7 @@ try:
             log.warn("Device doesn't support %s mode. Continuing with %s mode."%(scan_mode,available_scan_mode[0]))
             scan_mode = available_scan_mode[0]
 
-        if re.search(r'hp2000S1', device_uri):
+        if re.search(r'hp2000S1', device_uri) or re.search(r'hpgt2500', device_uri):
             if scan_mode == 'gray':
                 device.setOption("mode", 'Gray')
             elif scan_mode == 'color':

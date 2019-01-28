@@ -662,31 +662,6 @@ Manufacturer "HP"
       Attribute "Product" "" "(HP Officejet 5110 All-in-one Printer)"
     }
     {
-      ModelName "HP Officejet 5105"
-      Attribute "NickName" "" "HP Officejet 5105, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Officejet 5105 hpijs"
-      Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet 5105;DES:officejet 5105;"
-      PCFileName "hp-officejet_5105.ppd"
-      Attribute "Product" "" "(HP Officejet 5105 All-in-one Printer)"
-    }
-    {
-      ModelName "HP Officejet 5110"
-      Attribute "NickName" "" "HP Officejet 5110, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Officejet 5110 hpijs"
-      Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet 5110;DES:officejet 5110;"
-      PCFileName "hp-officejet_5110.ppd"
-      Attribute "Product" "" "(HP Officejet 5110 All-in-one Printer)"
-      Attribute "Product" "" "(HP Officejet 5110xi All-in-one Printer)"
-    }
-    {
-      ModelName "HP Officejet 5110v"
-      Attribute "NickName" "" "HP Officejet 5110v, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Officejet 5110v hpijs"
-      Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet 5110v;DES:officejet 5110v;"
-      PCFileName "hp-officejet_5110v.ppd"
-      Attribute "Product" "" "(HP Officejet 5110v All-in-one Printer)"
-    }
-    {
       ModelName "HP Officejet g55"
       Attribute "NickName" "" "HP Officejet g55, hpcups $Version"
       Attribute "ShortNickName" "" "HP Officejet g55 hpijs"
@@ -1635,14 +1610,6 @@ Manufacturer "HP"
       Attribute "Product" "" "(HP Deskjet 450wbt Mobile Printer)"
     }
     {
-      ModelName "HP Color Inkjet cp1700"
-      Attribute "NickName" "" "HP Color Inkjet cp1700, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Color Inkjet cp1700 hpijs"
-      Attribute "1284DeviceID" "" "MFG:HP;MDL:hp color inkjet cp1700;DES:hp color inkjet cp1700;"
-      PCFileName "hp-color_inkjet_cp1700.ppd"
-      Attribute "Product" "" "(HP Color Inkjet cp1700 Printer)"
-    }
-    {
       ModelName "HP Officejet 7100 Series"
       Attribute "NickName" "" "HP Officejet 7100 Series, hpcups $Version"
       Attribute "ShortNickName" "" "HP Officejet 7100 Series hpijs"
@@ -1775,8 +1742,8 @@ Manufacturer "HP"
     {
       ModelName "HP Color Inkjet Printer cp1700"
       Attribute "NickName" "" "HP Color Inkjet Printer cp1700, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Color Inkjet Printer cp1700 hpijs"
-      Attribute "1284DeviceID" "" "MFG:HP;MDL:color inkjet printer cp1700;DES:color inkjet printer cp1700;"
+      Attribute "ShortNickName" "" "HP CJ IJ Printer cp1700 hpijs"
+      Attribute "1284DeviceID" "" "MFG:HP;MDL:hp color inkjet printer cp1700;DES:hp color inkjet printer cp1700;"
       PCFileName "hp-color_inkjet_printer_cp1700.ppd"
       Attribute "Product" "" "(HP Color Inkjet cp1700 Printer)"
       Attribute "Product" "" "(HP Color Inkjet cp1700ps Printer)"
@@ -2630,15 +2597,9 @@ Manufacturer "HP"
       Attribute "ShortNickName" "" "HP Deskjet f4200 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet f4200 series;DES:deskjet f4200 series;"
       PCFileName "hp-deskjet_f4200_series.ppd"
+      Attribute "Product" "" "(HP Deskjet f4210 All-in-one Printer)"
+      Attribute "Product" "" "(HP Deskjet f4213 All-in-one Printer)"
       Attribute "Product" "" "(HP Deskjet f4224 All-in-one Printer)"
-      Attribute "Product" "" "(HP Deskjet f4275 All-in-one Printer)"
-      Attribute "Product" "" "(HP Deskjet f4275 All-in-one Printer)"
-      Attribute "Product" "" "(HP Deskjet f4280 All-in-one Printer)"
-      Attribute "Product" "" "(HP Deskjet f4283 All-in-one Printer)"
-      Attribute "Product" "" "(HP Deskjet f4288 All-in-one Printer)"
-      Attribute "Product" "" "(HP Deskjet f4292 All-in-one Printer)"
-      Attribute "Product" "" "(HP Deskjet f4293 All-in-one Printer)"
-      Attribute "Product" "" "(HP Deskjet f4294 All-in-one Printer)"
       Attribute "Product" "" "(HP Deskjet f4230 All-in-one Printer)"
       Attribute "Product" "" "(HP Deskjet f4235 All-in-one Printer)"
       Attribute "Product" "" "(HP Deskjet f4238 All-in-one Printer)"
@@ -2647,24 +2608,13 @@ Manufacturer "HP"
       Attribute "Product" "" "(HP Deskjet f4272 All-in-one Printer)"
       Attribute "Product" "" "(HP Deskjet f4273 All-in-one Printer)"
       Attribute "Product" "" "(HP Deskjet f4274 All-in-one Printer)"
-    }
-    {
-      ModelName "HP Deskjet f4210 Series"
-      Attribute "NickName" "" "HP Deskjet f4210 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Deskjet f4210 Series hpijs"
-      Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet f4210 series;DES:deskjet f4210 series;"
-      PCFileName "hp-deskjet_f4210_series.ppd"
-      Attribute "Product" "" "(HP Deskjet f4210 All-in-one Printer)"
-      Attribute "Product" "" "(HP Deskjet f4280 All-in-one)"
-    }
-    {
-      ModelName "HP Deskjet f4213 Series"
-      Attribute "NickName" "" "HP Deskjet f4213 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Deskjet f4213 Series hpijs"
-      Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet f4213 series;DES:deskjet f4213 series;"
-      PCFileName "hp-deskjet_f4213_series.ppd"
-      Attribute "Product" "" "(HP Deskjet f4213 All-in-one Printer)"
-      Attribute "Product" "" "(HP Deskjet f4280 All-in-one)"
+      Attribute "Product" "" "(HP Deskjet f4275 All-in-one Printer)"
+      Attribute "Product" "" "(HP Deskjet f4280 All-in-one Printer)"
+      Attribute "Product" "" "(HP Deskjet f4283 All-in-one Printer)"
+      Attribute "Product" "" "(HP Deskjet f4288 All-in-one Printer)"
+      Attribute "Product" "" "(HP Deskjet f4292 All-in-one Printer)"
+      Attribute "Product" "" "(HP Deskjet f4293 All-in-one Printer)"
+      Attribute "Product" "" "(HP Deskjet f4294 All-in-one Printer)"
     }
     {
       ModelName "HP Deskjet f735"
@@ -2673,12 +2623,11 @@ Manufacturer "HP"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet f735;DES:deskjet f735;"
       PCFileName "hp-deskjet_f735.ppd"
       Attribute "Product" "" "(HP Deskjet f735 All-in-one Printer)"
-      Attribute "Product" "" "(HP Deskjet f4280 All-in-one)"
     }
     {
       ModelName "HP Deskjet Ink Advant k209a-z"
       Attribute "NickName" "" "HP Deskjet Ink Advant k209a-z, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Deskjet Ink Advant k209a-z hpijs"
+      Attribute "ShortNickName" "" "HP DJ Ink Advant k209a-z hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet ink advant k209a-z;DES:deskjet ink advant k209a-z;"
       PCFileName "hp-deskjet_ink_advant_k209a-z.ppd"
       Attribute "Product" "" "(HP Deskjet Ink Advantage k209a All-in-one Printer)"
@@ -2793,7 +2742,6 @@ Manufacturer "HP"
       Attribute "ShortNickName" "" "HP Officejet j4660 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet j4660 series;DES:officejet j4660 series;"
       PCFileName "hp-officejet_j4660_series.ppd"
-      Attribute "Product" "" "(HP Deskjet f4280 All-in-one)"
       Attribute "Product" "" "(HP Officejet j4660 All-in-one Printer)"
     }
     {
@@ -2802,7 +2750,6 @@ Manufacturer "HP"
       Attribute "ShortNickName" "" "HP Officejet j4680 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet j4680 series;DES:officejet j4680 series;"
       PCFileName "hp-officejet_j4680_series.ppd"
-      Attribute "Product" "" "(HP Deskjet f4280 All-in-one)"
       Attribute "Product" "" "(HP Officejet j4680c All-in-one Printer)"
       Attribute "Product" "" "(HP Officejet j4680 All-in-one Printer)"
     }
@@ -2917,16 +2864,6 @@ Manufacturer "HP"
       Attribute "Product" "" "(HP Photosmart 3314 All-in-one Printer)"
     }
     {
-      ModelName "HP Photosmart 7150"
-      Attribute "NickName" "" "HP Photosmart 7150, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart 7150 hpijs"
-      Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart 7150;DES:photosmart 7150;"
-      PCFileName "hp-photosmart_7150.ppd"
-      Attribute "Product" "" "(HP Photosmart 7150 Printer)"
-      Attribute "Product" "" "(HP Photosmart 7150v Printer)"
-      Attribute "Product" "" "(HP Photosmart 7150w Printer)"
-    }
-    {
       ModelName "HP Photosmart 7200 Series"
       Attribute "NickName" "" "HP Photosmart 7200 Series, hpcups $Version"
       Attribute "ShortNickName" "" "HP Photosmart 7200 Series hpijs"
@@ -2944,16 +2881,6 @@ Manufacturer "HP"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart 7345;DES:photosmart 7345;"
       PCFileName "hp-photosmart_7345.ppd"
       Attribute "Product" "" "(HP Photosmart 7345 Printer)"
-    }
-    {
-      ModelName "HP Photosmart 7350"
-      Attribute "NickName" "" "HP Photosmart 7350, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart 7350 hpijs"
-      Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart 7350;DES:photosmart 7350;"
-      PCFileName "hp-photosmart_7350.ppd"
-      Attribute "Product" "" "(HP Photosmart 7350 Printer)"
-      Attribute "Product" "" "(HP Photosmart 7350v Printer)"
-      Attribute "Product" "" "(HP Photosmart 7350w Printer)"
     }
     {
       ModelName "HP Photosmart 7400 Series"
@@ -3080,7 +3007,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart c3100 Series"
       Attribute "NickName" "" "HP Photosmart c3100 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart c3100 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS c3100 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart c3100 series;DES:photosmart c3100 series;"
       PCFileName "hp-photosmart_c3100_series.ppd"
       Attribute "Product" "" "(HP Photosmart c3110 All-in-one Printer)"
@@ -3101,7 +3028,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart c4100 Series"
       Attribute "NickName" "" "HP Photosmart c4100 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart c4100 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS c4100 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart c4100 series;DES:photosmart c4100 series;"
       PCFileName "hp-photosmart_c4100_series.ppd"
       Attribute "Product" "" "(HP Photosmart c4110 All-in-one Printer)"
@@ -3120,7 +3047,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart c4200 Series"
       Attribute "NickName" "" "HP Photosmart c4200 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart c4200 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS c4200 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart c4200 series;DES:photosmart c4200 series;"
       PCFileName "hp-photosmart_c4200_series.ppd"
       Attribute "Product" "" "(HP Photosmart c4205 All-in-one Printer)"
@@ -3142,7 +3069,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart c4340 Series"
       Attribute "NickName" "" "HP Photosmart c4340 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart c4340 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS c4340 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart c4340 series;DES:photosmart c4340 series;"
       PCFileName "hp-photosmart_c4340_series.ppd"
       Attribute "Product" "" "(HP Photosmart c4340 All-in-one Printer)"
@@ -3155,7 +3082,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart c4380 Series"
       Attribute "NickName" "" "HP Photosmart c4380 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart c4380 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS c4380 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart c4380 series;DES:photosmart c4380 series;"
       PCFileName "hp-photosmart_c4380_series.ppd"
       Attribute "Product" "" "(HP Photosmart c4380 All-in-one Printer)"
@@ -3167,7 +3094,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart c4400 Series"
       Attribute "NickName" "" "HP Photosmart c4400 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart c4400 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS c4400 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart c4400 series;DES:photosmart c4400 series;"
       PCFileName "hp-photosmart_c4400_series.ppd"
       Attribute "Product" "" "(HP Photosmart c4410 All-in-one Printer)"
@@ -3190,7 +3117,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart c4500 Series"
       Attribute "NickName" "" "HP Photosmart c4500 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart c4500 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS c4500 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart c4500 series;DES:photosmart c4500 series;"
       PCFileName "hp-photosmart_c4500_series.ppd"
       Attribute "Product" "" "(HP Photosmart c4540 All-in-one Printer)"
@@ -3209,7 +3136,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart c5100 Series"
       Attribute "NickName" "" "HP Photosmart c5100 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart c5100 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS c5100 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart c5100 series;DES:photosmart c5100 series;"
       PCFileName "hp-photosmart_c5100_series.ppd"
       Attribute "Product" "" "(HP Photosmart c5140 All-in-one Printer)"
@@ -3226,7 +3153,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart c5200 Series"
       Attribute "NickName" "" "HP Photosmart c5200 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart c5200 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS c5200 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart c5200 series;DES:photosmart c5200 series;"
       PCFileName "hp-photosmart_c5200_series.ppd"
       Attribute "Product" "" "(HP Photosmart c5240 All-in-one Printer)"
@@ -3243,7 +3170,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart c5500 Series"
       Attribute "NickName" "" "HP Photosmart c5500 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart c5500 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS c5500 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart c5500 series;DES:photosmart c5500 series;"
       PCFileName "hp-photosmart_c5500_series.ppd"
       Attribute "Product" "" "(HP Photosmart c5540 All-in-one Printer)"
@@ -3254,7 +3181,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart c6100 Series"
       Attribute "NickName" "" "HP Photosmart c6100 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart c6100 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS c6100 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart c6100 series;DES:photosmart c6100 series;"
       PCFileName "hp-photosmart_c6100_series.ppd"
       Attribute "Product" "" "(HP Photosmart c6150 All-in-one Printer)"
@@ -3270,7 +3197,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart c6200 Series"
       Attribute "NickName" "" "HP Photosmart c6200 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart c6200 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS c6200 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart c6200 series;DES:photosmart c6200 series;"
       PCFileName "hp-photosmart_c6200_series.ppd"
       Attribute "Product" "" "(HP Photosmart c6240 All-in-one Printer)"
@@ -3290,7 +3217,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart c7100 Series"
       Attribute "NickName" "" "HP Photosmart c7100 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart c7100 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS c7100 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart c7100 series;DES:photosmart c7100 series;"
       PCFileName "hp-photosmart_c7100_series.ppd"
       Attribute "Product" "" "(HP Photosmart c7150 All-in-one Printer)"
@@ -3305,7 +3232,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart c7200 Series"
       Attribute "NickName" "" "HP Photosmart c7200 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart c7200 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS c7200 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart c7200 series;DES:photosmart c7200 series;"
       PCFileName "hp-photosmart_c7200_series.ppd"
       Attribute "Product" "" "(HP Photosmart c7250 All-in-one Printer)"
@@ -3317,7 +3244,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart d5060 Series"
       Attribute "NickName" "" "HP Photosmart d5060 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart d5060 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS d5060 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart d5060 series;DES:photosmart d5060 series;"
       PCFileName "hp-photosmart_d5060_series.ppd"
       Attribute "Product" "" "(HP Photosmart d5060 Printer)"
@@ -3328,7 +3255,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart d5100 Series"
       Attribute "NickName" "" "HP Photosmart d5100 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart d5100 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS d5100 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart d5100 series;DES:photosmart d5100 series;"
       PCFileName "hp-photosmart_d5100_series.ppd"
       Attribute "Product" "" "(HP Photosmart d5145 Printer)"
@@ -3341,7 +3268,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart d5300 Series"
       Attribute "NickName" "" "HP Photosmart d5300 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart d5300 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS d5300 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart d5300 series;DES:photosmart d5300 series;"
       PCFileName "hp-photosmart_d5300_series.ppd"
       Attribute "Product" "" "(HP Photosmart d5345 Printer)"
@@ -3352,7 +3279,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart d5400 Series"
       Attribute "NickName" "" "HP Photosmart d5400 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart d5400 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS d5400 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart d5400 series;DES:photosmart d5400 series;"
       PCFileName "hp-photosmart_d5400_series.ppd"
       Attribute "Product" "" "(HP Photosmart d5460 Printer)"
@@ -3362,7 +3289,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart d6100 Series"
       Attribute "NickName" "" "HP Photosmart d6100 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart d6100 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS d6100 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart d6100 series;DES:photosmart d6100 series;"
       PCFileName "hp-photosmart_d6100_series.ppd"
       Attribute "Product" "" "(HP Photosmart d6160 Printer)"
@@ -3372,7 +3299,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart d7100 Series"
       Attribute "NickName" "" "HP Photosmart d7100 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart d7100 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS d7100 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart d7100 series;DES:photosmart d7100 series;"
       PCFileName "hp-photosmart_d7100_series.ppd"
       Attribute "Product" "" "(HP Photosmart d7145 Printer)"
@@ -3384,7 +3311,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart d7200 Series"
       Attribute "NickName" "" "HP Photosmart d7200 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart d7200 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS d7200 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart d7200 series;DES:photosmart d7200 series;"
       PCFileName "hp-photosmart_d7200_series.ppd"
       Attribute "Product" "" "(HP Photosmart d7245 Printer)"
@@ -3396,7 +3323,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart d7300 Series"
       Attribute "NickName" "" "HP Photosmart d7300 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart d7300 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS d7300 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart d7300 series;DES:photosmart d7300 series;"
       PCFileName "hp-photosmart_d7300_series.ppd"
       Attribute "Product" "" "(HP Photosmart d7345 Printer)"
@@ -3408,7 +3335,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart d7400 Series"
       Attribute "NickName" "" "HP Photosmart d7400 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart d7400 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS d7400 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart d7400 series;DES:photosmart d7400 series;"
       PCFileName "hp-photosmart_d7400_series.ppd"
       Attribute "Product" "" "(HP Photosmart d7460 Printer)"
@@ -3421,10 +3348,13 @@ Manufacturer "HP"
       Attribute "ShortNickName" "" "HP PSC 1500 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:psc 1500 series;DES:psc 1500 series;"
       PCFileName "hp-psc_1500_series.ppd"
-      Attribute "Product" "" "(HP PSC 1503 All-in-one Printer)"
-      Attribute "Product" "" "(HP PSC 1504 All-in-one Printer)"
-      Attribute "Product" "" "(HP PSC 1507 All-in-one Printer)"
-      Attribute "Product" "" "(HP PSC 1508 All-in-one Printer)"
+      Attribute "Product" "" "(HP PSC 1510xi All-in-one Printer)"
+      Attribute "Product" "" "(HP PSC 1510v All-in-one Printer)"
+      Attribute "Product" "" "(HP PSC 1510s All-in-one Printer)"
+      Attribute "Product" "" "(HP PSC 1510 All-in-one Printer)"
+      Attribute "Product" "" "(HP PSC 1513s All-in-one Printer)"
+      Attribute "Product" "" "(HP PSC 1513 All-in-one Printer)"
+      Attribute "Product" "" "(HP PSC 1514 All-in-one Printer)"
     }
     {
       ModelName "HP PSC 1510 Series"
@@ -4055,7 +3985,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart c8100 Series"
       Attribute "NickName" "" "HP Photosmart c8100 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart c8100 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS c8100 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart c8100 series;DES:photosmart c8100 series;"
       PCFileName "hp-photosmart_c8100_series.ppd"
       Attribute "Product" "" "(HP Photosmart c8150 All-in-one Printer)"
@@ -4218,26 +4148,12 @@ Manufacturer "HP"
       Attribute "Product" "" "(HP Photosmart All-in-one Printer - b010)"
     }
     {
-      ModelName "HP Photosmart b109a-m"
-      Attribute "NickName" "" "HP Photosmart b109a-m, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart b109a-m hpijs"
-      Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart b109a-m;DES:photosmart b109a-m;"
-      PCFileName "hp-photosmart_b109a-m.ppd"
-      Attribute "Product" "" "(HP Photosmart All-in-one Printer - b109a)"
-      Attribute "Product" "" "(HP Photosmart All-in-one Printer - b109c)"
-      Attribute "Product" "" "(HP Photosmart All-in-one Printer - b109d)"
-      Attribute "Product" "" "(HP Photosmart All-in-one Printer - b109e)"
-    }
-    {
       ModelName "HP Photosmart b109a Series"
       Attribute "NickName" "" "HP Photosmart b109a Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart b109a Series hpijs"
+      Attribute "ShortNickName" "" "HP PS b109a Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart b109a series;DES:photosmart b109a series;"
       PCFileName "hp-photosmart_b109a_series.ppd"
-      Attribute "Product" "" "(HP Photosmart All-in-one Printer - b109a)"
-      Attribute "Product" "" "(HP Photosmart All-in-one Printer - b109c)"
-      Attribute "Product" "" "(HP Photosmart All-in-one Printer - b109d)"
-      Attribute "Product" "" "(HP Photosmart All-in-one Printer - b109e)"
+      Attribute "Product" "" "(HP Photosmart b109a Series)"
     }
     {
       ModelName "HP Photosmart b110 Series"
@@ -4250,7 +4166,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart Plus b209a-m"
       Attribute "NickName" "" "HP Photosmart Plus b209a-m, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart Plus b209a-m hpijs"
+      Attribute "ShortNickName" "" "HP PS Plus b209a-m hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart plus b209a-m;DES:photosmart plus b209a-m;"
       PCFileName "hp-photosmart_plus_b209a-m.ppd"
       Attribute "Product" "" "(HP Photosmart Plus All-in-one Printer - b209a)"
@@ -4260,7 +4176,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart Plus b210 Series"
       Attribute "NickName" "" "HP Photosmart Plus b210 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart Plus b210 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS Plus b210 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart plus b210 series;DES:photosmart plus b210 series;"
       PCFileName "hp-photosmart_plus_b210_series.ppd"
       Attribute "Product" "" "(HP Photosmart Plus b210 Series)"
@@ -4268,7 +4184,7 @@ Manufacturer "HP"
     {
       ModelName "HP Photosmart Wireless b109n-z"
       Attribute "NickName" "" "HP Photosmart Wireless b109n-z, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart Wireless b109n-z hpijs"
+      Attribute "ShortNickName" "" "HP PS WL b109n-z hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart wireless b109n-z;DES:photosmart wireless b109n-z;"
       PCFileName "hp-photosmart_wireless_b109n-z.ppd"
       Attribute "Product" "" "(HP Photosmart Wireless All-in-one Printer - b109n)"
@@ -4457,7 +4373,7 @@ Manufacturer "HP"
     {
       ModelName "HP Officejet 100 Mobile l411"
       Attribute "NickName" "" "HP Officejet 100 Mobile l411, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Officejet 100 Mobile l411 hpijs"
+      Attribute "ShortNickName" "" "HP OJ 100 Mobile l411 hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet 100 mobile l411;DES:officejet 100 mobile l411;"
       PCFileName "hp-officejet_100_mobile_l411.ppd"
       Attribute "Product" "" "(HP Officejet 100 Mobile l411)"
@@ -4465,7 +4381,7 @@ Manufacturer "HP"
     {
       ModelName "HP Officejet 150 Mobile l511"
       Attribute "NickName" "" "HP Officejet 150 Mobile l511, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Officejet 150 Mobile l511 hpijs"
+      Attribute "ShortNickName" "" "HP OJ 150 Mobile l511 hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet 150 mobile l511;DES:officejet 150 mobile l511;"
       PCFileName "hp-officejet_150_mobile_l511.ppd"
       Attribute "Product" "" "(HP Officejet 150 Mobile All-in-one)"
@@ -4677,7 +4593,7 @@ Manufacturer "HP"
           {
             ModelName "HP Deskjet 3070 b611 Series"
             Attribute "NickName" "" "HP Deskjet 3070 b611 Series, hpcups $Version"
-            Attribute "ShortNickName" "" "HP Deskjet 3070 b611 Series hpijs"
+            Attribute "ShortNickName" "" "HP DJ 3070 b611 Series hpijs"
             Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet 3070 b611 series;DES:deskjet 3070 b611 series;"
             PCFileName "hp-deskjet_3070_b611_series.ppd"
             Attribute "Product" "" "(HP Deskjet 3070 b611 Series)"
@@ -4739,7 +4655,7 @@ Manufacturer "HP"
            {
              ModelName "HP Photosmart 5510d Series"
              Attribute "NickName" "" "HP Photosmart 5510d Series, hpcups $Version"
-             Attribute "ShortNickName" "" "HP Photosmart 5510d Series hpijs"
+             Attribute "ShortNickName" "" "HP PS 5510d Series hpijs"
              Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart 5510d series;DES:photosmart 5510d series;"
              PCFileName "hp-photosmart_5510d_series.ppd"
              Attribute "Product" "" "(HP Photosmart 5510d E-all-in-one)"
@@ -5231,6 +5147,258 @@ Manufacturer "HP"
           }
 
 }// End CopperheadXLP
+
+
+//////// SPDMainstreamCoreConsumerA
+{
+    Attribute "hpPrinterLanguage" "" "pcl3gui2"
+    Attribute "HPMechOffset" "" "117"
+    Attribute "hpPrinterPlatform" "" "Weber"
+    Attribute "HPSPDClass" "" 1
+
+    Group "General/General"
+
+  Option "ColorModel/Output Mode" PickOne AnySetup 10.0
+    *Choice "RGB/Color" "<</cupsColorSpace 1/cupsBitsPerColor 8/cupsRowStep 0>>setpagedevice"
+    Choice "CMYGray/High Quality Grayscale" "<</cupsColorSpace 1/cupsBitsPerColor 8/cupsRowStep 1>>setpagedevice"
+    Choice "KGray/Black Only Grayscale" "<</cupsColorSpace 1/cupsBitsPerColor 8/cupsRowStep 2>>setpagedevice"
+
+    // cupsMediaType values map to MEDIATYPE from global_types.h
+    Option "MediaType/Media Type" PickOne AnySetup 10.0
+    *Choice "Plain/Plain Paper" "<</cupsMediaType 0>>setpagedevice"
+    Choice "Glossy/HP Photo Papers" "<</cupsMediaType 5>>setpagedevice"
+    Choice "CoatedBrochure/HP Matte Brochure or Professional Paper" "<</cupsMediaType 2>>setpagedevice"
+    Choice "CoatedMatte/HP Matte Presentation Paper" "<</cupsMediaType 2>>setpagedevice"
+    Choice "BrochureGlosy/HP Glossy Brochure or Professional Paper" "<</cupsMediaType 8>>setpagedevice"
+    Choice "FastGlossy/Other photo inkjet papers" "<</cupsMediaType 5>>setpagedevice"
+    Choice "Coated/Other matte inkjet Paper" "<</cupsMediaType 2>>setpagedevice"
+    Choice "Brochure/Other glossy inkjet Paper" "<</cupsMediaType 8>>setpagedevice"
+    Choice "HPTrifoldBrochureGlossy/HP Tri-fold Brochure Glossy 150g" "<</MediaType(HPTrifoldBrochureGlossy)>>setpagedevice"
+    Choice "PlainLight/Plain Paper,Light/Recycled" "<</MediaType(PlainLight)/cupsMediaType 1>>setpagedevice"
+
+
+     // cupsCompression values map to QUALITY_MODE from global_types.h
+    Option "OutputMode/Print Quality" PickOne AnySetup 10.0
+    *Choice "Normal/Normal" "<</OutputType(0)/HWResolution[600 600]>>setpagedevice"
+     Choice "FastDraft/Draft" "<</OutputType(-2)/HWResolution[300 300]>>setpagedevice"
+     Choice "Best/Best" "<</OutputType(1)/HWResolution[600 600]>>setpagedevice"
+
+    Option "InputSlot/Media Source" PickOne AnySetup 10.0
+       *Choice "Upper/Main Tray" "<</MediaPosition 1>>setpagedevice"
+
+     //Constraints
+     //MediaType & OutputMode
+     UIConstraints "*MediaType FastGlossy *OutputMode FastDraft"
+     UIConstraints "*MediaType Glossy *OutputMode FastDraft"
+     UIConstraints "*MediaType CoatedBrochure *OutputMode FastDraft"
+     UIConstraints "*MediaType CoatedMatte *OutputMode FastDraft"
+     UIConstraints "*MediaType Coated *OutputMode FastDraft"
+     UIConstraints "*MediaType BrochureGlosy *OutputMode FastDraft"
+     UIConstraints "*MediaType Brochure *OutputMode FastDraft"
+
+     //PaperSizes & MediaTypes
+     UIConstraints "*PageSize A6.FB *MediaType Plain"
+     UIConstraints "*PageSize Photo3x5.FB *MediaType Plain"
+     UIConstraints "*PageSize Photo4x6.FB *MediaType Plain"
+     UIConstraints "*PageSize Photo2L.FB *MediaType Plain"
+     UIConstraints "*PageSize Photo3x5 *MediaType Plain"
+     UIConstraints "*PageSize Photo4x6 *MediaType Plain"
+     UIConstraints "*PageSize Photo2L *MediaType Plain"
+     UIConstraints "*PageSize Photo5x7 *MediaType Plain"
+     UIConstraints "*PageSize Photo8x10 *MediaType Plain"
+
+     UIConstraints "*PageSize A5 *MediaType FastGlossy"
+     UIConstraints "*PageSize JB5 *MediaType FastGlossy"
+     UIConstraints "*PageSize B5 *MediaType FastGlossy"
+     UIConstraints "*PageSize Executive *MediaType FastGlossy"
+     UIConstraints "*PageSize A4 *MediaType FastGlossy"
+     UIConstraints "*PageSize Letter *MediaType FastGlossy"
+     UIConstraints "*PageSize Legal *MediaType FastGlossy"
+     UIConstraints "*PageSize CardA4 *MediaType FastGlossy"
+     UIConstraints "*PageSize CardLetter *MediaType FastGlossy"
+     UIConstraints "*PageSize Card3x5 *MediaType FastGlossy"
+     UIConstraints "*PageSize Card4x6 *MediaType FastGlossy"
+     UIConstraints "*PageSize Card5x8 *MediaType FastGlossy"
+     UIConstraints "*PageSize 8.5x13 *MediaType FastGlossy"
+     UIConstraints "*PageSize Statement *MediaType FastGlossy"
+
+     UIConstraints "*PageSize EnvChou4 *MediaType FastGlossy"
+     UIConstraints "*PageSize EnvA2 *MediaType FastGlossy"
+     UIConstraints "*PageSize EnvC6 *MediaType FastGlossy"
+     UIConstraints "*PageSize EnvChou3 *MediaType FastGlossy"
+     UIConstraints "*PageSize EnvMonarch *MediaType FastGlossy"
+     UIConstraints "*PageSize Env10 *MediaType FastGlossy"
+     UIConstraints "*PageSize EnvDL *MediaType FastGlossy"
+     UIConstraints "*PageSize EnvC5 *MediaType FastGlossy"
+     UIConstraints "*PageSize Env6 *MediaType FastGlossy"
+
+     UIConstraints "*PageSize A5 *MediaType Glossy"
+     UIConstraints "*PageSize JB5 *MediaType Glossy"
+     UIConstraints "*PageSize B5 *MediaType Glossy"
+     UIConstraints "*PageSize Executive *MediaType Glossy"
+     UIConstraints "*PageSize A4 *MediaType Glossy"
+     UIConstraints "*PageSize Letter *MediaType Glossy"
+     UIConstraints "*PageSize Legal *MediaType Glossy"
+     UIConstraints "*PageSize CardA4 *MediaType Glossy"
+     UIConstraints "*PageSize CardLetter *MediaType Glossy"
+     UIConstraints "*PageSize Card3x5 *MediaType Glossy"
+     UIConstraints "*PageSize Card4x6 *MediaType Glossy"
+     UIConstraints "*PageSize Card5x8 *MediaType Glossy"
+     UIConstraints "*PageSize 8.5x13 *MediaType Glossy"
+     UIConstraints "*PageSize Statement *MediaType Glossy"
+
+     UIConstraints "*PageSize EnvChou4 *MediaType Glossy"
+     UIConstraints "*PageSize EnvA2 *MediaType Glossy"
+     UIConstraints "*PageSize EnvC6 *MediaType Glossy"
+     UIConstraints "*PageSize EnvChou3 *MediaType Glossy"
+     UIConstraints "*PageSize EnvMonarch *MediaType Glossy"
+     UIConstraints "*PageSize Env10 *MediaType Glossy"
+     UIConstraints "*PageSize EnvDL *MediaType Glossy"
+     UIConstraints "*PageSize EnvC5 *MediaType Glossy"
+     UIConstraints "*PageSize Env6 *MediaType Glossy"
+
+    // 4x6 or smaller
+      CustomMedia "Card3x5/Index Card 3x5in" 216 360 8.4 8.4 8.4 8.4 "<</cupsInteger0 78/PageSize [216 360]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 78/PageSize[216 360]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Card4x6/Index Card 4x6in" 288 432 8.4 8.4 8.4 8.4 "<</cupsInteger0 74/PageSize [288 432]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 74/PageSize[288 432]/ImagingBBox null>>setpagedevice"
+      CustomMedia "4x5in/4x5in" 288 360 8.4 8.4 8.4 8.4 "<</cupsInteger0 30002/PageSize [288 360]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 30002/PageSize[288 360]/ImagingBBox null>>setpagedevice"
+      CustomMedia "4x6in/4x6in" 288 432 8.4 8.4 8.4 8.4 "<</cupsInteger0 74/PageSize [288 432]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 74/PageSize[288 432]/ImagingBBox null>>setpagedevice"
+      CustomMedia "4x12in/4x12in" 288 720 8.4 8.4 8.4 8.4 "<</cupsInteger0 30000/PageSize [288 720]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 30000/PageSize[288 720]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Photo3.5x5/Photo 3.5x5in" 252 360 5.76 33.84 5.76 8.64 "<</cupsInteger0 121/PageSize[252 360]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 121/PageSize[252 360]/ImagingBBox null>>setpagedevice"
+
+      CustomMedia "L/L 89x127mm" 252 360 9 9 9 9 "<</cupsInteger0 121/PageSize[252 360]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 121/PageSize[252 360]/ImagingBBox null>>setpagedevice"
+
+      CustomMedia "Photo3x5/Photo 3x5in" 216 360 8.4 8.4 8.4 8.4 "<</cupsInteger0 78/PageSize [216 360]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 78/PageSize[216 360]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Photo3x5.FB/Borderless Photo 3x5in" 216 360 0 0 0 0 "<</cupsInteger0 78/cupsReal0 0/cupsReal1 0/PageSize [216 360]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 78/cupsReal0 0/cupsReal1 0/PageSize[216 360]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Photo4x6/Photo 4x6in" 288 432 8.4 8.4 8.4 8.4 "<</cupsInteger0 74/PageSize[288 432]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 74/PageSize[288 432]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Photo4x6.FB/Borderless Photo 4x6in" 288 432 0 0 0 0 "<</cupsInteger0 74/cupsReal0 0/cupsReal1 0/PageSize[288 432]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 74/cupsReal0 0/cupsReal1 0/PageSize[288 432]/ImagingBBox null>>setpagedevice"
+      CustomMedia "A6/A6 105x148mm" 297.36 419.76 8.4 8.4 8.4 8.4 "<</cupsInteger0 24/PageSize[297.36 419.76]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 24/PageSize[297.36 419.76]/ImagingBBox null>>setpagedevice"
+      CustomMedia "A6.FB/A6 Borderless 105x148mm" 297.36 419.76 0 0 0 0 "<</cupsInteger0 24/PageSize[297.36 419.76]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 24/cupsReal0 0/cupsReal1 0/PageSize[297.36 419.76]/ImagingBBox null>>setpagedevice"
+
+      // 5x7
+      CustomMedia "Photo5x7/Photo 5x7in" 360 504 8.4 8.4 8.4 8.4 "<</cupsInteger0 122/PageSize[360 504]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 122/PageSize[360 504]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Card5x8/Index Card 5x8in" 360 576 8.4 8.4 8.4 8.4 "<</cupsInteger0 75/PageSize[360 576]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 75/PageSize[360 576]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Card5x8.FB/Borderless Index Card 5x8in" 360 576 0 0 0 0 "<</cupsInteger0 75/PageSize[360 576]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 75/cupsReal0 0/cupsReal1 0/PageSize[360 576]/ImagingBBox null>>setpagedevice"
+      CustomMedia "A5/A5 148x210mm" 419.76 595.44 8.4 8.4 8.4 8.4 "<</cupsInteger0 25/PageSize[419.76 595.44]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 25/PageSize[419.76 595.44]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Oufuku/Oufuku-Hagaki 200x148mm" 566.64 419.76 8.4 8.4 8.4 8.4 "<</cupsInteger0 72/PageSize[566.64 419.76]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 72/PageSize[566.64 419.76]/ImagingBBox null>>setpagedevice"
+
+      // Standard
+
+      CustomMedia "Postcard/Postcard" 283 420 8.4 8.4 8.4 8.4 "<</cupsInteger0 71/PageSize[283 420]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 71/PageSize[283 420]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Photo2L/Photo 2L 127x178mm" 360 504 8.4 8.4 8.4 8.4 "<</cupsInteger0 126/PageSize[360 504]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 126/PageSize[360 504]/ImagingBBox null>>setpagedevice"
+      CustomMedia "FLSA/American Foolscap 8.5x13in" 612 936 9 9 9 9 "<</cupsInteger0 10/PageSize[612 936]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 10/PageSize[612 936]/ImagingBBox null>>setpagedevice" 
+      CustomMedia "8.5x13/8.5x13in" 612 936 8.4 8.4 8.4 8.4 "<</cupsInteger0 10/PageSize[612 936]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 10/PageSize[612 936]/ImagingBBox null>>setpagedevice"
+      CustomMedia "B5/B5 176x250mm" 498.96 708.48 8.4 8.4 8.4 8.4 "<</cupsInteger0 101/PageSize[498.96 708.48]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 101/PageSize[498.96 708.48]/ImagingBBox null>>setpagedevice"
+      CustomMedia "JB5/JB5 182x257mm" 516.24 728.64 8.4 8.4 8.4 8.4 "<</cupsInteger0 45/PageSize[516.24 728.64]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 45/PageSize [516.24 728.64]/ImagingBBox null>>setpagedevice"
+      CustomMedia "JB5.FB/JB5 Borderless 182x257mm" 516.24 728.64 0 0 0 0 "<</cupsInteger0 45/PageSize[516.24 728.64]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 45/cupsReal0 0/cupsReal1 0/PageSize [516.24 728.64]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Executive/Executive 7.25x10.5in" 522 756 8.4 8.4 8.4 8.4 "<</cupsInteger0 1/PageSize[522 756]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 1/PageSize[522 756]/ImagingBBox null>>setpagedevice"
+      *CustomMedia "Letter/Letter 8.5x11in" 612 792 8.4 8.4 8.4 8.4 "<</cupsInteger0 2/PageSize[612 792]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 2/PageSize[612 792]/ImagingBBox null>>setpagedevice"
+      CustomMedia "CardLetter/Index Card Letter 8.5x11in" 612 792 8.4 8.4 8.4 8.4 "<</cupsInteger0 2/PageSize[612 792]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 2/PageSize[612 792]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Statement/Statement 5.5x8.5in" 396 612 8.4 8.4 8.4 8.4 "<</cupsInteger0 15/PageSize[396 612]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 15/PageSize[396 612]/ImagingBBox null>>setpagedevice"
+      CustomMedia "A4/A4 210x297mm" 595.44 841.68 8.4 8.4 8.4 8.4 "<</cupsInteger0 26/PageSize[595.44 841.68]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 26/PageSize[595.44 841.68]/ImagingBBox null>>setpagedevice"
+      CustomMedia "CardA4/Index Card A4 210x297mm" 595.44 841.68 8.4 8.4 8.4 8.4 "<</cupsInteger0 26/PageSize[595.44 841.68]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 26/PageSize[595.44 841.68]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Legal/Legal 8.5x14in" 612 1008 8.4 8.4 8.4 8.4 "<</cupsInteger0 3/PageSize[612 1008]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 3/PageSize[612 1008]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Photo2L.FB/Photo 2L Borderless 127x178mm" 360 504 0 0 0 0 "<</cupsInteger0 126/PageSize[360 504]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 126/cupsReal0 0/cupsReal1 0/PageSize[360 504]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Photo8x10/Photo 8x10in" 576 720 8.4 8.4 8.4 8.4 "<</cupsInteger0 7/PageSize[576 720]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 7/PageSize[576 720]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Tabloid/Tabloid " 792 1224 8.4 8.4 8.4 8.4 "<</cupsInteger0 6/PageSize[792 1224]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 6/PageSize[792 1224]/ImagingBBox null>>setpagedevice" 
+      CustomMedia "8x10/8x10in" 576 720 9 36 9 9 "<</cupsInteger0 7/PageSize[576 720]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 7/PageSize[576 720]/ImagingBBox null>>setpagedevice" 
+
+
+
+         // Envelope
+      CustomMedia "EnvA2/A2 Envelope 4.37x5.75in" 314.64 414 8.4 8.4 8.4 8.4 "<</cupsInteger0 109/PageSize[314.64 414]/ImagingBBox null>>setpagedevice"
+             "<</cupsInteger0 109/PageSize[314.64 414]/ImagingBBox null>>setpagedevice"
+      CustomMedia "EnvC6/C6 Envelope 114x162mm" 323.28 459.36 8.4 8.4 8.4 8.4 "<</cupsInteger0 92/PageSize[323.28 459.36]/ImagingBBox null>>setpagedevice"
+             "<</cupsInteger0 92/PageSize[323.28 459.36]/ImagingBBox null>>setpagedevice"
+      CustomMedia "EnvDL/DL Envelope 110x220mm" 311.76 623.52 8.4 8.4 8.4 8.4 "<</cupsInteger0 90/PageSize[311.76 623.52]/ImagingBBox null>>setpagedevice"
+             "<</cupsInteger0 90/PageSize[311.76 623.52]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Env10/#10 Envelope 4.125x9.5in" 297 684 8.4 8.4 8.4 8.4 "<</cupsInteger0 81/PageSize[297 684]/ImagingBBox null>>setpagedevice"
+             "<</cupsInteger0 81/PageSize[297 684]/ImagingBBox null>>setpagedevice"
+      CustomMedia "EnvC5/C5 Envelope 162x229mm" 459.36 649.44 8.4 8.4 8.4 8.4 "<</cupsInteger0 91/PageSize[459.36 649.44]/ImagingBBox null>>setpagedevice"
+             "<</cupsInteger0 91/PageSize[459.36 649.44]/ImagingBBox null>>setpagedevice"
+      CustomMedia "EnvChou3/#3 Japanese Envelope 120x235mm" 339.84 666  9 41 9 9 "<</cupsInteger0 110/PageSize[339.84 666]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 110/PageSize[339.84 666]/ImagingBBox null>>setpagedevice"
+      CustomMedia "EnvChou4/#4 Japanese Envelope 90x205mm" 254.88 581.04 9 41 9 9 "<</cupsInteger0 111/PageSize[254.88 581.04]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 111/PageSize[254.88 581.04]/ImagingBBox null>>setpagedevice"
+      CustomMedia "EnvMonarch/Monarch Envelope 3.875x7.5in" 279 540 18.00 36.00 18.00 9.00 "<</cupsInteger0 80/PageSize[279 540]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 80/PageSize[279 540]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Envelope_No_6_75/Envelope No 6_75" 260.88 468 8.4 8.4 8.4 8.4 "<</cupsInteger0 83/PageSize [260.88 468]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 83/PageSize[260.88 468]/ImagingBBox null>>setpagedevice"
+      CustomMedia "EnvB5/B5 Envelope 176x250mm" 499 709 18.00 36.00 18.00 9.00 "<</cupsInteger0 100/PageSize[499 709]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 100/PageSize[499 709]/ImagingBBox null>>setpagedevice"
+
+    {
+      // Custom page sizes from 1x4in to legal
+      HWMargins 8.4 8.4 8.4 8.4
+      VariablePaperSize Yes
+      MinSize 3in 5in
+      MaxSize 8.5in 14in
+
+
+    }
+
+     // <%SPDMainstreamCoreConsumerA:Normal%>
+     {
+       ModelName "HP Officejet 9010 Series"
+       Attribute "NickName" "" "HP Officejet 9010 Series, hpcups $Version"
+       Attribute "ShortNickName" "" "HP Officejet 9010 Series hpijs"
+       Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet 9010 series;DES:hp officejet 9010 series;"
+       PCFileName "hp-officejet_9010_series.ppd"
+       Attribute "Product" "" "(HP Officejet All-in-one 9010)"
+     }
+     {
+       ModelName "HP Officejet Pro 9010 Series"
+       Attribute "NickName" "" "HP Officejet Pro 9010 Series, hpcups $Version"
+       Attribute "ShortNickName" "" "HP OJ Pro 9010 Series hpijs"
+       Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 9010 series;DES:hp officejet pro 9010 series;"
+       PCFileName "hp-officejet_pro_9010_series.ppd"
+       Attribute "Product" "" "(HP Officejet Pro All-in-one 9010)"
+     }
+     {
+       ModelName "HP Officejet Pro 9020 Series"
+       Attribute "NickName" "" "HP Officejet Pro 9020 Series, hpcups $Version"
+       Attribute "ShortNickName" "" "HP OJ Pro 9020 Series hpijs"
+       Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 9020 series;DES:hp officejet pro 9020 series;"
+       PCFileName "hp-officejet_pro_9020_series.ppd"
+       Attribute "Product" "" "(HP Officejet Pro All-in-one 9020)"
+     }
+
+}// End SPDMainstreamCoreConsumerA
 
 //////// Copperhead12
 {
@@ -8126,7 +8294,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
 
 } // End PCL3-Class3B
 
-///////////////////// PCLM
+///////////////////// PCLM_COLOR
 {
   Attribute "hpPrinterLanguage" "" "hbpl1"
 
@@ -8177,14 +8345,14 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
     
    // cupsRowCount values map to PEN_TYPE + 1 from global_types.h
     Option "ColorModel/Output Mode" PickOne AnySetup 10.0
-    *Choice "RGB/Color" "<</cupsColorSpace 17/cupsBitsPerColor 8/cupsRowStep 0>>setpagedevice"
-    Choice "KGray/Black Only Grayscale" "<</cupsColorSpace 1/cupsBitsPerColor 8/cupsRowStep 2>>setpagedevice"
-
+    //*Choice "RGB/Color" "<</cupsColorSpace 17/cupsBitsPerColor 8/cupsRowStep 0>>setpagedevice"
+    *Choice "RGB/4-Color" "<</cupsColorSpace 1/cupsBitsPerColor 8/cupsRowCount 3/cupsRowStep 0>>setpagedevice"
+    //Choice "KGray/Black Only Grayscale" "<</cupsColorSpace 1/cupsBitsPerColor 8/cupsRowStep 2>>setpagedevice"
 
     //Print In Grayscale : TODO:-handle in Hbpl1 code
-    Option "Gray/Print in Grayscale" Boolean AnySetup 10.0
-    *Choice "False/Off" "<</cupsInteger3 0>>setpagedevice"
-    Choice "True/On" "<</cupsInteger3 1>>setpagedevice"
+    //Option "Gray/Print in Grayscale" Boolean AnySetup 10.0
+    //*Choice "False/Off" "<</cupsInteger3 0>>setpagedevice"
+    //Choice "True/On" "<</cupsInteger3 1>>setpagedevice"
 
     //cupsCompression values map to QUALITY_MODE from global_types.h
     Option "OutputMode/Print Quality" PickOne AnySetup 10.0
@@ -8220,9 +8388,108 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
      MinSize 3in 5in
      MaxSize 8.5in 14in
 
-    } // <%PCLM%>
+    } // <%PCLM_COLOR%>
 
-} // End PCLM
+} // End PCLM_COLOR
+
+
+///////////////////// PCLM_MONO
+{
+  Attribute "hpPrinterLanguage" "" "hbpl1"
+
+  Group "General/General"
+
+  //MediaPosition
+  Option "InputSlot/Media Source" PickOne AnySetup 10.0
+    Choice "Manual/Manual Feeder" "<</MediaPosition 12>>setpagedevice"
+    *Choice "tray1/Tray1" "<</MediaPosition 19>>setpagedevice"
+
+   //Economode
+    Option "EconoMode/EconoMode" Boolean AnySetup 10.0
+    *Choice "False/Off" "<</cupsInteger2 0>>setpagedevice"
+     Choice "True/On" "<</cupsInteger2 1>>setpagedevice"
+
+   // 4x6 or smaller
+  CustomMedia "A6/A6 105x148mm" 297.36 419.76 14 14 14 14 "<</cupsString0(iso_a6_105x148mm)/PageSize[298 420]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(iso_a6_105x148mm)/PageSize[297.36 419.76]/ImagingBBox null>>setpagedevice"
+    CustomMedia "4x6/4x6" 288 432 14 14 14 14 "<</cupsString0(na_index-4x6_4x6in)/PageSize[288 432]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(na_index-4x6_4x6in)/PageSize [288 432]/ImagingBBox null>>setpagedevice"
+  CustomMedia "Card3x5/Index Card 3x5in" 216 360 14 14 14 14 "<</cupsInteger0 78/PageSize [216 360]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 78/PageSize[216 360]/ImagingBBox null>>setpagedevice"
+
+// 5x7
+  // Standard
+  CustomMedia "Photo5x7/Photo 5x7in" 360 504 14 14 14 14 "<</cupsInteger0 122/PageSize[360 504]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 101/PageSize[360 504]/ImagingBBox null>>setpagedevice"
+  CustomMedia "B5/JB5 182x257mm" 516.24 728.64 14 14 14 14 "<</cupsString0(jis_b5_182x257mm)/PageSize[516 729]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(jis_b5_182x257mm)/PageSize [516.24 728.64]/ImagingBBox null>>setpagedevice"
+  *CustomMedia "Letter/Letter 8.5x11in" 612 792 14 14 14 14 "<</cupsString0(na_letter_8.5x11in)/PageSize[612 792]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(na_letter_8.5x11in)/PageSize[612 792]/ImagingBBox null>>setpagedevice"
+  CustomMedia "A4/A4 210x297mm" 595.44 841.68 14 14 14 14 "<</cupsString0(iso_a4_210x297mm)/PageSize[595 842]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(iso_a4_210x297mm)/PageSize[595.44 841.68]/ImagingBBox null>>setpagedevice"
+  CustomMedia "Legal/Legal 8.5x14in" 612 1008 14 14 14 14 "<</cupsString0(na_legal_8.5x14in)/PageSize[612 1008]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(na_legal_8.5x14in)/PageSize[612 1008]/ImagingBBox null>>setpagedevice"
+  CustomMedia "Postcard/Postcard (JIS)" 283 420 14 14 14 14 "<</cupsString0(jpn_hagaki_100x148mm)/PageSize[283 420]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(jpn_hagaki_100x148mm)/PageSize[283 420]/ImagingBBox null>>setpagedevice"
+// Envelope
+  CustomMedia "EnvMonarch/Monarch Envelope 3.875x7.5in" 279 540 14 14 14 14 "<</cupsString0(na_monarch_3.875x7.5in)/PageSize[279 540]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(na_monarch_3.875x7.5in)/PageSize[279 540]/ImagingBBox null>>setpagedevice"
+  CustomMedia "EnvDL/DL Envelope 110x220mm" 312 624 14 14 14 14 "<</cupsString0(iso_dl_110x220mm)/PageSize[312 624]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(iso_dl_110x220mm)/PageSize[312 624]/ImagingBBox null>>setpagedevice"
+  CustomMedia "Env10/#10 Envelope 4.12x9.5in" 297 684  14 14 14 14 "<</cupsString0(na_number-10_4.125x9.5in)/PageSize[297 684]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(na_number-10_4.125x9.5in)/PageSize[297 684]/ImagingBBox null>>setpagedevice"
+  CustomMedia "EnvC5/C5 Envelope 162x229mm" 459 649 14 14 14 14 "<</cupsString0(iso_c5_162x229mm)/PageSize[459 649]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(iso_c5_162x229mm)/PageSize[459 649]/ImagingBBox null>>setpagedevice"
+    // Custom page sizes from 1x4in to Legal
+    
+    // cupsRowCount values map to PEN_TYPE + 1 from global_types.h
+    Option "ColorModel/Output Mode" PickOne AnySetup 10.0
+    //*Choice "RGB/Color" "<</cupsColorSpace 17/cupsBitsPerColor 8/cupsRowStep 0>>setpagedevice"
+    //*Choice "KGray/Black Only Grayscale" "<</cupsColorSpace 1/cupsBitsPerColor 8/cupsRowStep 2>>setpagedevice"
+    *Choice "KGray/Black Only" "<</cupsColorSpace 1/cupsBitsPerColor 8/cupsRowStep 2>>setpagedevice"
+
+    //Print In Grayscale : TODO:-handle in Hbpl1 code
+    Option "Gray/Print in Grayscale" Boolean AnySetup 10.0
+    *Choice "False/Off" "<</cupsInteger3 0>>setpagedevice"
+    *Choice "True/On" "<</cupsInteger3 1>>setpagedevice"
+
+    //cupsCompression values map to QUALITY_MODE from global_types.h
+    Option "OutputMode/Print Quality" PickOne AnySetup 10.0
+    *Choice "ImageREt2400/ImageREt 2400" "<</OutputType(ImageREt)/HWResolution[600 600]>>setpagedevice"
+
+
+    // cupsMediaType values map to MEDIATYPE from global_types.h
+    Option "MediaType/Media Type" PickOne AnySetup 10.0
+    Choice "HPLaserJet90gsm/HP LaserJet 90g" "<</MediaType(HPLaserJet90gsm)>>setpagedevice"
+    Choice "HPColorLaser105gsm/HP Color Laser Matte 105g" "<</MediaType(HPColorLaser105gsm)>>setpagedevice"
+    Choice "HPPremium_120gsm/HP Premium Choice Matte 120g" "<</MediaType(HPPremium_120gsm)>>setpagedevice"
+    Choice "HPMatte160gsm/HP Brochure Matte 150g" "<</MediaType(HPMatte160gsm)>>setpagedevice"
+    Choice "HPMatteCover200gsm/HP Cover Matte 200g" "<</MediaType(HPMatteCover200gsm)>>setpagedevice"
+    Choice "HPMattePhoto200gsm/HP Matte Photo 200g" "<</MediaType(HPMattePhoto200gsm)>>setpagedevice"
+    Choice "HPGlossy130gsm/HP Premium Presentation Glossy 120g" "<</MediaType(HPGlossy130gsm)>>setpagedevice"
+    Choice "HPGlossy160gsm/HP Brochure Glossy 150g" "<</MediaType(HPGlossy160gsm)>>setpagedevice"
+    Choice "HPTrifoldBrochureGlossy/HP Tri-fold Brochure Glossy 150g" "<</MediaType(HPTrifoldBrochureGlossy)>>setpagedevice"
+    Choice "HPGlossPhoto220gsm/HP Brochure Glossy 200g" "<</MediaType(HPGlossPhoto220gsm)>>setpagedevice"
+    Choice "HPGlossPhoto220gsmFasterPrinting/HP Brochure Glossy 200g (faster printing)" "<</MediaType(HPGlossPhoto220gsmFasterPrinting)>>setpagedevice"
+    Choice "HPGlossPhoto220gsmHigherGloss/HP Brochure Glossy 200g (higher gloss)" "<</MediaType(HPGlossPhoto220gsmHigherGloss)>>setpagedevice"
+    Choice "midweightGlossy/Mid-Weight Glossy 96-110g" "<</MediaType(midweightGlossy)>>setpagedevice"
+    Choice "heavyGlossy/Heavy Glossy 111-130g" "<</MediaType(heavyGlossy)>>setpagedevice"
+    Choice "extraHeavyGloss/Extra Heavy Glossy 131-175g" "<</MediaType(extraHeavyGloss)>>setpagedevice"
+    Choice "cardstockGlossy/Card Glossy 176-220g" "<</MediaType(cardstockGlossy)>>setpagedevice"
+    Choice "transparencyColorLaser/Color Laser Transparency" "<</MediaType(transparencyColorLaser)>>setpagedevice"
+    Choice "heavyEnvelope/Heavy Envelope" "<</MediaType(heavyEnvelope)>>setpagedevice"
+    Choice "heavyRough/Heavy Rough" "<</MediaType(heavyRough)>>setpagedevice"
+    Choice "toughPaper/HP Tough Paper" "<</MediaType(toughPaper)>>setpagedevice"
+    Choice "intermediate/Intermediate 85-95g" "<</MediaType(intermediate)>>setpagedevice"
+    {
+     HWMargins 14 14 14 14
+     VariablePaperSize Yes
+     MinSize 3in 5in
+     MaxSize 8.5in 14in
+
+    } // <%PCLM_MONO%>
+
+} // End PCLM_MONO
 
 ///////////// PCL4-Class1
 {
@@ -10081,7 +10348,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
   {
     ModelName "HP Photosmart c4600 Series"
     Attribute "NickName" "" "HP Photosmart c4600 Series, hpcups $Version"
-    Attribute "ShortNickName" "" "HP Photosmart c4600 Series hpijs"
+    Attribute "ShortNickName" "" "HP PS c4600 Series hpijs"
     Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart c4600 series;DES:photosmart c4600 series;"
     PCFileName "hp-photosmart_c4600_series.ppd"
     Attribute "Product" "" "(HP Photosmart c4640 All-in-one Printer)"
@@ -10098,7 +10365,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
   {
     ModelName "HP Photosmart c4700 Series"
     Attribute "NickName" "" "HP Photosmart c4700 Series, hpcups $Version"
-    Attribute "ShortNickName" "" "HP Photosmart c4700 Series hpijs"
+    Attribute "ShortNickName" "" "HP PS c4700 Series hpijs"
     Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart c4700 series;DES:photosmart c4700 series;"
     PCFileName "hp-photosmart_c4700_series.ppd"
     Attribute "Product" "" "(HP Photosmart c4740 All-in-one Printer)"
@@ -10123,7 +10390,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
   {
     ModelName "HP Photosmart Ink Adv k510"
     Attribute "NickName" "" "HP Photosmart Ink Adv k510, hpcups $Version"
-    Attribute "ShortNickName" "" "HP Photosmart Ink Adv k510 hpijs"
+    Attribute "ShortNickName" "" "HP PS Ink Adv k510 hpijs"
     Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart ink adv k510;DES:photosmart ink adv k510;"
     PCFileName "hp-photosmart_ink_adv_k510.ppd"
     Attribute "Product" "" "(HP Photosmart Ink Adv k510)"
@@ -10457,7 +10724,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
     {
       ModelName "HP Deskjet Ink Advant k109a-z"
       Attribute "NickName" "" "HP Deskjet Ink Advant k109a-z, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Deskjet Ink Advant k109a-z hpijs"
+      Attribute "ShortNickName" "" "HP DJ Ink Advant k109a-z hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet ink advant k109a-z;DES:deskjet ink advant k109a-z;"
       PCFileName "hp-deskjet_ink_advant_k109a-z.ppd"
       Attribute "Product" "" "(HP Deskjet Ink Advantage k109a Printer)"
@@ -10818,7 +11085,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
     {
       ModelName "HP Officejet Pro 8000 a809"
       Attribute "NickName" "" "HP Officejet Pro 8000 a809, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Officejet Pro 8000 a809 hpijs"
+      Attribute "ShortNickName" "" "HP OJ Pro 8000 a809 hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet pro 8000 a809;DES:officejet pro 8000 a809;"
       PCFileName "hp-officejet_pro_8000_a809.ppd"
       Attribute "Product" "" "(HP Officejet Pro 8000 Printer - a809a)"
@@ -10827,7 +11094,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
     {
       ModelName "HP Officejet Pro 8500 a909a"
       Attribute "NickName" "" "HP Officejet Pro 8500 a909a, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Officejet Pro 8500 a909a hpijs"
+      Attribute "ShortNickName" "" "HP OJ Pro 8500 a909a hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet pro 8500 a909a;DES:officejet pro 8500 a909a;"
       PCFileName "hp-officejet_pro_8500_a909a.ppd"
       Attribute "Product" "" "(HP Officejet Pro 8500 All-in-one Printer - a909a)"
@@ -10835,7 +11102,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
     {
       ModelName "HP Officejet Pro 8500 a909g"
       Attribute "NickName" "" "HP Officejet Pro 8500 a909g, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Officejet Pro 8500 a909g hpijs"
+      Attribute "ShortNickName" "" "HP OJ Pro 8500 a909g hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet pro 8500 a909g;DES:officejet pro 8500 a909g;"
       PCFileName "hp-officejet_pro_8500_a909g.ppd"
       Attribute "Product" "" "(HP Officejet Pro 8500 Wireless All-in-one Printer - a909g)"
@@ -10843,7 +11110,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
     {
       ModelName "HP Officejet Pro 8500 a909n"
       Attribute "NickName" "" "HP Officejet Pro 8500 a909n, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Officejet Pro 8500 a909n hpijs"
+      Attribute "ShortNickName" "" "HP OJ Pro 8500 a909n hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet pro 8500 a909n;DES:officejet pro 8500 a909n;"
       PCFileName "hp-officejet_pro_8500_a909n.ppd"
       Attribute "Product" "" "(HP Officejet Pro 8500 Premier All-in-one Printer - a909n)"
@@ -10851,7 +11118,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
     {
       ModelName "HP Officejet Pro 8500 a910"
       Attribute "NickName" "" "HP Officejet Pro 8500 a910, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Officejet Pro 8500 a910 hpijs"
+      Attribute "ShortNickName" "" "HP OJ Pro 8500 a910 hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet pro 8500 a910;DES:officejet pro 8500 a910;"
       PCFileName "hp-officejet_pro_8500_a910.ppd"
       Attribute "Product" "" "(HP Officejet Pro 8500a Plus E-aio Printer - a910g)"
@@ -11359,7 +11626,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
     {
       ModelName "HP Photosmart c309a Series"
       Attribute "NickName" "" "HP Photosmart c309a Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart c309a Series hpijs"
+      Attribute "ShortNickName" "" "HP PS c309a Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart c309a series;DES:photosmart c309a series;"
       PCFileName "hp-photosmart_c309a_series.ppd"
       Attribute "Product" "" "(HP Photosmart Premium Fax All-in-one Printer - c309a)"
@@ -11853,7 +12120,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
   {
     ModelName "HP Photosmart Prem-web c309n-s"
     Attribute "NickName" "" "HP Photosmart Prem-web c309n-s, hpcups $Version"
-    Attribute "ShortNickName" "" "HP Photosmart Prem-web c309n-s hpijs"
+    Attribute "ShortNickName" "" "HP PS Prem-web c309n-s hpijs"
     Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart prem-web c309n-s;DES:photosmart prem-web c309n-s;"
     PCFileName "hp-photosmart_prem-web_c309n-s.ppd"
     Attribute "Product" "" "(HP Photosmart Premium Fax All-in-one Printer Series -c309a)"
@@ -11862,7 +12129,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
   {
     ModelName "HP Photosmart Premium c309g-m"
     Attribute "NickName" "" "HP Photosmart Premium c309g-m, hpcups $Version"
-    Attribute "ShortNickName" "" "HP Photosmart Premium c309g-m hpijs"
+    Attribute "ShortNickName" "" "HP PS Premium c309g-m hpijs"
     Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart premium c309g-m;DES:photosmart premium c309g-m;"
     PCFileName "hp-photosmart_premium_c309g-m.ppd"
     Attribute "Product" "" "(HP Photosmart Premium All-in-one Printer Series - c309g)"
@@ -12221,7 +12488,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
   {
     ModelName "HP Photosmart c5300 Series"
     Attribute "NickName" "" "HP Photosmart c5300 Series, hpcups $Version"
-    Attribute "ShortNickName" "" "HP Photosmart c5300 Series hpijs"
+    Attribute "ShortNickName" "" "HP PS c5300 Series hpijs"
     Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart c5300 series;DES:photosmart c5300 series;"
     PCFileName "hp-photosmart_c5300_series.ppd"
     Attribute "Product" "" "(HP Photosmart c5370 All-in-one Printer)"
@@ -12235,7 +12502,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
   {
     ModelName "HP Photosmart c6300 Series"
     Attribute "NickName" "" "HP Photosmart c6300 Series, hpcups $Version"
-    Attribute "ShortNickName" "" "HP Photosmart c6300 Series hpijs"
+    Attribute "ShortNickName" "" "HP PS c6300 Series hpijs"
     Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart c6300 series;DES:photosmart c6300 series;"
     PCFileName "hp-photosmart_c6300_series.ppd"
     Attribute "Product" "" "(HP Photosmart c6324 All-in-one Printer)"
@@ -12249,7 +12516,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
   {
     ModelName "HP Photosmart d7500 Series"
     Attribute "NickName" "" "HP Photosmart d7500 Series, hpcups $Version"
-    Attribute "ShortNickName" "" "HP Photosmart d7500 Series hpijs"
+    Attribute "ShortNickName" "" "HP PS d7500 Series hpijs"
     Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart d7500 series;DES:photosmart d7500 series;"
     PCFileName "hp-photosmart_d7500_series.ppd"
     Attribute "Product" "" "(HP Photosmart d7560 Printer)"
@@ -12467,7 +12734,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
     {
       ModelName "HP Photosmart b8500 Series"
       Attribute "NickName" "" "HP Photosmart b8500 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart b8500 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS b8500 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart b8500 series;DES:photosmart b8500 series;"
       PCFileName "hp-photosmart_b8500_series.ppd"
       Attribute "Product" "" "(HP Photosmart b8550 Photo Printer)"
@@ -12477,7 +12744,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
     {
       ModelName "HP Photosmart Pro b8300 Series"
       Attribute "NickName" "" "HP Photosmart Pro b8300 Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Photosmart Pro b8300 Series hpijs"
+      Attribute "ShortNickName" "" "HP PS Pro b8300 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart pro b8300 series;DES:photosmart pro b8300 series;"
       PCFileName "hp-photosmart_pro_b8300_series.ppd"
       Attribute "Product" "" "(HP Photosmart Pro b8330 Printer)"
@@ -12494,7 +12761,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
         {
           ModelName "HP Photosmart Pro b8800 Series"
           Attribute "NickName" "" "HP Photosmart Pro b8800 Series, hpcups $Version"
-          Attribute "ShortNickName" "" "HP Photosmart Pro b8800 Series hpijs"
+          Attribute "ShortNickName" "" "HP PS Pro b8800 Series hpijs"
           Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart pro b8800 series;DES:photosmart pro b8800 series;"
           PCFileName "hp-photosmart_pro_b8800_series.ppd"
           Attribute "Product" "" "(HP Photosmart Pro b8850 Printer)"
@@ -12734,7 +13001,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
         {
           ModelName "HP Photosmart Estn c510 Series"
           Attribute "NickName" "" "HP Photosmart Estn c510 Series, hpcups $Version"
-          Attribute "ShortNickName" "" "HP Photosmart Estn c510 Series hpijs"
+          Attribute "ShortNickName" "" "HP PS Estn c510 Series hpijs"
           Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart estn c510 series;DES:photosmart estn c510 series;"
           PCFileName "hp-photosmart_estn_c510_series.ppd"
           Attribute "Product" "" "(HP Photosmart Estn c510 Series)"
@@ -12742,7 +13009,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
         {
           ModelName "HP Photosmart Prem c310 Series"
           Attribute "NickName" "" "HP Photosmart Prem c310 Series, hpcups $Version"
-          Attribute "ShortNickName" "" "HP Photosmart Prem c310 Series hpijs"
+          Attribute "ShortNickName" "" "HP PS Prem c310 Series hpijs"
           Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart prem c310 series;DES:photosmart prem c310 series;"
           PCFileName "hp-photosmart_prem_c310_series.ppd"
           Attribute "Product" "" "(HP Photosmart Prem c310 Series)"
@@ -12750,7 +13017,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
         {
           ModelName "HP Photosmart Prem c410 Series"
           Attribute "NickName" "" "HP Photosmart Prem c410 Series, hpcups $Version"
-          Attribute "ShortNickName" "" "HP Photosmart Prem c410 Series hpijs"
+          Attribute "ShortNickName" "" "HP PS Prem c410 Series hpijs"
           Attribute "1284DeviceID" "" "MFG:HP;MDL:photosmart prem c410 series;DES:photosmart prem c410 series;"
           PCFileName "hp-photosmart_prem_c410_series.ppd"
           Attribute "Product" "" "(HP Photosmart Prem c410 Series)"
@@ -14501,7 +14768,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
    {
      ModelName "HP Ink Tank Wireless 410 Series"
      Attribute "NickName" "" "HP Ink Tank Wireless 410 Series, hpcups $Version"
-     Attribute "ShortNickName" "" "HP Ink Tank Wireless 410 Series hpijs"
+     Attribute "ShortNickName" "" "HP Ink TK WL 410 Series hpijs"
      Attribute "1284DeviceID" "" "MFG:HP;MDL:ink tank wireless 410 series;DES:ink tank wireless 410 series;"
      PCFileName "hp-ink_tank_wireless_410_series.ppd"
      Attribute "Product" "" "(HP Ink Tank Wireless 410)"
@@ -14517,7 +14784,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
    {
      ModelName "HP Smart Tank Wireless 450 Series"
      Attribute "NickName" "" "HP Smart Tank Wireless 450 Series, hpcups $Version"
-     Attribute "ShortNickName" "" "smart_tank_wireless_450_series hpijs"
+     Attribute "ShortNickName" "" "HP Smart TK WL 450 Series hpijs"
      Attribute "1284DeviceID" "" "MFG:HP;MDL:smart tank wireless 450 series;DES:smart tank wireless 450 series;"
      PCFileName "hp-smart_tank_wireless_450_series.ppd"
      Attribute "Product" "" "(HP Smart Tank Wireless 450)"
@@ -14645,7 +14912,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
   {
     ModelName "HP Deskjet 1000 j110 Series"
     Attribute "NickName" "" "HP Deskjet 1000 j110 Series, hpcups $Version"
-    Attribute "ShortNickName" "" "HP Deskjet 1000 j110 Series hpijs"
+    Attribute "ShortNickName" "" "HP DJ 1000 j110 Series hpijs"
     Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet 1000 j110 series;DES:deskjet 1000 j110 series;"
     PCFileName "hp-deskjet_1000_j110_series.ppd"
     Attribute "Product" "" "(HP Deskjet 1000 j110 Series)"
@@ -14653,7 +14920,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
   {
     ModelName "HP Deskjet 1050 j410 Series"
     Attribute "NickName" "" "HP Deskjet 1050 j410 Series, hpcups $Version"
-    Attribute "ShortNickName" "" "HP Deskjet 1050 j410 Series hpijs"
+    Attribute "ShortNickName" "" "HP DJ 1050 j410 Series hpijs"
     Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet 1050 j410 series;DES:deskjet 1050 j410 series;"
     PCFileName "hp-deskjet_1050_j410_series.ppd"
     Attribute "Product" "" "(HP Deskjet 1050 j410 All-in-one Printer)"
@@ -14664,7 +14931,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
   {
     ModelName "HP Deskjet 2000 j210 Series"
     Attribute "NickName" "" "HP Deskjet 2000 j210 Series, hpcups $Version"
-    Attribute "ShortNickName" "" "HP Deskjet 2000 j210 Series hpijs"
+    Attribute "ShortNickName" "" "HP DJ 2000 j210 Series hpijs"
     Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet 2000 j210 series;DES:deskjet 2000 j210 series;"
     PCFileName "hp-deskjet_2000_j210_series.ppd"
     Attribute "Product" "" "(HP Deskjet 2000 j210 Series)"
@@ -14672,7 +14939,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
   {
     ModelName "HP Deskjet 2050 j510 Series"
     Attribute "NickName" "" "HP Deskjet 2050 j510 Series, hpcups $Version"
-    Attribute "ShortNickName" "" "HP Deskjet 2050 j510 Series hpijs"
+    Attribute "ShortNickName" "" "HP DJ 2050 j510 Series hpijs"
     Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet 2050 j510 series;DES:deskjet 2050 j510 series;"
     PCFileName "hp-deskjet_2050_j510_series.ppd"
     Attribute "Product" "" "(HP Deskjet 2050 j510 All-in-one Printer)"
@@ -14680,7 +14947,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
   {
     ModelName "HP Deskjet 3000 j310 Series"
     Attribute "NickName" "" "HP Deskjet 3000 j310 Series, hpcups $Version"
-    Attribute "ShortNickName" "" "HP Deskjet 3000 j310 Series hpijs"
+    Attribute "ShortNickName" "" "HP DJ 3000 j310 Series hpijs"
     Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet 3000 j310 series;DES:deskjet 3000 j310 series;"
     PCFileName "hp-deskjet_3000_j310_series.ppd"
     Attribute "Product" "" "(HP Deskjet 3000 j310 Series)"
@@ -14688,7 +14955,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
   {
     ModelName "HP Deskjet 3050 j610 Series"
     Attribute "NickName" "" "HP Deskjet 3050 j610 Series, hpcups $Version"
-    Attribute "ShortNickName" "" "HP Deskjet 3050 j610 Series hpijs"
+    Attribute "ShortNickName" "" "HP DJ 3050 j610 Series hpijs"
     Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet 3050 j610 series;DES:deskjet 3050 j610 series;"
     PCFileName "hp-deskjet_3050_j610_series.ppd"
     Attribute "Product" "" "(HP Deskjet 3050 j610 Series)"
@@ -14696,7 +14963,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
   {
     ModelName "HP Deskjet 3050a j611 Series"
     Attribute "NickName" "" "HP Deskjet 3050a j611 Series, hpcups $Version"
-    Attribute "ShortNickName" "" "HP Deskjet 3050a j611 Series hpijs"
+    Attribute "ShortNickName" "" "HP DJ 3050a j611 Series hpijs"
     Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet 3050a j611 series;DES:deskjet 3050a j611 series;"
     PCFileName "hp-deskjet_3050a_j611_series.ppd"
     Attribute "Product" "" "(HP Deskjet 3050a j611 Series)"
@@ -14715,7 +14982,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
   {
     ModelName "HP Deskjet Ink Adv 2010 k010"
     Attribute "NickName" "" "HP Deskjet Ink Adv 2010 k010, hpcups $Version"
-    Attribute "ShortNickName" "" "HP Deskjet Ink Adv 2010 k010 hpijs"
+    Attribute "ShortNickName" "" "HP DJ Ink Adv 2010 k010 hpijs"
     Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet ink adv 2010 k010;DES:deskjet ink adv 2010 k010;"
     PCFileName "hp-deskjet_ink_adv_2010_k010.ppd"
     Attribute "Product" "" "(HP Deskjet Ink Adv 2010 k010)"
@@ -14723,7 +14990,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
   {
     ModelName "HP Deskjet Ink Adv 2060 k110"
     Attribute "NickName" "" "HP Deskjet Ink Adv 2060 k110, hpcups $Version"
-    Attribute "ShortNickName" "" "HP Deskjet Ink Adv 2060 k110 hpijs"
+    Attribute "ShortNickName" "" "HP DJ Ink Adv 2060 k110 hpijs"
     Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet ink adv 2060 k110;DES:deskjet ink adv 2060 k110;"
     PCFileName "hp-deskjet_ink_adv_2060_k110.ppd"
     Attribute "Product" "" "(HP Deskjet Ink Adv 2060 k110)"
@@ -15554,7 +15821,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
           {
             ModelName "HP Officejet 200 Mobile Series"
             Attribute "NickName" "" "HP Officejet 200 Mobile Series, hpcups $Version"
-            Attribute "ShortNickName" "" "HP Officejet 200 Mobile Series hpijs"
+            Attribute "ShortNickName" "" "HP OJ 200 Mobile Series hpijs"
             Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet 200 mobile series;DES:officejet 200 mobile series;"
             PCFileName "hp-officejet_200_mobile_series.ppd"
             Attribute "Product" "" "(HP Officejet 200 Mobile Printer)"
@@ -15562,7 +15829,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
           {
             ModelName "HP Officejet 250 Mobile Series"
             Attribute "NickName" "" "HP Officejet 250 Mobile Series, hpcups $Version"
-            Attribute "ShortNickName" "" "HP Officejet 250 Mobile Series hpijs"
+            Attribute "ShortNickName" "" "HP OJ 250 Mobile Series hpijs"
             Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet 250 mobile series;DES:officejet 250 mobile series;"
             PCFileName "hp-officejet_250_mobile_series.ppd"
             Attribute "Product" "" "(HP Officejet 250 Mobile All-in-one)"
@@ -16172,7 +16439,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
           {
             ModelName "HP Officejet Pro 7720 Series"
             Attribute "NickName" "" "HP Officejet Pro 7720 Series, hpcups $Version"
-            Attribute "ShortNickName" "" "HP Officejet Pro 7720 Series hpijs"
+            Attribute "ShortNickName" "" "HP OJ Pro 7720 Series hpijs"
             Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet pro 7720 series;DES:officejet pro 7720 series;"
             PCFileName "hp-officejet_pro_7720_series.ppd"
             Attribute "Product" "" "(HP Officejet Pro 7720 Wide Format All-in-one)"
@@ -16180,7 +16447,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
           {
             ModelName "HP Officejet Pro 7730 Series"
             Attribute "NickName" "" "HP Officejet Pro 7730 Series, hpcups $Version"
-            Attribute "ShortNickName" "" "HP Officejet Pro 7730 Series hpijs"
+            Attribute "ShortNickName" "" "HP OJ Pro 7730 Series hpijs"
             Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet pro 7730 series;DES:officejet pro 7730 series;"
             PCFileName "hp-officejet_pro_7730_series.ppd"
             Attribute "Product" "" "(HP Officejet Pro 7730 Wide Format All-in-one)"
@@ -16188,7 +16455,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
           {
             ModelName "HP Officejet Pro 7740 Series"
             Attribute "NickName" "" "HP Officejet Pro 7740 Series, hpcups $Version"
-            Attribute "ShortNickName" "" "HP Officejet Pro 7740 Series hpijs"
+            Attribute "ShortNickName" "" "HP OJ Pro 7740 Series hpijs"
             Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet pro 7740 series;DES:officejet pro 7740 series;"
             PCFileName "hp-officejet_pro_7740_series.ppd"
             Attribute "Product" "" "(HP Officejet Pro 7740 Wide Format All-in-one)"
@@ -16368,20 +16635,14 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
 
     // <%OJ7000:LargeFormatA3%>
     {
-      ModelName "HP Officejet 7000 e809a"
-      Attribute "NickName" "" "HP Officejet 7000 e809a, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Officejet 7000 e809a hpijs"
-      Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet 7000 e809a;DES:officejet 7000 e809a;"
-      PCFileName "hp-officejet_7000_e809a.ppd"
-      Attribute "Product" "" "(HP Officejet 7000 Wide Format Printer -- e809a)"
-    }
-    {
       ModelName "HP Officejet 7000 e809a Series"
       Attribute "NickName" "" "HP Officejet 7000 e809a Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Officejet 7000 e809a Series hpijs"
+      Attribute "ShortNickName" "" "HP OJ 7000 e809a Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet 7000 e809a series;DES:officejet 7000 e809a series;"
       PCFileName "hp-officejet_7000_e809a_series.ppd"
-      Attribute "Product" "" "(HP Officejet 7000 Wide Format Printer -- e809a)"
+      Attribute "Product" "" "(HP Officejet 7000 e809 Series)"
+      Attribute "Product" "" "(HP Officejet 7000 Wide Format Printer -e809a)"
+      Attribute "Product" "" "(HP Officejet 7000 e809 Printer)"
     }
   } // End Large format media sizes with full bleed
 
@@ -16640,14 +16901,6 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
       Attribute "Product" "" "(HP Business Inkjet 1200dtwn Printer)"
       Attribute "Product" "" "(HP Business Inkjet 1200d Printer)"
       Attribute "Product" "" "(HP Business Inkjet 1200 Printer)"
-    }
-    {
-      ModelName "HP Business Inkjet 1000"
-      Attribute "NickName" "" "HP Business Inkjet 1000, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Business Inkjet 1000 hpijs"
-      Attribute "1284DeviceID" "" "MFG:HP;MDL:hp business inkjet 1000;DES:hp business inkjet 1000;"
-      PCFileName "hp-business_inkjet_1000.ppd"
-      Attribute "Product" "" "(HP Business Inkjet 1000 Printer)"
     }
     {
       ModelName "HP Business Inkjet 1100"
@@ -17155,9 +17408,9 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
       Attribute "ShortNickName" "" "HP PSC 1000 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:psc 1000 series;DES:psc 1000 series;"
       PCFileName "hp-psc_1000_series.ppd"
-      Attribute "Product" "" "(HP PSC 1110 All-in-one Printer)"
+      Attribute "Product" "" "(HP PSC 1110 Series)"
       Attribute "Product" "" "(HP PSC 1110v All-in-one Printer)"
-      Attribute "Product" "" "(HP PSC 1118 All-in-one Printer)"
+      Attribute "Product" "" "(HP PSC 1118 All-in-one Printer )"
     }
     {
       ModelName "HP PSC 1100 Series"
@@ -17369,9 +17622,6 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
       Attribute "ShortNickName" "" "HP Deskjet 3650 hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet 3650;DES:deskjet 3650;"
       PCFileName "hp-deskjet_3650.ppd"
-      Attribute "Product" "" "(HP Deskjet 3620 Color Inkjet Printer)"
-      Attribute "Product" "" "(HP Deskjet 3645 Color Inkjet Printer)"
-      Attribute "Product" "" "(HP Deskjet 3647 Color Inkjet Printer)"
       Attribute "Product" "" "(HP Deskjet 3650 Color Inkjet Printer)"
       Attribute "Product" "" "(HP Deskjet 3651 Color Inkjet Printer)"
       Attribute "Product" "" "(HP Deskjet 3652 Color Inkjet Printer)"
@@ -17570,13 +17820,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
       Attribute "ShortNickName" "" "HP PSC 1300 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:psc 1300 series;DES:psc 1300 series;"
       PCFileName "hp-psc_1300_series.ppd"
-      Attribute "Product" "" "(HP PSC 1300 All-in-one Printer)"
-      Attribute "Product" "" "(HP PSC 1340 All-in-one Printer)"
-      Attribute "Product" "" "(HP PSC 1345 All-in-one Printer)"
-      Attribute "Product" "" "(HP PSC 1350 All-in-one Printer)"
-      Attribute "Product" "" "(HP PSC 1350xi All-in-one Printer)"
-      Attribute "Product" "" "(HP PSC 1350v All-in-one Printer)"
-      Attribute "Product" "" "(HP PSC 1355 All-in-one Printer)"
+      Attribute "Product" "" "(HP PSC 1358 Series)"
     }
     {
       ModelName "HP PSC 1310 Series"
@@ -18519,7 +18763,6 @@ Group "RLT/HP Real Life Technologies"
       PCFileName "hp-laserjet_1100.ppd"
       Attribute "Product" "" "(HP LaserJet 1100 Printer)"
       Attribute "Product" "" "(HP LaserJet 1100se Printer)"
-      Attribute "Product" "" "(HP LaserJet 1100xi Printer)"
     }
     {
       ModelName "HP LaserJet 1100a"
@@ -18547,21 +18790,14 @@ Group "RLT/HP Real Life Technologies"
       Attribute "Product" "" "(HP LaserJet 1150 Printer)"
     }
     {
-      ModelName "HP LaserJet 1160"
-      Attribute "NickName" "" "HP LaserJet 1160, hpcups $Version"
-      Attribute "ShortNickName" "" "HP LaserJet 1160 hpijs"
-      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet 1160;DES:hp laserjet 1160;"
-      PCFileName "hp-laserjet_1160.ppd"
-      Attribute "Product" "" "(HP LaserJet 1160 Printer)"
-      Attribute "Product" "" "(HP LaserJet 1160le Printer)"
-    }
-    {
       ModelName "HP LaserJet 1160 Series"
       Attribute "NickName" "" "HP LaserJet 1160 Series, hpcups $Version"
       Attribute "ShortNickName" "" "HP LaserJet 1160 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet 1160 series;DES:hp laserjet 1160 series;"
       PCFileName "hp-laserjet_1160_series.ppd"
       Attribute "Product" "" "(HP LaserJet 1160 Series Printer)"
+      Attribute "Product" "" "(HP LaserJet 1160 Printer)"
+      Attribute "Product" "" "(HP LaserJet 1160le Printer)"
     }
     {
       ModelName "HP LaserJet 1200"
@@ -18663,18 +18899,6 @@ Group "RLT/HP Real Life Technologies"
       Attribute "Product" "" "(HP LaserJet 1320tn Printer)"
     }
     {
-      ModelName "HP LaserJet 2100"
-      Attribute "NickName" "" "HP LaserJet 2100, hpcups $Version"
-      Attribute "ShortNickName" "" "HP LaserJet 2100 hpijs"
-      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet 2100;DES:hp laserjet 2100;"
-      PCFileName "hp-laserjet_2100.ppd"
-      Attribute "Product" "" "(HP LaserJet 2100 Printer)"
-      Attribute "Product" "" "(HP LaserJet 2100m Printer)"
-      Attribute "Product" "" "(HP LaserJet 2100se Printer)"
-      Attribute "Product" "" "(HP LaserJet 2100tn Printer)"
-      Attribute "Product" "" "(HP LaserJet 2100xi Printer)"
-    }
-    {
       ModelName "HP LaserJet 2100 Series"
       Attribute "NickName" "" "HP LaserJet 2100 Series pcl3, hpcups $Version"
       Attribute "ShortNickName" "" "HP LaserJet 2100 Series hpijs"
@@ -18683,38 +18907,18 @@ Group "RLT/HP Real Life Technologies"
       Attribute "Product" "" "(HP LaserJet 2100 Series Printer)"
     }
     {
-      ModelName "HP LaserJet 2200"
-      Attribute "NickName" "" "HP LaserJet 2200 pcl3, hpcups $Version"
-      Attribute "ShortNickName" "" "HP LaserJet 2200 hpijs"
-      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet 2200;DES:hp laserjet 2200;"
-      PCFileName "hp-laserjet_2200-pcl3.ppd"
-      Attribute "Product" "" "(HP LaserJet 2200 Printer)"
-      Attribute "Product" "" "(HP LaserJet 2200d Printer)"
-      Attribute "Product" "" "(HP LaserJet 2200dn Printer)"
-      Attribute "Product" "" "(HP LaserJet 2200dse Printer)"
-      Attribute "Product" "" "(HP LaserJet 2200dt Printer)"
-      Attribute "Product" "" "(HP LaserJet 2200dtn Printer)"
-    }
-    {
       ModelName "HP LaserJet 2200 Series"
       Attribute "NickName" "" "HP LaserJet 2200 Series, hpcups $Version"
       Attribute "ShortNickName" "" "HP LaserJet 2200 Series hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet 2200 series;DES:hp laserjet 2200 series;"
       PCFileName "hp-laserjet_2200_series.ppd"
       Attribute "Product" "" "(HP LaserJet 2200 Series Printer)"
-    }
-    {
-      ModelName "HP LaserJet 2300"
-      Attribute "NickName" "" "HP LaserJet 2300 pcl3, hpcups $Version"
-      Attribute "ShortNickName" "" "HP LaserJet 2300 hpijs"
-      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet 2300;DES:hp laserjet 2300;"
-      PCFileName "hp-laserjet_2300-pcl3.ppd"
-      Attribute "Product" "" "(HP LaserJet 2300 Printer)"
-      Attribute "Product" "" "(HP LaserJet 2300n Printer)"
-      Attribute "Product" "" "(HP LaserJet 2300d Printer)"
-      Attribute "Product" "" "(HP LaserJet 2300dn Printer)"
-      Attribute "Product" "" "(HP LaserJet 2300dtn Printer)"
-      Attribute "Product" "" "(HP LaserJet 2300l Printer)"
+      Attribute "Product" "" "(HP LaserJet 2200 Printer)"
+      Attribute "Product" "" "(HP LaserJet 2200dn Printer)"
+      Attribute "Product" "" "(HP LaserJet 2200dt Printer)"
+      Attribute "Product" "" "(HP LaserJet 2200dse Printer)"
+      Attribute "Product" "" "(HP LaserJet 2200tn  Printer)"
+      Attribute "Product" "" "(HP LaserJet 2200d Printer)"
     }
     {
       ModelName "HP LaserJet 2300 Series"
@@ -18723,6 +18927,12 @@ Group "RLT/HP Real Life Technologies"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet 2300 series;DES:hp laserjet 2300 series;"
       PCFileName "hp-laserjet_2300_series.ppd"
       Attribute "Product" "" "(HP LaserJet 2300 Series Printer)"
+      Attribute "Product" "" "(HP LaserJet 2300 Printer)"
+      Attribute "Product" "" "(HP LaserJet 2300n Printer)"
+      Attribute "Product" "" "(HP LaserJet 2300d Printer)"
+      Attribute "Product" "" "(HP LaserJet 2300dn Printer)"
+      Attribute "Product" "" "(HP LaserJet 2300dtn Printer)"
+      Attribute "Product" "" "(HP LaserJet 2300l Printer)"
     }
     {
       ModelName "HP LaserJet 2410"
@@ -18831,34 +19041,18 @@ Group "RLT/HP Real Life Technologies"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet 3200;DES:hp laserjet 3200;"
       PCFileName "hp-laserjet_3200.ppd"
       Attribute "Product" "" "(HP LaserJet 3200 All-in-one Printer)"
-    }
-    {
-      ModelName "HP LaserJet 3200m"
-      Attribute "NickName" "" "HP LaserJet 3200m pcl3, hpcups $Version"
-      Attribute "ShortNickName" "" "HP LaserJet 3200m hpijs"
-      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet 3200m;DES:hp laserjet 3200m;"
-      PCFileName "hp-laserjet_3200m-pcl3.ppd"
-      Attribute "Product" "" "(HP LaserJet 3200m All-in-one Printer)"
-    }
-    {
-      ModelName "HP LaserJet 3200se"
-      Attribute "NickName" "" "HP LaserJet 3200se, hpcups $Version"
-      Attribute "ShortNickName" "" "HP LaserJet 3200se hpijs"
-      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet 3200se;DES:hp laserjet 3200se;"
-      PCFileName "hp-laserjet_3200se.ppd"
-      Attribute "Product" "" "(HP LaserJet 3200 All-in-one Printer)"
+      Attribute "Product" "" "(HP LaserJet 3200se All-in-one Printer)"
     }
     {
       ModelName "HP LaserJet 3300 3310 3320"
       Attribute "NickName" "" "HP LaserJet 3300 3310 3320 pcl3, hpcups $Version"
-      Attribute "ShortNickName" "" "HP LaserJet 3300 3310 3320 hpijs"
+      Attribute "ShortNickName" "" "HP LJ 3300 3310 3320 hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet 3300 3310 3320;DES:hp laserjet 3300 3310 3320;"
       PCFileName "hp-laserjet_3300_3310_3320-pcl3.ppd"
       Attribute "Product" "" "(HP LaserJet 3300 Multifunction Printer)"
       Attribute "Product" "" "(HP LaserJet 3310 Digital Printer Copier)"
       Attribute "Product" "" "(HP LaserJet 3320n Multifunction Printer)"
       Attribute "Product" "" "(HP LaserJet 3320 Multifunction Printer)"
-      Attribute "Product" "" "(HP LaserJet 3330 Multifunction Printer)"
     }
     {
       ModelName "HP LaserJet 3330"
@@ -19058,6 +19252,11 @@ Group "RLT/HP Real Life Technologies"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet 5000 series;DES:hp laserjet 5000 series;"
       PCFileName "hp-laserjet_5000_series-pcl3.ppd"
       Attribute "Product" "" "(HP LaserJet 5000 Series Printer)"
+      Attribute "Product" "" "(HP LaserJet 5000 Printer)"
+      Attribute "Product" "" "(HP LaserJet 5000le Printer)"
+      Attribute "Product" "" "(HP LaserJet 5000dn Printer)"
+      Attribute "Product" "" "(HP LaserJet 5000gn Printer)"
+      Attribute "Product" "" "(HP LaserJet 5000n Printer)"
     }
     {
       ModelName "HP LaserJet 5200lx"
@@ -19130,6 +19329,9 @@ Group "RLT/HP Real Life Technologies"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet 8000 series;DES:hp laserjet 8000 series;"
       PCFileName "hp-laserjet_8000_series-pcl3.ppd"
       Attribute "Product" "" "(HP LaserJet 8000 Series Printer)"
+      Attribute "Product" "" "(HP LaserJet 8000 Printer)"
+      Attribute "Product" "" "(HP LaserJet 8000dn Printer)"
+      Attribute "Product" "" "(HP LaserJet 8000n Printer)"
     }
     {
       ModelName "HP LaserJet 8100 MFP"
@@ -19230,7 +19432,6 @@ Group "RLT/HP Real Life Technologies"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet m9050 mfp;DES:hp laserjet m9050 mfp;"
       PCFileName "hp-laserjet_m9050_mfp-pcl3.ppd"
       Attribute "Product" "" "(HP LaserJet m9050 Multifunction Printer)"
-      Attribute "Product" "" "(HP LaserJet m9059 Multifunction Printer)"
     }
     {
       ModelName "HP LaserJet m9059 MFP"
@@ -19259,7 +19460,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet p2015dn Series"
       Attribute "NickName" "" "HP LaserJet p2015dn Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP LaserJet p2015dn Series hpijs"
+      Attribute "ShortNickName" "" "HP LJ p2015dn Series hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet p2015dn series;DES:hp laserjet p2015dn series;"
       PCFileName "hp-laserjet_p2015dn_series.ppd"
       Attribute "Product" "" "(HP LaserJet p2015dn Printer)"
@@ -19474,7 +19675,6 @@ Group "RLT/HP Real Life Technologies"
         Attribute "Product" "" "(HP LaserJet 4l Printer)"
         Attribute "Product" "" "(HP LaserJet 4l Pro Printer)"
         Attribute "Product" "" "(HP LaserJet 4lc Printer)"
-        Attribute "Product" "" "(HP LaserJet 4ml Printer)"
       }
       {
         ModelName "HP LaserJet 4ml"
@@ -19507,18 +19707,6 @@ Group "RLT/HP Real Life Technologies"
     MaxSize 936 1368
 
     // <%LJMono:LargeFormatA3%>
-    {
-      ModelName "HP LaserJet 5000"
-      Attribute "NickName" "" "HP LaserJet 5000, hpcups $Version"
-      Attribute "ShortNickName" "" "HP LaserJet 5000 hpijs"
-      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet 5000;DES:hp laserjet 5000;"
-      PCFileName "hp-laserjet_5000.ppd"
-      Attribute "Product" "" "(HP LaserJet 5000 Printer)"
-      Attribute "Product" "" "(HP LaserJet 5000le Printer)"
-      Attribute "Product" "" "(HP LaserJet 5000dn Printer)"
-      Attribute "Product" "" "(HP LaserJet 5000gn Printer)"
-      Attribute "Product" "" "(HP LaserJet 5000n Printer)"
-    }
     {
       ModelName "HP LaserJet 5100 Series"
       Attribute "NickName" "" "HP LaserJet 5100 Series pcl3, hpcups $Version"
@@ -19569,16 +19757,6 @@ Group "RLT/HP Real Life Technologies"
       PCFileName "hp-laserjet_5si_mopier-pcl3.ppd"
       Attribute "Product" "" "(HP LaserJet 5si Mopier)"
       Attribute "Product" "" "(HP LaserJet 5si Mopier Engine)"
-    }
-    {
-      ModelName "HP LaserJet 8000"
-      Attribute "NickName" "" "HP LaserJet 8000, hpcups $Version"
-      Attribute "ShortNickName" "" "HP LaserJet 8000 hpijs"
-      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet 8000;DES:hp laserjet 8000;"
-      PCFileName "hp-laserjet_8000.ppd"
-      Attribute "Product" "" "(HP LaserJet 8000 Printer)"
-      Attribute "Product" "" "(HP LaserJet 8000dn Printer)"
-      Attribute "Product" "" "(HP LaserJet 8000n Printer)"
     }
     {
       ModelName "HP LaserJet 8100 Series"
@@ -19856,23 +20034,16 @@ Group "RLT/HP Real Life Technologies"
           Attribute "Product" "" "(HP Business Inkjet 2300dtn Printer)"
         }
         {
-          ModelName "HP Color LaserJet 2500"
-          Attribute "NickName" "" "HP Color LaserJet 2500 pcl3, hpcups $Version"
-          Attribute "ShortNickName" "" "HP Color LaserJet 2500 hpijs"
-          Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet 2500;DES:hp color laserjet 2500;"
-          PCFileName "hp-color_laserjet_2500-pcl3.ppd"
-          Attribute "Product" "" "(HP Color LaserJet 2500 Printer)"
-        }
-        {
           ModelName "HP Color LaserJet 2500 Series"
           Attribute "NickName" "" "HP Color LaserJet 2500 Series, hpcups $Version"
-          Attribute "ShortNickName" "" "HP Color LaserJet 2500 Series hpijs"
+          Attribute "ShortNickName" "" "HP CJ LJ 2500 Series hpijs"
           Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet 2500 series;DES:hp color laserjet 2500 series;"
           PCFileName "hp-color_laserjet_2500_series.ppd"
           Attribute "Product" "" "(HP Color LaserJet 2500l Printer)"
           Attribute "Product" "" "(HP Color LaserJet 2500lse Printer)"
           Attribute "Product" "" "(HP Color LaserJet 2500n Printer)"
           Attribute "Product" "" "(HP Color LaserJet 2500tn Printer)"
+          Attribute "Product" "" "(HP Color LaserJet 2500 Printer)"
         }
         {
           ModelName "HP Color LaserJet 3000"
@@ -19947,18 +20118,6 @@ Group "RLT/HP Real Life Technologies"
           Attribute "Product" "" "(HP Color LaserJet 4600 Series Printer)"
         }
         {
-          ModelName "HP Color LaserJet 4600 Series"
-          Attribute "NickName" "" "HP Color LaserJet 4600 Series, hpcups $Version"
-          Attribute "ShortNickName" "" "HP Color LaserJet 4600 Series hpijs"
-          Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet 4600 series;DES:hp color laserjet 4600 series;"
-          PCFileName "hp-color_laserjet_4600_series.ppd"
-          Attribute "Product" "" "(HP Color LaserJet 4600 Printer)"
-          Attribute "Product" "" "(HP Color LaserJet 4600dn Printer)"
-          Attribute "Product" "" "(HP Color LaserJet 4600dtn Printer)"
-          Attribute "Product" "" "(HP Color LaserJet 4600hdn Printer)"
-          Attribute "Product" "" "(HP Color LaserJet 4600n Printer)"
-        }
-        {
           ModelName "HP Color LaserJet 4610"
           Attribute "NickName" "" "HP Color LaserJet 4610 pcl3, hpcups $Version"
           Attribute "ShortNickName" "" "HP Color LaserJet 4610 hpijs"
@@ -20004,7 +20163,7 @@ Group "RLT/HP Real Life Technologies"
         {
           ModelName "HP Color LaserJet cm1312 MFP"
           Attribute "NickName" "" "HP Color LaserJet cm1312 MFP pcl3, hpcups $Version"
-          Attribute "ShortNickName" "" "HP Color LaserJet cm1312 MFP hpijs"
+          Attribute "ShortNickName" "" "HP CJ LJ cm1312 MFP hpijs"
           Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet cm1312 mfp;DES:hp color laserjet cm1312 mfp;"
           PCFileName "hp-color_laserjet_cm1312_mfp-pcl3.ppd"
           Attribute "Product" "" "(HP Color LaserJet cm1312 Multifunction Printer)"
@@ -20012,7 +20171,7 @@ Group "RLT/HP Real Life Technologies"
         {
           ModelName "HP Color LaserJet cm1312nfi MFP"
           Attribute "NickName" "" "HP Color LaserJet cm1312nfi MFP pcl3, hpcups $Version"
-          Attribute "ShortNickName" "" "HP Color LaserJet cm1312nfi MFP hpijs"
+          Attribute "ShortNickName" "" "HP CJ LJ cm1312nfi MFP hpijs"
           Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet cm1312nfi mfp;DES:hp color laserjet cm1312nfi mfp;"
           PCFileName "hp-color_laserjet_cm1312nfi_mfp-pcl3.ppd"
           Attribute "Product" "" "(HP Color LaserJet cm1312nfi Multifunction Printer)"
@@ -20020,7 +20179,7 @@ Group "RLT/HP Real Life Technologies"
         {
           ModelName "HP Color LaserJet cm3530 MFP"
           Attribute "NickName" "" "HP Color LaserJet cm3530 MFP pcl3, hpcups $Version"
-          Attribute "ShortNickName" "" "HP Color LaserJet cm3530 MFP hpijs"
+          Attribute "ShortNickName" "" "HP CJ LJ cm3530 MFP hpijs"
           Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet cm3530 mfp;DES:hp color laserjet cm3530 mfp;"
           PCFileName "hp-color_laserjet_cm3530_mfp-pcl3.ppd"
           Attribute "Product" "" "(HP Color LaserJet cm3530 Multifunction Printer)"
@@ -20029,7 +20188,7 @@ Group "RLT/HP Real Life Technologies"
         {
           ModelName "HP Color LaserJet cm4540 MFP"
           Attribute "NickName" "" "HP Color LaserJet cm4540 MFP pcl3, hpcups $Version"
-          Attribute "ShortNickName" "" "HP Color LaserJet cm4540 MFP hpijs"
+          Attribute "ShortNickName" "" "HP CJ LJ cm4540 MFP hpijs"
           Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet cm4540 mfp;DES:hp color laserjet cm4540 mfp;"
           PCFileName "hp-color_laserjet_cm4540_mfp-pcl3.ppd"
           Attribute "Product" "" "(HP Color LaserJet cm4540 Multifunction Printer)"
@@ -20037,7 +20196,7 @@ Group "RLT/HP Real Life Technologies"
         {
           ModelName "HP Color LaserJet cm4730 MFP"
           Attribute "NickName" "" "HP Color LaserJet cm4730 MFP pcl3, hpcups $Version"
-          Attribute "ShortNickName" "" "HP Color LaserJet cm4730 MFP hpijs"
+          Attribute "ShortNickName" "" "HP CJ LJ cm4730 MFP hpijs"
           Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet cm4730 mfp;DES:hp color laserjet cm4730 mfp;"
           PCFileName "hp-color_laserjet_cm4730_mfp-pcl3.ppd"
           Attribute "Product" "" "(HP Color LaserJet cm4730 Multifunction Printer)"
@@ -20064,7 +20223,7 @@ Group "RLT/HP Real Life Technologies"
         {
           ModelName "HP Color LaserJet cp1518ni"
           Attribute "NickName" "" "HP Color LaserJet cp1518ni pcl3, hpcups $Version"
-          Attribute "ShortNickName" "" "HP Color LaserJet cp1518ni hpijs"
+          Attribute "ShortNickName" "" "HP CJ LJ cp1518ni hpijs"
           Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet cp1518ni;DES:hp color laserjet cp1518ni;"
           PCFileName "hp-color_laserjet_cp1518ni-pcl3.ppd"
           Attribute "Product" "" "(HP Color LaserJet cp1518ni Printer)"
@@ -20080,7 +20239,7 @@ Group "RLT/HP Real Life Technologies"
         {
           ModelName "HP Color LaserJet cp2025dn"
           Attribute "NickName" "" "HP Color LaserJet cp2025dn pcl3, hpcups $Version"
-          Attribute "ShortNickName" "" "HP Color LaserJet cp2025dn hpijs"
+          Attribute "ShortNickName" "" "HP CJ LJ cp2025dn hpijs"
           Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet cp2025dn;DES:hp color laserjet cp2025dn;"
           PCFileName "hp-color_laserjet_cp2025dn-pcl3.ppd"
           Attribute "Product" "" "(HP Color LaserJet cp2025dn Printer)"
@@ -20136,7 +20295,7 @@ Group "RLT/HP Real Life Technologies"
         {
           ModelName "HP Color LaserJet cp4020 Series"
           Attribute "NickName" "" "HP Color LaserJet cp4020 Series pcl3, hpcups $Version"
-          Attribute "ShortNickName" "" "HP Color LaserJet cp4020 Series hpijs"
+          Attribute "ShortNickName" "" "HP CJ LJ cp4020 Series hpijs"
           Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet cp4020 series;DES:hp color laserjet cp4020 series;"
           PCFileName "hp-color_laserjet_cp4020_series-pcl3.ppd"
           Attribute "Product" "" "(HP Color LaserJet cp4020 Series Printer)"
@@ -20144,7 +20303,7 @@ Group "RLT/HP Real Life Technologies"
         {
           ModelName "HP Color LaserJet cp4520 Series"
           Attribute "NickName" "" "HP Color LaserJet cp4520 Series pcl3, hpcups $Version"
-          Attribute "ShortNickName" "" "HP Color LaserJet cp4520 Series hpijs"
+          Attribute "ShortNickName" "" "HP CJ LJ cp4520 Series hpijs"
           Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet cp4520 series;DES:hp color laserjet cp4520 series;"
           PCFileName "hp-color_laserjet_cp4520_series-pcl3.ppd"
           Attribute "Product" "" "(HP Color LaserJet cp4520 Series Printer)"
@@ -20160,7 +20319,7 @@ Group "RLT/HP Real Life Technologies"
         {
           ModelName "HP Color LaserJet cp5225dn"
           Attribute "NickName" "" "HP Color LaserJet cp5225dn pcl3, hpcups $Version"
-          Attribute "ShortNickName" "" "HP Color LaserJet cp5225dn hpijs"
+          Attribute "ShortNickName" "" "HP CJ LJ cp5225dn hpijs"
           Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet cp5225dn;DES:hp color laserjet cp5225dn;"
           PCFileName "hp-color_laserjet_cp5225dn-pcl3.ppd"
           Attribute "Product" "" "(HP Color LaserJet cp5225dn)"
@@ -20176,7 +20335,7 @@ Group "RLT/HP Real Life Technologies"
         {
           ModelName "HP Color LaserJet cp5520 Series"
           Attribute "NickName" "" "HP Color LaserJet cp5520 Series pcl3, hpcups $Version"
-          Attribute "ShortNickName" "" "HP Color LaserJet cp5520 Series hpijs"
+          Attribute "ShortNickName" "" "HP CJ LJ cp5520 Series hpijs"
           Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet cp5520 series;DES:hp color laserjet cp5520 series;"
           PCFileName "hp-color_laserjet_cp5520_series-pcl3.ppd"
           Attribute "Product" "" "(HP Color LaserJet cp5520 Series Printer)"
@@ -20268,7 +20427,7 @@ Group "RLT/HP Real Life Technologies"
         {
           ModelName "HP Color LaserJet cm2320 MFP"
           Attribute "NickName" "" "HP Color LaserJet cm2320 MFP pcl3, hpcups $Version"
-          Attribute "ShortNickName" "" "HP Color LaserJet cm2320 MFP hpijs"
+          Attribute "ShortNickName" "" "HP CJ LJ cm2320 MFP hpijs"
           Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet cm2320 mfp;DES:hp color laserjet cm2320 mfp;"
           PCFileName "hp-color_laserjet_cm2320_mfp-pcl3.ppd"
           Attribute "Product" "" "(HP Color LaserJet cm2320 Multifunction Printer)"
@@ -20276,7 +20435,7 @@ Group "RLT/HP Real Life Technologies"
         {
           ModelName "HP Color LaserJet cm2320fxi MFP"
           Attribute "NickName" "" "HP Color LaserJet cm2320fxi MFP pcl3, hpcups $Version"
-          Attribute "ShortNickName" "" "HP Color LaserJet cm2320fxi MFP hpijs"
+          Attribute "ShortNickName" "" "HP CJ LJ cm2320fxi MFP hpijs"
           Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet cm2320fxi mfp;DES:hp color laserjet cm2320fxi mfp;"
           PCFileName "hp-color_laserjet_cm2320fxi_mfp-pcl3.ppd"
           Attribute "Product" "" "(HP Color LaserJet cm2320fxi Multifunction Printer)"
@@ -20284,7 +20443,7 @@ Group "RLT/HP Real Life Technologies"
         {
           ModelName "HP Color LaserJet cm2320n MFP"
           Attribute "NickName" "" "HP Color LaserJet cm2320n MFP pcl3, hpcups $Version"
-          Attribute "ShortNickName" "" "HP Color LaserJet cm2320n MFP hpijs"
+          Attribute "ShortNickName" "" "HP CJ LJ cm2320n MFP hpijs"
           Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet cm2320n mfp;DES:hp color laserjet cm2320n mfp;"
           PCFileName "hp-color_laserjet_cm2320n_mfp-pcl3.ppd"
           Attribute "Product" "" "(HP Color LaserJet cm2320n Multifunction Printer)"
@@ -20292,7 +20451,7 @@ Group "RLT/HP Real Life Technologies"
         {
           ModelName "HP Color LaserJet cm2320nf MFP"
           Attribute "NickName" "" "HP Color LaserJet cm2320nf MFP pcl3, hpcups $Version"
-          Attribute "ShortNickName" "" "HP Color LaserJet cm2320nf MFP hpijs"
+          Attribute "ShortNickName" "" "HP CJ LJ cm2320nf MFP hpijs"
           Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet cm2320nf mfp;DES:hp color laserjet cm2320nf mfp;"
           PCFileName "hp-color_laserjet_cm2320nf_mfp-pcl3.ppd"
           Attribute "Product" "" "(HP Color LaserJet cm2320nf Multifunction Printer)"
@@ -20409,19 +20568,12 @@ Group "RLT/HP Real Life Technologies"
         Attribute "Product" "" "(HP Color LaserJet 9500hdn Printer)"
         Attribute "Product" "" "(HP Color LaserJet 9500gp Printer)"
         Attribute "Product" "" "(HP Color LaserJet 9500 Printer)"
-      }
-      {
-        ModelName "HP Color LaserJet 9500 MFP"
-        Attribute "NickName" "" "HP Color LaserJet 9500 MFP pcl3, hpcups $Version"
-        Attribute "ShortNickName" "" "HP Color LaserJet 9500 MFP hpijs"
-        Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet 9500 mfp;DES:hp color laserjet 9500 mfp;"
-        PCFileName "hp-color_laserjet_9500_mfp-pcl3.ppd"
         Attribute "Product" "" "(HP Color LaserJet 9500 Multifunction Printer)"
       }
       {
         ModelName "HP Color LaserJet cm6030 MFP"
         Attribute "NickName" "" "HP Color LaserJet cm6030 MFP pcl3, hpcups $Version"
-        Attribute "ShortNickName" "" "HP Color LaserJet cm6030 MFP hpijs"
+        Attribute "ShortNickName" "" "HP CJ LJ cm6030 MFP hpijs"
         Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet cm6030 mfp;DES:hp color laserjet cm6030 mfp;"
         PCFileName "hp-color_laserjet_cm6030_mfp-pcl3.ppd"
         Attribute "Product" "" "(HP Color LaserJet cm6030 Multifunction Printer)"
@@ -20430,7 +20582,7 @@ Group "RLT/HP Real Life Technologies"
       {
         ModelName "HP Color LaserJet cm6040 MFP"
         Attribute "NickName" "" "HP Color LaserJet cm6040 MFP, hpcups $Version"
-        Attribute "ShortNickName" "" "HP Color LaserJet cm6040 MFP hpijs"
+        Attribute "ShortNickName" "" "HP CJ LJ cm6040 MFP hpijs"
         Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet cm6040 mfp;DES:hp color laserjet cm6040 mfp;"
         PCFileName "hp-color_laserjet_cm6040_mfp.ppd"
         Attribute "Product" "" "(HP Color LaserJet cm6040 Multifunction Printer)"
@@ -20440,7 +20592,7 @@ Group "RLT/HP Real Life Technologies"
       {
         ModelName "HP Color LaserJet cm6049 MFP"
         Attribute "NickName" "" "HP Color LaserJet cm6049 MFP, hpcups $Version"
-        Attribute "ShortNickName" "" "HP Color LaserJet cm6049 MFP hpijs"
+        Attribute "ShortNickName" "" "HP CJ LJ cm6049 MFP hpijs"
         Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet cm6049 mfp;DES:hp color laserjet cm6049 mfp;"
         PCFileName "hp-color_laserjet_cm6049_mfp.ppd"
         Attribute "Product" "" "(HP Color LaserJet cm6049 MFP)"
@@ -21335,7 +21487,6 @@ Group "RLT/HP Real Life Technologies"
         Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet 670;DES:deskjet 670;"
         PCFileName "hp-deskjet_670.ppd"
         Attribute "Product" "" "(HP Deskjet 670k Printer)"
-        Attribute "Product" "" "(HP Deskjet 670c Printer)"
       }
       {
         ModelName "HP Deskjet 670c"
@@ -21599,20 +21750,12 @@ Group "RLT/HP Real Life Technologies"
       Attribute "Product" "" "(HP Deskjet 648c Printer)"
     }
     {
-      ModelName "HP Deskjet 690"
-      Attribute "NickName" "" "HP Deskjet 690, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Deskjet 690 hpijs"
-      Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet 690;DES:deskjet 690;"
-      PCFileName "hp-deskjet_690.ppd"
-      Attribute "Product" "" "(HP Deskjet 690c Printer)"
-      Attribute "Product" "" "(HP Deskjet 690c Plus Printer)"
-    }
-    {
       ModelName "HP Deskjet 690c"
       Attribute "NickName" "" "HP Deskjet 690c, hpcups $Version"
       Attribute "ShortNickName" "" "HP Deskjet 690c hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet 690c;DES:deskjet 690c;"
       PCFileName "hp-deskjet_690c.ppd"
+      Attribute "Product" "" "(HP Deskjet 690 Printer)"
       Attribute "Product" "" "(HP Deskjet 690c Plus Printer)"
       Attribute "Product" "" "(HP Deskjet 690c Printer)"
     }
@@ -22367,7 +22510,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP Officejet Pro 1170c Series"
       Attribute "NickName" "" "HP Officejet Pro 1170c Series, hpcups $Version"
-      Attribute "ShortNickName" "" "HP Officejet Pro 1170c Series hpijs"
+      Attribute "ShortNickName" "" "HP OJ Pro 1170c Series hpijs"
       Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet pro 1170c series;DES:officejet pro 1170c series;"
       PCFileName "hp-officejet_pro_1170c_series.ppd"
       Attribute "Product" "" "(HP Officejet Pro 1170c All-in-one Printer)"
@@ -22635,7 +22778,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional m1132 MFP"
       Attribute "NickName" "" "HP LaserJet Professional m1132 MFP, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "hp_laserjet_professional_m1132_ hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro m1132 MFP hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1132 mfp;DES:hp laserjet professional m1132 mfp;"
       PCFileName "hp-laserjet_professional_m1132_mfp.ppd"
       Attribute "Product" "" "(HP LaserJet Professional m1132 Multifunction Printer)"
@@ -22644,7 +22787,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional m1136 MFP"
       Attribute "NickName" "" "HP LaserJet Professional m1136 MFP, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "hp_laserjet_professional_m1136_ hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro m1136 MFP hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1136 mfp;DES:hp laserjet professional m1136 mfp;"
       PCFileName "hp-laserjet_professional_m1136_mfp.ppd"
       Attribute "Product" "" "(HP LaserJet Professional m1136 Multifunction Printer)"
@@ -22652,7 +22795,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional m1137 MFP"
       Attribute "NickName" "" "HP LaserJet Professional m1137 MFP, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "hp_laserjet_professional_m1137_ hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro m1137 MFP hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1137 mfp;DES:hp laserjet professional m1137 mfp;"
       PCFileName "hp-laserjet_professional_m1137_mfp.ppd"
       Attribute "Product" "" "(HP LaserJet Professional m1137 Multifunction Printer)"
@@ -22660,7 +22803,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional m1138 MFP"
       Attribute "NickName" "" "HP LaserJet Professional m1138 MFP, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "hp_laserjet_professional_m1138_ hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro m1138 MFP hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1138 mfp;DES:hp laserjet professional m1138 mfp;"
       PCFileName "hp-laserjet_professional_m1138_mfp.ppd"
       Attribute "Product" "" "(HP LaserJet Professional m1138 Multifunction Printer)"
@@ -22668,7 +22811,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional m1139 MFP"
       Attribute "NickName" "" "HP LaserJet Professional m1139 MFP, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "hp_laserjet_professional_m1139_ hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro m1139 MFP hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1139 mfp;DES:hp laserjet professional m1139 mfp;"
       PCFileName "hp-laserjet_professional_m1139_mfp.ppd"
       Attribute "Product" "" "(HP LaserJet Professional m1139 Multifunction Printer)"
@@ -22676,7 +22819,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional m1212nf MFP"
       Attribute "NickName" "" "HP LaserJet Professional m1212nf MFP, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "hp_laserjet_professional_m1212n hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro m1212nf MFP hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1212nf mfp;DES:hp laserjet professional m1212nf mfp;"
       PCFileName "hp-laserjet_professional_m1212nf_mfp.ppd"
       Attribute "Product" "" "(HP LaserJet Professional m1212nf Multifunction Printer)"
@@ -22684,7 +22827,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional m1213nf MFP"
       Attribute "NickName" "" "HP LaserJet Professional m1213nf MFP, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "hp_laserjet_professional_m1213n hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro m1213nf MFP hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1213nf mfp;DES:hp laserjet professional m1213nf mfp;"
       PCFileName "hp-laserjet_professional_m1213nf_mfp.ppd"
       Attribute "Product" "" "(HP LaserJet Professional m1213nf Multifunction Printer)"
@@ -22692,7 +22835,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional m1214nfh MFP"
       Attribute "NickName" "" "HP LaserJet Professional m1214nfh MFP, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "hp_laserjet_professional_m1214n hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro m1214nfh MFP hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1214nfh mfp;DES:hp laserjet professional m1214nfh mfp;"
       PCFileName "hp-laserjet_professional_m1214nfh_mfp.ppd"
       Attribute "Product" "" "(HP LaserJet Professional m1214nfh Multifunction Printer)"
@@ -22700,7 +22843,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional m1216nfh MFP"
       Attribute "NickName" "" "HP LaserJet Professional m1216nfh MFP, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "hp_laserjet_professional_m1216n hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro m1216nfh MFP hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1216nfh mfp;DES:hp laserjet professional m1216nfh mfp;"
       PCFileName "hp-laserjet_professional_m1216nfh_mfp.ppd"
       Attribute "Product" "" "(HP LaserJet Professional m1216nfh MFP)"
@@ -22708,7 +22851,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional m1217nfw MFP"
       Attribute "NickName" "" "HP LaserJet Professional m1217nfw MFP, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "hp_laserjet_professional_m1217n hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro m1217nfw MFP hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1217nfw mfp;DES:hp laserjet professional m1217nfw mfp;"
       PCFileName "hp-laserjet_professional_m1217nfw_mfp.ppd"
       Attribute "Product" "" "(HP LaserJet Professional m1217nfw Multifunction Printer)"
@@ -22716,7 +22859,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional m1218nfg MFP"
       Attribute "NickName" "" "HP LaserJet Professional m1218nfg MFP, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "hp_laserjet_professional_m1218n hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro m1218nfg MFP hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1218nfg mfp;DES:hp laserjet professional m1218nfg mfp;"
       PCFileName "hp-laserjet_professional_m1218nfg_mfp.ppd"
       Attribute "Product" "" "(HP LaserJet m1210 MFP Series)"
@@ -22724,7 +22867,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional m1218nfs MFP"
       Attribute "NickName" "" "HP LaserJet Professional m1218nfs MFP, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "hp_laserjet_professional_m1218n hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro m1218nfs MFP hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1218nfs mfp;DES:hp laserjet professional m1218nfs mfp;"
       PCFileName "hp-laserjet_professional_m1218nfs_mfp.ppd"
       Attribute "Product" "" "(HP Hotspot LaserJet Pro m1218nfs MFP)"
@@ -22732,7 +22875,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional m1219nf MFP"
       Attribute "NickName" "" "HP LaserJet Professional m1219nf MFP, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "hp_laserjet_professional_m1219n hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro m1219nf MFP hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1219nf mfp;DES:hp laserjet professional m1219nf mfp;"
       PCFileName "hp-laserjet_professional_m1219nf_mfp.ppd"
       Attribute "Product" "" "(HP LaserJet Professional m1219nf MFP)"
@@ -22740,38 +22883,30 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional m1219nfg MFP"
       Attribute "NickName" "" "HP LaserJet Professional m1219nfg MFP, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "hp_laserjet_professional_m1219n hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro m1219nfg MFP hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1219nfg mfp;DES:hp laserjet professional m1219nfg mfp;"
       PCFileName "hp-laserjet_professional_m1219nfg_mfp.ppd"
     }
     {
       ModelName "HP LaserJet Professional m1219nfs MFP"
       Attribute "NickName" "" "HP LaserJet Professional m1219nfs MFP, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "hp_laserjet_professional_m1219n hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro m1219nfs MFP hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1219nfs mfp;DES:hp laserjet professional m1219nfs mfp;"
       PCFileName "hp-laserjet_professional_m1219nfs_mfp.ppd"
     }
     {
       ModelName "HP LaserJet Professional p1102"
       Attribute "NickName" "" "HP LaserJet Professional p1102, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "HP LaserJet Professional p1102 hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro p1102 hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1102;DES:hp laserjet professional p1102;"
       PCFileName "hp-laserjet_professional_p1102.ppd"
       Attribute "Product" "" "(HP LaserJet Professional p1102 Printer)"
       Attribute "Product" "" "(HP LaserJet Professional p1102s Printer)"
     }
     {
-      ModelName "HP LaserJet Professional p1102w"
-      Attribute "NickName" "" "HP LaserJet Professional p1102w, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "HP LaserJet Professional p1102w hpijs"
-      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1102w;DES:hp laserjet professional p1102w;"
-      PCFileName "hp-laserjet_professional_p1102w.ppd"
-      Attribute "Product" "" "(HP LaserJet Professional p1102w Printer)"
-    }
-    {
       ModelName "HP LaserJet Professional p1106"
       Attribute "NickName" "" "HP LaserJet Professional p1106, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "HP LaserJet Professional p1106 hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro p1106 hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1106;DES:hp laserjet professional p1106;"
       PCFileName "hp-laserjet_professional_p1106.ppd"
       Attribute "Product" "" "(HP LaserJet Professional p1106 Printer)"
@@ -22779,7 +22914,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional p1106w"
       Attribute "NickName" "" "HP LaserJet Professional p1106w, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "HP LaserJet Professional p1106w hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro p1106w hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1106w;DES:hp laserjet professional p1106w;"
       PCFileName "hp-laserjet_professional_p1106w.ppd"
       Attribute "Product" "" "(HP LaserJet Professional p1106w Printer)"
@@ -22787,7 +22922,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional p1107"
       Attribute "NickName" "" "HP LaserJet Professional p1107, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "HP LaserJet Professional p1107 hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro p1107 hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1107;DES:hp laserjet professional p1107;"
       PCFileName "hp-laserjet_professional_p1107.ppd"
       Attribute "Product" "" "(HP LaserJet Professional p1107 Printer)"
@@ -22795,7 +22930,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional p1107w"
       Attribute "NickName" "" "HP LaserJet Professional p1107w, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "HP LaserJet Professional p1107w hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro p1107w hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1107w;DES:hp laserjet professional p1107w;"
       PCFileName "hp-laserjet_professional_p1107w.ppd"
       Attribute "Product" "" "(HP LaserJet Professional p1107w Printer)"
@@ -22803,7 +22938,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional p1108"
       Attribute "NickName" "" "HP LaserJet Professional p1108, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "HP LaserJet Professional p1108 hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro p1108 hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1108;DES:hp laserjet professional p1108;"
       PCFileName "hp-laserjet_professional_p1108.ppd"
       Attribute "Product" "" "(HP LaserJet Professional p1108 Printer)"
@@ -22811,7 +22946,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional p1108w"
       Attribute "NickName" "" "HP LaserJet Professional p1108w, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "HP LaserJet Professional p1108w hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro p1108w hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1108w;DES:hp laserjet professional p1108w;"
       PCFileName "hp-laserjet_professional_p1108w.ppd"
       Attribute "Product" "" "(HP LaserJet Professional p1108w Printer)"
@@ -22819,7 +22954,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional p1109"
       Attribute "NickName" "" "HP LaserJet Professional p1109, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "HP LaserJet Professional p1109 hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro p1109 hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1109;DES:hp laserjet professional p1109;"
       PCFileName "hp-laserjet_professional_p1109.ppd"
       Attribute "Product" "" "(HP LaserJet Professional p1109 Printer)"
@@ -22827,7 +22962,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional p1109w"
       Attribute "NickName" "" "HP LaserJet Professional p1109w, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "HP LaserJet Professional p1109w hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro p1109w hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1109w;DES:hp laserjet professional p1109w;"
       PCFileName "hp-laserjet_professional_p1109w.ppd"
       Attribute "Product" "" "(HP LaserJet Professional p1109w Printer)"
@@ -22835,7 +22970,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional p1566"
       Attribute "NickName" "" "HP LaserJet Professional p1566, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "HP LaserJet Professional p1566 hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro p1566 hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1566;DES:hp laserjet professional p1566;"
       PCFileName "hp-laserjet_professional_p1566.ppd"
       Attribute "Product" "" "(HP LaserJet Professional p1566)"
@@ -22843,7 +22978,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional p1567"
       Attribute "NickName" "" "HP LaserJet Professional p1567, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "HP LaserJet Professional p1567 hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro p1567 hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1567;DES:hp laserjet professional p1567;"
       PCFileName "hp-laserjet_professional_p1567.ppd"
       Attribute "Product" "" "(HP LaserJet Professional p1567)"
@@ -22851,7 +22986,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional p1568"
       Attribute "NickName" "" "HP LaserJet Professional p1568, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "HP LaserJet Professional p1568 hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro p1568 hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1568;DES:hp laserjet professional p1568;"
       PCFileName "hp-laserjet_professional_p1568.ppd"
       Attribute "Product" "" "(HP LaserJet Professional p1568)"
@@ -22859,7 +22994,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional p1569"
       Attribute "NickName" "" "HP LaserJet Professional p1569, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "HP LaserJet Professional p1569 hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro p1569 hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1569;DES:hp laserjet professional p1569;"
       PCFileName "hp-laserjet_professional_p1569.ppd"
       Attribute "Product" "" "(HP LaserJet Professional p1569)"
@@ -22867,7 +23002,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional p 1102w"
       Attribute "NickName" "" "HP LaserJet Professional p 1102w, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "hp_laserjet_professional_p_1102 hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro p 1102w hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p 1102w;DES:hp laserjet professional p 1102w;"
       PCFileName "hp-laserjet_professional_p_1102w.ppd"
       Attribute "Product" "" "(HP LaserJet Professional p 1102w Printer)"
@@ -22998,7 +23133,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional p1606dn"
       Attribute "NickName" "" "HP LaserJet Professional p1606dn, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "hp_laserjet_professional_p1606d hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro p1606dn hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1606dn;DES:hp laserjet professional p1606dn;"
       PCFileName "hp-laserjet_professional_p1606dn.ppd"
       Attribute "Product" "" "(HP LaserJet Professional p1606dn Printer)"
@@ -23006,7 +23141,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional p1607dn"
       Attribute "NickName" "" "HP LaserJet Professional p1607dn, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "hp_laserjet_professional_p1607d hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro p1607dn hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1607dn;DES:hp laserjet professional p1607dn;"
       PCFileName "hp-laserjet_professional_p1607dn.ppd"
       Attribute "Product" "" "(HP LaserJet Professional p1607dn Printer)"
@@ -23014,7 +23149,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional p1608dn"
       Attribute "NickName" "" "HP LaserJet Professional p1608dn, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "hp_laserjet_professional_p1608d hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro p1608dn hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1608dn;DES:hp laserjet professional p1608dn;"
       PCFileName "hp-laserjet_professional_p1608dn.ppd"
       Attribute "Product" "" "(HP LaserJet Professional p1608dn Printer)"
@@ -23022,7 +23157,7 @@ Group "RLT/HP Real Life Technologies"
     {
       ModelName "HP LaserJet Professional p1609dn"
       Attribute "NickName" "" "HP LaserJet Professional p1609dn, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "hp_laserjet_professional_p1609d hpijs"
+      Attribute "ShortNickName" "" "HP LJ Pro p1609dn hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1609dn;DES:hp laserjet professional p1609dn;"
       PCFileName "hp-laserjet_professional_p1609dn.ppd"
       Attribute "Product" "" "(HP LaserJet Professional p1609dn Printer)"
@@ -23202,22 +23337,6 @@ Group "RLT/HP Real Life Technologies"
       PCFileName "hp-laserjet_cp1025nw.ppd"
       Attribute "Product" "" "(HP LaserJet Pro cp1025nw Color Printer Series)"
     }
-    {
-      ModelName "HP LaserJet Cp 1025"
-      Attribute "NickName" "" "HP LaserJet Cp 1025, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "HP LaserJet Cp 1025 hpijs"
-      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet cp 1025;DES:hp laserjet cp 1025;"
-      PCFileName "hp-laserjet_cp_1025.ppd"
-      Attribute "Product" "" "(HP LaserJet Pro Cp 1025 Color Printer Series)"
-    }
-    {
-      ModelName "HP LaserJet Cp 1025nw"
-      Attribute "NickName" "" "HP LaserJet Cp 1025nw, hpcups $Version, requires proprietary plugin"
-      Attribute "ShortNickName" "" "HP LaserJet Cp 1025nw hpijs"
-      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet cp 1025nw;DES:hp laserjet cp 1025nw;"
-      PCFileName "hp-laserjet_cp_1025nw.ppd"
-      Attribute "Product" "" "(HP LaserJet Pro Cp 1025nw Color Printer Series)"
-    }
   }
 } // End LJZjsColor (for proprietary plugin)
 
@@ -23348,7 +23467,7 @@ Group "RLT/HP Real Life Technologies"
      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet m14-m17;DES:hp laserjet m14-m17;"
      PCFileName "hp-laserjet_m14-m17.ppd"
      Attribute "Product" "" "(HP LaserJet Pro m15w)"
-     Attribute "Product" "" "(HP LaserJet Pro m14w )"
+     Attribute "Product" "" "(HP LaserJet Pro m14w)"
      Attribute "Product" "" "(HP LaserJet Pro m17w)"
      Attribute "Product" "" "(HP LaserJet Pro m16w)"
      Attribute "Product" "" "(HP LaserJet Pro m14cw)"
@@ -23380,7 +23499,7 @@ Group "RLT/HP Real Life Technologies"
      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet mfp m28-m31;DES:hp laserjet mfp m28-m31;"
      PCFileName "hp-laserjet_mfp_m28-m31.ppd"
      Attribute "Product" "" "(HP LaserJet Pro MFP m28w)"
-     Attribute "Product" "" "(HP LaserJet Pro MFP m30w )"
+     Attribute "Product" "" "(HP LaserJet Pro MFP m30w)"
      Attribute "Product" "" "(HP LaserJet Pro MFP m31w)"
      Attribute "Product" "" "(HP LaserJet Pro MFP m29w)"
      Attribute "Product" "" "(HP LaserJet Pro MFP m30cw)"
@@ -23397,7 +23516,7 @@ Group "RLT/HP Real Life Technologies"
    {
      ModelName "HP LaserJet Pro MFP m125nr"
      Attribute "NickName" "" "HP LaserJet Pro MFP m125nr, hpcups $Version"
-     Attribute "ShortNickName" "" "HP LaserJet Pro MFP m125nr hpijs"
+     Attribute "ShortNickName" "" "HP LJ Pro MFP m125nr hpijs"
      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet pro mfp m125nr;DES:hp laserjet pro mfp m125nr;"
      PCFileName "hp-laserjet_pro_mfp_m125nr.ppd"
      Attribute "Product" "" "(HP LaserJet Pro MFP m125nr)"
@@ -23405,7 +23524,7 @@ Group "RLT/HP Real Life Technologies"
    {
      ModelName "HP LaserJet Pro MFP m125nw"
      Attribute "NickName" "" "HP LaserJet Pro MFP m125nw, hpcups $Version"
-     Attribute "ShortNickName" "" "HP LaserJet Pro MFP m125nw hpijs"
+     Attribute "ShortNickName" "" "HP LJ Pro MFP m125nw hpijs"
      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet pro mfp m125nw;DES:hp laserjet pro mfp m125nw;"
      PCFileName "hp-laserjet_pro_mfp_m125nw.ppd"
      Attribute "Product" "" "(HP LaserJet Pro MFP m125nw)"
@@ -23421,7 +23540,7 @@ Group "RLT/HP Real Life Technologies"
    {
      ModelName "HP LaserJet Pro MFP m125rnw"
      Attribute "NickName" "" "HP LaserJet Pro MFP m125rnw, hpcups $Version"
-     Attribute "ShortNickName" "" "HP LaserJet Pro MFP m125rnw hpijs"
+     Attribute "ShortNickName" "" "HP LJ Pro MFP m125rnw hpijs"
      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet pro mfp m125rnw;DES:hp laserjet pro mfp m125rnw;"
      PCFileName "hp-laserjet_pro_mfp_m125rnw.ppd"
      Attribute "Product" "" "(HP LaserJet Pro MFP m125rnw)"
@@ -23445,7 +23564,7 @@ Group "RLT/HP Real Life Technologies"
    {
      ModelName "HP LaserJet Pro MFP m126nw"
      Attribute "NickName" "" "HP LaserJet Pro MFP m126nw, hpcups $Version"
-     Attribute "ShortNickName" "" "HP LaserJet Pro MFP m126nw hpijs"
+     Attribute "ShortNickName" "" "HP LJ Pro MFP m126nw hpijs"
      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet pro mfp m126nw;DES:hp laserjet pro mfp m126nw;"
      PCFileName "hp-laserjet_pro_mfp_m126nw.ppd"
      Attribute "Product" "" "(HP LaserJet Pro MFP m126nw)"
@@ -23453,7 +23572,7 @@ Group "RLT/HP Real Life Technologies"
    {
      ModelName "HP LaserJet Pro MFP m127fn"
      Attribute "NickName" "" "HP LaserJet Pro MFP m127fn, hpcups $Version"
-     Attribute "ShortNickName" "" "HP LaserJet Pro MFP m127fn hpijs"
+     Attribute "ShortNickName" "" "HP LJ Pro MFP m127fn hpijs"
      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet pro mfp m127fn;DES:hp laserjet pro mfp m127fn;"
      PCFileName "hp-laserjet_pro_mfp_m127fn.ppd"
      Attribute "Product" "" "(HP LaserJet Pro MFP m127fn)"
@@ -23461,7 +23580,7 @@ Group "RLT/HP Real Life Technologies"
    {
      ModelName "HP LaserJet Pro MFP m127fp"
      Attribute "NickName" "" "HP LaserJet Pro MFP m127fp, hpcups $Version"
-     Attribute "ShortNickName" "" "HP LaserJet Pro MFP m127fp hpijs"
+     Attribute "ShortNickName" "" "HP LJ Pro MFP m127fp hpijs"
      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet pro mfp m127fp;DES:hp laserjet pro mfp m127fp;"
      PCFileName "hp-laserjet_pro_mfp_m127fp.ppd"
      Attribute "Product" "" "(HP LaserJet Pro MFP m127fp)"
@@ -23469,7 +23588,7 @@ Group "RLT/HP Real Life Technologies"
    {
      ModelName "HP LaserJet Pro MFP m127fs"
      Attribute "NickName" "" "HP LaserJet Pro MFP m127fs, hpcups $Version"
-     Attribute "ShortNickName" "" "HP LaserJet Pro MFP m127fs hpijs"
+     Attribute "ShortNickName" "" "HP LJ Pro MFP m127fs hpijs"
      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet pro mfp m127fs;DES:hp laserjet pro mfp m127fs;"
      PCFileName "hp-laserjet_pro_mfp_m127fs.ppd"
      Attribute "Product" "" "(HP LaserJet Pro MFP m127fs)"
@@ -23477,7 +23596,7 @@ Group "RLT/HP Real Life Technologies"
    {
      ModelName "HP LaserJet Pro MFP m127fw"
      Attribute "NickName" "" "HP LaserJet Pro MFP m127fw, hpcups $Version"
-     Attribute "ShortNickName" "" "HP LaserJet Pro MFP m127fw hpijs"
+     Attribute "ShortNickName" "" "HP LJ Pro MFP m127fw hpijs"
      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet pro mfp m127fw;DES:hp laserjet pro mfp m127fw;"
      PCFileName "hp-laserjet_pro_mfp_m127fw.ppd"
      Attribute "Product" "" "(HP LaserJet Pro MFP m127fw)"
@@ -23485,7 +23604,7 @@ Group "RLT/HP Real Life Technologies"
    {
      ModelName "HP LaserJet Pro MFP m128fn"
      Attribute "NickName" "" "HP LaserJet Pro MFP m128fn, hpcups $Version"
-     Attribute "ShortNickName" "" "HP LaserJet Pro MFP m128fn hpijs"
+     Attribute "ShortNickName" "" "HP LJ Pro MFP m128fn hpijs"
      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet pro mfp m128fn;DES:hp laserjet pro mfp m128fn;"
      PCFileName "hp-laserjet_pro_mfp_m128fn.ppd"
      Attribute "Product" "" "(HP LaserJet Pro MFP m128fn)"
@@ -23493,7 +23612,7 @@ Group "RLT/HP Real Life Technologies"
    {
      ModelName "HP LaserJet Pro MFP m128fp"
      Attribute "NickName" "" "HP LaserJet Pro MFP m128fp, hpcups $Version"
-     Attribute "ShortNickName" "" "HP LaserJet Pro MFP m128fp hpijs"
+     Attribute "ShortNickName" "" "HP LJ Pro MFP m128fp hpijs"
      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet pro mfp m128fp;DES:hp laserjet pro mfp m128fp;"
      PCFileName "hp-laserjet_pro_mfp_m128fp.ppd"
      Attribute "Product" "" "(HP LaserJet Pro MFP m128fp)"
@@ -23501,7 +23620,7 @@ Group "RLT/HP Real Life Technologies"
    {
      ModelName "HP LaserJet Pro MFP m128fw"
      Attribute "NickName" "" "HP LaserJet Pro MFP m128fw, hpcups $Version"
-     Attribute "ShortNickName" "" "HP LaserJet Pro MFP m128fw hpijs"
+     Attribute "ShortNickName" "" "HP LJ Pro MFP m128fw hpijs"
      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet pro mfp m128fw;DES:hp laserjet pro mfp m128fw;"
      PCFileName "hp-laserjet_pro_mfp_m128fw.ppd"
      Attribute "Product" "" "(HP LaserJet Pro MFP m128fw)"
@@ -23549,7 +23668,7 @@ Group "RLT/HP Real Life Technologies"
    {
      ModelName "HP LaserJet Pro MFP m27cnw"
      Attribute "NickName" "" "HP LaserJet Pro MFP m27cnw, hpcups $Version"
-     Attribute "ShortNickName" "" "HP LaserJet Pro MFP m27cnw hpijs"
+     Attribute "ShortNickName" "" "HP LJ Pro MFP m27cnw hpijs"
      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet pro mfp m27cnw;DES:hp laserjet pro mfp m27cnw;"
      PCFileName "hp-laserjet_pro_mfp_m27cnw.ppd"
      Attribute "Product" "" "(HP LaserJet Pro MFP m27cnw)"
@@ -23667,7 +23786,7 @@ Group "RLT/HP Real Life Technologies"
    {
      ModelName "HP Color LaserJet Pro MFP m176n"
      Attribute "NickName" "" "HP Color LaserJet Pro MFP m176n, hpcups $Version"
-     Attribute "ShortNickName" "" "HP Color LaserJet Pro MFP m176n hpijs"
+     Attribute "ShortNickName" "" "HP CJ LJ Pro MFP m176n hpijs"
      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet pro mfp m176n;DES:hp color laserjet pro mfp m176n;"
      PCFileName "hp-color_laserjet_pro_mfp_m176n.ppd"
      Attribute "Product" "" "(HP Color LaserJet Pro Mpf m176n)"
@@ -23675,7 +23794,7 @@ Group "RLT/HP Real Life Technologies"
    {
      ModelName "HP Color LaserJet Pro MFP m177fw"
      Attribute "NickName" "" "HP Color LaserJet Pro MFP m177fw, hpcups $Version"
-     Attribute "ShortNickName" "" "hp_color_laserjet_pro_mfp_m177f hpijs"
+     Attribute "ShortNickName" "" "HP CJ LJ Pro MFP m177fw hpijs"
      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet pro mfp m177fw;DES:hp color laserjet pro mfp m177fw;"
      PCFileName "hp-color_laserjet_pro_mfp_m177fw.ppd"
      Attribute "Product" "" "(HP Color LaserJet Pro Mpf m177fw)"
@@ -24146,6 +24265,7 @@ Group "RLT/HP Real Life Technologies"
     }
   } // End Supported media sizes.
 } // End LJP1XXX (monochrome, for proprietary plugin)
+
 
 } // End Manufacturer "HP"
 

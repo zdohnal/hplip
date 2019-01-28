@@ -188,7 +188,7 @@ class Password(object):
 
         return password
 
-    def __password_check(self, cmd, timeout=1):
+    def __password_check(self, cmd, timeout=10):
         import io
         output = io.StringIO()
         ok, ret = False, ''

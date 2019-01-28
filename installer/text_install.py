@@ -194,19 +194,27 @@ def start(language, auto=True, test_depends=False,
 
         if core.distro_name.lower() == 'manjarolinux':
             # Workaround to install Manjaro dependency package.
-            #print("Installing libidn")
-            cmd2 = 'sudo pacman -Sy --force --noconfirm libidn'
+            log.debug("Installing libidn")
+            if core.distro_version < '18.0':
+                cmd2 = 'sudo pacman -Sy --force --noconfirm libidn'
+            else:
+                cmd2 = 'sudo pacman -Sy --noconfirm libidn'
             if os_utils.execute(cmd2) != 0:
                 log.warning("Missing ghost script dependency,installation may fail")
-            #print("Installing libjpeg-turbo")
-            cmd = 'sudo pacman -Sy --force --noconfirm libjpeg-turbo'
+            log.debug("Installing libjpeg-turbo")
+            if core.distro_version < '18.0':
+                cmd = 'sudo pacman -Sy --force --noconfirm libjpeg-turbo'
+            else:
+                cmd = 'sudo pacman -Sy --noconfirm libjpeg-turbo'
             if os_utils.execute(cmd) != 0:
                 log.warning("Missing libjpeg-turbo dependency,installation may fail")
-            #print("Installing ghostscript")
-            cmd1 = 'sudo pacman -Sy --force --noconfirm ghostscript'
+            log.debug("Installing ghostscript")
+            if core.distro_version < '18.0':
+                cmd1 = 'sudo pacman -Sy --force --noconfirm ghostscript'
+            else:
+                cmd1 = 'sudo pacman -Sy --noconfirm ghostscript'
             if os_utils.execute(cmd1) != 0:
                 log.warning("Missing ghost script dependency,installation may fail")
-	
 
         if distro_alternate_version:
             core.distro_version = distro_alternate_version
@@ -1237,16 +1245,25 @@ def start(language, auto=True, test_depends=False,
 
             if core.distro_name.lower() == 'manjarolinux':
                 # Workaround to install Manjaro dependency package.
-                #print("Installing libidn")
-                cmd2 = 'sudo pacman -Sy --force --noconfirm libidn'
+                log.debug("Installing libidn")
+                if core.distro_version < '18.0':
+                    cmd2 = 'sudo pacman -Sy --force --noconfirm libidn'
+                else:
+                    cmd2 = 'sudo pacman -Sy --noconfirm libidn'
                 if os_utils.execute(cmd2) != 0:
                     log.warning("Missing ghost script dependency,installation may fail")
-                #print("Installing libjpeg-turbo")
-                cmd = 'sudo pacman -Sy --force --noconfirm libjpeg-turbo'
+                log.debug("Installing libjpeg-turbo")
+                if core.distro_version < '18.0':
+                    cmd = 'sudo pacman -Sy --force --noconfirm libjpeg-turbo'
+                else:
+                    cmd = 'sudo pacman -Sy --noconfirm libjpeg-turbo'
                 if os_utils.execute(cmd) != 0:
                     log.warning("Missing libjpeg-turbo dependency,installation may fail")
-                #print("Installing ghostscript")
-                cmd1 = 'sudo pacman -Sy --force --noconfirm ghostscript'
+                log.debug("Installing ghostscript")
+                if core.distro_version < '18.0':
+                    cmd1 = 'sudo pacman -Sy --force --noconfirm ghostscript'
+                else:
+                    cmd1 = 'sudo pacman -Sy --noconfirm ghostscript'
                 if os_utils.execute(cmd1) != 0:
                     log.warning("Missing ghost script dependency,installation may fail")
 

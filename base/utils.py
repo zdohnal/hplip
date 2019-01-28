@@ -265,7 +265,8 @@ def walkFiles(root, recurse=True, abs_paths=False, return_folders=False, pattern
     try:
         names = os.listdir(root)
     except os.error:
-        raise StopIteration
+       #raise StopIteration
+        return
 
     pattern = pattern or '*'
     pat_list = pattern.split(';')

@@ -44,6 +44,7 @@ from installer import dcheck
 #from .dcheck import *
 threshold = 200     #the average of the darkest values must be _below_ this to count (0 is darkest, 255 is lightest)
 obviousness = 50    #how many of the darkest pixels to include (1 would mean a single dark pixel triggers it)
+punchhole_margin = 190 #the margin considered for the detection of punch hole from the edge of the paper for punch hole removal feature
 
 def rotate_image(image, angle):
     import numpy as np
@@ -174,18 +175,17 @@ def crop_around_center(image, width, height):
 
     return image[y1:y2, x1:x2]
 
-def deskew(im):
+def Deskew_angle1(img):
     import numpy as np
     import cv2
     from PIL import Image
-    median_flag = False
-    '''image=np.array(im)
-    image_height, image_width = image.shape[0:2]
-    
+    import math
+    image=np.array(img)
+    image_height, image_width = image.shape[0:2]                                                  
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     edges = cv2.Canny(gray, 100, 100, apertureSize=3)
     lines = cv2.HoughLinesP(edges, 1, math.pi / 180.0, 100, minLineLength=100, maxLineGap=5)
-
+                                                                                                  
     angles = []
     temp_angles = []
 
@@ -200,83 +200,73 @@ def deskew(im):
     for item in temp_angles:
         if median_angle == abs(item):
             median_angle = item
-    #print(median_angle)
-    if not (median_angle != 90 and median_angle != -90):
+    if (median_angle >= 15 or median_angle <= -15):
+        median_angle = 0
+    return median_angle
+
+def Deskew_angle2(img):
+    import sys
+    import math
+    #import matplotlib.pyplot as plt
+    import numpy as np
+    from PIL import Image as im
+    from scipy.ndimage import interpolation as inter
+
+    #input_file = sys.argv[1]
+
+    #img = im.open("hpscan004.png")
+
+    # convert to binary
+    wd, ht = img.size
+    pix = np.array(img.convert('1').getdata(), np.uint8)
+    bin_img = 1 - (pix.reshape((ht, wd)) / 255.0)
+    #plt.imshow(bin_img, cmap='gray')
+    #plt.savefig('binary.png')
+
+
+    def find_score(arr, angle):
+        data = inter.rotate(arr, angle, reshape=False, order=0)
+        hist = np.sum(data, axis=1)
+        score = np.sum((hist[1:] - hist[:-1]) ** 2)
+        return hist, score
+
+
+    delta = 1
+    limit = 5
+    angles = np.arange(-limit, limit+delta, delta)
+    scores = []
+    for angle in angles:
+        hist, score = find_score(bin_img, angle)
+        scores.append(score)
+ 
+    best_score = max(scores)
+    best_angle = angles[scores.index(best_score)]
+    if best_angle < 0 :
+        best_angle = best_angle - 1
+    else:
+        best_angle = best_angle + 1
+    if (best_angle >= 15 or best_angle <= -15):
+        best_angle = 0
+    return best_angle
+
+def deskew(im):
+    import numpy as np
+    import cv2
+    from PIL import Image
+    import math
+    angle1 = Deskew_angle1(im)
+    angle2 = Deskew_angle2(im)
+    #angle = max([Deskew_angle1(img),Deskew_angle2(img)])
+    if angle1 < 0 and angle2 < 0:
+        angle = min([angle1,angle2])
+    else:
+        angle = max([angle1,angle2])
+    if not (angle != 90 and angle != -90):
         return im
-    if (median_angle >= 45 or median_angle <= -45):
-        return im'''
-    '''# construct the argument parse and parse the arguments
-    ap = argparse.ArgumentParser()
-    ap.add_argument("-i", "--image", required=True,
-	    help="path to input image file")
-    args = vars(ap.parse_args())
-    im=Image.open(args["image"])'''
-    im = mixedfeed(im)
-    #im.save("tmp.png")
-    #im=Image.open("tmp.jpeg")
-    # load the image from disk
-    #image = cv2.imread(args["image"])
-    #img = np.array(im)
-    
-    #image = cv2.imread('tmp.png')
+    if (angle >= 15 or angle <= -15):
+        return im
     image = np.array(im)
     image_height, image_width = image.shape[0:2]
-    # convert the image to grayscale and flip the foreground
-    # and background to ensure foreground is now "white" and
-    # the background is "black"
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    gray = cv2.bitwise_not(gray)
-
-    # threshold the image, setting all foreground pixels to
-    # 255 and all background pixels to 0
-    thresh = cv2.threshold(gray, 0, 255,
-	    cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
-    # grab the (x, y) coordinates of all pixel values that
-    # are greater than zero, then use these coordinates to
-    # compute a rotated bounding box that contains all
-    # coordinates
-    coords = np.column_stack(np.where(thresh > 0))
-    angle = cv2.minAreaRect(coords)[-1]
-    #print (angle)
-    if angle < -45:
-        angle = -(90 + angle)
-    # otherwise, just take the inverse of the angle to make
-    # it positive
-    else:
-        angle = -angle
-    if abs(angle) == 90 or abs(angle) == 0:
-        median_flag = True
-        '''image=np.array(im)
-        image_height, image_width = image.shape[0:2]'''
-    
-        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        edges = cv2.Canny(gray, 100, 100, apertureSize=3)
-        lines = cv2.HoughLinesP(edges, 1, math.pi / 180.0, 100, minLineLength=100, maxLineGap=5)
-
-        angles = []
-        temp_angles = []
-
-        for x1, y1, x2, y2 in lines[0]:
-            angle = math.degrees(math.atan2(y2 - y1, x2 - x1))
-            temp_angles.append(angle)
-            angle = abs(angle)
-            if angle != 0:
-                angles.append(angle)
-        median_angle = min(angles)
-        for item in temp_angles:
-            if median_angle == abs(item):
-                median_angle = item
-        '''if median_angle > 0:
-            median_angle = median_angle + 1
-        else:
-            median_angle = abs(median_angle) + 1
-            median_angle = -(median_angle)'''
-        if not (median_angle != 90 and median_angle != -90):
-            return im
-        if (median_angle >= 45 or median_angle <= -45):
-            return im
-    if median_flag:
-        angle = median_angle
     image_orig = np.copy(image)
     image_rotated = rotate_image(image, angle)
     image_rotated_cropped = crop_around_center(
@@ -356,7 +346,7 @@ def autoorient(im, angle):
 #Auto Crop Code
 def initialcrop(img):    
     w, h = img.size
-    return img.crop((10, 10, w-10, h-10))
+    return img.crop((20, 20, w-20, h-20))
 
 def find_line(vals):
     #implement edge detection once, use many times 
@@ -811,10 +801,10 @@ def dominantcolor(xcord, ycord, radius, img):
 
 
     width, height, channels = img.shape
-    x1 =  (int)(width * 8//100)
-    x2 =  (int)(width - (width * 8//100))
-    y1 =  (int)(height - (height * 8//100))
-    y2 =  (int)(height * 8//100)
+    x1 =  punchhole_margin
+    x2 =  (int)(width - punchhole_margin)
+    y1 =  (int)(height - punchhole_margin)
+    y2 =  punchhole_margin
 
     if((0 < ycord < width) and (0 < xcord < y2)):
         s1 = (xcord+ radius)
@@ -905,17 +895,17 @@ def punchhole_removal(im):
 
     ''' check for punch holes and remove  '''
     
-    max_peaks =  99#maximum number of peaks to be found.
+    max_peaks =  24 #maximum number of peaks to be found. changed from 99 to 24 for reducing the unnecessary punch holes being filled.
 
     img = np.array(im)# Load picture .
     img_rgb = rgba2rgb(img)# convert to RGB
     img_gray = rgb2gray(img_rgb)# convert to gray
     image = img_as_ubyte(img_gray)
     width, height = image.shape
-    x1 =  (int)(width * 8//100)
-    x2 =  (int)(width - (width * 8//100))
-    y1 =  (int)(height - (height * 8//100))
-    y2 =  (int)(height * 8//100)
+    x1 =  punchhole_margin
+    x2 =  (int)(width - punchhole_margin)
+    y1 =  (int)(height - punchhole_margin)
+    y2 =  punchhole_margin
 
     edges = canny(image, 3, 10, 40) # perform canny to detect the edges
     hough_radii = np.arange(31, 34, 1) #get the radius range with step as 1.

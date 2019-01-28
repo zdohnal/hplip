@@ -853,8 +853,15 @@ char CreateTechClassDrv(DRV_DATA drv_data, MODEL_DICT_MAP model_dict, STRING_PAI
                             if(bHpijs)
                               write_data += indent2 + "Attribute \"ShortNickName\" \"\" " + "\"" + model_name + "\"" + "\n";
                             else
-                              write_data += indent2 + "Attribute \"ShortNickName\" \"\" " + "\"" + model_name + " hpijs\"" + "\n";
-
+                            {
+                             string write_data1= "";
+                              write_data1 = model_name + " hpijs";
+                              if(write_data1.length() > 31)
+                              {                              
+                              ShortModelLength(write_data1);                              
+                              }
+                              write_data += indent2 + "Attribute \"ShortNickName\" \"\" " + "\"" + write_data1 + "\"" + "\n";                              
+			     }
                             file_out_pointer << write_data;
                              
                             string pp = matches[len];

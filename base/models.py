@@ -49,7 +49,7 @@ TYPE_URI = TYPE_STR # (7) not used (yet)
 TYPE_DATE = 8  # format: mm/dd/yyyy
 
 
-FAMILY_CLASSES = ["PCL3-Class1","PCL3-Class1A","PCL3-Class1B","PCL3-Class2" , "PCL3-Class3", "PCL3-Class3A","PCL3-Class3B","PCLM","PCL4-Class1","LJ-Class1","LJ-Class2","LJ-Class3","LJ-Class4","LJ-Class4A","LJ-Class5","LJ-Class6"]
+FAMILY_CLASSES = ["PCL3-Class1","PCL3-Class1A","PCL3-Class1B","PCL3-Class2" , "PCL3-Class3", "PCL3-Class3A","PCL3-Class3B","PCLM_COLOR","PCLM_MONO","PCL4-Class1","LJ-Class1","LJ-Class2","LJ-Class3","LJ-Class4","LJ-Class4A","LJ-Class5","LJ-Class6"]
 
 TECH_CLASSES = [
     "Undefined", # This will show an error (and its the default)
@@ -128,7 +128,8 @@ TECH_CLASSES = [
     "SPDOfficejetProBsize",
         "CLE17",
     "Mimas17",
-    "P15_CISS"
+    "P15_CISS",
+    "SPDMainstreamCoreConsumerA"
 ]
 
 TECH_CLASSES.sort()
@@ -204,7 +205,8 @@ TECH_CLASS_PDLS = {
     "SPDOfficejetProBsize" : 'pcl3',
     "CLE17"                : 'pcl3',
     "Mimas17"              : 'pcl3',
-    "P15_CISS"             : 'pcl3'
+    "P15_CISS"             : 'pcl3',
+    "SPDMainstreamCoreConsumerA"    : 'pcl3'
 }
 
 PDL_TYPE_PCL = 0  # less preferred

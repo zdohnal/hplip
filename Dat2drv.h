@@ -6,37 +6,54 @@
 #define MAX_DRV_COUNT                      2
 #define MAX_DIRECTORY_SIZE                 1024
 
-
+#define COLOR                              "Color"
 #define COLOR_LASERJET                     "color laserjet"
 #define LASERJET                           "laserjet"
+#define LASERJET_CAP                       "LaserJet"
 #define PHOTOSMART                         "photosmart"
+#define PHOTOSMART_CAP                     "Photosmart"
 #define DESKJET                            "deskjet"
+#define DESKJET_CAP                        "Deskjet"
 #define COLOR_INKJET_PRINTER               "color inkjet printer"
 #define OFFICEJET                          "officejet"
+#define OFFICEJET_CA                       "Officejet"
 #define BUSINESS_INKJET                    "business inkjet"
 #define DESIGNJET                          "designjet"
 #define PRINTER_SCANNER_COPIER             "printer scanner copier"
 #define COLOR_LJ                           "color lj"
 #define PROFESSIONAL                       "professional"
+#define PROFESSIONAL_CAP                   "Professional"
+#define INKJET                             "Inkjet"
+#define WIRELESS                           "Wireless"
+#define TANK                               "Tank"
 
 
+#define COLOR_REPLACEMENT                  "CL"
 #define COLOR_LASERJET_REPLACEMENT         "CJL"
 #define LASERJET_REPLACEMENT               "LJ"
+#define LASERJET_CAP_REPLACEMENT           "LJ"
 #define PHOTOSMART_REPLACEMENT             "PS"
+#define PHOTOSMART_CAP_REPLACEMENT         "PS"
 #define DESKJET_REPLACEMENT                "DJ"
+#define DESKJET_CAP_REPLACEMENT            "DJ"
 #define COLOR_INKJET_PRINTER_REPLACEMENT   ""
 #define OFFICEJET_REPLACEMENT              "OJ"
+#define OFFICEJET_CAP_REPLACEMENT          "OJ"
 #define BUSINESS_INKJET_REPLACEMENT        "BIJ"
 #define DESIGNJET_REPLACEMENT              "DESIGNJ"
 #define PRINTER_SCANNER_COPIER_REPLACEMENT "PSC"
 #define COLOR_LJ_REPLACEMENT               "CLJ"
 #define PROFESSIONAL_REPLACEMENT           "Pro"
+#define PROFESSIONAL_CAP_REPLACEMENT       "Pro"
+#define INKJET_REPLACEMENT                 "IJ"
+#define WIRELESS_REPLACEMENT               "WL"
+#define TANK_REPLACEMENT                   "TK"
 
 #define POST_SCRIPT                         "Postscript"
 #define PDF                                 "PDF"
 
 
-#define MAX_SHORTENING_REPLACEMENTS         11
+#define MAX_SHORTENING_REPLACEMENTS        20 
 
 /** extern string FAMILY_CLASSES from Models.cpp                     */
 extern string FAMILY_CLASSES[MAX_FAMILY_CLASS];

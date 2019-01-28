@@ -14,7 +14,8 @@ class_cups_ppd_printers = \
    ppd/classppd/hpcups/hp-PCL3-Class3A.ppd.gz \
    ppd/classppd/hpcups/hp-PCL3-Class3B.ppd.gz \
    ppd/classppd/hpcups/hp-PCL4-Class1.ppd.gz \
-   ppd/classppd/hpcups/hp-PCLM.ppd.gz \
+   ppd/classppd/hpcups/hp-PCLM_COLOR.ppd.gz \
+   ppd/classppd/hpcups/hp-PCLM_MONO.ppd.gz \
    ppd/classppd/ps/hp-postscript-inkjet.ppd.gz \
    ppd/classppd/ps/hp-postscript-laserjet-pro.ppd.gz \
    ppd/classppd/ps/hp-postscript-laserjet.ppd.gz

@@ -3077,6 +3077,234 @@ Manufacturer "HP"
 
 }// End CopperheadXLP
 
+
+//////// SPDMainstreamCoreConsumerA
+{
+    Attribute "hpPrinterLanguage" "" "pcl3gui2"
+    Attribute "HPMechOffset" "" "117"
+    Attribute "hpPrinterPlatform" "" "Weber"
+    Attribute "HPSPDClass" "" 1
+
+    Group "General/General"
+
+  Option "ColorModel/Output Mode" PickOne AnySetup 10.0
+    *Choice "RGB/Color" "<</cupsColorSpace 1/cupsBitsPerColor 8/cupsRowStep 0>>setpagedevice"
+    Choice "CMYGray/High Quality Grayscale" "<</cupsColorSpace 1/cupsBitsPerColor 8/cupsRowStep 1>>setpagedevice"
+    Choice "KGray/Black Only Grayscale" "<</cupsColorSpace 1/cupsBitsPerColor 8/cupsRowStep 2>>setpagedevice"
+
+    // cupsMediaType values map to MEDIATYPE from global_types.h
+    Option "MediaType/Media Type" PickOne AnySetup 10.0
+    *Choice "Plain/Plain Paper" "<</cupsMediaType 0>>setpagedevice"
+    Choice "Glossy/HP Photo Papers" "<</cupsMediaType 5>>setpagedevice"
+    Choice "CoatedBrochure/HP Matte Brochure or Professional Paper" "<</cupsMediaType 2>>setpagedevice"
+    Choice "CoatedMatte/HP Matte Presentation Paper" "<</cupsMediaType 2>>setpagedevice"
+    Choice "BrochureGlosy/HP Glossy Brochure or Professional Paper" "<</cupsMediaType 8>>setpagedevice"
+    Choice "FastGlossy/Other photo inkjet papers" "<</cupsMediaType 5>>setpagedevice"
+    Choice "Coated/Other matte inkjet Paper" "<</cupsMediaType 2>>setpagedevice"
+    Choice "Brochure/Other glossy inkjet Paper" "<</cupsMediaType 8>>setpagedevice"
+    Choice "HPTrifoldBrochureGlossy/HP Tri-fold Brochure Glossy 150g" "<</MediaType(HPTrifoldBrochureGlossy)>>setpagedevice"
+    Choice "PlainLight/Plain Paper,Light/Recycled" "<</MediaType(PlainLight)/cupsMediaType 1>>setpagedevice"
+
+
+     // cupsCompression values map to QUALITY_MODE from global_types.h
+    Option "OutputMode/Print Quality" PickOne AnySetup 10.0
+    *Choice "Normal/Normal" "<</OutputType(0)/HWResolution[600 600]>>setpagedevice"
+     Choice "FastDraft/Draft" "<</OutputType(-2)/HWResolution[300 300]>>setpagedevice"
+     Choice "Best/Best" "<</OutputType(1)/HWResolution[600 600]>>setpagedevice"
+
+    Option "InputSlot/Media Source" PickOne AnySetup 10.0
+       *Choice "Upper/Main Tray" "<</MediaPosition 1>>setpagedevice"
+
+     //Constraints
+     //MediaType & OutputMode
+     UIConstraints "*MediaType FastGlossy *OutputMode FastDraft"
+     UIConstraints "*MediaType Glossy *OutputMode FastDraft"
+     UIConstraints "*MediaType CoatedBrochure *OutputMode FastDraft"
+     UIConstraints "*MediaType CoatedMatte *OutputMode FastDraft"
+     UIConstraints "*MediaType Coated *OutputMode FastDraft"
+     UIConstraints "*MediaType BrochureGlosy *OutputMode FastDraft"
+     UIConstraints "*MediaType Brochure *OutputMode FastDraft"
+
+     //PaperSizes & MediaTypes
+     UIConstraints "*PageSize A6.FB *MediaType Plain"
+     UIConstraints "*PageSize Photo3x5.FB *MediaType Plain"
+     UIConstraints "*PageSize Photo4x6.FB *MediaType Plain"
+     UIConstraints "*PageSize Photo2L.FB *MediaType Plain"
+     UIConstraints "*PageSize Photo3x5 *MediaType Plain"
+     UIConstraints "*PageSize Photo4x6 *MediaType Plain"
+     UIConstraints "*PageSize Photo2L *MediaType Plain"
+     UIConstraints "*PageSize Photo5x7 *MediaType Plain"
+     UIConstraints "*PageSize Photo8x10 *MediaType Plain"
+
+     UIConstraints "*PageSize A5 *MediaType FastGlossy"
+     UIConstraints "*PageSize JB5 *MediaType FastGlossy"
+     UIConstraints "*PageSize B5 *MediaType FastGlossy"
+     UIConstraints "*PageSize Executive *MediaType FastGlossy"
+     UIConstraints "*PageSize A4 *MediaType FastGlossy"
+     UIConstraints "*PageSize Letter *MediaType FastGlossy"
+     UIConstraints "*PageSize Legal *MediaType FastGlossy"
+     UIConstraints "*PageSize CardA4 *MediaType FastGlossy"
+     UIConstraints "*PageSize CardLetter *MediaType FastGlossy"
+     UIConstraints "*PageSize Card3x5 *MediaType FastGlossy"
+     UIConstraints "*PageSize Card4x6 *MediaType FastGlossy"
+     UIConstraints "*PageSize Card5x8 *MediaType FastGlossy"
+     UIConstraints "*PageSize 8.5x13 *MediaType FastGlossy"
+     UIConstraints "*PageSize Statement *MediaType FastGlossy"
+
+     UIConstraints "*PageSize EnvChou4 *MediaType FastGlossy"
+     UIConstraints "*PageSize EnvA2 *MediaType FastGlossy"
+     UIConstraints "*PageSize EnvC6 *MediaType FastGlossy"
+     UIConstraints "*PageSize EnvChou3 *MediaType FastGlossy"
+     UIConstraints "*PageSize EnvMonarch *MediaType FastGlossy"
+     UIConstraints "*PageSize Env10 *MediaType FastGlossy"
+     UIConstraints "*PageSize EnvDL *MediaType FastGlossy"
+     UIConstraints "*PageSize EnvC5 *MediaType FastGlossy"
+     UIConstraints "*PageSize Env6 *MediaType FastGlossy"
+
+     UIConstraints "*PageSize A5 *MediaType Glossy"
+     UIConstraints "*PageSize JB5 *MediaType Glossy"
+     UIConstraints "*PageSize B5 *MediaType Glossy"
+     UIConstraints "*PageSize Executive *MediaType Glossy"
+     UIConstraints "*PageSize A4 *MediaType Glossy"
+     UIConstraints "*PageSize Letter *MediaType Glossy"
+     UIConstraints "*PageSize Legal *MediaType Glossy"
+     UIConstraints "*PageSize CardA4 *MediaType Glossy"
+     UIConstraints "*PageSize CardLetter *MediaType Glossy"
+     UIConstraints "*PageSize Card3x5 *MediaType Glossy"
+     UIConstraints "*PageSize Card4x6 *MediaType Glossy"
+     UIConstraints "*PageSize Card5x8 *MediaType Glossy"
+     UIConstraints "*PageSize 8.5x13 *MediaType Glossy"
+     UIConstraints "*PageSize Statement *MediaType Glossy"
+
+     UIConstraints "*PageSize EnvChou4 *MediaType Glossy"
+     UIConstraints "*PageSize EnvA2 *MediaType Glossy"
+     UIConstraints "*PageSize EnvC6 *MediaType Glossy"
+     UIConstraints "*PageSize EnvChou3 *MediaType Glossy"
+     UIConstraints "*PageSize EnvMonarch *MediaType Glossy"
+     UIConstraints "*PageSize Env10 *MediaType Glossy"
+     UIConstraints "*PageSize EnvDL *MediaType Glossy"
+     UIConstraints "*PageSize EnvC5 *MediaType Glossy"
+     UIConstraints "*PageSize Env6 *MediaType Glossy"
+
+    // 4x6 or smaller
+      CustomMedia "Card3x5/Index Card 3x5in" 216 360 8.4 8.4 8.4 8.4 "<</cupsInteger0 78/PageSize [216 360]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 78/PageSize[216 360]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Card4x6/Index Card 4x6in" 288 432 8.4 8.4 8.4 8.4 "<</cupsInteger0 74/PageSize [288 432]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 74/PageSize[288 432]/ImagingBBox null>>setpagedevice"
+      CustomMedia "4x5in/4x5in" 288 360 8.4 8.4 8.4 8.4 "<</cupsInteger0 30002/PageSize [288 360]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 30002/PageSize[288 360]/ImagingBBox null>>setpagedevice"
+      CustomMedia "4x6in/4x6in" 288 432 8.4 8.4 8.4 8.4 "<</cupsInteger0 74/PageSize [288 432]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 74/PageSize[288 432]/ImagingBBox null>>setpagedevice"
+      CustomMedia "4x12in/4x12in" 288 720 8.4 8.4 8.4 8.4 "<</cupsInteger0 30000/PageSize [288 720]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 30000/PageSize[288 720]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Photo3.5x5/Photo 3.5x5in" 252 360 5.76 33.84 5.76 8.64 "<</cupsInteger0 121/PageSize[252 360]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 121/PageSize[252 360]/ImagingBBox null>>setpagedevice"
+
+      CustomMedia "L/L 89x127mm" 252 360 9 9 9 9 "<</cupsInteger0 121/PageSize[252 360]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 121/PageSize[252 360]/ImagingBBox null>>setpagedevice"
+
+      CustomMedia "Photo3x5/Photo 3x5in" 216 360 8.4 8.4 8.4 8.4 "<</cupsInteger0 78/PageSize [216 360]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 78/PageSize[216 360]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Photo3x5.FB/Borderless Photo 3x5in" 216 360 0 0 0 0 "<</cupsInteger0 78/cupsReal0 0/cupsReal1 0/PageSize [216 360]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 78/cupsReal0 0/cupsReal1 0/PageSize[216 360]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Photo4x6/Photo 4x6in" 288 432 8.4 8.4 8.4 8.4 "<</cupsInteger0 74/PageSize[288 432]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 74/PageSize[288 432]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Photo4x6.FB/Borderless Photo 4x6in" 288 432 0 0 0 0 "<</cupsInteger0 74/cupsReal0 0/cupsReal1 0/PageSize[288 432]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 74/cupsReal0 0/cupsReal1 0/PageSize[288 432]/ImagingBBox null>>setpagedevice"
+      CustomMedia "A6/A6 105x148mm" 297.36 419.76 8.4 8.4 8.4 8.4 "<</cupsInteger0 24/PageSize[297.36 419.76]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 24/PageSize[297.36 419.76]/ImagingBBox null>>setpagedevice"
+      CustomMedia "A6.FB/A6 Borderless 105x148mm" 297.36 419.76 0 0 0 0 "<</cupsInteger0 24/PageSize[297.36 419.76]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 24/cupsReal0 0/cupsReal1 0/PageSize[297.36 419.76]/ImagingBBox null>>setpagedevice"
+
+      // 5x7
+      CustomMedia "Photo5x7/Photo 5x7in" 360 504 8.4 8.4 8.4 8.4 "<</cupsInteger0 122/PageSize[360 504]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 122/PageSize[360 504]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Card5x8/Index Card 5x8in" 360 576 8.4 8.4 8.4 8.4 "<</cupsInteger0 75/PageSize[360 576]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 75/PageSize[360 576]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Card5x8.FB/Borderless Index Card 5x8in" 360 576 0 0 0 0 "<</cupsInteger0 75/PageSize[360 576]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 75/cupsReal0 0/cupsReal1 0/PageSize[360 576]/ImagingBBox null>>setpagedevice"
+      CustomMedia "A5/A5 148x210mm" 419.76 595.44 8.4 8.4 8.4 8.4 "<</cupsInteger0 25/PageSize[419.76 595.44]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 25/PageSize[419.76 595.44]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Oufuku/Oufuku-Hagaki 200x148mm" 566.64 419.76 8.4 8.4 8.4 8.4 "<</cupsInteger0 72/PageSize[566.64 419.76]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 72/PageSize[566.64 419.76]/ImagingBBox null>>setpagedevice"
+
+      // Standard
+
+      CustomMedia "Postcard/Postcard" 283 420 8.4 8.4 8.4 8.4 "<</cupsInteger0 71/PageSize[283 420]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 71/PageSize[283 420]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Photo2L/Photo 2L 127x178mm" 360 504 8.4 8.4 8.4 8.4 "<</cupsInteger0 126/PageSize[360 504]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 126/PageSize[360 504]/ImagingBBox null>>setpagedevice"
+      CustomMedia "FLSA/American Foolscap 8.5x13in" 612 936 9 9 9 9 "<</cupsInteger0 10/PageSize[612 936]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 10/PageSize[612 936]/ImagingBBox null>>setpagedevice" 
+      CustomMedia "8.5x13/8.5x13in" 612 936 8.4 8.4 8.4 8.4 "<</cupsInteger0 10/PageSize[612 936]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 10/PageSize[612 936]/ImagingBBox null>>setpagedevice"
+      CustomMedia "B5/B5 176x250mm" 498.96 708.48 8.4 8.4 8.4 8.4 "<</cupsInteger0 101/PageSize[498.96 708.48]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 101/PageSize[498.96 708.48]/ImagingBBox null>>setpagedevice"
+      CustomMedia "JB5/JB5 182x257mm" 516.24 728.64 8.4 8.4 8.4 8.4 "<</cupsInteger0 45/PageSize[516.24 728.64]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 45/PageSize [516.24 728.64]/ImagingBBox null>>setpagedevice"
+      CustomMedia "JB5.FB/JB5 Borderless 182x257mm" 516.24 728.64 0 0 0 0 "<</cupsInteger0 45/PageSize[516.24 728.64]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 45/cupsReal0 0/cupsReal1 0/PageSize [516.24 728.64]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Executive/Executive 7.25x10.5in" 522 756 8.4 8.4 8.4 8.4 "<</cupsInteger0 1/PageSize[522 756]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 1/PageSize[522 756]/ImagingBBox null>>setpagedevice"
+      *CustomMedia "Letter/Letter 8.5x11in" 612 792 8.4 8.4 8.4 8.4 "<</cupsInteger0 2/PageSize[612 792]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 2/PageSize[612 792]/ImagingBBox null>>setpagedevice"
+      CustomMedia "CardLetter/Index Card Letter 8.5x11in" 612 792 8.4 8.4 8.4 8.4 "<</cupsInteger0 2/PageSize[612 792]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 2/PageSize[612 792]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Statement/Statement 5.5x8.5in" 396 612 8.4 8.4 8.4 8.4 "<</cupsInteger0 15/PageSize[396 612]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 15/PageSize[396 612]/ImagingBBox null>>setpagedevice"
+      CustomMedia "A4/A4 210x297mm" 595.44 841.68 8.4 8.4 8.4 8.4 "<</cupsInteger0 26/PageSize[595.44 841.68]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 26/PageSize[595.44 841.68]/ImagingBBox null>>setpagedevice"
+      CustomMedia "CardA4/Index Card A4 210x297mm" 595.44 841.68 8.4 8.4 8.4 8.4 "<</cupsInteger0 26/PageSize[595.44 841.68]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 26/PageSize[595.44 841.68]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Legal/Legal 8.5x14in" 612 1008 8.4 8.4 8.4 8.4 "<</cupsInteger0 3/PageSize[612 1008]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 3/PageSize[612 1008]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Photo2L.FB/Photo 2L Borderless 127x178mm" 360 504 0 0 0 0 "<</cupsInteger0 126/PageSize[360 504]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 126/cupsReal0 0/cupsReal1 0/PageSize[360 504]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Photo8x10/Photo 8x10in" 576 720 8.4 8.4 8.4 8.4 "<</cupsInteger0 7/PageSize[576 720]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 7/PageSize[576 720]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Tabloid/Tabloid " 792 1224 8.4 8.4 8.4 8.4 "<</cupsInteger0 6/PageSize[792 1224]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 6/PageSize[792 1224]/ImagingBBox null>>setpagedevice" 
+      CustomMedia "8x10/8x10in" 576 720 9 36 9 9 "<</cupsInteger0 7/PageSize[576 720]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 7/PageSize[576 720]/ImagingBBox null>>setpagedevice" 
+
+
+
+         // Envelope
+      CustomMedia "EnvA2/A2 Envelope 4.37x5.75in" 314.64 414 8.4 8.4 8.4 8.4 "<</cupsInteger0 109/PageSize[314.64 414]/ImagingBBox null>>setpagedevice"
+             "<</cupsInteger0 109/PageSize[314.64 414]/ImagingBBox null>>setpagedevice"
+      CustomMedia "EnvC6/C6 Envelope 114x162mm" 323.28 459.36 8.4 8.4 8.4 8.4 "<</cupsInteger0 92/PageSize[323.28 459.36]/ImagingBBox null>>setpagedevice"
+             "<</cupsInteger0 92/PageSize[323.28 459.36]/ImagingBBox null>>setpagedevice"
+      CustomMedia "EnvDL/DL Envelope 110x220mm" 311.76 623.52 8.4 8.4 8.4 8.4 "<</cupsInteger0 90/PageSize[311.76 623.52]/ImagingBBox null>>setpagedevice"
+             "<</cupsInteger0 90/PageSize[311.76 623.52]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Env10/#10 Envelope 4.125x9.5in" 297 684 8.4 8.4 8.4 8.4 "<</cupsInteger0 81/PageSize[297 684]/ImagingBBox null>>setpagedevice"
+             "<</cupsInteger0 81/PageSize[297 684]/ImagingBBox null>>setpagedevice"
+      CustomMedia "EnvC5/C5 Envelope 162x229mm" 459.36 649.44 8.4 8.4 8.4 8.4 "<</cupsInteger0 91/PageSize[459.36 649.44]/ImagingBBox null>>setpagedevice"
+             "<</cupsInteger0 91/PageSize[459.36 649.44]/ImagingBBox null>>setpagedevice"
+      CustomMedia "EnvChou3/#3 Japanese Envelope 120x235mm" 339.84 666  9 41 9 9 "<</cupsInteger0 110/PageSize[339.84 666]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 110/PageSize[339.84 666]/ImagingBBox null>>setpagedevice"
+      CustomMedia "EnvChou4/#4 Japanese Envelope 90x205mm" 254.88 581.04 9 41 9 9 "<</cupsInteger0 111/PageSize[254.88 581.04]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 111/PageSize[254.88 581.04]/ImagingBBox null>>setpagedevice"
+      CustomMedia "EnvMonarch/Monarch Envelope 3.875x7.5in" 279 540 18.00 36.00 18.00 9.00 "<</cupsInteger0 80/PageSize[279 540]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 80/PageSize[279 540]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Envelope_No_6_75/Envelope No 6_75" 260.88 468 8.4 8.4 8.4 8.4 "<</cupsInteger0 83/PageSize [260.88 468]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 83/PageSize[260.88 468]/ImagingBBox null>>setpagedevice"
+      CustomMedia "EnvB5/B5 Envelope 176x250mm" 499 709 18.00 36.00 18.00 9.00 "<</cupsInteger0 100/PageSize[499 709]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 100/PageSize[499 709]/ImagingBBox null>>setpagedevice"
+
+    {
+      // Custom page sizes from 1x4in to legal
+      HWMargins 8.4 8.4 8.4 8.4
+      VariablePaperSize Yes
+      MinSize 3in 5in
+      MaxSize 8.5in 14in
+
+
+    }
+
+     // <%SPDMainstreamCoreConsumerA:Normal%>
+
+}// End SPDMainstreamCoreConsumerA
+
 //////// Copperhead12
 {
 
@@ -5707,7 +5935,7 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
 
 } // End PCL3-Class3B
 
-///////////////////// PCLM
+///////////////////// PCLM_COLOR
 {
   Attribute "hpPrinterLanguage" "" "hbpl1"
 
@@ -5758,14 +5986,14 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
     
    // cupsRowCount values map to PEN_TYPE + 1 from global_types.h
     Option "ColorModel/Output Mode" PickOne AnySetup 10.0
-    *Choice "RGB/Color" "<</cupsColorSpace 17/cupsBitsPerColor 8/cupsRowStep 0>>setpagedevice"
-    Choice "KGray/Black Only Grayscale" "<</cupsColorSpace 1/cupsBitsPerColor 8/cupsRowStep 2>>setpagedevice"
-
+    //*Choice "RGB/Color" "<</cupsColorSpace 17/cupsBitsPerColor 8/cupsRowStep 0>>setpagedevice"
+    *Choice "RGB/4-Color" "<</cupsColorSpace 1/cupsBitsPerColor 8/cupsRowCount 3/cupsRowStep 0>>setpagedevice"
+    //Choice "KGray/Black Only Grayscale" "<</cupsColorSpace 1/cupsBitsPerColor 8/cupsRowStep 2>>setpagedevice"
 
     //Print In Grayscale : TODO:-handle in Hbpl1 code
-    Option "Gray/Print in Grayscale" Boolean AnySetup 10.0
-    *Choice "False/Off" "<</cupsInteger3 0>>setpagedevice"
-    Choice "True/On" "<</cupsInteger3 1>>setpagedevice"
+    //Option "Gray/Print in Grayscale" Boolean AnySetup 10.0
+    //*Choice "False/Off" "<</cupsInteger3 0>>setpagedevice"
+    //Choice "True/On" "<</cupsInteger3 1>>setpagedevice"
 
     //cupsCompression values map to QUALITY_MODE from global_types.h
     Option "OutputMode/Print Quality" PickOne AnySetup 10.0
@@ -5801,9 +6029,108 @@ CustomMedia "B5/B5 176x250mm" 498.96 708.48 19.08 14 19.08 14 "<</cupsInteger0 4
      MinSize 3in 5in
      MaxSize 8.5in 14in
 
-    } // <%PCLM%>
+    } // <%PCLM_COLOR%>
 
-} // End PCLM
+} // End PCLM_COLOR
+
+
+///////////////////// PCLM_MONO
+{
+  Attribute "hpPrinterLanguage" "" "hbpl1"
+
+  Group "General/General"
+
+  //MediaPosition
+  Option "InputSlot/Media Source" PickOne AnySetup 10.0
+    Choice "Manual/Manual Feeder" "<</MediaPosition 12>>setpagedevice"
+    *Choice "tray1/Tray1" "<</MediaPosition 19>>setpagedevice"
+
+   //Economode
+    Option "EconoMode/EconoMode" Boolean AnySetup 10.0
+    *Choice "False/Off" "<</cupsInteger2 0>>setpagedevice"
+     Choice "True/On" "<</cupsInteger2 1>>setpagedevice"
+
+   // 4x6 or smaller
+  CustomMedia "A6/A6 105x148mm" 297.36 419.76 14 14 14 14 "<</cupsString0(iso_a6_105x148mm)/PageSize[298 420]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(iso_a6_105x148mm)/PageSize[297.36 419.76]/ImagingBBox null>>setpagedevice"
+    CustomMedia "4x6/4x6" 288 432 14 14 14 14 "<</cupsString0(na_index-4x6_4x6in)/PageSize[288 432]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(na_index-4x6_4x6in)/PageSize [288 432]/ImagingBBox null>>setpagedevice"
+  CustomMedia "Card3x5/Index Card 3x5in" 216 360 14 14 14 14 "<</cupsInteger0 78/PageSize [216 360]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 78/PageSize[216 360]/ImagingBBox null>>setpagedevice"
+
+// 5x7
+  // Standard
+  CustomMedia "Photo5x7/Photo 5x7in" 360 504 14 14 14 14 "<</cupsInteger0 122/PageSize[360 504]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 101/PageSize[360 504]/ImagingBBox null>>setpagedevice"
+  CustomMedia "B5/JB5 182x257mm" 516.24 728.64 14 14 14 14 "<</cupsString0(jis_b5_182x257mm)/PageSize[516 729]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(jis_b5_182x257mm)/PageSize [516.24 728.64]/ImagingBBox null>>setpagedevice"
+  *CustomMedia "Letter/Letter 8.5x11in" 612 792 14 14 14 14 "<</cupsString0(na_letter_8.5x11in)/PageSize[612 792]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(na_letter_8.5x11in)/PageSize[612 792]/ImagingBBox null>>setpagedevice"
+  CustomMedia "A4/A4 210x297mm" 595.44 841.68 14 14 14 14 "<</cupsString0(iso_a4_210x297mm)/PageSize[595 842]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(iso_a4_210x297mm)/PageSize[595.44 841.68]/ImagingBBox null>>setpagedevice"
+  CustomMedia "Legal/Legal 8.5x14in" 612 1008 14 14 14 14 "<</cupsString0(na_legal_8.5x14in)/PageSize[612 1008]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(na_legal_8.5x14in)/PageSize[612 1008]/ImagingBBox null>>setpagedevice"
+  CustomMedia "Postcard/Postcard (JIS)" 283 420 14 14 14 14 "<</cupsString0(jpn_hagaki_100x148mm)/PageSize[283 420]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(jpn_hagaki_100x148mm)/PageSize[283 420]/ImagingBBox null>>setpagedevice"
+// Envelope
+  CustomMedia "EnvMonarch/Monarch Envelope 3.875x7.5in" 279 540 14 14 14 14 "<</cupsString0(na_monarch_3.875x7.5in)/PageSize[279 540]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(na_monarch_3.875x7.5in)/PageSize[279 540]/ImagingBBox null>>setpagedevice"
+  CustomMedia "EnvDL/DL Envelope 110x220mm" 312 624 14 14 14 14 "<</cupsString0(iso_dl_110x220mm)/PageSize[312 624]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(iso_dl_110x220mm)/PageSize[312 624]/ImagingBBox null>>setpagedevice"
+  CustomMedia "Env10/#10 Envelope 4.12x9.5in" 297 684  14 14 14 14 "<</cupsString0(na_number-10_4.125x9.5in)/PageSize[297 684]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(na_number-10_4.125x9.5in)/PageSize[297 684]/ImagingBBox null>>setpagedevice"
+  CustomMedia "EnvC5/C5 Envelope 162x229mm" 459 649 14 14 14 14 "<</cupsString0(iso_c5_162x229mm)/PageSize[459 649]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(iso_c5_162x229mm)/PageSize[459 649]/ImagingBBox null>>setpagedevice"
+    // Custom page sizes from 1x4in to Legal
+    
+    // cupsRowCount values map to PEN_TYPE + 1 from global_types.h
+    Option "ColorModel/Output Mode" PickOne AnySetup 10.0
+    //*Choice "RGB/Color" "<</cupsColorSpace 17/cupsBitsPerColor 8/cupsRowStep 0>>setpagedevice"
+    //*Choice "KGray/Black Only Grayscale" "<</cupsColorSpace 1/cupsBitsPerColor 8/cupsRowStep 2>>setpagedevice"
+    *Choice "KGray/Black Only" "<</cupsColorSpace 1/cupsBitsPerColor 8/cupsRowStep 2>>setpagedevice"
+
+    //Print In Grayscale : TODO:-handle in Hbpl1 code
+    Option "Gray/Print in Grayscale" Boolean AnySetup 10.0
+    *Choice "False/Off" "<</cupsInteger3 0>>setpagedevice"
+    *Choice "True/On" "<</cupsInteger3 1>>setpagedevice"
+
+    //cupsCompression values map to QUALITY_MODE from global_types.h
+    Option "OutputMode/Print Quality" PickOne AnySetup 10.0
+    *Choice "ImageREt2400/ImageREt 2400" "<</OutputType(ImageREt)/HWResolution[600 600]>>setpagedevice"
+
+
+    // cupsMediaType values map to MEDIATYPE from global_types.h
+    Option "MediaType/Media Type" PickOne AnySetup 10.0
+    Choice "HPLaserJet90gsm/HP LaserJet 90g" "<</MediaType(HPLaserJet90gsm)>>setpagedevice"
+    Choice "HPColorLaser105gsm/HP Color Laser Matte 105g" "<</MediaType(HPColorLaser105gsm)>>setpagedevice"
+    Choice "HPPremium_120gsm/HP Premium Choice Matte 120g" "<</MediaType(HPPremium_120gsm)>>setpagedevice"
+    Choice "HPMatte160gsm/HP Brochure Matte 150g" "<</MediaType(HPMatte160gsm)>>setpagedevice"
+    Choice "HPMatteCover200gsm/HP Cover Matte 200g" "<</MediaType(HPMatteCover200gsm)>>setpagedevice"
+    Choice "HPMattePhoto200gsm/HP Matte Photo 200g" "<</MediaType(HPMattePhoto200gsm)>>setpagedevice"
+    Choice "HPGlossy130gsm/HP Premium Presentation Glossy 120g" "<</MediaType(HPGlossy130gsm)>>setpagedevice"
+    Choice "HPGlossy160gsm/HP Brochure Glossy 150g" "<</MediaType(HPGlossy160gsm)>>setpagedevice"
+    Choice "HPTrifoldBrochureGlossy/HP Tri-fold Brochure Glossy 150g" "<</MediaType(HPTrifoldBrochureGlossy)>>setpagedevice"
+    Choice "HPGlossPhoto220gsm/HP Brochure Glossy 200g" "<</MediaType(HPGlossPhoto220gsm)>>setpagedevice"
+    Choice "HPGlossPhoto220gsmFasterPrinting/HP Brochure Glossy 200g (faster printing)" "<</MediaType(HPGlossPhoto220gsmFasterPrinting)>>setpagedevice"
+    Choice "HPGlossPhoto220gsmHigherGloss/HP Brochure Glossy 200g (higher gloss)" "<</MediaType(HPGlossPhoto220gsmHigherGloss)>>setpagedevice"
+    Choice "midweightGlossy/Mid-Weight Glossy 96-110g" "<</MediaType(midweightGlossy)>>setpagedevice"
+    Choice "heavyGlossy/Heavy Glossy 111-130g" "<</MediaType(heavyGlossy)>>setpagedevice"
+    Choice "extraHeavyGloss/Extra Heavy Glossy 131-175g" "<</MediaType(extraHeavyGloss)>>setpagedevice"
+    Choice "cardstockGlossy/Card Glossy 176-220g" "<</MediaType(cardstockGlossy)>>setpagedevice"
+    Choice "transparencyColorLaser/Color Laser Transparency" "<</MediaType(transparencyColorLaser)>>setpagedevice"
+    Choice "heavyEnvelope/Heavy Envelope" "<</MediaType(heavyEnvelope)>>setpagedevice"
+    Choice "heavyRough/Heavy Rough" "<</MediaType(heavyRough)>>setpagedevice"
+    Choice "toughPaper/HP Tough Paper" "<</MediaType(toughPaper)>>setpagedevice"
+    Choice "intermediate/Intermediate 85-95g" "<</MediaType(intermediate)>>setpagedevice"
+    {
+     HWMargins 14 14 14 14
+     VariablePaperSize Yes
+     MinSize 3in 5in
+     MaxSize 8.5in 14in
+
+    } // <%PCLM_MONO%>
+
+} // End PCLM_MONO
 
 ///////////// PCL4-Class1
 {
@@ -16287,6 +16614,7 @@ Group "RLT/HP Real Life Technologies"
     // <%LJP1XXX:Normal%>
   } // End Supported media sizes.
 } // End LJP1XXX (monochrome, for proprietary plugin)
+
 
 } // End Manufacturer "HP"
 
