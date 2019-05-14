@@ -82,6 +82,9 @@
 :model "HP Color LaserJet Managed Flow MFP e67560z"
 :status :good
 
+:model "HP Color LaserJet Managed Flow MFP e67660z"
+:status :good
+
 :model "HP Color LaserJet Managed Flow MFP e77822z"
 :status :good
 
@@ -95,6 +98,21 @@
 :status :good
 
 :model "HP Color LaserJet Managed Flow MFP e87660z"
+:status :good
+
+:model "HP Color LaserJet Managed MFP e67650dh"
+:status :good
+
+:model "HP Color LaserJet Managed MFP e77422a"
+:status :good
+
+:model "HP Color LaserJet Managed MFP e77422dn"
+:status :good
+
+:model "HP Color LaserJet Managed MFP e77422dv"
+:status :good
+
+:model "HP Color LaserJet Managed MFP e77428dn"
 :status :good
 
 :model "HP Color LaserJet Managed MFP e77822dn"
@@ -1426,6 +1444,15 @@
 :model "HP LaserJet m5039 Multifunction Printer"
 :status :good
 
+:model "HP LaserJet Managed Flow MFP e62665h"
+:status :good
+
+:model "HP LaserJet Managed Flow MFP e62665z"
+:status :good
+
+:model "HP LaserJet Managed Flow MFP e62675z"
+:status :good
+
 :model "HP LaserJet Managed Flow MFP e72525z"
 :status :good
 
@@ -1442,6 +1469,12 @@
 :status :good
 
 :model "HP LaserJet Managed Flow MFP e82560z"
+:status :good
+
+:model "HP LaserJet Managed MFP e62655dn"
+:status :good
+
+:model "HP LaserJet Managed MFP e62665hs"
 :status :good
 
 :model "HP LaserJet Managed MFP e72525dn"
@@ -1469,6 +1502,18 @@
 :status :good
 
 :model "HP LaserJet Managed MFP e82560du"
+:status :good
+
+:model "HP LaserJet MFP e72425a"
+:status :good
+
+:model "HP LaserJet MFP e72425dn"
+:status :good
+
+:model "HP LaserJet MFP e72425dv"
+:status :good
+
+:model "HP LaserJet MFP e72430dn"
 :status :good
 
 :model "HP LaserJet Pro 200 Color MFP m276n"
@@ -2257,6 +2302,12 @@
 :model "HP Officejet 7612 Wide Format E-all-in-one Printer"
 :status :good
 
+:model "HP Officejet 8010 All-in-one Printer Series"
+:status :good
+
+:model "HP Officejet 8020 All-in-one Printer Series"
+:status :good
+
 :model "HP Officejet 8040 E-all-in-one"
 :status :good
 
@@ -2516,6 +2567,12 @@
 :status :good
 
 :model "HP Officejet Pro 7740 Wide Format All-in-one"
+:status :good
+
+:model "HP Officejet Pro 8020 All-in-one Printer Series"
+:status :good
+
+:model "HP Officejet Pro 8030 All-in-one Printer Series"
 :status :good
 
 :model "HP Officejet Pro 8500 All-in-one Printer - a909a"
@@ -3824,6 +3881,18 @@
 :status :good
 
 :model "HP Smart Tank 350"
+:status :good
+
+:model "HP Smart Tank 510"
+:status :good
+
+:model "HP Smart Tank 610"
+:status :good
+
+:model "HP Smart Tank Plus 550"
+:status :good
+
+:model "HP Smart Tank Plus 650"
 :status :good
 
 :model "HP Smart Tank Wireless 450"

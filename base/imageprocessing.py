@@ -667,6 +667,9 @@ def adjust_color(im, factor):
     return out
    
 def merge_PDF_viewer(output,ocr):
+    if (output.endswith('.pdf') == False):
+        print("PDF viewer is trying open other than PDF file")
+        return
     pdf_viewer = ''
     pdf_viewer_list = ['kpdf', 'acroread', 'xpdf', 'evince', 'xdg-open']
     for v in pdf_viewer_list:
@@ -807,10 +810,42 @@ def dominantcolor(xcord, ycord, radius, img):
     y2 =  punchhole_margin
 
     if((0 < ycord < width) and (0 < xcord < y2)):
-        s1 = (xcord+ radius)
-        s2 = (xcord+ (radius+ 8))
-        s3 = (ycord - 4)
-        s4 = (ycord + 4)
+        s1 = (xcord -4)
+        s2 = (xcord +4)
+        s3 = (ycord + (radius))
+        s4 = (ycord + (8+radius))
+        myimg = img[s3:s4, s1:s2]
+        w , h,  c = myimg.shape
+        for i in range(0, w-1):
+            for j in range(0, h-1):
+                rgblist = myimg[i,j]
+                l.append((rgblist[0],rgblist[1],rgblist[2]))
+        s1 = (xcord -4)
+        s2 = (xcord +4)
+        s3 = (ycord - (radius))
+        s4 = (ycord - (8+radius))
+        myimg = img[s3:s4, s1:s2]
+        w , h,  c = myimg.shape
+        for i in range(0, w-1):
+            for j in range(0, h-1):
+                rgblist = myimg[i,j]
+                l.append((rgblist[0],rgblist[1],rgblist[2]))
+
+    if((0 < ycord < width) and (y1 < xcord < height)):
+        s1 = (xcord -4)
+        s2 = (xcord +4)
+        s3 = (ycord + (radius))
+        s4 = (ycord + (8+radius))
+        myimg = img[s3:s4, s1:s2]
+        w , h,  c = myimg.shape
+        for i in range(0, w-1):
+            for j in range(0, h-1):
+                rgblist = myimg[i,j]
+                l.append((rgblist[0],rgblist[1],rgblist[2]))
+        s1 = (xcord -4)
+        s2 = (xcord +4)
+        s3 = (ycord - (radius))
+        s4 = (ycord - (8+radius))
         myimg = img[s3:s4, s1:s2]
         w , h,  c = myimg.shape
         for i in range(0, w-1):
@@ -819,9 +854,9 @@ def dominantcolor(xcord, ycord, radius, img):
                 l.append((rgblist[0],rgblist[1],rgblist[2]))
 
 
-    if((0 < ycord < width) and (y1 < xcord < height)):
-        s1 = (xcord- (radius+8))
-        s2 = (xcord- (radius))
+    if((x2 < ycord < width) and (0 < xcord < height)):
+        s1 = (xcord - (8+radius))
+        s2 = (xcord - (radius))
         s3 = (ycord - 4)
         s4 = (ycord + 4)
         myimg = img[s3:s4, s1:s2]
@@ -830,12 +865,10 @@ def dominantcolor(xcord, ycord, radius, img):
             for j in range(0, h-1):
                 rgblist = myimg[i,j]
                 l.append((rgblist[0],rgblist[1],rgblist[2]))
-
-    if((0 < ycord < x1) and (0 < xcord < height)):
-        s1 = (xcord -4)
-        s2 = (xcord +4)
-        s3 = (ycord + (radius))
-        s4 = (ycord + (radius+8))
+        s1 = (xcord + (8+radius))
+        s2 = (xcord + (radius))
+        s3 = (ycord - 4)
+        s4 = (ycord + 4)
         myimg = img[s3:s4, s1:s2]
         w , h,  c = myimg.shape
         for i in range(0, w-1):
@@ -843,13 +876,21 @@ def dominantcolor(xcord, ycord, radius, img):
                 rgblist = myimg[i,j]
                 l.append((rgblist[0],rgblist[1],rgblist[2]))
 
-
-
-    if((x2 < ycord < width) and (0 < xcord < height)):
-        s1 = (xcord -4)
-        s2 = (xcord +4)
-        s3 = (ycord - (radius+8))
-        s4 = (ycord - (radius))
+    if((0 < ycord < x1) and (0 < xcord < height)):
+        s1 = (xcord - (8+radius))
+        s2 = (xcord - (radius))
+        s3 = (ycord - 4)
+        s4 = (ycord + 4)
+        myimg = img[s3:s4, s1:s2]
+        w , h,  c = myimg.shape 
+        for i in range(0, w-1):
+            for j in range(0, h-1):
+                rgblist = myimg[i,j]
+                l.append((rgblist[0],rgblist[1],rgblist[2]))
+        s1 = (xcord + (8+radius))
+        s2 = (xcord + (radius))
+        s3 = (ycord - 4)
+        s4 = (ycord + 4)
         myimg = img[s3:s4, s1:s2]
         w , h,  c = myimg.shape
         for i in range(0, w-1):
@@ -894,12 +935,10 @@ def punchhole_removal(im):
     from skimage.util import img_as_ubyte
 
     ''' check for punch holes and remove  '''
-    
     max_peaks =  24 #maximum number of peaks to be found. changed from 99 to 24 for reducing the unnecessary punch holes being filled.
 
     img = np.array(im)# Load picture .
-    img_rgb = rgba2rgb(img)# convert to RGB
-    img_gray = rgb2gray(img_rgb)# convert to gray
+    img_gray = rgb2gray(img)# convert to gray
     image = img_as_ubyte(img_gray)
     width, height = image.shape
     x1 =  punchhole_margin
@@ -907,13 +946,13 @@ def punchhole_removal(im):
     y1 =  (int)(height - punchhole_margin)
     y2 =  punchhole_margin
 
-    edges = canny(image, 3, 10, 40) # perform canny to detect the edges
+    edges = auto_canny(image)
+    #edges = canny(image, 3, 10, 40) # perform canny to detect the edges
     hough_radii = np.arange(31, 34, 1) #get the radius range with step as 1.
     hough_res = hough_circle(edges, hough_radii) # detect the circles centres coordinates
 
     # Select the most prominent circles based on the max_peaks
     accums, cx, cy, radii = hough_circle_peaks(hough_res, hough_radii,total_num_peaks=max_peaks)
-
     for center_y, center_x, radius in zip(cy, cx, radii):
 
         #if the circles centres fall in the border regions, 
@@ -923,22 +962,12 @@ def punchhole_removal(im):
            ((0 < center_y < x1) and (0 < center_x < height)) or \
            ((x2 < center_y < width) and (0 < center_x < height))):
 
-            index=0
             rr, cc= circle(center_y, center_x, radius+1, img.shape)
-            dominantpix = dominantcolor(center_x, center_y, radius, img)           
-            dark_grad = [dominantpix[0], dominantpix[1],dominantpix[2]]
-            light_grad = [dominantpix[0]+1, dominantpix[1]+1, dominantpix[2]+1]
-            #white_grad = [255,255,255]
-            RGBA_list = lineargradient(dark_grad,light_grad,len(list(rr)))   
-          
+            dominantpix = dominantcolor(center_x, center_y, radius,img)          
             for i , j in zip(list(rr), list(cc)):
-                pixlist = RGBA_list[index]
-                pixtuple = tuple(pixlist)
-                img[i,j]= (pixtuple[0], pixtuple[1], pixtuple[2], 255)
-                index += 1
-           
-    finalimage=Image.fromarray(img)
+                img[i,j]= (dominantpix[0], dominantpix[1], dominantpix[2], 255)
 
+    finalimage=Image.fromarray(img)
     return finalimage
 
 def color_dropout(im,color,color_range):
@@ -1000,5 +1029,15 @@ def rgb2hsv(r, g, b):
     h = int(h/2)
 
     return h, s, v
+
+def check_scipy():
+    scanjet_flag = None
+    try:
+        from scipy.ndimage import interpolation as inter 	
+    except ImportError as error:
+        scanjet_flag=str(error)
+    except:
+        scanjet_flag=str("Error occurred")
+    return scanjet_flag
 
 

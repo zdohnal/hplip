@@ -4,8 +4,8 @@
 #include"Common.h"
 
 #define MAX_TECH_CLASS_PDL                 67
-#define MAX_TECH_CLASS                     77
-#define MAX_FAMILY_CLASS                   20
+#define MAX_TECH_CLASS                     76
+#define MAX_FAMILY_CLASS                   53
 #define MAX_SUB_CLASS                      30
 
 

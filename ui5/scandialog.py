@@ -627,17 +627,26 @@ class Ui_HpScan(object):
             self.comboBox_Flatbed.clear()
             self.comboBox_Flatbed.addItem("")
             self.comboBox_Flatbed.addItem("")
-            if device == '5000' or device == '3000' or device == '7000' or device == '2000': 
+            if device == '5000' or device == '3000' or device == '7000' or device == '2000':
+                if device == '2000':
+                    self.multi_pick_pri = False
+                    self.multi_pick.setEnabled(False)
                 self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "Duplex", None))
                 self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
                 self.comboBox_Flatbed.setCurrentIndex(1)
             elif device == '7500' or device == '9120' or device == '8500' or device == '3500' or device == '4500' or device == '2500':
+                if device == '2500':
+                    self.multi_pick_pri = False
+                    self.multi_pick.setEnabled(False)
                 self.comboBox_Flatbed.addItem("")
                 self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "Flatbed", None))
                 self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
                 self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "Duplex", None))
                 self.comboBox_Flatbed.setCurrentIndex(1)
             if device == '5000' or device == '7500' or device == '9120' or device == '8500' or device == '3500' or device == '4500' or device == '3000' or device == '7000' or device == '2000' or device == '2500':
+                if device == '2500' or device == '2000':
+                    self.multi_pick_pri = False
+                    self.multi_pick.setEnabled(False) 
                 self.source = str(self.comboBox_Flatbed.currentText()).lower()
                 self.comboBox_Flatbed.currentIndexChanged.connect(self.comboBox_SourceSelected)
         
@@ -1545,6 +1554,11 @@ class SetupDialog():
         if scanjet_flag is not None:
             ui.punchhole_removal.setEnabled(False)
             ui.punchhole_removal_pri = False
+
+        scanjet_flag=imageprocessing.check_scipy()
+        if scanjet_flag is not None:
+            ui.deskew_image.setEnabled(False)
+            ui.deskew_image_pri = False
 
         scanjet_flag=imageprocessing.check_tesserocr_imutils()
         if scanjet_flag is not None:

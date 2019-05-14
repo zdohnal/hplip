@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# (c) Copyright 2001-2015 HP Development Company, L.P.
+# (c) Copyright 2001-2018 HP Development Company, L.P.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -1866,7 +1866,7 @@ encoding: utf8
         log.info("contact the HPLIP Team.")
 
         log.info(".SH COPYRIGHT")
-        log.info("Copyright (c) 2001-15 HP Development Company, L.P.")
+        log.info("Copyright (c) 2001-18 HP Development Company, L.P.")
         log.info(".LP")
         log.info("This software comes with ABSOLUTELY NO WARRANTY.")
         log.info("This is free software, and you are welcome to distribute it")
@@ -1885,7 +1885,7 @@ def log_title(program_name, version, show_ver=True): # TODO: Move to base/module
 
     log.info(log.bold("%s ver. %s" % (program_name, version)))
     log.info("")
-    log.info("Copyright (c) 2001-15 HP Development Company, LP")
+    log.info("Copyright (c) 2001-18 HP Development Company, LP")
     log.info("This software comes with ABSOLUTELY NO WARRANTY.")
     log.info("This is free software, and you are welcome to distribute it")
     log.info("under certain conditions. See COPYING file for more details.")

@@ -39,6 +39,13 @@ static int g_savepsfile = 0;
 /*  final ps outfile file handle */
 static FILE *g_fp_outdbgps = NULL;
 
+/*  temp booklet ps outfile file handle */
+static FILE *ptempbooklet_file = NULL;
+static char temp_filename[FILE_NAME_SIZE] = {0};
+static char booklet_filename[FILE_NAME_SIZE] = {0};
+static char Nup_filename[FILE_NAME_SIZE] = {0};
+extern void PS_Booklet(char *tempfile, char *bookletfile, char *nupfile,int order, int nup, char* pagesize);
+
 /* get log level from the cups config file */
 static void get_LogLevel ()
 {
@@ -91,6 +98,26 @@ static int hpwrite (void *pBuffer, size_t size)
     return ndata_written;
 }
 
+static void open_tempbookletfile(char *mode)
+{
+    ptempbooklet_file= fopen(temp_filename, mode);
+    if(ptempbooklet_file == NULL)
+    {
+            fprintf(stderr, "ERROR: Unable to open temp file %s\n", temp_filename);
+            return 1;
+    }  
+    chmod(temp_filename, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+
+}
+
+static int Dump_tempbookletfile (void *pBuffer, size_t size)
+{
+    int  ndata_written = 0;
+
+    ndata_written = fwrite (pBuffer, 1, size, ptempbooklet_file);
+
+    return ndata_written;
+}
 
 /*
 	This function would check what are the PJL attributes available in PPD.
@@ -812,6 +839,7 @@ static void  WriteHPPJLTRUEBLACK(int num_options, cups_option_t *options)
 int main (int argc, char **argv)
 {
    cups_file_t   *fp_input     =  NULL;			/* input file: stdin or physical file */
+   cups_file_t   *fp_bookletinput     =  NULL;			/* input file: booklet file */
    cups_option_t *options      =  NULL;
    char line[LINE_SIZE]        = {0},
         job_id[MAX_BUFFER]     = {0},
@@ -821,7 +849,11 @@ int main (int argc, char **argv)
         input_slot[MAX_BUFFER] = {0};
    unsigned int count          = 0;  
    char *ppd_values            = NULL;
-
+   int order = 1;// default value
+   int nup = 2;// default value
+   char newline[64] = {0};  // where we will put a copy of the input options string
+   char *subString = NULL; // pagesize value from input
+   int booklet_enabled=0;// default for testing
 
     get_LogLevel();
     setbuf (stderr, NULL);
@@ -864,6 +896,22 @@ int main (int argc, char **argv)
          ppd_values = GetPPDValues();
          if((strstr(argv[5], "HPPinPrnt")) != NULL && (strstr(argv[5], "noHPPinPrnt"))== NULL)
              WriteSecurePrinting(ppd_values[0], num_options, options);
+         if( ((strstr(argv[5], "HPBookletFilter")) != NULL) && ((strstr(argv[5], "fitplot")) != NULL) && ((strstr(argv[5], "Duplex=DuplexTumble")) != NULL) && ((strstr(argv[5], "number-up=1")) != NULL) )
+         {
+             booklet_enabled = 1;
+             order = 1;
+             if((subString = strstr(argv[5], "HPBookletPageSize")) != NULL)
+             {
+                 strncpy(newline, subString,64);
+                 subString = strtok(newline,"="); // find the first double quote
+                 subString = strtok(NULL," ");   // find the second double quote
+             }
+             else
+                 subString = "letter";   
+         }
+         else
+             booklet_enabled = 0;
+
          if(ppd_values[1] == 1)
              WriteJobAccounting(argv, num_options, options);
          if(ppd_values[2] == 1)
@@ -889,8 +937,56 @@ int main (int argc, char **argv)
          hpwrite("@PJL ENTER LANGUAGE=POSTSCRIPT\x0a", strlen("@PJL ENTER LANGUAGE=POSTSCRIPT\x0a")); 
     }
     unsigned int numBytes = 0;
-    while ( (numBytes = cupsFileGetLine(fp_input, line, sizeof(line))) > 0)
-        hpwrite (line, numBytes);
+
+    /* Perform the below when booklet option is enabled */
+    if(booklet_enabled)
+    {
+        /* 1. dump  the contents of the input file into temp file */
+        sprintf(booklet_filename, "/tmp/%s.ps","booklet");
+        sprintf(temp_filename, "/tmp/%s.ps","temp");
+        sprintf(Nup_filename, "/tmp/%s.ps","NUP");
+        open_tempbookletfile("w");
+	while( (numBytes = cupsFileGetLine(fp_input, line, sizeof(line))) > 0)
+            Dump_tempbookletfile (line, numBytes);
+        fclose(ptempbooklet_file);
+
+        /* 2. Perform the booklet operation on the PS file */
+        PS_Booklet(temp_filename,booklet_filename,Nup_filename,order,nup,subString);
+
+        /* 3. Dump the modified file into the output.    */
+        numBytes = 0;
+        if ((fp_bookletinput = cupsFileOpen(Nup_filename, "r")) == NULL)
+        {
+            fprintf(stderr, "ERROR: Unable to open Nup_filename print file \"%s\"", Nup_filename);
+            return 1;
+        }
+        while ( (numBytes = cupsFileGetLine(fp_bookletinput, line, sizeof(line))) > 0)
+            hpwrite (line, numBytes);
+        cupsFileClose (fp_bookletinput);
+
+        /* 4. Unlink function to remove the temp temporary files created */
+        if( (unlink(booklet_filename)) == -1)
+        {
+            fprintf(stderr, "ERROR: Unable to remove temporary files in /tmp dir \"%s\" ",booklet_filename);
+            return 1;
+        }
+        if( (unlink(temp_filename)) == -1)
+        {
+            fprintf(stderr, "ERROR: Unable to remove temporary files in /tmp dir \"%s\"  ",temp_filename);
+            return 1;
+        }
+        if( (unlink(Nup_filename)) == -1)
+        {
+            fprintf(stderr, "ERROR: Unable to remove temporary files in /tmp dir \"%s\" ",Nup_filename);
+            return 1;
+        }
+        booklet_enabled = 0;
+    }
+    else
+    {
+        while ( (numBytes = cupsFileGetLine(fp_input, line, sizeof(line))) > 0)
+            hpwrite (line, numBytes);
+    }
 
     /* WRITING END OF JOB */
     hpwrite("\x1b%-12345X@PJL EOJ\x0a\x1b%-12345X", strlen("\x1b%-12345X@PJL EOJ\x0a\x1b%-12345X"));

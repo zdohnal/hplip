@@ -630,7 +630,7 @@ endif
 if HPPS_INSTALL
 hppsdir = $(cupsfilterdir)
 hpps_PROGRAMS = hpps
-hpps_SOURCES = prnt/hpps/hppsfilter.c prnt/hpps/hppsfilter.h
+hpps_SOURCES = prnt/hpps/hppsfilter.c prnt/hpps/hppsfilter.h prnt/hpps/psutil.c prnt/hpps/psutil.h prnt/hpps/pserror.c prnt/hpps/pserror.h prnt/hpps/psbooklet.c prnt/hpps/patchlev.h prnt/hpps/psspec.c prnt/hpps/psspec.h
 hpps_CXXFLAGS = $(APDK_ENDIAN_FLAG) $(DBUS_CFLAGS)
 hpps_LDADD = -lcups  $(DBUS_LIBS)
 endif #HPPS_INSTALL

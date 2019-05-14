@@ -236,6 +236,21 @@ class PrintSettingsToolbox(QToolBox):
 
         cups.resetOptions()
         cups.openPPD(self.cur_printer)
+        current_options = dict(cups.getOptions())
+        # Handling booklet options
+        if 'HPBookletFilter' in current_options:
+            if 'HPBookletPageSize' in current_options:
+                booklet_pagesize = current_options.get('HPBookletPageSize')
+            else:
+                booklet_pagesize = 'letter'
+            # NEED TO sET THE OPTIONS DICTIONARY
+            self.setPrinterOption('fitplot', 'true')
+            self.setPrinterOption('Duplex', 'DuplexTumble')
+            self.setPrinterOption('PageSize', booklet_pagesize)
+            self.setPrinterOption('number-up', '1')
+        cups.closePPD()
+
+        cups.openPPD(self.cur_printer)
         if self.ppd_type == 1 and self.pin_count == 0:
            self.setPrinterOption("HPDigit", "1111")
         current_options = dict(cups.getOptions())

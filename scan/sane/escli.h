@@ -65,8 +65,9 @@ enum ESCL_OPTION_NUMBER
    ESCL_OPTION_TL_Y,
    ESCL_OPTION_BR_X,
    ESCL_OPTION_BR_Y,
+   ESCL_OPTION_MULTIPICK,
    ESCL_OPTION_PAGES_TO_SCAN,
-   ESCL_OPTION_MAX
+   ESCL_OPTION_MAX,
 };
 
 # define MAX_LIST_SIZE 32
@@ -146,6 +147,10 @@ struct escl_session
 
   SANE_Range jpegQualityRange;
   SANE_Int currentJpegQuality;
+
+  //MULTIPICK
+  SANE_Range multipickRange;
+  SANE_Int currentmultipick;
 
   SANE_Range tlxRange, tlyRange, brxRange, bryRange;
   SANE_Fixed currentTlx, currentTly, currentBrx, currentBry;

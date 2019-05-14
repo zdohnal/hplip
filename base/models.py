@@ -49,7 +49,7 @@ TYPE_URI = TYPE_STR # (7) not used (yet)
 TYPE_DATE = 8  # format: mm/dd/yyyy
 
 
-FAMILY_CLASSES = ["PCL3-Class1","PCL3-Class1A","PCL3-Class1B","PCL3-Class2" , "PCL3-Class3", "PCL3-Class3A","PCL3-Class3B","PCLM_COLOR","PCLM_MONO","PCL4-Class1","LJ-Class1","LJ-Class2","LJ-Class3","LJ-Class4","LJ-Class4A","LJ-Class5","LJ-Class6"]
+FAMILY_CLASSES = ["PCL3-Class3A","PCL3-Class3B","PCL3-Class3","PCLM_COLOR","PCLM_MONO","PCL4-Class1","LJ-Class1","LJ-Class2","LJ-Class3","LJ-Class4","LJ-Class4A","LJ-Class5","LJ-Class6","DJGenericVIP","DJ9xxVIP","DJ55xx","Stabler","StingrayOJ","Copperhead","CopperheadXLP","Copperhead12","CopperheadIPH","CopperheadIPH15","CopperheadIPH17","CLE","CLE17","PyramidRefresh17","Saipan","Saipan15B","Kapan","ViperPlusVIP","ViperMinusVIP","Corbett","Ampere","Python","Python10","Python11","Mimas","Mimas15","Mimas17","MimasTDR","PyramidRefresh15","P15_CISS","Pyramid","Pyramid15","PyramidPlus","Gemstone","SPDOfficejetProAsize","SPDOfficejetProBsize","OJ7000","OJProKx50","PSP100","PSP470"] 
 
 TECH_CLASSES = [
     "Undefined", # This will show an error (and its the default)
@@ -128,8 +128,8 @@ TECH_CLASSES = [
     "SPDOfficejetProBsize",
         "CLE17",
     "Mimas17",
-    "P15_CISS",
-    "SPDMainstreamCoreConsumerA"
+    "P15_CISS"
+    
 ]
 
 TECH_CLASSES.sort()
@@ -205,8 +205,8 @@ TECH_CLASS_PDLS = {
     "SPDOfficejetProBsize" : 'pcl3',
     "CLE17"                : 'pcl3',
     "Mimas17"              : 'pcl3',
-    "P15_CISS"             : 'pcl3',
-    "SPDMainstreamCoreConsumerA"    : 'pcl3'
+    "P15_CISS"             : 'pcl3'
+   
 }
 
 PDL_TYPE_PCL = 0  # less preferred

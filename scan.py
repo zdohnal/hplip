@@ -1042,7 +1042,6 @@ try:
         elif len(source_option) == 3 and ('ADF-SinglePage' in source_option) and ('ADF-MultiPage-Simplex' in source_option) and ('ADF-MultiPage-Duplex' in source_option):
              log.debug("Device has only ADF support")
              adf = True 
-
         if adf:
             try:
                 if ('ADF' not in source_option) and ('ADF-SinglePage' not in source_option) and ('ADF-MultiPage-Simplex' not in source_option) and ('ADF-MultiPage-Duplex' not in source_option) and ('ADF Simplex' not in source_option) and ('ADF Duplex' not in source_option):
@@ -1084,7 +1083,12 @@ try:
                 device.setOption("batch-scan", False)
             except scanext.error:
                 log.debug("Error setting source or batch-scan option (this is probably OK).")
-
+        if multipick: 
+            MPICK = 1
+            device.setOption("multi-pick", int(MPICK))
+        else: 
+            MPICK = 0
+            device.setOption("multi-pick", int(MPICK))
 
         tlx = device.getOptionObj('tl-x').limitAndSet(tlx)
         tly = device.getOptionObj('tl-y').limitAndSet(tly)
@@ -1788,9 +1792,10 @@ try:
 
             log.info("Saving to file %s" % output)
             c.save()
-            log.info("Viewing PDF file in %s" % pdf_viewer)
-            cmd = "%s %s &" % (pdf_viewer, output)
-            os_utils.execute(cmd)
+            if uiscan == True:
+                log.info("Viewing PDF file in %s" % pdf_viewer)
+                cmd = "%s %s &" % (pdf_viewer, output)
+                os_utils.execute(cmd)
             sys.exit(0)
 
         if resize != 100:

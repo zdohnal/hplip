@@ -109,6 +109,10 @@
 /* To prevent "2252" asserts on OfficeJet 600 series: */
 #define SAFER_JPEG_COMPRESSION_FACTOR 10
 
+
+#define MULTIPICK_DISABLE 0
+#define MULTIPICK_ENABLE 1
+
 #define BEND_GET_SHORT(s) (((s)[0]<<8)|((s)[1]))
 #define BEND_GET_LONG(s) (((s)[0]<<24)|((s)[1]<<16)|((s)[2]<<8)|((s)[3]))
 #define BEND_SET_SHORT(s,x) ((s)[0]=((x)>>8)&0xFF,(s)[1]=(x)&0xFF)

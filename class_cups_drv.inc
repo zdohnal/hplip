@@ -1,4 +1,19 @@
 class_cups_ppd_printers = \
+   ppd/classppd/hpcups/hp-Ampere.ppd.gz \
+   ppd/classppd/hpcups/hp-CLE.ppd.gz \
+   ppd/classppd/hpcups/hp-CLE17.ppd.gz \
+   ppd/classppd/hpcups/hp-Copperhead.ppd.gz \
+   ppd/classppd/hpcups/hp-Copperhead12.ppd.gz \
+   ppd/classppd/hpcups/hp-CopperheadIPH.ppd.gz \
+   ppd/classppd/hpcups/hp-CopperheadIPH15.ppd.gz \
+   ppd/classppd/hpcups/hp-CopperheadIPH17.ppd.gz \
+   ppd/classppd/hpcups/hp-CopperheadXLP.ppd.gz \
+   ppd/classppd/hpcups/hp-Corbett.ppd.gz \
+   ppd/classppd/hpcups/hp-DJ55xx.ppd.gz \
+   ppd/classppd/hpcups/hp-DJ9xxVIP.ppd.gz \
+   ppd/classppd/hpcups/hp-DJGenericVIP.ppd.gz \
+   ppd/classppd/hpcups/hp-Gemstone.ppd.gz \
+   ppd/classppd/hpcups/hp-Kapan.ppd.gz \
    ppd/classppd/hpcups/hp-LJ-Class1.ppd.gz \
    ppd/classppd/hpcups/hp-LJ-Class2.ppd.gz \
    ppd/classppd/hpcups/hp-LJ-Class3.ppd.gz \
@@ -6,16 +21,37 @@ class_cups_ppd_printers = \
    ppd/classppd/hpcups/hp-LJ-Class4A.ppd.gz \
    ppd/classppd/hpcups/hp-LJ-Class5.ppd.gz \
    ppd/classppd/hpcups/hp-LJ-Class6.ppd.gz \
-   ppd/classppd/hpcups/hp-PCL3-Class1.ppd.gz \
-   ppd/classppd/hpcups/hp-PCL3-Class1A.ppd.gz \
-   ppd/classppd/hpcups/hp-PCL3-Class1B.ppd.gz \
-   ppd/classppd/hpcups/hp-PCL3-Class2.ppd.gz \
+   ppd/classppd/hpcups/hp-Mimas.ppd.gz \
+   ppd/classppd/hpcups/hp-Mimas15.ppd.gz \
+   ppd/classppd/hpcups/hp-Mimas17.ppd.gz \
+   ppd/classppd/hpcups/hp-MimasTDR.ppd.gz \
+   ppd/classppd/hpcups/hp-OJ7000.ppd.gz \
+   ppd/classppd/hpcups/hp-OJProKx50.ppd.gz \
+   ppd/classppd/hpcups/hp-P15_CISS.ppd.gz \
    ppd/classppd/hpcups/hp-PCL3-Class3.ppd.gz \
    ppd/classppd/hpcups/hp-PCL3-Class3A.ppd.gz \
    ppd/classppd/hpcups/hp-PCL3-Class3B.ppd.gz \
    ppd/classppd/hpcups/hp-PCL4-Class1.ppd.gz \
    ppd/classppd/hpcups/hp-PCLM_COLOR.ppd.gz \
    ppd/classppd/hpcups/hp-PCLM_MONO.ppd.gz \
+   ppd/classppd/hpcups/hp-PSP100.ppd.gz \
+   ppd/classppd/hpcups/hp-PSP470.ppd.gz \
+   ppd/classppd/hpcups/hp-Pyramid.ppd.gz \
+   ppd/classppd/hpcups/hp-Pyramid15.ppd.gz \
+   ppd/classppd/hpcups/hp-PyramidPlus.ppd.gz \
+   ppd/classppd/hpcups/hp-PyramidRefresh15.ppd.gz \
+   ppd/classppd/hpcups/hp-PyramidRefresh17.ppd.gz \
+   ppd/classppd/hpcups/hp-Python.ppd.gz \
+   ppd/classppd/hpcups/hp-Python10.ppd.gz \
+   ppd/classppd/hpcups/hp-Python11.ppd.gz \
+   ppd/classppd/hpcups/hp-SPDOfficejetProAsize.ppd.gz \
+   ppd/classppd/hpcups/hp-SPDOfficejetProBsize.ppd.gz \
+   ppd/classppd/hpcups/hp-Saipan.ppd.gz \
+   ppd/classppd/hpcups/hp-Saipan15B.ppd.gz \
+   ppd/classppd/hpcups/hp-Stabler.ppd.gz \
+   ppd/classppd/hpcups/hp-StingrayOJ.ppd.gz \
+   ppd/classppd/hpcups/hp-ViperMinusVIP.ppd.gz \
+   ppd/classppd/hpcups/hp-ViperPlusVIP.ppd.gz \
    ppd/classppd/ps/hp-postscript-inkjet.ppd.gz \
    ppd/classppd/ps/hp-postscript-laserjet-pro.ppd.gz \
    ppd/classppd/ps/hp-postscript-laserjet.ppd.gz

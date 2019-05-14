@@ -329,6 +329,22 @@ static int init_options(struct escl_session *ps)
   ps->option[ESCL_OPTION_GROUP_ADVANCED].type = SANE_TYPE_GROUP;
   ps->option[ESCL_OPTION_GROUP_ADVANCED].cap = SANE_CAP_ADVANCED;
 
+
+  ps->option[ESCL_OPTION_MULTIPICK].name = "multi-pick";
+  ps->option[ESCL_OPTION_MULTIPICK].title = SANE_TITLE_MULTIPICK;
+  ps->option[ESCL_OPTION_MULTIPICK].desc = SANE_DESC_MULTIPICK;
+  ps->option[ESCL_OPTION_MULTIPICK].type = SANE_TYPE_INT;
+  ps->option[ESCL_OPTION_MULTIPICK].unit = SANE_UNIT_NONE;
+  ps->option[ESCL_OPTION_MULTIPICK].size = sizeof(SANE_Int);
+  ps->option[ESCL_OPTION_MULTIPICK].cap = SANE_CAP_SOFT_SELECT | SANE_CAP_SOFT_DETECT | SANE_CAP_ADVANCED;
+  ps->option[ESCL_OPTION_MULTIPICK].constraint_type = SANE_CONSTRAINT_RANGE;
+  ps->option[ESCL_OPTION_MULTIPICK].constraint.range = &ps->multipickRange;
+  ps->multipickRange.min = MULTIPICK_DISABLE;
+  ps->multipickRange.max = MULTIPICK_ENABLE;
+  ps->multipickRange.quant = 0;
+
+  
+
   ps->option[ESCL_OPTION_COMPRESSION].name = STR_NAME_COMPRESSION;
   ps->option[ESCL_OPTION_COMPRESSION].title = STR_TITLE_COMPRESSION;
   ps->option[ESCL_OPTION_COMPRESSION].desc = STR_DESC_COMPRESSION;
@@ -461,6 +477,10 @@ SANE_Status __attribute__ ((visibility ("hidden"))) escl_open(SANE_String_Const 
   escl_control_option(session, ESCL_OPTION_TL_Y, SANE_ACTION_SET_AUTO, NULL, NULL); /* set default option */
   escl_control_option(session, ESCL_OPTION_BR_X, SANE_ACTION_SET_AUTO, NULL, NULL); /* set default option */
   escl_control_option(session, ESCL_OPTION_BR_Y, SANE_ACTION_SET_AUTO, NULL, NULL); /* set default option */
+
+  /* Set multi-pick support */
+  escl_control_option(session, ESCL_OPTION_MULTIPICK, SANE_ACTION_SET_AUTO, NULL, NULL); /* set default option */
+
   
   *handle = (SANE_Handle *)session;
 
@@ -498,6 +518,7 @@ SANE_Status escl_control_option(SANE_Handle handle, SANE_Int option, SANE_Action
   SANE_Int *int_value = value, mset_result=0;
   int i, stat=SANE_STATUS_INVAL;
   int found = 0;
+ 
 
   switch(option)
   {
@@ -783,6 +804,28 @@ SANE_Status escl_control_option(SANE_Handle handle, SANE_Int option, SANE_Action
          else
          {  /* Set default. */
             ps->currentBry = ps->bryRange.max;
+            stat = SANE_STATUS_GOOD;
+         }
+         break;
+
+      case ESCL_OPTION_MULTIPICK:
+         if (action == SANE_ACTION_GET_VALUE)
+         {
+            *int_value = ps->currentmultipick;
+            stat = SANE_STATUS_GOOD;
+         }
+         else if (action == SANE_ACTION_SET_VALUE)
+         {
+            if (*int_value >= MULTIPICK_DISABLE && *int_value <= MULTIPICK_ENABLE)
+            {
+               ps->currentmultipick = *int_value;
+               stat = SANE_STATUS_GOOD;
+               break;
+            }
+         }
+         else
+         {  /* Set default. */
+            ps->currentmultipick = MULTIPICK_DISABLE;
             stat = SANE_STATUS_GOOD;
          }
          break;
