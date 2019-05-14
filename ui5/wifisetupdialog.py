@@ -570,7 +570,7 @@ class WifiSetupDialog(QDialog, Ui_Dialog):
             try:                
                 self.ip,_,addressmode, subnetmask, gateway, pridns, sec_dns= self.wifiObj.getIPConfiguration(self.dev, self.adapterName)
                 if self.ip == "0.0.0.0":
-                    self.ip, subnetmask, gateway, pri_dns, sec_dns, addressmode = self.wifiobj.getwifiotherdetails(self.dev,self.adapterName)
+                    self.ip, subnetmask, gateway, pri_dns, sec_dns, addressmode = self.wifiObj.getwifiotherdetails(self.dev,self.adapterName)
                 vsa_codes = self.wifiObj.getVSACodes(self.dev, self.adapterName)
                 ss_max, ss_min, ss_val, ss_dbm = self.wifiObj.getSignalStrength(self.dev, self.adapterName,self.network, self.adaptor_id)                 
                 self.hn = self.wifiObj.getHostname(self.dev) 

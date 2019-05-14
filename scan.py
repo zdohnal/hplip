@@ -1503,10 +1503,10 @@ try:
                         if adf:
                             im = imageprocessing.deskew(im)
                         else:
-                            im = imageprocessing.autocrop(im)
+                            #im = imageprocessing.autocrop(im)
                             im = imageprocessing.deskew(im) 
-                    if mixed_feed:
-                        im = imageprocessing.mixedfeed(im)
+                    #if mixed_feed:
+                        #im = imageprocessing.mixedfeed(im)
                     if auto_crop and (isBlankPage == False):
                         im = imageprocessing.autocrop(im)
                     if auto_orient:
@@ -1606,7 +1606,10 @@ try:
                                 if (document_merge and duplex and save_file == 'pdf') or (imageprocessing.check_pypdf2() != None):
                                     temp_output = utils.createSequencedFilename("hpscan", '.png', output_path)
                                 else:
-                                    temp_output = utils.createSequencedFilename("hpscan", ext, output_path)
+                                    if mixed_feed:
+                                        temp_output = utils.createSequencedFilename("hpscan",ext, output_path)
+                                    else:
+                                        temp_output = utils.createSequencedFilename("hpscan",'.png', output_path)
                             adf_page_files.append(temp_output)
                             #print "entered flatbed save"
                             '''pyPlatform = platform.python_version()
@@ -1722,17 +1725,23 @@ try:
                         output = utils.createSequencedFilename("hpscanMerge", ext,output_path)
                     else:
                         output = utils.createSequencedFilename("hpscan", ext,output_path)'''
-                if len(adf_page_files) > 1:
+                if len(adf_page_files) > 0:
                     #print "adf page files greater than 1"
                     if merge_ADF_Flatbed == True:
                         output = utils.createSequencedFilename("hpscanMerge", ext,output_path)
                     else:
                         output = utils.createSequencedFilename("hpscandoc", ext,output_path)
-                    try:      
-                        output = imageprocessing.generatePdfFile(adf_page_files,output)
-                    except ImportError:
-                        try:
+                    try:
+                        if mixed_feed:
+                            output = imageprocessing.generatePdfFile(adf_page_files,output)
+                        else:
                             output = imageprocessing.generatePdfFile_canvas(adf_page_files,output,orient_list,brx,bry,tlx,tly,output_path)
+                    except:
+                        try:
+                            if mixed_feed:
+                                output = imageprocessing.generatePdfFile_canvas(adf_page_files,output,orient_list,brx,bry,tlx,tly,output_path)                                
+                            else:
+                                output = imageprocessing.generatePdfFile(adf_page_files,output)
                         except ImportError as error:
                             if error.message.split(' ')[-1] == 'PIL':
                                 log.error("PDF output requires PIL.")

@@ -1145,11 +1145,13 @@ class CoreInstall(object):
             return False
 
     def check_dbus(self):
-        log.debug(
-            "Checking for dbus running and header files present (dbus-devel)...")
-        return check_ps(['dbus-daemon'])  and \
-            len(locate_file_contains("dbus-message.h",
-                                     '/usr/include', 'dbus_message_new_signal'))
+        log.debug("Checking for dbus running and header files present (dbus-devel)...")
+        if (self.distro_name.lower()=='fedora') and (self.distro_version>='30'):
+            return True
+        else:
+            return check_ps(['dbus-daemon'])  and \
+                len(locate_file_contains("dbus-message.h",
+                                         '/usr/include', 'dbus_message_new_signal'))
 
     def check_cups_devel(self):
         return check_file('cups.h') and bool(utils.which('lpr'))

@@ -1197,8 +1197,20 @@ class Ui_HpScan(object):
             #name = re.search(r'_5000_', self.device_uri)
             #if name:
             if re.search(r'_5000_', self.device_uri) or re.search(r'_7000_s3', self.device_uri) or re.search(r'_3000_s3', self.device_uri) or (re.search(r'hp2000S1', self.device_uri)):
-                self.comboBox_Flatbed.setCurrentIndex(0)
-            else:
+                self.comboBox_Flatbed.clear()
+                self.comboBox_Flatbed.addItem("")
+                self.comboBox_Flatbed.addItem("")
+                self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "ADF", None))
+                self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "Duplex", None))
+                self.comboBox_Flatbed.setCurrentIndex(1)
+            elif (re.search(r'_7500', self.device_uri)) or (re.search(r'_N9120', self.device_uri)) or (re.search(r'_8500fn2', self.device_uri)) or (re.search(r'_3500_f1', self.device_uri)) or (re.search(r'_4500_fn1', self.device_uri)) or (re.search(r'2500', self.device_uri)):
+                self.comboBox_Flatbed.clear()
+                self.comboBox_Flatbed.addItem("")
+                self.comboBox_Flatbed.addItem("")
+                self.comboBox_Flatbed.addItem("")
+                self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "Flatbed", None))
+                self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
+                self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "Duplex", None))
                 self.comboBox_Flatbed.setCurrentIndex(2)
             self.comboBox_Flatbed.setEnabled(False)
             self.source = str(self.comboBox_Flatbed.currentText()).lower()
@@ -1220,7 +1232,22 @@ class Ui_HpScan(object):
             if self.color_dropout_pri == True:
                 self.color_dropout.setEnabled(True)
             self.comboBox_Flatbed.setEnabled(True)
-            self.comboBox_Flatbed.setCurrentIndex(1)
+            if (re.search(r'_7500', self.device_uri)) or (re.search(r'_N9120', self.device_uri)) or (re.search(r'_8500fn2', self.device_uri)) or (re.search(r'_3500_f1', self.device_uri)) or (re.search(r'_4500_fn1', self.device_uri)) or (re.search(r'2500', self.device_uri)):
+                self.comboBox_Flatbed.clear()
+                self.comboBox_Flatbed.addItem("")
+                self.comboBox_Flatbed.addItem("")
+                self.comboBox_Flatbed.addItem("")
+                self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "Flatbed", None))
+                self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
+                self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "Duplex", None))
+                self.comboBox_Flatbed.setCurrentIndex(1)
+            elif (re.search(r'_5000_', self.device_uri)) or (re.search(r'_7000_s3', self.device_uri)) or (re.search(r'_3000_s3', self.device_uri)) or (re.search(r'hp2000S1', self.device_uri)):
+                self.comboBox_Flatbed.clear()
+                self.comboBox_Flatbed.addItem("")
+                self.comboBox_Flatbed.addItem("")
+                self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "ADF", None))
+                self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "Duplex", None))
+                self.comboBox_Flatbed.setCurrentIndex(0)
             self.source = str(self.comboBox_Flatbed.currentText()).lower()
 
     def Document_merge_adf_flatbed(self):

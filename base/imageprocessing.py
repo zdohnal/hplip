@@ -195,8 +195,12 @@ def Deskew_angle1(img):
         angle = abs(angle)
         if angle != 0:
             angles.append(angle)
+    if not angles:
+        median_angle = 0
+        return median_angle
+    else:
+        median_angle = min(angles)
 
-    median_angle = min(angles)
     for item in temp_angles:
         if median_angle == abs(item):
             median_angle = item
@@ -239,12 +243,17 @@ def Deskew_angle2(img):
         hist, score = find_score(bin_img, angle)
         scores.append(score)
  
-    best_score = max(scores)
+    if not scores:
+        best_angle = 0
+        return best_angle
+    else:
+        best_score = max(scores)
+
     best_angle = angles[scores.index(best_score)]
     if best_angle < 0 :
-        best_angle = best_angle - 1
+        best_angle = best_angle
     else:
-        best_angle = best_angle + 1
+        best_angle = best_angle
     if (best_angle >= 15 or best_angle <= -15):
         best_angle = 0
     return best_angle

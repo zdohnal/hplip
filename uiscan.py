@@ -22,7 +22,9 @@ except ImportError as e:
 
 
 
-mod = module.Module(__mod__, __title__, __version__, __doc__, None, (INTERACTIVE_MODE,))
+#mod = module.Module(__mod__, __title__, __version__, __doc__, None, (INTERACTIVE_MODE,))
+mod = module.Module(__mod__, __title__, __version__, __doc__, None, (GUI_MODE,), (UI_TOOLKIT_QT4, UI_TOOLKIT_QT5))
+mod.setUsage(module.USAGE_FLAG_NONE, extra_options=None, see_also_list = ['hp-scan'])
 
 
 

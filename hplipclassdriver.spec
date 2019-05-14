@@ -1,5 +1,5 @@
 Name: hplipclassdriver
-Version: 3.19.2
+Version: 3.19.5
 Release: 0
 License: (c) 2004-2009 Copyright HP Development Company, LP
 Packager: HPLIP

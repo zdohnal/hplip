@@ -1267,6 +1267,13 @@ def start(language, auto=True, test_depends=False,
                 if os_utils.execute(cmd1) != 0:
                     log.warning("Missing ghost script dependency,installation may fail")
 
+            if core.distro_name.lower() == 'fedora' and core.distro_version >= '30':
+                cmd_fedora = 'sudo dnf -y -d 10 -e 1 install dbus-devel'
+                status, output = utils.run(cmd_fedora, core.passwordObj)
+                if status != 0:
+                    log.error("Install command failed with error code %d" % status)
+                    sys.exit(1)
+                   
             #
             # DEPENDENCIES RE-CHECK
             #

@@ -7,7 +7,8 @@
  * Usage:
  *       psbook [-q] [-s<signature>] [infile [outfile]]
  */
-
+#include <stdio.h>
+#include <stdlib.h>
 #include "psutil.h"
 #include "psspec.h"
 #include "pserror.h"
@@ -18,6 +19,7 @@
 #define MIN(x,y) ((x) > (y) ? (y) : (x))
 #define MAX(x,y) ((x) > (y) ? (x) : (y))
 
+/* Global variables */
 char *program;
 int pages;
 int verbose;
@@ -26,8 +28,21 @@ int pageno;
 FILE *infile = NULL;
 FILE *outfile= NULL;
 
-void PS_Booklet(char *tempfile, char *bookletfile, char *nupfile,int order, int nup, char* pagesize);
-void PS_Booklet_Order_Wrapper(char *inputfile, char *outputfile, int order);
+/* Structure of a node for boklet page order list*/
+struct node {
+    int data[4];          // Data 
+    struct node *next; // Address 
+}*head;
+struct node *newNode=NULL;
+struct node *temp=NULL;
+int *data=NULL;
+
+/* Function prototypes */
+void createPageList(int maxpages, int *data, int bookletMaker);
+void PageListcopy();
+void freeList(struct node* head);
+void PS_Booklet(char *tempfile, char *bookletfile, char *nupfile,int order, int nup, char* pagesize, int bookletMaker);
+void PS_Booklet_Order_Wrapper(char *inputfile, char *outputfile, int order, int bookletMaker);
 void PS_Nup_Wrapper(char *inputfile, char *outputfile, char *papersize, int nupnumber);
 
 /* return next larger exact divisor of number, or 0 if none. There is probably
@@ -43,21 +58,134 @@ static int nextdiv(int n, int m)
 }
 
 
-void PS_Booklet(char *tempfile, char *bookletfile, char *nupfile,int order, int nup, char* pagesize)
+void PS_Booklet(char *tempfile, char *bookletfile, char *nupfile,int order, int nup, char* pagesize, int bookletMaker)
 {
 
    // 1. Perform the PS booklwet order
-   PS_Booklet_Order_Wrapper(tempfile,bookletfile,order);
+   PS_Booklet_Order_Wrapper(tempfile,bookletfile,order, bookletMaker);
    // 2. Perform the PS Nup and Duplex 
    PS_Nup_Wrapper(bookletfile,nupfile,pagesize,nup);
 }
 
+void createPageList(int maxpages, int *data, int bookletMaker)
+{
+    int i=0;
+    int j=0;
+    int k=0;
+    int n = maxpages/4;
+    struct node *tpnode;
+    head = (struct node *)malloc(sizeof(struct node));
 
-void PS_Booklet_Order_Wrapper(char *inputfile, char *outputfile, int order)
+    /*If unable to allocate memory for head node*/
+    if(head == NULL)
+    {
+        message(FATAL, "\nUnable to allocate memory for head node.\n");
+    }
+    else
+    {
+        /* Input data of node from the user */
+        for(k=0;k<4;k++)
+        {
+           head->data[k] = data[j]; // Link data field with data
+           j= j+1;
+        }
+        head->next = NULL; // Link address field to NULL
+
+        temp = head;
+
+        /*Create n-1 nodes and adds to linked list*/
+        for(i=2; i<=n; i++)
+        {
+            temp=head;
+            newNode = (struct node *)malloc(sizeof(struct node));
+
+            /* If memory is not allocated for newNode */
+            if(newNode == NULL)
+            {
+                message(FATAL, "\nUnable to allocate memory for new node.\n");
+                break;
+            }
+            else
+            {
+                for(k=0;k<4;k++)
+                {
+                   newNode->data[k] = data[j]; // Link data field with data
+                   j= j+1;
+                }
+                if(bookletMaker){
+                    newNode->next = head; // Link address field of newNode at the start
+                    head = newNode; 
+                }
+                else{
+                    while(temp->next !=NULL)
+                        temp= temp->next;
+
+                    newNode->next = NULL; // Link address field of newNode at the end
+                    temp->next = newNode; 
+                }
+ 
+            }
+            
+        }
+
+    }
+}
+
+
+void PageListcopy()
+{
+    struct node *tempnode;
+    int i=0;
+
+    /* If the list is empty i.e. head = NULL */
+    if(head == NULL)
+    {
+       message(FATAL, "\nHead of the List is empty.\n");
+    }
+    else
+    {
+        tempnode = head;
+
+        while(tempnode != NULL)
+        {
+            for(i=0;i<4;i++)
+            {   
+                if (tempnode->data[i] < pages)
+                {
+	           writepage(tempnode->data[i]);
+                }
+                else
+                {
+	           writeemptypage();
+                }
+            }
+            tempnode = tempnode->next;                 // Move to next node
+        }
+    }
+}
+
+void freeList(struct node* head)
+{
+   struct node* tmp;
+
+   while (head != NULL)
+   {
+       tmp = head;
+       head = head->next;
+       free(tmp);
+   }
+   newNode=NULL;
+   temp=NULL;
+
+}
+
+
+void PS_Booklet_Order_Wrapper(char *inputfile, char *outputfile, int order, int bookletMaker)
 {
    int signature = 0;
    int currentpg = 0;
    int maxpage = 0;
+   int index=0;
 
    if ((infile = fopen(inputfile, "r")) == NULL)
    {
@@ -85,6 +213,12 @@ void PS_Booklet_Order_Wrapper(char *inputfile, char *outputfile, int order)
    writeheader(maxpage);
    writeprolog();
    writesetup();
+
+   data = (int *)malloc(sizeof(int) * maxpage);
+   if(data == NULL)
+   {
+        message(FATAL, "\ncan't create dynamic memory for booklet page ordering\n");
+   }
    for (currentpg = 0; currentpg < maxpage; currentpg++) {
       int actualpg = currentpg - currentpg%signature;
       switch(currentpg%4) {
@@ -97,11 +231,16 @@ void PS_Booklet_Order_Wrapper(char *inputfile, char *outputfile, int order)
 	 actualpg += (currentpg%signature)/2;
 	 break;
       }
-      if (actualpg < pages)
-	 writepage(actualpg);
-      else
-	 writeemptypage();
+     
+      data[index++]=actualpg;
    }
+
+   createPageList(maxpage, data, bookletMaker);
+   PageListcopy();
+
+   free(data);
+   freeList(head);
+
    writetrailer();
    fclose(infile);
    fclose(outfile);

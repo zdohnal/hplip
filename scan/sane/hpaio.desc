@@ -1126,6 +1126,12 @@
 :model "HP Ink Tank Wireless 410"
 :status :good
 
+:model "HP Laser Ns MFP 1005"
+:status :good
+
+:model "HP Laser Ns MFP 1005w"
+:status :good
+
 :model "HP LaserJet 100 Color MFP m175"
 :status :good
 
@@ -1348,10 +1354,22 @@
 :model "HP LaserJet 9065 Multifunction Printer"
 :status :good
 
+:model "HP LaserJet Enterprise Flow MFP m528c"
+:status :good
+
+:model "HP LaserJet Enterprise Flow MFP m528z"
+:status :good
+
 :model "HP LaserJet Enterprise Flow MFP m630h"
 :status :good
 
 :model "HP LaserJet Enterprise Flow MFP m630z"
+:status :good
+
+:model "HP LaserJet Enterprise MFP m528dn"
+:status :good
+
+:model "HP LaserJet Enterprise MFP m528f"
 :status :good
 
 :model "HP LaserJet Enterprise MFP m630dn"
@@ -1444,6 +1462,9 @@
 :model "HP LaserJet m5039 Multifunction Printer"
 :status :good
 
+:model "HP LaserJet Managed Flow MFP e52645c"
+:status :good
+
 :model "HP LaserJet Managed Flow MFP e62665h"
 :status :good
 
@@ -1469,6 +1490,9 @@
 :status :good
 
 :model "HP LaserJet Managed Flow MFP e82560z"
+:status :good
+
+:model "HP LaserJet Managed MFP e52645dn"
 :status :good
 
 :model "HP LaserJet Managed MFP e62655dn"
@@ -1778,6 +1802,12 @@
 :status :good
 
 :model "HP LaserJet Ultra MFP m230sdn"
+:status :good
+
+:model "HP Neverstop Laser MFP 1200a"
+:status :good
+
+:model "HP Neverstop Laser MFP 1200w"
 :status :good
 
 :model "HP Officejet 150 Mobile All-in-one"
@@ -3883,13 +3913,22 @@
 :model "HP Smart Tank 350"
 :status :good
 
+:model "HP Smart Tank 500 Series"
+:status :good
+
 :model "HP Smart Tank 510"
+:status :good
+
+:model "HP Smart Tank 530 Series"
 :status :good
 
 :model "HP Smart Tank 610"
 :status :good
 
 :model "HP Smart Tank Plus 550"
+:status :good
+
+:model "HP Smart Tank Plus 570 Series"
 :status :good
 
 :model "HP Smart Tank Plus 650"

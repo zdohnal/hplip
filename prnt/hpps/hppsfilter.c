@@ -44,7 +44,7 @@ static FILE *ptempbooklet_file = NULL;
 static char temp_filename[FILE_NAME_SIZE] = {0};
 static char booklet_filename[FILE_NAME_SIZE] = {0};
 static char Nup_filename[FILE_NAME_SIZE] = {0};
-extern void PS_Booklet(char *tempfile, char *bookletfile, char *nupfile,int order, int nup, char* pagesize);
+extern void PS_Booklet(char *tempfile, char *bookletfile, char *nupfile,int order, int nup, char* pagesize, int bookletMaker);
 
 /* get log level from the cups config file */
 static void get_LogLevel ()
@@ -854,6 +854,7 @@ int main (int argc, char **argv)
    char newline[64] = {0};  // where we will put a copy of the input options string
    char *subString = NULL; // pagesize value from input
    int booklet_enabled=0;// default for testing
+   int bookletMaker=0;
 
     get_LogLevel();
     setbuf (stderr, NULL);
@@ -912,6 +913,11 @@ int main (int argc, char **argv)
          else
              booklet_enabled = 0;
 
+         if( ((strstr(argv[5], "FoldStitch")) != NULL))
+         {
+             bookletMaker=1;
+         }
+
          if(ppd_values[1] == 1)
              WriteJobAccounting(argv, num_options, options);
          if(ppd_values[2] == 1)
@@ -951,7 +957,7 @@ int main (int argc, char **argv)
         fclose(ptempbooklet_file);
 
         /* 2. Perform the booklet operation on the PS file */
-        PS_Booklet(temp_filename,booklet_filename,Nup_filename,order,nup,subString);
+        PS_Booklet(temp_filename,booklet_filename,Nup_filename,order,nup,subString,bookletMaker);
 
         /* 3. Dump the modified file into the output.    */
         numBytes = 0;
@@ -981,6 +987,7 @@ int main (int argc, char **argv)
             return 1;
         }
         booklet_enabled = 0;
+        bookletMaker=0;
     }
     else
     {

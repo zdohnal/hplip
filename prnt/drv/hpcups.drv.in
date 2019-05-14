@@ -14021,12 +14021,28 @@ Manufacturer "HP"
      Attribute "Product" "" "(HP Smart Tank 350)"
    }
    {
+     ModelName "HP Smart Tank 500 Series"
+     Attribute "NickName" "" "HP Smart Tank 500 Series, hpcups $Version"
+     Attribute "ShortNickName" "" "HP Smart Tank 500 Series hpijs"
+     Attribute "1284DeviceID" "" "MFG:HP;MDL:smart tank 500 series;DES:smart tank 500 series;"
+     PCFileName "hp-smart_tank_500_series.ppd"
+     Attribute "Product" "" "(HP Smart Tank 500 Series)"
+   }
+   {
      ModelName "HP Smart Tank 510 Series"
      Attribute "NickName" "" "HP Smart Tank 510 Series, hpcups $Version"
      Attribute "ShortNickName" "" "HP Smart Tank 510 Series hpijs"
      Attribute "1284DeviceID" "" "MFG:HP;MDL:smart tank 510 series;DES:smart tank 510 series;"
      PCFileName "hp-smart_tank_510_series.ppd"
      Attribute "Product" "" "(HP Smart Tank 510)"
+   }
+   {
+     ModelName "HP Smart Tank 530 Series"
+     Attribute "NickName" "" "HP Smart Tank 530 Series, hpcups $Version"
+     Attribute "ShortNickName" "" "HP Smart Tank 530 Series hpijs"
+     Attribute "1284DeviceID" "" "MFG:HP;MDL:smart tank 530 series;DES:smart tank 530 series;"
+     PCFileName "hp-smart_tank_530_series.ppd"
+     Attribute "Product" "" "(HP Smart Tank 530 Series)"
    }
    {
      ModelName "HP Smart Tank 610 Series"
@@ -14043,6 +14059,14 @@ Manufacturer "HP"
      Attribute "1284DeviceID" "" "MFG:HP;MDL:smart tank plus 550 series;DES:smart tank plus 550 series;"
      PCFileName "hp-smart_tank_plus_550_series.ppd"
      Attribute "Product" "" "(HP Smart Tank Plus 550)"
+   }
+   {
+     ModelName "HP Smart Tank Plus 570 Series"
+     Attribute "NickName" "" "HP Smart Tank Plus 570 Series, hpcups $Version"
+     Attribute "ShortNickName" "" "HP Smart TK Plus 570 Series hpijs"
+     Attribute "1284DeviceID" "" "MFG:HP;MDL:smart tank plus 570 series;DES:smart tank plus 570 series;"
+     PCFileName "hp-smart_tank_plus_570_series.ppd"
+     Attribute "Product" "" "(HP Smart Tank Plus 570 Series)"
    }
    {
      ModelName "HP Smart Tank Plus 650 Series"
@@ -22776,6 +22800,24 @@ Group "RLT/HP Real Life Technologies"
 
    // <%Hbpl1:Mono%>
    {
+     ModelName "HP Laser Ns 1020"
+     Attribute "NickName" "" "HP Laser Ns 1020, hpcups $Version"
+     Attribute "ShortNickName" "" "HP Laser Ns 1020 hpijs"
+     Attribute "1284DeviceID" "" "MFG:HP;MDL:hp laser ns 1020;DES:hp laser ns 1020;"
+     PCFileName "hp-laser_ns_1020.ppd"
+     Attribute "Product" "" "(HP Laser Ns 1020)"
+     Attribute "Product" "" "(HP Laser Ns 1020w)"
+   }
+   {
+     ModelName "HP Laser Ns MFP 1005"
+     Attribute "NickName" "" "HP Laser Ns MFP 1005, hpcups $Version"
+     Attribute "ShortNickName" "" "HP Laser Ns MFP 1005 hpijs"
+     Attribute "1284DeviceID" "" "MFG:HP;MDL:hp laser ns mfp 1005;DES:hp laser ns mfp 1005;"
+     PCFileName "hp-laser_ns_mfp_1005.ppd"
+     Attribute "Product" "" "(HP Laser Ns MFP 1005)"
+     Attribute "Product" "" "(HP Laser Ns MFP 1005w)"
+   }
+   {
      ModelName "HP LaserJet m101-m106"
      Attribute "NickName" "" "HP LaserJet m101-m106, hpcups $Version"
      Attribute "ShortNickName" "" "HP LaserJet m101-m106 hpijs"
@@ -22999,6 +23041,24 @@ Group "RLT/HP Real Life Technologies"
      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet pro mfp m27cnw;DES:hp laserjet pro mfp m27cnw;"
      PCFileName "hp-laserjet_pro_mfp_m27cnw.ppd"
      Attribute "Product" "" "(HP LaserJet Pro MFP m27cnw)"
+   }
+   {
+     ModelName "HP Neverstop Laser 100x"
+     Attribute "NickName" "" "HP Neverstop Laser 100x, hpcups $Version"
+     Attribute "ShortNickName" "" "HP Neverstop Laser 100x hpijs"
+     Attribute "1284DeviceID" "" "MFG:HP;MDL:hp neverstop laser 100x;DES:hp neverstop laser 100x;"
+     PCFileName "hp-neverstop_laser_100x.ppd"
+     Attribute "Product" "" "(HP Neverstop Laser 1000a)"
+     Attribute "Product" "" "(HP Neverstop Laser 1000w)"
+   }
+   {
+     ModelName "HP Neverstop Laser MFP 120x"
+     Attribute "NickName" "" "HP Neverstop Laser MFP 120x, hpcups $Version"
+     Attribute "ShortNickName" "" "HP Neverstop Laser MFP 120x hpijs"
+     Attribute "1284DeviceID" "" "MFG:HP;MDL:hp neverstop laser mfp 120x;DES:hp neverstop laser mfp 120x;"
+     PCFileName "hp-neverstop_laser_mfp_120x.ppd"
+     Attribute "Product" "" "(HP Neverstop Laser MFP 1200a)"
+     Attribute "Product" "" "(HP Neverstop Laser MFP 1200w)"
    }
   }
 
