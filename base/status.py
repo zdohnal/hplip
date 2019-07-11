@@ -1474,18 +1474,22 @@ def StatusType8(dev): #  LaserJet PJL (B&W only)
 
 
 element_type10_xlate = { 'ink' : AGENT_KIND_SUPPLY,
+                         'rechargeableToner' : AGENT_KIND_TONER_CARTRIDGE,
+                         'inkTank' : AGENT_KIND_SUPPLY,
                          'inkCartridge' : AGENT_KIND_HEAD_AND_SUPPLY,
                          'printhead' : AGENT_KIND_HEAD,
                          'toner' : AGENT_KIND_TONER_CARTRIDGE,
                          'tonerCartridge' : AGENT_KIND_TONER_CARTRIDGE,
                        }
 
-pen_type10_xlate = { 'pK' : AGENT_TYPE_PG,
+pen_type10_xlate = { 'pK' : AGENT_TYPE_PHOTO_BLACK,
                      'CMY' : AGENT_TYPE_CMY,
                      'M' : AGENT_TYPE_MAGENTA,
                      'C' : AGENT_TYPE_CYAN,
                      'Y' : AGENT_TYPE_YELLOW,
                      'K' : AGENT_TYPE_BLACK,
+                     'G' : AGENT_TYPE_G,
+                     'mK' : AGENT_TYPE_MATTE_BLACK,
                    }
 
 pen_level10_xlate = { 'ok' : AGENT_LEVEL_TRIGGER_SUFFICIENT_0,
@@ -1589,7 +1593,7 @@ def StatusType10Agents(func): # Low End Data Model
                 quantityState = e.find("ConsumableLifeState/MeasuredQuantityState").text
 
                 # level
-                if type == "ink" or type == "inkCartridge" or type == "toner" or type == "tonerCartridge":
+                if type == "ink" or type == "inkCartridge" or type == "toner" or type == "tonerCartridge" or type == "rechargeableToner" or type == "inkTank":
                     ink_type = e.find("ConsumableLabelCode").text
                     if state != "missing":
                         try:
@@ -1604,7 +1608,7 @@ def StatusType10Agents(func): # Low End Data Model
                            agent_sku = 'Unknown' #Initialize to unknown. IN some old devices, ConsumableSelectibilityNumber is not returned by device.
                         except:
                            ink_level = 0
-                elif type == "printhead":
+                elif type == "printhead" or type == 'imageDrum':
                      continue; #No need of adding this agent.
                 else:
                     ink_type = ''
@@ -1817,6 +1821,8 @@ IPP_PRINTER_STATE_PROCESSING = 0x04
 IPP_PRINTER_STATE_STOPPED = 0x05
 
 marker_kind_xlate =    { 'ink' : AGENT_KIND_SUPPLY,
+                         'rechargeableToner' : AGENT_KIND_TONER_CARTRIDGE,
+                         'inkTank' : AGENT_KIND_SUPPLY,
                          'inkCartridge' : AGENT_KIND_SUPPLY,
                          'printhead' : AGENT_KIND_HEAD,
                          'toner' : AGENT_KIND_TONER_CARTRIDGE,

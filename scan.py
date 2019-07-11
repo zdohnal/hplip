@@ -1003,15 +1003,16 @@ try:
             sys.exit(1)
 
         sane.init()
-        devices = sane.getDevices()
+		# Commenting redundant getDevices() call since device list are already fetched in the beginning
+        #devices = sane.getDevices()
 
         # Make sure SANE backend sees the device...
-        for d, mfg, mdl, t in devices:
-            if d == device_uri:
-                break
-        else:
-            log.error("Unable to locate device %s using SANE backend hpaio:. Please check HPLIP installation." % device_uri)
-            sys.exit(1)
+        #for d, mfg, mdl, t in devices:
+        #    if d == device_uri:
+        #        break
+        #else:
+        #    log.error("Unable to locate device %s using SANE backend hpaio:. Please check HPLIP installation." % device_uri)
+        #    sys.exit(1)
 
         if uiscan == False:
             log.info(log.bold("Using device %s" % device_uri))

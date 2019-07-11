@@ -1442,7 +1442,7 @@ int  PCLmGenerator::StartJob(void **pOutBuffer, int *iOutBufferSize)
 	if(DebugIt2)
 	    	dbglog("Allocated %d for myOutBufferSize\n",outBuffSize);
 	allocatedOutputBuffer=*pOutBuffer;
-	initOutBuff((char*)*pOutBuffer,outBuffSize);
+	initOutBuff((char*)*pOutBuffer,currOutBuffSize);
 	writePDFGrammarHeader();
 	*iOutBufferSize=totalBytesWrittenToCurrBuff;
 	jobOpen=job_open;

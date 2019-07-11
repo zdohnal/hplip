@@ -1048,7 +1048,6 @@ packages=python3-notify2
 [suse:15.0:automake]
 packages=automake
 
-
 # ****************************************
 [redhat]
 index=6
@@ -10982,7 +10981,155 @@ packages=epm
 code_name=Tessa
 packaged_version=3.19.3
 release_date=19/12/18
-same_as_version=19
+supported=1
+scan_supported=1
+fax_supported=1
+pcard_supported=1
+network_supported=1
+parallel_supported=1
+usb_supported=1
+notes=Enable the universe/multiverse repositories. Also be sure you are using the Ubuntu "Main" Repositories. See: https://help.ubuntu.com/community/Repositories/Ubuntu for more information.  Disable the CD-ROM/DVD source if you do not have the Ubuntu installation media inserted in the drive.
+ppd_install=drv
+udev_mode_fix=1
+ppd_dir=/usr/share/ppd/HP
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+ui_toolkit=qt4
+native_cups=1
+acl_rules=1
+#scanjet_depend_cmd=sudo apt-get install --assume-yes python2-pip,sudo pip2 install --upgrade pip,sudo -H pip2 install setuptools,sudo pip2 install --upgrade setuptools,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip2 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-all,sudo apt-get install --assume-yes libzbar-dev,sudo apt-get install --assume-yes python-zbar,sudo apt-get install --assume-yes python-opencv,sudo apt-get install --assume-yes python-pypdf2,sudo -H pip2 install imutils,sudo -H pip2 install pypdfocr,sudo -H pip2 install scikit-image,sudo -H pip2 install scipy
+#scanjet_py3_depend_cmd=sudo apt-get install --assume-yes python3-pip,sudo pip3 install --upgrade pip,sudo -H pip3 install setuptools,sudo pip3 install --upgrade setuptools,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip3 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-all,sudo -H pip3 install opencv-python,sudo -H pip3 install PyPDF2,sudo -H pip3 install imutils,sudo -H pip3 install ocrmypdf,sudo -H pip3 install scikit-image,sudo -H pip3 install scipy
+
+libdir_path=/usr/lib/x86_64-linux-gnu
+
+[linuxmint:19.1:cups]
+packages=libcups2
+
+[linuxmint:19.1:cups-devel]
+packages=libcups2-dev,cups-bsd,cups-client
+
+[linuxmint:19.1:gcc]
+packages=build-essential
+
+[linuxmint:19.1:gs]
+packages=ghostscript
+
+[linuxmint:19.1:libcrypto]
+packages=
+commands=sudo DEBIAN_FRONTEND=noninteractive apt-get --assume-yes install openssl
+
+[linuxmint:19.1:libjpeg]
+packages=libjpeg8-dev
+
+[linuxmint:19.1:libnetsnmp-devel]
+packages=
+commands=sudo DEBIAN_FRONTEND=noninteractive apt-get --assume-yes install libsnmp-dev,sudo apt-get --assume-yes install snmp-mibs-downloader
+
+[linuxmint:19.1:libpthread]
+packages=build-essential
+
+[linuxmint:19.1:libtool]
+packages=libtool,libtool-bin
+
+[linuxmint:19.1:libusb]
+packages=libusb-1.0.0-dev
+
+[linuxmint:19.1:make]
+packages=build-essential
+
+#[linuxmint:19.1:pil]
+#packages=python-imaging
+
+[linuxmint:19.1:ppdev]
+packages=
+commands=sudo modprobe ppdev,sudo cp -f /etc/modules /etc/modules.hplip,echo ppdev | sudo tee -a /etc/modules
+
+[linuxmint:19.1:pyqt]
+packages=python-qt4
+
+[linuxmint:19.1:python-devel]
+packages=python-dev
+
+[linuxmint:19.1:pyqt4]
+packages=python-qt4
+
+[linuxmint:19.1:pyqt4-dbus]
+packages=python-qt4-dbus
+
+#[linuxmint:19.1:python23]
+#packages=python
+
+[linuxmint:19.1:python2X]
+packages=python
+
+[linuxmint:19.1:reportlab]
+packages=python-reportlab
+
+[linuxmint:19.1:sane]
+packages=libsane
+
+[linuxmint:19.1:sane-devel]
+packages=libsane-dev
+
+[linuxmint:19.1:scanimage]
+packages=sane-utils
+
+[linuxmint:19.1:xsane]
+packages=xsane
+
+[linuxmint:19.1:python-dbus]
+packages=python-dbus,python-gobject
+
+[linuxmint:19.1:dbus]
+packages=libdbus-1-dev
+
+[linuxmint:19.1:cups-image]
+packages=libcupsimage2-dev
+
+[linuxmint:19.1:cups-ddk]
+packages=cups,libcupsimage2-dev
+
+[linuxmint:19.1:policykit]
+packages=policykit-1,policykit-1-gnome
+
+[linuxmint:19.1:python-notify]
+packages=python-notify
+
+[linuxmint:19.1:network]
+packages=wget
+
+[linuxmint:19.1:avahi-utils]
+packages=avahi-utils
+
+[linuxmint:19.1:python3-pyqt4-dbus]
+packages=python3-dbus.mainloop.qt
+
+[linuxmint:19.1:python3-pyqt4]
+packages=python3-pyqt4
+
+[linuxmint:19.1:python3-dbus]
+packages=python3-dbus,python3-gi
+
+[linuxmint:19.1:python3-xml]
+packages=python3-lxml
+
+[linuxmint:19.1:python3-devel]
+packages=python3-dev
+
+[linuxmint:19.1:python3-pil]
+packages=python3-pil
+
+[linuxmint:19.1:python3-reportlab]
+packages=python3-reportlab
+
+[linuxmint:19.1:python3-notify2]
+packages=python3-notify2,mate-notification-daemon
+
+[linuxmint:19.1:automake]
+packages=automake1.11
+
+[linuxmint:19.1:epm]
+packages=epm
 
 
 # ****************************************
@@ -12038,7 +12185,7 @@ packages=libcups2-dev,cups-bsd,cups-client
 
 [manjarolinux:18.0:gcc]
 packages=libusb-compat
-commands=/bin/bash -c "yes | sudo pacman -Sy gcc-multilib gcc-libs-multilib lib32-gcc-libs",/bin/bash -c "yes | sudo pacman -S --needed gcc"
+commands=/bin/bash -c "yes | sudo pacman -Sy gcc-multilib gcc-libs-multilib lib32-gcc-libs lib32-glibc",/bin/bash -c "yes | sudo pacman -S --needed gcc"
 
 [manjarolinux:18.0:gs]
 packages=libidn,ghostscript

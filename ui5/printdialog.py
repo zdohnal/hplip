@@ -40,6 +40,8 @@ from .printernamecombobox import PRINTERNAMECOMBOBOX_TYPE_PRINTER_ONLY
 #signal
 import signal
 
+import subprocess
+
 PAGE_FILE = 0
 PAGE_OPTIONS = 1
 PAGE_MAX = 1
@@ -171,7 +173,8 @@ class PrintDialog(QDialog, Ui_Dialog):
     def executePrint(self):
         for cmd in self.OptionsToolBox.getPrintCommands(self.Files.file_list):
             log.debug(cmd)
-            status, output = utils.run(cmd)
+            #status, output = utils.run(cmd)
+            status = subprocess.call(cmd, shell=True)
             if status != 0:
                 FailureUI(self, self.__tr("<b>Print command failed with status code %s.</b><p>%s</p>"%(status,cmd)))
 
