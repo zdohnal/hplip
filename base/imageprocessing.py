@@ -39,6 +39,8 @@ import math
 import os
 import sys
 import platform
+import re
+import subprocess
 from installer import core_install
 from installer import dcheck
 #from .dcheck import *
@@ -330,7 +332,13 @@ def rotate_bound(image, angle):
     return cv2.warpAffine(image, M, (nW, nH))
     
 def orientangle(im):
-    from tesserocr import PyTessBaseAPI, PSM
+    if int(get_tesseract_version()) >= 4:
+        import locale
+        locale.setlocale(locale.LC_ALL, 'C')
+        from tesserocr import PyTessBaseAPI, PSM
+    else:
+        from tesserocr import PyTessBaseAPI, PSM
+
     with PyTessBaseAPI(psm=PSM.AUTO_OSD) as api:        
         try:        
             api.SetImage(im)
@@ -692,9 +700,12 @@ def merge_PDF_viewer(output,ocr):
         output_ocr = g[0] +"_ocr.pdf"
         if sys.version_info[0] == 3:
             cmd = "ocrmypdf" + " " + output + " " + output_ocr
+            os_utils.execute(cmd)
         else:
-            cmd = "pypdfocr" + "  " + output
-        os_utils.execute(cmd)
+            #cmd = "pypdfocr" + "  " + output
+            print("Santhosh")
+            out = subprocess.Popen(['pypdfocr',output],stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+            stdout,stderr =out.communicate()
         #g = output.split(".")
         #output_ocr = g[0] +"_ocr.pdf"
         if os.path.isfile(output_ocr):
@@ -766,8 +777,12 @@ def check_skimage():
 def check_tesserocr_imutils():
     scanjet_flag = None
     try:
-        import tesserocr
-        #import imutils	
+        if int(get_tesseract_version()) >= 4:
+            import locale
+            locale.setlocale(locale.LC_ALL, 'C')
+            import tesserocr
+        else:
+            import tesserocr
     except ImportError as error:
         scanjet_flag=str(error)
 		#.split(' ')[-1]
@@ -1049,4 +1064,27 @@ def check_scipy():
         scanjet_flag=str("Error occurred")
     return scanjet_flag
 
+
+def _read_string(s):
+    if sys.version_info >= (3, 0):
+        return s.decode('UTF-8')
+    else:
+        return s
+
+def get_tesseract_version():
+    try:
+        p = subprocess.Popen(['tesseract', '-v'], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+        stdout_version, version = p.communicate()
+        version = _read_string(version).strip()
+        if version == '':
+            version = _read_string(stdout_version).strip()
+        version_match = re.search(r'^tesseract ((?:\d+\.)+\d+).*', version, re.M)
+        if version_match:
+            version = version_match.group(1)
+            return version[0]
+        else:
+            return 0
+    except OSError as e:
+        #log.debug('Failed to extract tesseract version from executable: {}'.format(e))
+        return 0
 

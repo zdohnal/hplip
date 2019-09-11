@@ -7,7 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from base import utils
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -94,7 +94,8 @@ class Ui_Dialog(object):
         self.NetworkDiscoveryMethodComboBox.setObjectName("NetworkDiscoveryMethodComboBox")
         self.NetworkDiscoveryMethodComboBox.addItem("")
         self.NetworkDiscoveryMethodComboBox.addItem("")
-        self.NetworkDiscoveryMethodComboBox.addItem("")
+        if utils.which("avahi-browse"):
+           self.NetworkDiscoveryMethodComboBox.addItem("")
         self.hboxlayout2.addWidget(self.NetworkDiscoveryMethodComboBox)
         self.gridlayout4.addLayout(self.hboxlayout2, 1, 0, 1, 1)
         self.hboxlayout3 = QtWidgets.QHBoxLayout()
@@ -356,7 +357,8 @@ class Ui_Dialog(object):
         self.NetworkDiscoveryMethodLabel.setText(_translate("Dialog", "Network discovery method:"))
         self.NetworkDiscoveryMethodComboBox.setItemText(0, _translate("Dialog", "SLP"))
         self.NetworkDiscoveryMethodComboBox.setItemText(1, _translate("Dialog", "mDNS/Bonjour"))
-        self.NetworkDiscoveryMethodComboBox.setItemText(2, _translate("Dialog", "Avahi"))
+        if utils.which("avahi-browse"):
+           self.NetworkDiscoveryMethodComboBox.setItemText(2, _translate("Dialog", "Avahi"))
         self.NetworkTimeoutLabel.setText(_translate("Dialog", "Timeout:"))
         self.NetworkTimeoutSpinBox.setSuffix(_translate("Dialog", "sec"))
         self.NetworkTTLLabel.setText(_translate("Dialog", "TTL:"))

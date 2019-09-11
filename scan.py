@@ -131,6 +131,7 @@ orient = 0
 orient_list = []
 multipick_error_message = "The scan operation has been cancelled or a multipick or paper is jammed in the ADF.\nIf you cancelled the scan,click OK.\nIf the scan was terminated due to a multi-feed or paper jam in the ADF,\ndo the following:\n\n1)Clear the ADF path. For instructions see your product documentation.\n2)Check the sheets are not stuck together. Remove any staples, sticky notes,tape or other objects.\n3)Restart the scan\n\nNote:If necessary, turn off automatic detection of multi-pick before starting a new scan\n"
 SANE_STATUS_MULTIPICK=12
+SANE_STATUS_JAMMED=6
 
 PAGE_SIZES = { # in mm
     '5x7' : (127, 178, "5x7 photo", 'in'),
@@ -206,10 +207,6 @@ def createPagesFile(adf_page_files,pages_file,file_type='.png'):
         for p in adf_page_files:
             im = Image.open(p)
             output = utils.createBBSequencedFilename(pages_file, file_type, output_path)
-            '''pyPlatform = platform.python_version()
-            num = pyPlatform.split('.')
-            if num[0] >= '3':
-                im = im.convert("RGB")'''
             try:
                 im.save(output,compress_level=1,quality=55)
             except:
@@ -321,32 +318,7 @@ try:
         ("[OPTIONS] (advanced)", "", "header", False),
         ("Set the scanner compression mode:", "-x<mode> or --compression=<mode>, <mode>='raw', 'none' or 'jpeg' ('jpeg' is default) ('raw' and 'none' are equivalent)", "option", False),]
 
-    '''scanjet=[utils.USAGE_SPACE,("[OPTIONS] (Scanjet)", "", "header", False),("multi-pick mode:", "--multipick (multipick detection enabled)", "option", False),
-        ("Auto-orientation mode:", "--autoorient (auto orientation enabled)", "option", False),
-        ("Crushed:", "--crushed (crushed enabled)", "option", False),
-        ("Background Color Removal:", "--bg_color_removal (Background Color Removal(make white) enabled)", "option", False),
-        ("Punch Hole Removal:", "--punchhole_removal (Background Color Removal(make white) enabled)", "option", False),
-        ("batchsep and blankpage mode:", "--batchsepBP (Batch Seperation Blankpage enabled)", "option", False),
-        ("batchsep and Barcode mode:", "--batchsepBC (Batch Seperation barcode enabled)", "option", False),
-        ("Auto-Crop mode:", "--autocrop (auto crop enabled)", "option", False),
-	("Deskew mode:", "--deskew (deskew enabled)", "option", False),
-	("Mixed-feed mode:", "--mixedfeed (multi feed enabled)", "option", False),
-        ("Document merge:", "--docmerge (document merge enabled)", "option", False),
-        ("Document merge ADF Flatbed:", "--adf_fladbed_merge (document merge ADF and Flatbed UI application enabled)", "option", False),
-        ("Color Dropout Red :", "-color_dropout_red_value=<color_dropout_red_value> or --color_dropout_red_value=<color_dropout_red_value>", "option", False),
-        ("Color Dropout Green :", "-color_dropout_green_value=<color_dropout_green_value> or --color_dropout_green_value=<color_dropout_green_value>", "option", False),
-        ("Color Dropout Blue :", "-color_dropout_blue_value=<color_dropout_blue_value> or --color_dropout_blue_value=<color_dropout_blue_value>", "option", False),
-        ("Color Dropout Range :", "-color_range=<color_range> or --color_range=<color_range>", "option", False),
-        ("", "Example:color_dropout = [0,0,0,0].", "option", False),
-        ("Image contrast:", "--contrast=<contrast>", "option", False),
-        ("", "The contrast range varies from device to device.", "option", False),
-        ("Image brightness:", "--brightness=<brightness>", "option", False),
-        ("", "The brightness range varies from device to device.", "option", False),
-        ("Image sharpness:", "--sharpness=<sharpness>", "option", False),
-        ("", "The sharpness range varies from device to device.", "option", False),
-        ("Image color:", "--color_value=<color_value>", "option", False),
-        ("", "The color range varies from device to device.", "option", False),
-	("Blank Page Removal:", "--blankpage(blank page removal enabled)", "option", False)]'''
+    
     scan_parseStdOpts = ['dest=', 'mode=', 'res=', 'resolution=',
                           'resize=', 'adf', 'duplex', 'dup', 'unit=',
                           'units=', 'area=', 'box=', 'tlx=',
@@ -363,59 +335,6 @@ try:
                           'editor=', 'dp=', 'dest-printer=', 'dd=',
                           'dest-device=', 'brightness=', 'contrast=','filetype=', 'path=', 'uiscan', 'sharpness=','color_dropout_red_value=','color_dropout_green_value=','color_dropout_blue_value=','color_range=', 'color_value=','multipick','autoorient','blankpage','batchsepBP','mixedfeed', 'crushed', 'bg_color_removal','punchhole_removal','docmerge','adf_fladbed_merge','batchsepBC','deskew','autocrop',]
 
-    '''scanjet_parseStdOpts = [ 'brightness=', 'sharpness=', 'contrast=', 'color_value=','multipick','autoorient','blankpage','batchsepBP','mixedfeed', 'crushed','docmerge','adf_fladbed_merge','batchsepBC','deskew','autocrop',]
-
-    scanjet_flag_pil=imageprocessing.check_pil()
-    scanjet_flag_numpy=imageprocessing.check_numpy()
-    scanjet_flag_opencv=imageprocessing.check_opencv()
-    scanjet_flag_tesser_utils=imageprocessing.check_tesserocr_imutils()
-    scanjet_flag_pypdf2=imageprocessing.check_pypdf2()
-    scanjet_flag_barcode=imageprocessing.check_zbar()
-    try:
-        if scanjet_flag_pil == 'PIL':
-            scanjet_parseStdOpts = []
-        if scanjet_flag_numpy == 'numpy':
-            parse_list = ['multipick','autoorient','batchsepBP','mixedfeed', 'crushed','docmerge','adf_fladbed_merge','batchsepBC','deskew','autocrop']
-            for thing in parse_list: 
-                try:
-                    scanjet_parseStdOpts.remove(thing)
-                except ValueError:
-                    print ('')
-        if scanjet_flag_opencv == 'cv2':
-            parse_list = ['deskew','autocrop','mixedfeed']
-            for thing in parse_list: 
-                try:
-                    scanjet_parseStdOpts.remove(thing)
-                except ValueError:
-                    print ('')
-        if scanjet_flag_tesser_utils == 'tesserocr' or scanjet_flag_tesser_utils == 'imutils':
-            parse_list = ['autoorient']
-            for thing in parse_list: 
-                try:
-                    scanjet_parseStdOpts.remove(thing)
-                except ValueError:
-                    print ('')
-        if scanjet_flag_pypdf2 == 'PyPDF2':
-            parse_list = ['docmerge','adf_fladbed_merge']
-            for thing in parse_list: 
-                try:
-                    scanjet_parseStdOpts.remove(thing)
-                except ValueError:
-                    print ('')
-        if scanjet_flag_barcode == 'False':
-            parse_list = ['batchsepBC']
-            for thing in parse_list: 
-                try:
-                    scanjet_parseStdOpts.remove(thing)
-                except ValueError:
-                    print ('')
-    except TypeError:
-        print ('')'''
-    #if con_device == 5000 or con_device == 7500:
-	#scanjet=[("Destination:", "--path=<destination>", "option", False),]
-        #extra_options.extend(scanjet)
-        #scanjet_parseStdOpts = ['filetype=', 'path=', 'uiscan', 'sharpness=', 'color_value=','multipick','autoorient','blankpage','batchsepBP','mixedfeed', 'crushed','docmerge','adf_fladbed_merge','batchsepBC','deskew','autocrop',] 
-        #scan_parseStdOpts.extend(scanjet_parseStdOpts)
     mod.setUsage(module.USAGE_FLAG_DEVICE_ARGS, extra_options, see_also_list=[])
 
     #print devicelist 
@@ -1024,6 +943,9 @@ try:
             if multipick and e.args[0] == SANE_STATUS_MULTIPICK:
                  log.error(multipick_error_message)
                  sys.exit(2)
+            if e.args[0] == SANE_STATUS_JAMMED:
+                 log.error(multipick_error_message)
+                 sys.exit(7)
             sane.reportError(e.args[0])
             sys.exit(1)
 
@@ -1341,6 +1263,9 @@ try:
                         if adf and e.args[0] == SANE_STATUS_MULTIPICK and multipick:
                             log.error(multipick_error_message)
                             sys.exit(2)
+                        if adf and (e.args[0] == SANE_STATUS_JAMMED) :
+                            log.error(multipick_error_message)
+                            sys.exit(7)
                         sane.reportError(e.args[0])
                         sys.exit(1)
                     except KeyboardInterrupt:
@@ -1361,6 +1286,9 @@ try:
                         if multipick:
                             log.error(multipick_error_message)
                             sys.exit(2)
+                    if adf and status == SANE_STATUS_JAMMED:
+                        log.error(multipick_error_message)
+                        sys.exit(7)
 
                     if expected_bytes > 0:
                         if adf:
@@ -1391,8 +1319,8 @@ try:
                                                 utils.format_bytes(bytes_read))
 
                                 if status != scanext.SANE_STATUS_GOOD:
-                                    if status == SANE_STATUS_MULTIPICK and multipick:
-                                        log.error("ADF_MPD multipick error %d" % (status))
+                                    if (status == SANE_STATUS_MULTIPICK and multipick) or (status == SANE_STATUS_JAMMED):
+                                        log.error("ADF_MPD multipick or Jam error %d" % (status))
                                         log.error("Error in reading data. Status=%d " % (status))
 					#sys.exit(2)
 					
@@ -1607,10 +1535,7 @@ try:
                                 if (document_merge and duplex and save_file == 'pdf') or (imageprocessing.check_pypdf2() != None):
                                     temp_output = utils.createSequencedFilename("hpscan", '.png', output_path)
                                 else:
-                                    if mixed_feed:
-                                        temp_output = utils.createSequencedFilename("hpscan",ext, output_path)
-                                    else:
-                                        temp_output = utils.createSequencedFilename("hpscan",'.png', output_path)
+                                    temp_output = utils.createSequencedFilename("hpscan",ext, output_path)
                             adf_page_files.append(temp_output)
                             #print "entered flatbed save"
                             '''pyPlatform = platform.python_version()
@@ -1640,6 +1565,10 @@ try:
                     log.error("ADF_MPD multipick error %d" % (status))
                     log.error("Error in reading data. Status=%d bytes_read=%d." % (status, bytes_read))
                     sys.exit(2)
+                elif uiscan == True and (status == SANE_STATUS_JAMMED):
+                    log.error("ADF_MPD multipick or Jam error %d" % (status))
+                    log.error("Error in reading data. Status=%d bytes_read=%d." % (status, bytes_read))
+                    sys.exit(7)
                 else:
                     log.error("No data read.")
                     sys.exit(1)

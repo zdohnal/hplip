@@ -26,7 +26,7 @@
 #   104 = no libdl
 
 #AC_PREREQ(2.59)
-AC_INIT([HP Linux Imaging and Printing], [3.19.6], [3.19.6], [hplip])
+AC_INIT([HP Linux Imaging and Printing], [3.19.8], [3.19.8], [hplip])
 #AM_INIT_AUTOMAKE([1.9 foreign])
 AM_INIT_AUTOMAKE
 AC_DISABLE_STATIC
@@ -487,10 +487,11 @@ AC_MSG_CHECKING([for qt4])
 AC_ARG_ENABLE(qt4,
   [  --enable-qt4    enable qt4 (default=yes)],
   qt4=$enableval, qt4=yes)
-if test "$qt4" = "yes"; then
+if test "$qt4" = "yes" && test "$qt5" = "no"; then
    AC_MSG_RESULT(yes)
 else
    AC_MSG_RESULT(no)
+   qt4=no
 fi
 AM_CONDITIONAL(QT4_INSTALL, test x$qt4 = xyes)
 
@@ -500,6 +501,8 @@ AC_ARG_ENABLE(qt3,
   qt3=$enableval, qt3=no)
 if test "$qt3" = "yes"; then
    AC_MSG_RESULT(yes)
+   qt5=no
+   qt4=no
 else
    AC_MSG_RESULT(no)
 fi
@@ -515,10 +518,10 @@ epm_qt3=\#
 epm_qt4=\#
 epm_qt5=\#
 if test "$hpcups_only_build" = "no" && test "$hpijs_only_build" = "no"; then
-if test "$qt3" = "yes" && test "$qt4" = "no" && "$qt5" = "no"; then
+if test "$qt3" = "yes" && test "$qt4" = "no" && test "$qt5" = "no"; then
    ui_toolkit=qt3
    epm_qt3=
-elif test "$qt4" = "yes"; then
+elif test "$qt4" = "yes" && test "$qt5" = "no"; then
    ui_toolkit=qt4
    epm_qt4=
 elif test "$qt5" = "yes"; then

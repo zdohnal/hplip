@@ -18,6 +18,7 @@ import platform
 
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
+from collections import OrderedDict
 
 '''dir_path = os.path.dirname(os.path.realpath(__file__))
 print (dir_path)
@@ -25,6 +26,34 @@ import sys
 #sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 print sys.path'''
 from scan import sane
+
+PAGE_SIZES = OrderedDict([ # in mm
+    ("letter" , (215, 279, "Letter", 'in')),
+    ('a3' , (297, 420, "A3", 'mm')),
+    ("a4" , (210, 297, "A4", 'mm')),
+    ("a5" , (148, 210, "A5", 'mm')),
+    ('5x7' , (127, 178, "5x7 photo", 'in')),
+    ('4x6' , (102, 152, "4x6 photo", 'in')),
+    ('3x5' , (76, 127, "3x5 index card", 'in')),
+    ('a2_env' , (111, 146, "A2 Envelope", 'in')),
+    ("a6" , (105, 148, "A6", 'mm')),
+    ("b4" , (257, 364, "B4", 'mm')),
+    ("b5" , (182, 257, "B5", 'mm')),
+    ("c6_env" , (114, 162, "C6 Envelope", 'in')),
+    ("dl_env" , (110, 220, "DL Envelope", 'in')),
+    ("exec" , (184, 267, "Executive", 'in')),
+    ("flsa" , (216, 330, "Flsa", 'mm')),
+    ("higaki" , (100, 148, "Hagaki", 'mm')),
+    ("japan_env_3" , (120, 235, "Japanese Envelope #3", 'mm')),
+    ("japan_env_4" , (90, 205, "Japanese Envelope #4", 'mm')),
+    ("legal" , (215, 356, "Legal", 'in')),
+    ("no_10_env" , (105, 241, "Number 10 Envelope", 'in')),
+    ("oufufu-hagaki" , (148, 200, "Oufuku-Hagaki", 'mm')),
+    ("photo" , (102, 152, "Photo", 'in')),
+    ("super_b" , (330, 483, "Super B", 'in')),
+    ])
+
+
 
 #devicelist = {}
 device_name = ''
@@ -181,12 +210,12 @@ class Ui_HpScan(object):
         self.comboBox_Papersize = QtGui.QComboBox(self.dockWidgetContents)
         self.comboBox_Papersize.setGeometry(QtCore.QRect(85, 330, 171, 41))
         self.comboBox_Papersize.setObjectName(_fromUtf8("comboBox_Papersize"))
-        self.comboBox_Papersize.addItem(_fromUtf8(""))
-        self.comboBox_Papersize.addItem(_fromUtf8(""))
-        self.comboBox_Papersize.addItem(_fromUtf8(""))
-        self.comboBox_Papersize.addItem(_fromUtf8(""))
-        self.comboBox_Papersize.addItem(_fromUtf8(""))
-        self.comboBox_Papersize.currentIndexChanged.connect(self.comboBox_PaperSizeIndexChanged)
+        #self.comboBox_Papersize.addItem(_fromUtf8(""))
+        #self.comboBox_Papersize.addItem(_fromUtf8(""))
+        #self.comboBox_Papersize.addItem(_fromUtf8(""))
+        #self.comboBox_Papersize.addItem(_fromUtf8(""))
+        #self.comboBox_Papersize.addItem(_fromUtf8(""))
+        #self.comboBox_Papersize.currentIndexChanged.connect(self.comboBox_PaperSizeIndexChanged)
         self.pushButton_Scan = QtGui.QPushButton(self.dockWidgetContents)
         self.pushButton_Scan.setGeometry(QtCore.QRect(60, 470, 81, 41))
         font = QtGui.QFont()
@@ -569,6 +598,7 @@ class Ui_HpScan(object):
         cmd = cmd + ' --path=' + str(path)
         cmd = cmd + ' --' + 'uiscan'
         self.pushButton_Scan.setEnabled(False)
+        #print(cmd)
         status = utils.run(cmd)
         #print (status)
         if status[0] == 2:
@@ -605,6 +635,8 @@ class Ui_HpScan(object):
                 self.pushButton_Scan.setEnabled(True)
         elif status[0] == 6:
             self.failureMessage(convert_error_message)
+        elif status[0] == 7:
+            self.warningMessage(multipick_error_message)
         self.pushButton_Scan.setEnabled(True)
         #if status != 0:
             #print("Cmd %s failed with status %d",cmd,status)
@@ -634,6 +666,15 @@ class Ui_HpScan(object):
         #print self.file_type
 
     def comboBox_SourceChanged(self,device):
+        supported_PageSizes =[]
+        for x in PAGE_SIZES:
+            if PAGE_SIZES[x][0]<self.devicelist[self.device_uri][2] and PAGE_SIZES[x][1]<self.devicelist[self.device_uri][3]:
+                supported_PageSizes.append(x)
+        self.comboBox_Papersize.clear()
+        self.comboBox_Papersize.addItems(supported_PageSizes)
+        self.comboBox_Papersize.currentIndexChanged.connect(self.comboBox_PaperSizeIndexChanged)
+
+        
         if device != '5000' and device != '7500' and device != '9120' and device != '8500' and device != '3500' and device != '4500' and device != '3000' and device != '7000' and device != '2000' and device != '2500':
             self.multi_pick_pri = False
         else:
@@ -1401,11 +1442,11 @@ class Ui_HpScan(object):
         #self.comboBox_Papersize.setItemText(2, _translate("HpScan", "3x5", None))
         #self.comboBox_Papersize.setItemText(3, _translate("HpScan", "a2_env", None))
         #self.comboBox_Papersize.setItemText(4, _translate("HpScan", "a3", None))
-        self.comboBox_Papersize.setItemText(0, _translate("HpScan", "a4", None))
-        self.comboBox_Papersize.setItemText(1, _translate("HpScan", "a5", None))
+        #self.comboBox_Papersize.setItemText(0, _translate("HpScan", "a4", None))
+        #self.comboBox_Papersize.setItemText(1, _translate("HpScan", "a5", None))
         #self.comboBox_Papersize.setItemText(7, _translate("HpScan", "a6", None))
         #self.comboBox_Papersize.setItemText(8, _translate("HpScan", "b4", None))
-        self.comboBox_Papersize.setItemText(2, _translate("HpScan", "b5", None))
+        #self.comboBox_Papersize.setItemText(2, _translate("HpScan", "b5", None))
         #self.comboBox_Papersize.setItemText(10, _translate("HpScan", "c6_env", None))
         #self.comboBox_Papersize.setItemText(11, _translate("HpScan", "dl_env", None))
         #self.comboBox_Papersize.setItemText(12, _translate("HpScan", "exec", None))
@@ -1413,14 +1454,14 @@ class Ui_HpScan(object):
         #self.comboBox_Papersize.setItemText(14, _translate("HpScan", "higaki", None))
         #self.comboBox_Papersize.setItemText(15, _translate("HpScan", "japan_env_3", None))
         #self.comboBox_Papersize.setItemText(16, _translate("HpScan", "japan_env_4", None))
-        self.comboBox_Papersize.setItemText(3, _translate("HpScan", "legal", None))
-        self.comboBox_Papersize.setItemText(4, _translate("HpScan", "letter", None))
+        #self.comboBox_Papersize.setItemText(3, _translate("HpScan", "legal", None))
+        #self.comboBox_Papersize.setItemText(4, _translate("HpScan", "letter", None))
         #self.comboBox_Papersize.setItemText(19, _translate("HpScan", "no_10_env", None))
         #self.comboBox_Papersize.setItemText(20, _translate("HpScan", "oufufu-hagaki", None))
         #self.comboBox_Papersize.setItemText(21, _translate("HpScan", "photo", None))
         #self.comboBox_Papersize.setItemText(22, _translate("HpScan", "super_b", None))
         #self.comboBox_Papersize.setItemText(23, _translate("HpScan", "b6", None))
-        self.comboBox_Papersize.setCurrentIndex(4)        
+        #self.comboBox_Papersize.setCurrentIndex(4)        
         self.pushButton_Scan.setText(_translate("HpScan", "Scan", None))
         
         self.pushButton_Change.setText(_translate("HpScan", "Change Path", None))
@@ -1484,13 +1525,20 @@ class SetupDialog():
         #device = ''
         sane.init()
         sane_devices = sane.getDevices()
-        for d, mfg, mdl, t in sane_devices:
-            try:
-                devicelist[d]
-            except KeyError:
-                devicelist[d] = [mdl]
-            else:
-                devicelist[d].append(mdl)
+        
+        for device, mfg, mdl, t in sane_devices:
+            if re.search(r'_5000_', device) or re.search(r'_7500', device) or re.search(r'_N9120', device) or re.search(r'_8500fn2', device) or re.search(r'_3500_f1', device) or re.search(r'_4500_fn1', device) or re.search(r'_7000_s3', device) or re.search(r'_3000_s3', device) or re.search(r'hp2000S1', device) or re.search(r'hpgt2500', device):
+                try:
+                    scanDevice = sane.openDevice(device)
+                    source_option = scanDevice.getOptionObj("source").constraint
+                    brx = scanDevice.getOptionObj('br-x').limitAndSet(None)
+                    bry = scanDevice.getOptionObj('br-y').limitAndSet(None)
+                    devicelist[device] = [mdl]
+                    devicelist[device].extend([source_option,int(brx)+1,int(bry)+1])
+                    scanDevice.closeScan()
+                except :
+                    pass                     
+
         sane.deInit()
         #print (devicelist)
 

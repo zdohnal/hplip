@@ -368,6 +368,10 @@ f 0644 root root $ppd/HP prnt/pdf/*.ppd.gz
 @epm_full@l 755 root root $bindir/hp-config_usb_printer ../share/hplip/config_usb_printer.py
 @epm_full@l 755 root root $bindir/hp-diagnose_queues ../share/hplip/diagnose_queues.py
 
+# qt5
+@epm_full@@epm_qt5@d 775 root root $home/ui5 -
+@epm_full@@epm_qt5@f 644 root root $home/ui5 ui5/*.py
+
 # qt4
 @epm_full@@epm_qt4@d 775 root root $home/ui4 -
 @epm_full@@epm_qt4@f 644 root root $home/ui4 ui4/*.py

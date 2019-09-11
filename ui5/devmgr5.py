@@ -48,7 +48,7 @@ import collections
 # dbus
 try:
     import dbus
-    from dbus.mainloop.pyqt5 import DBusQtMainLoop
+    from dbus.mainloop.glib import DBusGMainLoop
     from dbus import lowlevel
 except ImportError:
     log.error("Unable to load DBus libraries. Please check your installation and try again.")
@@ -269,7 +269,7 @@ class DevMgr5(Ui_MainWindow_Derived, Ui_MainWindow, QMainWindow):
 
     # TODO: Make sbus init mandatory success, else exit
     def initDBus(self):
-        self.dbus_loop = DBusQtMainLoop(set_as_default=True)
+        self.dbus_loop = DBusGMainLoop(set_as_default=True)
         self.dbus_avail, self.service, self.session_bus = device.init_dbus(self.dbus_loop)
 
         if not self.dbus_avail:

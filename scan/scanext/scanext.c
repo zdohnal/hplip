@@ -244,6 +244,7 @@ static PyObject *startScan (_ScanDevice * self, PyObject * args)
     Py_END_ALLOW_THREADS
 
     if (st != SANE_STATUS_GOOD &&
+        st != SANE_STATUS_JAMMED &&
         st != SANE_STATUS_EOF &&
         st != SANE_STATUS_NO_DOCS &&
         st != SANE_STATUS_MULTIPICK)

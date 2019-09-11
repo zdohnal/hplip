@@ -879,6 +879,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-laserjet_1320-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_mfp_m577-ps.ppd.gz \
     prnt/ps/hp-pagewide_color_765-ps.ppd.gz \
+    prnt/ps/hp-designjet_t2600-ps.ppd.gz \
     prnt/ps/hp-pagewide_p75050-60-ps.ppd.gz \
     prnt/ps/hp-designjet_z5400-postscript.ppd.gz \
     prnt/ps/hp-laserjet_m806-ps.ppd.gz \
@@ -1011,6 +1012,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-officejet_pro_8210-ps.ppd.gz \
     prnt/ps/hp-laserjet_9040_mfp-ps.ppd.gz \
     prnt/ps/hp-laserjet_2300-ps.ppd.gz \
+    prnt/ps/hp-designjet_t1600dr-ps.ppd.gz \
     prnt/ps/hp-laserjet_9000_series-ps.ppd.gz \
     prnt/ps/hp-laserjet_flow_mfp_m630-ps.ppd.gz \
     prnt/ps/hp-laserjet_m506-ps.ppd.gz \
@@ -1070,6 +1072,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-officejet_pro_251dw_printer-ps.ppd.gz \
     prnt/ps/hp-designjet_z5600_postscript-ps.ppd.gz \
     prnt/ps/hp-designjet_d5800-ps.ppd.gz \
+    prnt/ps/hp-designjet_t1530-postscript.ppd.gz \
     prnt/ps/hp-laserjet_m5035_mfp-ps.ppd.gz \
     prnt/ps/hp-laserjet_9065mfp-ps.ppd.gz \
     prnt/ps/hp-laserjet_pro_m706-ps.ppd.gz \
@@ -1078,6 +1081,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-laserjet_m1530_mfp_series-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_4550-ps.ppd.gz \
     prnt/ps/hp-designjet_z6600-postscript.ppd.gz \
+    prnt/ps/hp-designjet_t1600_printer-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_mfp_m274-ps.ppd.gz \
     prnt/ps/hp-laserjet_700_m712-ps.ppd.gz \
     prnt/ps/hp-pagewide_mfp_p77740-60zs-ps.ppd.gz \
@@ -1134,12 +1138,14 @@ foomatic_ps_printers = \
     prnt/ps/hp-color_laserjet_pro_mfp_m476-ps.ppd.gz \
     prnt/ps/hp-officejet_color_x555-ps.ppd.gz \
     prnt/ps/hp-pagewide_xl_5000ps_mfp-ps.ppd.gz \
+    prnt/ps/hp-designjet_t930-postscript.ppd.gz \
     prnt/ps/hp-laserjet_m1522n_mfp-ps.ppd.gz \
     prnt/ps/hp-postscript-laserjet-pro.ppd.gz \
     prnt/ps/hp-laserjet_cm1410_series-ps.ppd.gz \
     prnt/ps/hp-designjet_4020ps-ps.ppd.gz \
     prnt/ps/hp-designjet_t7100ps-ps.ppd.gz \
     prnt/ps/hp-designjet_t1708dr_postscript-ps.ppd.gz \
+    prnt/ps/hp-designjet_t2530-postscript.ppd.gz \
     prnt/ps/hp-pagewide_xl_8000ps_blueprinter-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_9500_mfp-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_m553-ps.ppd.gz \
