@@ -79,6 +79,15 @@
 :model "HP Color LaserJet cm4730fsk Multifunction Printer"
 :status :good
 
+:model "HP Color LaserJet Enterprise Flow MFP m776z"
+:status :good
+
+:model "HP Color LaserJet Enterprise Flow MFP m776zs"
+:status :good
+
+:model "HP Color LaserJet Enterprise MFP m776dn"
+:status :good
+
 :model "HP Color LaserJet Managed Flow MFP e67560z"
 :status :good
 
@@ -95,6 +104,9 @@
 :status :good
 
 :model "HP Color LaserJet Managed Flow MFP e87640z"
+:status :good
+
+:model "HP Color LaserJet Managed Flow MFP e87650z"
 :status :good
 
 :model "HP Color LaserJet Managed Flow MFP e87660z"
@@ -1361,12 +1373,6 @@
 :status :good
 
 :model "HP LaserJet 9040 Multifunction Printer"
-:status :good
-
-:model "HP LaserJet 9040dn Printer"
-:status :good
-
-:model "HP LaserJet 9040n Printer"
 :status :good
 
 :model "HP LaserJet 9050 Multifunction Printer"
@@ -3619,10 +3625,10 @@
 :model "HP Printer Scanner Copier 300"
 :status :good
 
-:model "HP PSC 1110 All-in-one Printer"
+:model "HP PSC 1000 Series"
 :status :good
 
-:model "HP PSC 1110 Series"
+:model "HP PSC 1110 All-in-one Printer"
 :status :good
 
 :model "HP PSC 1110v All-in-one Printer"
@@ -3749,6 +3755,9 @@
 :status :good
 
 :model "HP PSC 1510 All-in-one Printer"
+:status :good
+
+:model "HP PSC 1510 Series"
 :status :good
 
 :model "HP PSC 1510s All-in-one Printer"

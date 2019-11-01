@@ -78,9 +78,14 @@ def get_distro_name():
     os_name = None
     try:
         import platform
-        os_name = platform.dist()[0]
     except ImportError:
         os_name = None
+
+    try:
+        os_name = platform.dist()[0]
+    except AttributeError:
+        import distro
+        os_name = distro.linux_distribution()[0]
 
     if not os_name:
         name = os.popen('lsb_release -i | cut -f 2')
@@ -140,7 +145,11 @@ class Password(object):
                 self.__authType = AUTH_TYPES[distro_name]
                 if distro_name == 'fedora':
                     import platform
-                    ver = int(platform.dist()[1])
+                    try:
+                       ver = int(platform.dist()[1])
+                    except AttributeError:
+                       import distro
+                       ver = int(distro.linux_distribution()[1])
                     if ver >= 28:
                        self.__authType = AUTH_TYPES['fedora28']
             except KeyError:

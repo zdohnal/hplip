@@ -640,8 +640,14 @@ class CoreInstall(object):
         # Getting distro information using platform module
         try:
             import platform
-            name = platform.dist()[0].lower()
-            ver = platform.dist()[1]
+            try:
+                name = platform.dist()[0].lower()
+                ver = platform.dist()[1]
+            except AttributeError:
+                import distro
+                name = distro.linux_distribution()[0].lower()
+                ver = distro.linux_distribution()[1]
+
             if not name:
                 found = False
                 log.debug("Not able to detect distro")
@@ -1962,6 +1968,14 @@ class CoreInstall(object):
             cmds.append(self.passwordObj.getAuthCmd() % kill)
 
         return cmds
+
+    def remove_soT(self):
+        #log.info("\n Clearing unnecessary sos: ")
+        run_cmd = 'rm -rf .libs/libhpipp.so.0.0.1T .libs/libsane-hpaio.so.1.0.0T .libs/libhpmud.so.0.0.6T .libs/hpmudext.soT .libs/cupsext.soT'
+        cmd = self.passwordObj.getAuthCmd() % run_cmd
+        #run_cmd.append(self.passwordObj.getAuthCmd() % "rm -rf .libs/libhpipp.so.0.0.1T .libs/libsane-hpaio.so.1.0.0T .libs/libhpmud.so.0.0.6T .libs/hpmudext.soT .libs/cupsext.soT")
+         #self.passwordObj.getAuthCmd() % run_cmd
+        status, output = utils.run(cmd, self.passwordObj)
 
     def remove_hplip(self, callback=None):
         failed = True

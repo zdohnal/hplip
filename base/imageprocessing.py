@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
@@ -699,11 +700,10 @@ def merge_PDF_viewer(output,ocr):
         g = output.split(".pdf")
         output_ocr = g[0] +"_ocr.pdf"
         if sys.version_info[0] == 3:
-            cmd = "ocrmypdf" + " " + output + " " + output_ocr
-            os_utils.execute(cmd)
+            out = subprocess.Popen(['ocrmypdf',output,output_ocr],stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+            stdout,stderr =out.communicate()
         else:
             #cmd = "pypdfocr" + "  " + output
-            print("Santhosh")
             out = subprocess.Popen(['pypdfocr',output],stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
             stdout,stderr =out.communicate()
         #g = output.split(".")

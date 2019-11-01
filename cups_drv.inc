@@ -117,6 +117,7 @@ cups_ppd_printers = \
    ppd/hpcups/hp-deskjet_3420.ppd.gz \
    ppd/hpcups/hp-deskjet_3425.ppd.gz \
    ppd/hpcups/hp-deskjet_3450.ppd.gz \
+   ppd/hpcups/hp-deskjet_350.ppd.gz \
    ppd/hpcups/hp-deskjet_3500.ppd.gz \
    ppd/hpcups/hp-deskjet_3510_series.ppd.gz \
    ppd/hpcups/hp-deskjet_3520_series.ppd.gz \
@@ -141,6 +142,7 @@ cups_ppd_printers = \
    ppd/hpcups/hp-deskjet_3940.ppd.gz \
    ppd/hpcups/hp-deskjet_400.ppd.gz \
    ppd/hpcups/hp-deskjet_400l.ppd.gz \
+   ppd/hpcups/hp-deskjet_450.ppd.gz \
    ppd/hpcups/hp-deskjet_4510_series.ppd.gz \
    ppd/hpcups/hp-deskjet_4530_series.ppd.gz \
    ppd/hpcups/hp-deskjet_460.ppd.gz \
@@ -275,8 +277,6 @@ cups_ppd_printers = \
    ppd/hpcups/hp-deskjet_ink_adv_2060_k110.ppd.gz \
    ppd/hpcups/hp-deskjet_ink_advant_k109a-z.ppd.gz \
    ppd/hpcups/hp-deskjet_ink_advant_k209a-z.ppd.gz \
-   ppd/hpcups/hp-dj350.ppd.gz \
-   ppd/hpcups/hp-dj450.ppd.gz \
    ppd/hpcups/hp-envy_100_d410_series.ppd.gz \
    ppd/hpcups/hp-envy_110_series.ppd.gz \
    ppd/hpcups/hp-envy_120_series.ppd.gz \
@@ -773,7 +773,6 @@ cups_ppd_printers = \
    ppd/hpcups/hp-psc_1358_series.ppd.gz \
    ppd/hpcups/hp-psc_1400_series.ppd.gz \
    ppd/hpcups/hp-psc_1500_series.ppd.gz \
-   ppd/hpcups/hp-psc_1510_series.ppd.gz \
    ppd/hpcups/hp-psc_1600_series.ppd.gz \
    ppd/hpcups/hp-psc_2100_series.ppd.gz \
    ppd/hpcups/hp-psc_2150_series.ppd.gz \

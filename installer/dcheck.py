@@ -370,7 +370,7 @@ def get_pil_version():
     except ImportError:
         return '-'
     else:
-         return Image.VERSION
+         return Image.PILLOW_VERSION
 
 def get_libpthread_version():
     try:

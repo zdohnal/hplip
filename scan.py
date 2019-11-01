@@ -115,6 +115,7 @@ deskew_image = False
 lineart_mode = False
 document_merge = False
 mixed_feed = False
+back_side = False
 batchsepBC = False
 batchsepBP = False
 barcode = False
@@ -333,7 +334,7 @@ try:
                           'subject=', 'to=', 'from=', 'jpg',
                           'grey-scale', 'gray-scale', 'about=',
                           'editor=', 'dp=', 'dest-printer=', 'dd=',
-                          'dest-device=', 'brightness=', 'contrast=','filetype=', 'path=', 'uiscan', 'sharpness=','color_dropout_red_value=','color_dropout_green_value=','color_dropout_blue_value=','color_range=', 'color_value=','multipick','autoorient','blankpage','batchsepBP','mixedfeed', 'crushed', 'bg_color_removal','punchhole_removal','docmerge','adf_fladbed_merge','batchsepBC','deskew','autocrop',]
+                          'dest-device=', 'brightness=', 'contrast=','filetype=', 'path=', 'uiscan', 'sharpness=','color_dropout_red_value=','color_dropout_green_value=','color_dropout_blue_value=','color_range=', 'color_value=','multipick','autoorient','blankpage','batchsepBP','mixedfeed', 'crushed', 'bg_color_removal','punchhole_removal','docmerge','adf_fladbed_merge','batchsepBC','deskew','autocrop','backside']
 
     mod.setUsage(module.USAGE_FLAG_DEVICE_ARGS, extra_options, see_also_list=[])
 
@@ -818,6 +819,12 @@ try:
             except ValueError:
                 log.error("Invalid Option.Using default of False")
                 mixed_feed = False
+        elif o == '--backside':
+            try:
+                back_side = True
+            except ValueError:
+                log.error("Invalid Option.Using default of False")
+                back_side = False
         elif o == '--docmerge':
             try:
                 document_merge = True                
@@ -1235,6 +1242,7 @@ try:
 
         no_docs = False
         page = 1
+        backpage_count = 1
         barcode_index=0
         blankpage_index=0
         adf_page_files = []
@@ -1389,178 +1397,182 @@ try:
                         except ValueError:
                             log.error("Did not read enough data from scanner (I/O Error?)")
                             sys.exit(1)
-                    #if blank_page:
-                    isBlankPage = imageprocessing.blankpage(im,lineart_mode)
-                    
-                    if document_merge and duplex and blank_page:   
-                        if isBlankPage:
-                            if blank_cnt == 0:
-                                if page%2 != 0:
-                                    blank_cnt += 1
-                                    page_list.append(page)
-                            else:
-                                if page-1 in page_list:
-                                    blank_cnt += 1
-                                else:
+                    if uiscan == True and back_side and backpage_count%2 != 0:
+                        pass
+                    else:       
+
+                        #if blank_page:
+                        isBlankPage = imageprocessing.blankpage(im,lineart_mode)
+                        
+                        if document_merge and duplex and blank_page:   
+                            if isBlankPage:
+                                if blank_cnt == 0:
                                     if page%2 != 0:
-                                        blank_cnt = 1
-                                        page_list[:]
-                                        page_list.append(page)			  
-                    if blank_page and isBlankPage:
-                        if adf:
-                            if batchsepBP:
+                                        blank_cnt += 1
+                                        page_list.append(page)
+                                else:
+                                    if page-1 in page_list:
+                                        blank_cnt += 1
+                                    else:
+                                        if page%2 != 0:
+                                            blank_cnt = 1
+                                            page_list[:]
+                                            page_list.append(page)			  
+                        if blank_page and isBlankPage:
+                            if adf:
+                                if batchsepBP:
+                                    blankpage_found=1
+                                    blankpage_count=blankpage_count+1
+                                    blankpage_index=blankpage_index+1
+                                    if page == 1:
+                                        blankpage_first_page = True
+                                if not (document_merge and duplex): 
+                                    page += 1
+                                    continue
+                            else:
+                                sys.exit(0)
+                        elif isBlankPage:
+                            if adf and batchsepBP:
                                 blankpage_found=1
                                 blankpage_count=blankpage_count+1
                                 blankpage_index=blankpage_index+1
                                 if page == 1:
                                     blankpage_first_page = True
-                            if not (document_merge and duplex): 
-                                page += 1
-                                continue
-                        else:
-                            sys.exit(0)
-                    elif isBlankPage:
-                        if adf and batchsepBP:
-                            blankpage_found=1
-                            blankpage_count=blankpage_count+1
-                            blankpage_index=blankpage_index+1
-                            if page == 1:
-                                blankpage_first_page = True
-                    #if crushed:
-                        #im = imageprocessing.crushed(im)
-                    if deskew_image and (isBlankPage == False):
-                        if adf:
-                            im = imageprocessing.deskew(im)
-                        else:
-                            #im = imageprocessing.autocrop(im)
-                            im = imageprocessing.deskew(im) 
-                    #if mixed_feed:
-                        #im = imageprocessing.mixedfeed(im)
-                    if auto_crop and (isBlankPage == False):
-                        im = imageprocessing.autocrop(im)
-                    if auto_orient:
-                        if not isBlankPage:
-                            orient = imageprocessing.orientangle(im)
-                            orient_list.append(orient)                                                     
-                            im = imageprocessing.autoorient(im, orient)
-                        else:
-                            orient_list.append(0)
-                    if uiscan == True and set_brightness:
-                        factor = brightness/100
-                        #print factor
-                        im = imageprocessing.adjust_brightness(im, factor)
-                    if uiscan == True and set_contrast:
-                        factor = contrast/100
-                        #print factor
-                        im = imageprocessing.adjust_contrast(im, factor)
-                    if set_sharpness:
-                        factor = sharpness/100
-                        #print factor
-                        im = imageprocessing.adjust_sharpness(im, factor)  
-                    if set_color_value:
-                        factor = color_value/100
-                        #print factor
-                        im = imageprocessing.adjust_color(im, factor)  
-                    pyPlatform = platform.python_version()
-                    num = pyPlatform.split('.')       					
-                    if batchsepBC and num[0] < '3':
-                        import zbar
-                        scanner = zbar.ImageScanner()
-                        scanner.parse_config('enable')
-                        log.debug("Here in barcode detection")
+                        #if crushed:
+                            #im = imageprocessing.crushed(im)
+                        if deskew_image and (isBlankPage == False):
+                            if adf:
+                                im = imageprocessing.deskew(im)
+                            else:
+                                #im = imageprocessing.autocrop(im)
+                                im = imageprocessing.deskew(im) 
+                        #if mixed_feed:
+                            #im = imageprocessing.mixedfeed(im)
+                        if auto_crop and (isBlankPage == False):
+                            im = imageprocessing.autocrop(im)
+                        if auto_orient:
+                            if not isBlankPage:
+                                orient = imageprocessing.orientangle(im)
+                                orient_list.append(orient)                                                     
+                                im = imageprocessing.autoorient(im, orient)
+                            else:
+                                orient_list.append(0)
+                        if uiscan == True and set_brightness:
+                            factor = brightness/100
+                            #print factor
+                            im = imageprocessing.adjust_brightness(im, factor)
+                        if uiscan == True and set_contrast:
+                            factor = contrast/100
+                            #print factor
+                            im = imageprocessing.adjust_contrast(im, factor)
+                        if set_sharpness:
+                            factor = sharpness/100
+                            #print factor
+                            im = imageprocessing.adjust_sharpness(im, factor)  
+                        if set_color_value:
+                            factor = color_value/100
+                            #print factor
+                            im = imageprocessing.adjust_color(im, factor)  
+                        pyPlatform = platform.python_version()
+                        num = pyPlatform.split('.')       					
+                        if batchsepBC and num[0] < '3':
+                            import zbar
+                            scanner = zbar.ImageScanner()
+                            scanner.parse_config('enable')
+                            log.debug("Here in barcode detection")
 			
-                        bar_image = im.convert('L')
+                            bar_image = im.convert('L')
 
-                        width, height = bar_image.size
-                   
-                        raw_bar = bar_image.tobytes()
+                            width, height = bar_image.size
+                       
+                            raw_bar = bar_image.tobytes()
 
-                        my_stream = zbar.Image(width, height, 'Y800', raw_bar)
-                        scanner.scan(my_stream)
-                    
-                        #if barcode and batchsep:
-                        for symbol in my_stream:
-                            #print 'decoded', symbol.type, 'symbol', '"%s"' % symbol.data
-                            if symbol.data!='':
-                                barcode_found=1
-                                barcode_data.append(symbol.data)
-                                barcode_count=barcode_count+1
-                                barcode_index=barcode_index+1
-                                if page == 1:
-                                    barcode_first_page = True
-                                break;
-                            else:
-                                barcode_found=0
+                            my_stream = zbar.Image(width, height, 'Y800', raw_bar)
+                            scanner.scan(my_stream)
+                        
+                            #if barcode and batchsep:
+                            for symbol in my_stream:
+                                #print 'decoded', symbol.type, 'symbol', '"%s"' % symbol.data
+                                if symbol.data!='':
+                                    barcode_found=1
+                                    barcode_data.append(symbol.data)
+                                    barcode_count=barcode_count+1
+                                    barcode_index=barcode_index+1
+                                    if page == 1:
+                                        barcode_first_page = True
+                                    break;
+                                else:
+                                    barcode_found=0
 
-                    if punchhole_removal:
-                        im = imageprocessing.punchhole_removal(im)
-                    if set_color_dropout:
-                        im = imageprocessing.color_dropout(im,[color_dropout_red,color_dropout_green,color_dropout_blue],color_range_value)
-                    if bg_color_removal:
-                        im = imageprocessing.bg_color_removal(im)
-                    if crushed:
-                        im = imageprocessing.crushed(im)
+                        if punchhole_removal:
+                            im = imageprocessing.punchhole_removal(im)
+                        if set_color_dropout:
+                            im = imageprocessing.color_dropout(im,[color_dropout_red,color_dropout_green,color_dropout_blue],color_range_value)
+                        if bg_color_removal:
+                            im = imageprocessing.bg_color_removal(im)
+                        if crushed:
+                            im = imageprocessing.crushed(im)
 
-                    if uiscan == True:
-                        if adf:
-                            if (save_file == 'pdf'):
-                                if (not (document_merge and duplex and save_file == 'pdf')) or (imageprocessing.check_pypdf2() == None):
+                        if uiscan == True:
+                            if adf:
+                                if (save_file == 'pdf'):
+                                    if (not (document_merge and duplex and save_file == 'pdf')) or (imageprocessing.check_pypdf2() == None):
+                                        #ext = ".png"
+                                        im = im.convert("RGB")
+                                if barcode_count>0:
+                                    if barcode_first_occurence == True:
+                                        if barcode_first_page == False:
+                                            createPagesFile(adf_page_files,'hpscan', ext)
+                                        barcode_first_occurence = False
+                                    else:
+                                        createPagesFile(adf_page_files,barcode_data[len(barcode_data)-2], ext)                                    
+                                    barcode_count=barcode_count-1
+                                    del adf_page_files[:]
+                                if blankpage_count>0:
+                                    if blankpage_first_occurence == True:
+                                        if blankpage_first_page == False:
+                                            createPagesFile(adf_page_files,'hpscan', ext)
+                                        blankpage_first_occurence = False
+                                    else:
+                                        createPagesFile(adf_page_files,"batchSep_00%d"%bp_no, ext)
+                                    blankpage_count=blankpage_count-1
+                                    bp_no += 1
+                                    del adf_page_files[:]
+                                '''if (save_file == 'pdf'):
                                     #ext = ".png"
+                                    im = im.convert("RGB")'''
+                                if merge_ADF_Flatbed == True and save_file == 'pdf':
+                                    temp_output = utils.createSequencedFilename("hpscanMerge", ext,output_path)
+                                else:
+                                    if (document_merge and duplex and save_file == 'pdf') or (imageprocessing.check_pypdf2() != None):
+                                        temp_output = utils.createSequencedFilename("hpscan", '.png', output_path)
+                                    else:
+                                        temp_output = utils.createSequencedFilename("hpscan",ext, output_path)
+                                adf_page_files.append(temp_output)
+                                #print "entered flatbed save"
+                                '''pyPlatform = platform.python_version()
+                                num = pyPlatform.split('.')
+                                if num[0] >= '3':
+                                    im = im.convert("RGB")'''                           
+                                try:
+                                    im.save(temp_output,compress_level=1,quality=55)
+                                except:
                                     im = im.convert("RGB")
-                            if barcode_count>0:
-                                if barcode_first_occurence == True:
-                                    if barcode_first_page == False:
-                                        createPagesFile(adf_page_files,'hpscan', ext)
-                                    barcode_first_occurence = False
-                                else:
-                                    createPagesFile(adf_page_files,barcode_data[len(barcode_data)-2], ext)                                    
-                                barcode_count=barcode_count-1
-                                del adf_page_files[:]
-                            if blankpage_count>0:
-                                if blankpage_first_occurence == True:
-                                    if blankpage_first_page == False:
-                                        createPagesFile(adf_page_files,'hpscan', ext)
-                                    blankpage_first_occurence = False
-                                else:
-                                    createPagesFile(adf_page_files,"batchSep_00%d"%bp_no, ext)
-                                blankpage_count=blankpage_count-1
-                                bp_no += 1
-                                del adf_page_files[:]
-                            '''if (save_file == 'pdf'):
-                                #ext = ".png"
-                                im = im.convert("RGB")'''
-                            if merge_ADF_Flatbed == True and save_file == 'pdf':
-                                temp_output = utils.createSequencedFilename("hpscanMerge", ext,output_path)
-                            else:
-                                if (document_merge and duplex and save_file == 'pdf') or (imageprocessing.check_pypdf2() != None):
-                                    temp_output = utils.createSequencedFilename("hpscan", '.png', output_path)
-                                else:
-                                    temp_output = utils.createSequencedFilename("hpscan",ext, output_path)
-                            adf_page_files.append(temp_output)
-                            #print "entered flatbed save"
-                            '''pyPlatform = platform.python_version()
-                            num = pyPlatform.split('.')
-                            if num[0] >= '3':
-                                im = im.convert("RGB")'''                           
-                            try:
-                                im.save(temp_output,compress_level=1,quality=55)
-                            except:
-                                im = im.convert("RGB")
-                                im.save(temp_output,compress_level=1,quality=55)
-                            '''if (save_file == 'pdf'):
-                                ext = ".pdf"'''        
-                            if document_merge and duplex and blank_page:
-                                if blank_cnt == 2:
-                                    os.unlink(adf_page_files.pop())
-                                    os.unlink(adf_page_files.pop())
-                                    blank_cnt = 0
-                                    page_list[:]
+                                    im.save(temp_output,compress_level=1,quality=55)
+                                '''if (save_file == 'pdf'):
+                                    ext = ".pdf"'''        
+                                if document_merge and duplex and blank_page:
+                                    if blank_cnt == 2:
+                                        os.unlink(adf_page_files.pop())
+                                        os.unlink(adf_page_files.pop())
+                                        blank_cnt = 0
+                                        page_list[:]
 
-                    elif uiscan == False:
-                        if adf or output_type == 'pdf':
-                            temp_output = utils.createSequencedFilename("hpscan_pg%d_" % page, ".png")
-                            adf_page_files.append(temp_output)
-                            im.save(temp_output,compress_level=1,quality=55)
+                        elif uiscan == False:
+                            if adf or output_type == 'pdf':
+                                temp_output = utils.createSequencedFilename("hpscan_pg%d_" % page, ".png")
+                                adf_page_files.append(temp_output)
+                                im.save(temp_output,compress_level=1,quality=55)
                 elif uiscan == True and status == scanext.SANE_STATUS_MULTIPICK and multipick:
                     log.error("ADF_MPD multipick error %d" % (status))
                     log.error("Error in reading data. Status=%d bytes_read=%d." % (status, bytes_read))
@@ -1577,6 +1589,7 @@ try:
                     break
                 
                 page += 1
+                backpage_count += 1
             #print "*** Total Time Taken \n"
             #print datetime.now()-start
         finally:

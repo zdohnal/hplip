@@ -1398,6 +1398,7 @@ def start(language, auto=True, test_depends=False,
 
         tui.title("POST-BUILD COMMANDS")
         core.run_post_build(progress_callback, distro_alternate_version)
+        core.remove_soT()
 
         if not (core.distro_name.lower() == 'manjarolinux'):
             try:

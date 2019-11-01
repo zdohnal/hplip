@@ -124,12 +124,18 @@ static int Dump_tempbookletfile (void *pBuffer, size_t size)
  *      @return update ppd_values array values as 1 if attribute found in ppd and -1 if attribute not found in ppd
 
 */
+char finalstr[32]={0};
 
 static char * GetPPDValues()
 {
-    static char ppd_values[13] = {0},
+    static char ppd_values[14] = {0},
                 *bytes         = NULL;
     unsigned int count         = 0;
+    char *newstring = NULL;
+    char *tkstr=NULL;
+    int  len = 9;
+    int  i=0;
+
     
     /* Getting the PPD file                  */
     char *pppd_file = getenv("PPD");
@@ -147,7 +153,7 @@ static char * GetPPDValues()
       else
       {
         /* Intializing variables                 */
-        for(count = 0; count < 12; count ++)
+        for(count = 0; count < 13; count ++)
            ppd_values[count] = -1;
         count = 0;
         fseek(file_pointer, 0L, SEEK_END );
@@ -197,7 +203,17 @@ static char * GetPPDValues()
           /* Checking HPPJLTRUEBLACK in PPD    */
           if((strstr(bytes, HPPJLTRUEBLACK)) != NULL)
             ppd_values[11] = 1;
-          ppd_values[12] = '\0';
+          if((newstring = strstr(bytes, "DefaultHPUserAccessCode: Custom.")) != NULL){
+            tkstr=strtok(newstring,"*");
+            newstring=strstr(tkstr,".");
+            for(i=0;i<strlen(newstring);i++){
+               if(newstring[i]=='\n')
+                  break;
+            }
+            strncpy(finalstr,&newstring[1],i-1);
+            ppd_values[12] = 1;
+          }
+          ppd_values[13] = '\0';
           free(bytes);
           /* Closing the PPD file                */
           fclose(file_pointer);
@@ -855,6 +871,7 @@ int main (int argc, char **argv)
    char *subString = NULL; // pagesize value from input
    int booklet_enabled=0;// default for testing
    int bookletMaker=0;
+   char buffer[MAX_BUFFER]     = {0};
 
     get_LogLevel();
     setbuf (stderr, NULL);
@@ -920,6 +937,13 @@ int main (int argc, char **argv)
 
          if(ppd_values[1] == 1)
              WriteJobAccounting(argv, num_options, options);
+         if( ( (strstr(argv[5], "HPUserAccessCode=Custom"))!=NULL) && (ppd_values[12] == 1))
+         {   
+             sprintf(buffer, "@PJL SET JOBATTR=\"JobAcct17=%s\"\x0a", finalstr);
+             hpwrite(buffer, strlen(buffer));
+             memset(buffer, 0, sizeof(buffer));
+
+         }
          if(ppd_values[2] == 1)
              WriteBornOnDate();
          if(ppd_values[3] == 1)
