@@ -211,10 +211,8 @@ def start(language, auto=True, test_depends=False,
             log.debug("Installing ghostscript")
             if core.distro_version < '18.0':
                 cmd1 = 'sudo pacman -Sy --force --noconfirm ghostscript'
-            else:
-                cmd1 = 'sudo pacman -Sy --noconfirm ghostscript'
-            if os_utils.execute(cmd1) != 0:
-                log.warning("Missing ghost script dependency,installation may fail")
+                if os_utils.execute(cmd1) != 0:
+                    log.warning("Missing ghost script dependency,installation may fail")
 
         if distro_alternate_version:
             core.distro_version = distro_alternate_version
@@ -1262,10 +1260,8 @@ def start(language, auto=True, test_depends=False,
                 log.debug("Installing ghostscript")
                 if core.distro_version < '18.0':
                     cmd1 = 'sudo pacman -Sy --force --noconfirm ghostscript'
-                else:
-                    cmd1 = 'sudo pacman -Sy --noconfirm ghostscript'
-                if os_utils.execute(cmd1) != 0:
-                    log.warning("Missing ghost script dependency,installation may fail")
+                    if os_utils.execute(cmd1) != 0:
+                        log.warning("Missing ghost script dependency,installation may fail")
 
             if core.distro_name.lower() == 'fedora' and core.distro_version >= '30':
                 cmd_fedora = 'sudo dnf -y -d 10 -e 1 install dbus-devel'
