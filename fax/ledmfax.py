@@ -556,7 +556,7 @@ class LEDMFaxSendThread(FaxSendThread):
                               
                             response = BytesIO()
                             try:
-                                while self.dev.readLEDM(512, response, timeout=10):
+                                while self.dev.readLEDM(512, response, timeout=30):
                                     pass
                             except Error:
                                 fax_send_state = FAX_SEND_STATE_ERROR
