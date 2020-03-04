@@ -12217,6 +12217,7 @@ Transparency"
     PCFileName "hp-laser_ns_1020-hpijs.ppd"
     Attribute "Product" "" "(HP Laser Ns 1020)"
     Attribute "Product" "" "(HP Laser Ns 1020w)"
+    Attribute "Product" "" "(HP Laser Ns 1020n)"
   }
   {
     ModelName "HP Laser Ns MFP 1005 hpijs"
@@ -12226,6 +12227,7 @@ Transparency"
     PCFileName "hp-laser_ns_mfp_1005-hpijs.ppd"
     Attribute "Product" "" "(HP Laser Ns MFP 1005)"
     Attribute "Product" "" "(HP Laser Ns MFP 1005w)"
+    Attribute "Product" "" "(HP Laser Ns MFP 1005n)"
   }
   {
     ModelName "HP LaserJet m101-m106 hpijs"
@@ -12460,6 +12462,8 @@ Transparency"
     PCFileName "hp-neverstop_laser_100x-hpijs.ppd"
     Attribute "Product" "" "(HP Neverstop Laser 1000a)"
     Attribute "Product" "" "(HP Neverstop Laser 1000w)"
+    Attribute "Product" "" "(HP Neverstop Laser 1000n)"
+    Attribute "Product" "" "(HP Neverstop Laser 1001nw)"
   }
   {
     ModelName "HP Neverstop Laser MFP 120x hpijs"
@@ -12469,6 +12473,10 @@ Transparency"
     PCFileName "hp-neverstop_laser_mfp_120x-hpijs.ppd"
     Attribute "Product" "" "(HP Neverstop Laser MFP 1200a)"
     Attribute "Product" "" "(HP Neverstop Laser MFP 1200w)"
+    Attribute "Product" "" "(HP Neverstop Laser MFP 1200n)"
+    Attribute "Product" "" "(HP Neverstop Laser MFP 1201n)"
+    Attribute "Product" "" "(HP Neverstop Laser MFP 1200nw)"
+    Attribute "Product" "" "(HP Neverstop Laser MFP 1202nw)"
   }
   // <%Hbpl1:Color%>
   {

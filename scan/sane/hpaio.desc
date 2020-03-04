@@ -1207,6 +1207,9 @@
 :model "HP Laser Ns MFP 1005"
 :status :good
 
+:model "HP Laser Ns MFP 1005n"
+:status :good
+
 :model "HP Laser Ns MFP 1005w"
 :status :good
 
@@ -1918,7 +1921,19 @@
 :model "HP Neverstop Laser MFP 1200a"
 :status :good
 
+:model "HP Neverstop Laser MFP 1200n"
+:status :good
+
+:model "HP Neverstop Laser MFP 1200nw"
+:status :good
+
 :model "HP Neverstop Laser MFP 1200w"
+:status :good
+
+:model "HP Neverstop Laser MFP 1201n"
+:status :good
+
+:model "HP Neverstop Laser MFP 1202nw"
 :status :good
 
 :model "HP Officejet 150 Mobile All-in-one"
@@ -4009,19 +4024,34 @@
 :model "HP Scanjet Enterprise Flow 5000 s4"
 :status :good
 
+:model "HP Scanjet Enterprise Flow 5000 s5"
+:status :good
+
 :model "HP Scanjet Enterprise Flow 7000 s3"
+:status :good
+
+:model "HP Scanjet Enterprise Flow n7000 snw1"
 :status :good
 
 :model "HP Scanjet Enterprise Flow n9120 fn2 Document Scanner"
 :status :good
 
+:model "HP Scanjet Pro 2000 s2"
+:status :good
+
 :model "HP Scanjet Pro 3000 s3"
+:status :good
+
+:model "HP Scanjet Pro 3000 s4"
 :status :good
 
 :model "HP Scanjet Pro 3500 f1 Flatbed Scanner"
 :status :good
 
 :model "HP Scanjet Pro 4500 fn1"
+:status :good
+
+:model "HP Scanjet Pro n4000 snw1"
 :status :good
 
 :model "HP Smart Tank 350"

@@ -822,6 +822,7 @@ try:
         elif o == '--backside':
             try:
                 back_side = True
+                duplex = True
             except ValueError:
                 log.error("Invalid Option.Using default of False")
                 back_side = False
@@ -971,7 +972,10 @@ try:
              adf = True
         elif len(source_option) == 3 and ('ADF-SinglePage' in source_option) and ('ADF-MultiPage-Simplex' in source_option) and ('ADF-MultiPage-Duplex' in source_option):
              log.debug("Device has only ADF support")
-             adf = True 
+             adf = True
+        elif len(source_option) == 2 and ('ADF' in source_option) and ('Duplex' in source_option):
+             log.debug("Device has only ADF support")
+             adf = True
         if adf:
             try:
                 if ('ADF' not in source_option) and ('ADF-SinglePage' not in source_option) and ('ADF-MultiPage-Simplex' not in source_option) and ('ADF-MultiPage-Duplex' not in source_option) and ('ADF Simplex' not in source_option) and ('ADF Duplex' not in source_option):
@@ -1013,7 +1017,8 @@ try:
                 device.setOption("batch-scan", False)
             except scanext.error:
                 log.debug("Error setting source or batch-scan option (this is probably OK).")
-        if multipick: 
+
+        if multipick and (not re.search(r'_2000_s2', device_uri)) : 
             MPICK = 1
             device.setOption("multi-pick", int(MPICK))
         else: 
