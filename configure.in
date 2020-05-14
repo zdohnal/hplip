@@ -26,7 +26,7 @@
 #   104 = no libdl
 
 #AC_PREREQ(2.59)
-AC_INIT([HP Linux Imaging and Printing], [3.20.3], [3.20.3], [hplip])
+AC_INIT([HP Linux Imaging and Printing], [3.20.5], [3.20.5], [hplip])
 #AM_INIT_AUTOMAKE([1.9 foreign])
 AM_INIT_AUTOMAKE
 AC_DISABLE_STATIC
@@ -604,6 +604,20 @@ if test "$class_driver" = "no" && test "$hpijs_only_build" = "no" && test "$hpcu
    fi
 fi
 
+SAVE_CPPFLAGS="$CPPFLAGS"
+CFLAGS=`python-config --includes`
+if [ $? -eq 0 ] 
+then
+   echo $FLAGS
+else
+CFLAGS=`python3-config --includes`
+   if [ $? -eq 0 ]
+   then
+   echo $FLAGS
+   fi
+fi
+
+#CFLAGS=`(python-config --includes)`
 if test "$class_driver" = "no" && test "$hpijs_only_build" = "no" && test "$lite_build" = "no" && test "$hpcups_only_build" = "no"; then
    AC_ARG_VAR([PYTHON], [Python interpreter/compiler command])
    AM_PATH_PYTHON([2.2])
@@ -616,6 +630,7 @@ if test "$class_driver" = "no" && test "$hpijs_only_build" = "no" && test "$lite
    AS_IF([test "x$FOUND_HEADER" != "xyes"],
           [AC_MSG_ERROR([cannot find python-devel support], 6)])
 fi
+CFLAGS="$save_CFLAGS"
 
 if test "$hpijs_only_build" = "no" && test "$scan_build" = "yes" && test "$hpcups_only_build" = "no"; then
    AC_CHECK_LIB([sane], [sane_open], [LIBS="$LIBS"], [AC_MSG_ERROR([cannot find sane-backends-devel support (or --disable-scan-build)], 12)])

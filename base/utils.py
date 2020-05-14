@@ -2058,7 +2058,7 @@ def chunk_write(response, out_fd, chunk_size =8192, status_bar = downLoad_status
 def download_from_network(weburl, outputFile = None, useURLLIB=False):
     retValue = -1
 
-    if weburl is "" or weburl is None:
+    if weburl == "" or weburl == None:
         log.error("URL is empty")
         return retValue, ""
 

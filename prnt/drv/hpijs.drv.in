@@ -12274,6 +12274,25 @@ Transparency"
     Attribute "Product" "" "(HP LaserJet Pro MFP m130fw)"
   }
   {
+    ModelName "HP LaserJet MFP m232-m237 hpijs"
+    Attribute "NickName" "" "HP LaserJet MFP m232-m237 hpijs, $Version"
+    Attribute "ShortNickName" "" "HP LaserJet MFP m232-m237 hpijs"
+    Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet mfp m232-m237;DES:hp laserjet mfp m232-m237;"
+    PCFileName "hp-laserjet_mfp_m232-m237-hpijs.ppd"
+    Attribute "Product" "" "(HP LaserJet MFP m233d)"
+    Attribute "Product" "" "(HP LaserJet MFP m236d)"
+    Attribute "Product" "" "(HP LaserJet MFP m234dw)"
+    Attribute "Product" "" "(HP LaserJet MFP m236dw)"
+    Attribute "Product" "" "(HP LaserJet MFP m233dw)"
+    Attribute "Product" "" "(HP LaserJet MFP m234sdn)"
+    Attribute "Product" "" "(HP LaserJet MFP m233sdn)"
+    Attribute "Product" "" "(HP LaserJet MFP m236sdn)"
+    Attribute "Product" "" "(HP LaserJet MFP m232sdn)"
+    Attribute "Product" "" "(HP LaserJet MFP m234sdw)"
+    Attribute "Product" "" "(HP LaserJet MFP m236sdw)"
+    Attribute "Product" "" "(HP LaserJet MFP m233sdw)"
+  }
+  {
     ModelName "HP LaserJet MFP m28-m31 hpijs"
     Attribute "NickName" "" "HP LaserJet MFP m28-m31 hpijs, $Version"
     Attribute "ShortNickName" "" "HP LaserJet MFP m28-m31 hpijs"
@@ -14371,6 +14390,31 @@ lity:PenSet=2,Quality:FullBleed=1"
             Attribute "Product" "" "(HP Deskjet Ink Advantage 2676 All-in-one)"
             Attribute "Product" "" "(HP Deskjet Ink Advantage 2677 All-in-one)"
             Attribute "Product" "" "(HP Deskjet Ink Advantage 2678 All-in-one)"
+          }
+          {
+            ModelName "HP Deskjet 2700 Series hpijs"
+            Attribute "NickName" "" "HP Deskjet 2700 Series hpijs, $Version"
+            Attribute "ShortNickName" "" "HP Deskjet 2700 Series hpijs"
+            Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet 2700 series;DES:deskjet 2700 series;"
+            PCFileName "hp-deskjet_2700_series-hpijs.ppd"
+            Attribute "Product" "" "(HP Deskjet 2700 All-in-one Printer Series)"
+            Attribute "Product" "" "(HP Deskjet Ink Advantage 2700 All-in-one Printer Series)"
+          }
+          {
+            ModelName "HP Deskjet 4100 Series hpijs"
+            Attribute "NickName" "" "HP Deskjet 4100 Series hpijs, $Version"
+            Attribute "ShortNickName" "" "HP Deskjet 4100 Series hpijs"
+            Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet 4100 series;DES:deskjet 4100 series;"
+            PCFileName "hp-deskjet_4100_series-hpijs.ppd"
+            Attribute "Product" "" "(HP Deskjet Ink Advantage 4100 All-in-one Printer Series)"
+          }
+          {
+            ModelName "HP Deskjet Plus 4100 Series hpijs"
+            Attribute "NickName" "" "HP Deskjet Plus 4100 Series hpijs, $Version"
+            Attribute "ShortNickName" "" "HP DJ Plus 4100 Series hpijs"
+            Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet plus 4100 series;DES:deskjet plus 4100 series;"
+            PCFileName "hp-deskjet_plus_4100_series-hpijs.ppd"
+            Attribute "Product" "" "(HP Deskjet Plus 4100 All-in-one Printer Series)"
           }
 }// End PyramidRefresh17
 
@@ -19071,6 +19115,22 @@ lity:PenSet=2,Quality:FullBleed=1"
   }
   // <%Mimas:NoCDDVD%>
   {
+    ModelName "HP Deskjet Plus 6000 Series hpijs"
+    Attribute "NickName" "" "HP Deskjet Plus 6000 Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP DJ Plus 6000 Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet plus 6000 series;DES:deskjet plus 6000 series;"
+    PCFileName "hp-deskjet_plus_6000_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Deskjet Plus 6000 Series)"
+  }
+  {
+    ModelName "HP Deskjet Plus 6400 Series hpijs"
+    Attribute "NickName" "" "HP Deskjet Plus 6400 Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP DJ Plus 6400 Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet plus 6400 series;DES:deskjet plus 6400 series;"
+    PCFileName "hp-deskjet_plus_6400_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Deskjet Plus 6400 Series)"
+  }
+  {
     ModelName "HP Envy 100 d410 Series hpijs"
     Attribute "NickName" "" "HP Envy 100 d410 Series hpijs, $Version"
     Attribute "ShortNickName" "" "HP Envy 100 d410 Series hpijs"
@@ -19096,6 +19156,22 @@ lity:PenSet=2,Quality:FullBleed=1"
     PCFileName "hp-envy_120_series-hpijs.ppd"
     Attribute "Product" "" "(HP Envy 120 E-all-in-one)"
     Attribute "Product" "" "(HP Envy 121 E-all-in-one)"
+  }
+  {
+    ModelName "HP Envy 6000 Series hpijs"
+    Attribute "NickName" "" "HP Envy 6000 Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP Envy 6000 Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:envy 6000 series;DES:envy 6000 series;"
+    PCFileName "hp-envy_6000_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Envy 6000 Series)"
+  }
+  {
+    ModelName "HP Envy Pro 6400 Series hpijs"
+    Attribute "NickName" "" "HP Envy Pro 6400 Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP Envy Pro 6400 Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:envy pro 6400 series;DES:envy pro 6400 series;"
+    PCFileName "hp-envy_pro_6400_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Envy Pro 6400 Series)"
   }
 }  // end ViperPlusVIP
 
@@ -21731,6 +21807,24 @@ lity:PenSet=2,Quality:FullBleed=1"
   CustomMedia "w612h935/Executive (JIS)" 612.00 935.00 18.00 36.00 18.00 9.00 "%% FoomaticRIPOptionSetting: PageSize=w612h935" "%% FoomaticRIPOptionSetting: PageSize=w612h935"
 
           // <%Pyramid15:Normal%>
+          {
+            ModelName "HP Deskjet 1200 Series hpijs"
+            Attribute "NickName" "" "HP Deskjet 1200 Series hpijs, $Version"
+            Attribute "ShortNickName" "" "HP Deskjet 1200 Series hpijs"
+            Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet 1200 series;DES:deskjet 1200 series;"
+            PCFileName "hp-deskjet_1200_series-hpijs.ppd"
+            Attribute "Product" "" "(HP Deskjet 1200)"
+            Attribute "Product" "" "(HP Deskjet Ink Advantage 1200)"
+          }
+          {
+            ModelName "HP Deskjet 2300 Series hpijs"
+            Attribute "NickName" "" "HP Deskjet 2300 Series hpijs, $Version"
+            Attribute "ShortNickName" "" "HP Deskjet 2300 Series hpijs"
+            Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet 2300 series;DES:deskjet 2300 series;"
+            PCFileName "hp-deskjet_2300_series-hpijs.ppd"
+            Attribute "Product" "" "(HP Deskjet 2300 All-in-one)"
+            Attribute "Product" "" "(HP Deskjet Ink Advantage 2300 All-in-one)"
+          }
           {
             ModelName "HP Deskjet 3630 Series hpijs"
             Attribute "NickName" "" "HP Deskjet 3630 Series hpijs, $Version"

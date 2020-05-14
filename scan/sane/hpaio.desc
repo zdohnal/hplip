@@ -376,6 +376,9 @@
 :model "HP Deskjet 2200 All-in-one"
 :status :good
 
+:model "HP Deskjet 2300 All-in-one"
+:status :good
+
 :model "HP Deskjet 2510 All-in-one Printer"
 :status :good
 
@@ -428,6 +431,9 @@
 :status :good
 
 :model "HP Deskjet 2623 All-in-one"
+:status :good
+
+:model "HP Deskjet 2700 All-in-one Printer Series"
 :status :good
 
 :model "HP Deskjet 3050 j610 Series"
@@ -814,6 +820,9 @@
 :model "HP Deskjet Ink Advantage 2200 All-in-one"
 :status :good
 
+:model "HP Deskjet Ink Advantage 2300 All-in-one"
+:status :good
+
 :model "HP Deskjet Ink Advantage 2510 All-in-one"
 :status :good
 
@@ -862,6 +871,9 @@
 :model "HP Deskjet Ink Advantage 2678 All-in-one"
 :status :good
 
+:model "HP Deskjet Ink Advantage 2700 All-in-one Printer Series"
+:status :good
+
 :model "HP Deskjet Ink Advantage 3515 E-all-in-one"
 :status :good
 
@@ -908,6 +920,9 @@
 :status :good
 
 :model "HP Deskjet Ink Advantage 3836 All-in-one Printer"
+:status :good
+
+:model "HP Deskjet Ink Advantage 4100 All-in-one Printer Series"
 :status :good
 
 :model "HP Deskjet Ink Advantage 4515 E-all-in-one Printer"
@@ -998,6 +1013,15 @@
 :status :good
 
 :model "HP Deskjet Ink Advantage Ultra 5739 All-in-one Printer"
+:status :good
+
+:model "HP Deskjet Plus 4100 All-in-one Printer Series"
+:status :good
+
+:model "HP Deskjet Plus 6000 Series"
+:status :good
+
+:model "HP Deskjet Plus 6400 Series"
 :status :good
 
 :model "HP Digital Sender Flow 8500 fn2 Document Capture Workstation"
@@ -1141,6 +1165,9 @@
 :model "HP Envy 5665 E-all-in-one"
 :status :good
 
+:model "HP Envy 6000 Series"
+:status :good
+
 :model "HP Envy 7640 E-all-in-one"
 :status :good
 
@@ -1193,6 +1220,9 @@
 :status :good
 
 :model "HP Envy Photo 7855 All-in-one"
+:status :good
+
+:model "HP Envy Pro 6400 Series"
 :status :good
 
 :model "HP Hotspot LaserJet Pro m1218nfs MFP"
@@ -1613,6 +1643,42 @@
 :status :good
 
 :model "HP LaserJet MFP e72430dn"
+:status :good
+
+:model "HP LaserJet MFP m232sdn"
+:status :good
+
+:model "HP LaserJet MFP m233d"
+:status :good
+
+:model "HP LaserJet MFP m233dw"
+:status :good
+
+:model "HP LaserJet MFP m233sdn"
+:status :good
+
+:model "HP LaserJet MFP m233sdw"
+:status :good
+
+:model "HP LaserJet MFP m234dw"
+:status :good
+
+:model "HP LaserJet MFP m234sdn"
+:status :good
+
+:model "HP LaserJet MFP m234sdw"
+:status :good
+
+:model "HP LaserJet MFP m236d"
+:status :good
+
+:model "HP LaserJet MFP m236dw"
+:status :good
+
+:model "HP LaserJet MFP m236sdn"
+:status :good
+
+:model "HP LaserJet MFP m236sdw"
 :status :good
 
 :model "HP LaserJet Pro 200 Color MFP m276n"

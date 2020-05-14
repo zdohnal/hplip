@@ -137,7 +137,8 @@ class Password(object):
 
     def __readAuthType(self):
         # TBD: Getting distro name should get distro class
-        distro_name = get_distro_name().lower()
+        # added replace() to remove the spaces in distro_name
+        distro_name = get_distro_name().lower().replace(" ","")
 
         self.__authType = user_conf.get('authentication', 'su_sudo', '')
         if self.__authType != "su" and self.__authType != "sudo":

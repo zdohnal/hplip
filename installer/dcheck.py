@@ -366,11 +366,13 @@ def get_xsane_version():
 
 def get_pil_version():
     try:
-        from PIL import Image
+       # from PIL import Image
+       import PIL
     except ImportError:
         return '-'
     else:
-         return Image.PILLOW_VERSION
+         #return Image.PILLOW_VERSION
+         return PIL.__version__
 
 def get_libpthread_version():
     try:

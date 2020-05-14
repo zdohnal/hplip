@@ -1798,6 +1798,8 @@ class CoreInstall(object):
         num_opt_missing = 0
         # not-required options
         for opt in self.components[self.selected_component][1]:
+            if opt.find("gui_") != -1 and opt.find(self.ui_toolkit) == -1:
+                continue
             if not self.options[opt][0]:  # not required
                 default = 'y'
 
@@ -2071,7 +2073,7 @@ class CoreInstall(object):
 
         home_dir = sys_conf.get("dirs", "home", "")
         version = sys_conf.get("hplip", "version", "0.0.0")
-        if home_dir is "":
+        if home_dir == "":
             log.error("HPLIP is not installed.")
             return False
 

@@ -91,6 +91,7 @@ cups_ppd_printers = \
    ppd/hpcups/hp-deskjet_1110_series.ppd.gz \
    ppd/hpcups/hp-deskjet_1120.ppd.gz \
    ppd/hpcups/hp-deskjet_1125.ppd.gz \
+   ppd/hpcups/hp-deskjet_1200_series.ppd.gz \
    ppd/hpcups/hp-deskjet_1200c.ppd.gz \
    ppd/hpcups/hp-deskjet_1220c.ppd.gz \
    ppd/hpcups/hp-deskjet_1280.ppd.gz \
@@ -103,11 +104,13 @@ cups_ppd_printers = \
    ppd/hpcups/hp-deskjet_2050_j510_series.ppd.gz \
    ppd/hpcups/hp-deskjet_2130_series.ppd.gz \
    ppd/hpcups/hp-deskjet_2200_series.ppd.gz \
+   ppd/hpcups/hp-deskjet_2300_series.ppd.gz \
    ppd/hpcups/hp-deskjet_2510_series.ppd.gz \
    ppd/hpcups/hp-deskjet_2520_series.ppd.gz \
    ppd/hpcups/hp-deskjet_2540_series.ppd.gz \
    ppd/hpcups/hp-deskjet_2600_series.ppd.gz \
    ppd/hpcups/hp-deskjet_2640_series.ppd.gz \
+   ppd/hpcups/hp-deskjet_2700_series.ppd.gz \
    ppd/hpcups/hp-deskjet_3000_j310_series.ppd.gz \
    ppd/hpcups/hp-deskjet_3050_j610_series.ppd.gz \
    ppd/hpcups/hp-deskjet_3050a_j611_series.ppd.gz \
@@ -142,6 +145,7 @@ cups_ppd_printers = \
    ppd/hpcups/hp-deskjet_3940.ppd.gz \
    ppd/hpcups/hp-deskjet_400.ppd.gz \
    ppd/hpcups/hp-deskjet_400l.ppd.gz \
+   ppd/hpcups/hp-deskjet_4100_series.ppd.gz \
    ppd/hpcups/hp-deskjet_450.ppd.gz \
    ppd/hpcups/hp-deskjet_4510_series.ppd.gz \
    ppd/hpcups/hp-deskjet_4530_series.ppd.gz \
@@ -277,6 +281,9 @@ cups_ppd_printers = \
    ppd/hpcups/hp-deskjet_ink_adv_2060_k110.ppd.gz \
    ppd/hpcups/hp-deskjet_ink_advant_k109a-z.ppd.gz \
    ppd/hpcups/hp-deskjet_ink_advant_k209a-z.ppd.gz \
+   ppd/hpcups/hp-deskjet_plus_4100_series.ppd.gz \
+   ppd/hpcups/hp-deskjet_plus_6000_series.ppd.gz \
+   ppd/hpcups/hp-deskjet_plus_6400_series.ppd.gz \
    ppd/hpcups/hp-envy_100_d410_series.ppd.gz \
    ppd/hpcups/hp-envy_110_series.ppd.gz \
    ppd/hpcups/hp-envy_120_series.ppd.gz \
@@ -288,11 +295,13 @@ cups_ppd_printers = \
    ppd/hpcups/hp-envy_5540_series.ppd.gz \
    ppd/hpcups/hp-envy_5640_series.ppd.gz \
    ppd/hpcups/hp-envy_5660_series.ppd.gz \
+   ppd/hpcups/hp-envy_6000_series.ppd.gz \
    ppd/hpcups/hp-envy_7640_series.ppd.gz \
    ppd/hpcups/hp-envy_8000_series.ppd.gz \
    ppd/hpcups/hp-envy_photo_6200_series.ppd.gz \
    ppd/hpcups/hp-envy_photo_7100_series.ppd.gz \
    ppd/hpcups/hp-envy_photo_7800_series.ppd.gz \
+   ppd/hpcups/hp-envy_pro_6400_series.ppd.gz \
    ppd/hpcups/hp-ink_tank_110_series.ppd.gz \
    ppd/hpcups/hp-ink_tank_310_series.ppd.gz \
    ppd/hpcups/hp-ink_tank_wireless_410_series.ppd.gz \
@@ -420,6 +429,7 @@ cups_ppd_printers = \
    ppd/hpcups/hp-laserjet_m9050_mfp-pcl3.ppd.gz \
    ppd/hpcups/hp-laserjet_m9059_mfp-pcl3.ppd.gz \
    ppd/hpcups/hp-laserjet_mfp_m129-m134.ppd.gz \
+   ppd/hpcups/hp-laserjet_mfp_m232-m237.ppd.gz \
    ppd/hpcups/hp-laserjet_mfp_m28-m31.ppd.gz \
    ppd/hpcups/hp-laserjet_p1005.ppd.gz \
    ppd/hpcups/hp-laserjet_p1006.ppd.gz \
