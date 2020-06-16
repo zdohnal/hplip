@@ -1253,6 +1253,8 @@ class CoreInstall(object):
             return True
         elif check_file('org.freedesktop.PolicyKit1.conf', '/etc/dbus-1/system.d'):
             return True
+        elif check_file('polkitd', "/usr/lib/polkit-1") and check_file('polkit-agent-helper-1', "/usr/lib/polkit-1") and check_file('polkit.conf', "/usr/lib/sysusers.d"):
+            return True
         else:
             return False
 

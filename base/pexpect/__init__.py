@@ -80,6 +80,7 @@ try:
     import traceback
     import signal
     import codecs
+    sys.dont_write_bytecode = True
 except ImportError:  # pragma: no cover
     err = sys.exc_info()[1]
     raise ImportError(str(err) + '''

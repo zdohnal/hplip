@@ -81,10 +81,10 @@ os.chdir(home_dir)
 # HPLIP
 try:
     from base.g import *
-    from base.codes import *
+    #from base.codes import *
     from base import device
     from base import utils
-    from prnt import cups
+    #from prnt import cups
 except ImportError as e:
     bug("Error importing HPLIP modules: %s\n" % (pid, e))
     sys.exit(1)

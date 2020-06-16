@@ -6918,7 +6918,7 @@ t=0"
   }
   {
     ModelName "HP LaserJet p2035 hpijs"
-    Attribute "NickName" "" "HP LaserJet p2035 hpijs pcl3, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet p2035 hpijs pcl3, $Version"
     Attribute "ShortNickName" "" "HP LaserJet p2035 hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet p2035;DES:hp laserjet p2035;"
     PCFileName "hp-laserjet_p2035-pcl3-hpijs.ppd"
@@ -6926,7 +6926,7 @@ t=0"
   }
   {
     ModelName "HP LaserJet p2035n hpijs"
-    Attribute "NickName" "" "HP LaserJet p2035n hpijs pcl3, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet p2035n hpijs pcl3, $Version"
     Attribute "ShortNickName" "" "HP LaserJet p2035n hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet p2035n;DES:hp laserjet p2035n;"
     PCFileName "hp-laserjet_p2035n-pcl3-hpijs.ppd"
@@ -10966,7 +10966,7 @@ Transparency"
   // <%LJZjsMono:Normal%>
   {
     ModelName "HP LaserJet 1000 hpijs"
-    Attribute "NickName" "" "HP LaserJet 1000 hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet 1000 hpijs, $Version"
     Attribute "ShortNickName" "" "HP LaserJet 1000 hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet 1000;DES:hp laserjet 1000;"
     PCFileName "hp-laserjet_1000-hpijs.ppd"
@@ -10974,7 +10974,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet 1005 Series hpijs"
-    Attribute "NickName" "" "HP LaserJet 1005 Series hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet 1005 Series hpijs, $Version"
     Attribute "ShortNickName" "" "HP LaserJet 1005 Series hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet 1005 series;DES:hp laserjet 1005 series;"
     PCFileName "hp-laserjet_1005_series-hpijs.ppd"
@@ -10982,7 +10982,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet 1018 hpijs"
-    Attribute "NickName" "" "HP LaserJet 1018 hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet 1018 hpijs, $Version"
     Attribute "ShortNickName" "" "HP LaserJet 1018 hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet 1018;DES:hp laserjet 1018;"
     PCFileName "hp-laserjet_1018-hpijs.ppd"
@@ -10991,7 +10991,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet 1020 hpijs"
-    Attribute "NickName" "" "HP LaserJet 1020 hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet 1020 hpijs, $Version"
     Attribute "ShortNickName" "" "HP LaserJet 1020 hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet 1020;DES:hp laserjet 1020;"
     PCFileName "hp-laserjet_1020-hpijs.ppd"
@@ -11000,7 +11000,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet m1120 MFP hpijs"
-    Attribute "NickName" "" "HP LaserJet m1120 MFP hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet m1120 MFP hpijs, $Version"
     Attribute "ShortNickName" "" "HP LaserJet m1120 MFP hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet m1120 mfp;DES:hp laserjet m1120 mfp;"
     PCFileName "hp-laserjet_m1120_mfp-hpijs.ppd"
@@ -11008,7 +11008,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet m1120n MFP hpijs"
-    Attribute "NickName" "" "HP LaserJet m1120n MFP hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet m1120n MFP hpijs, $Version"
     Attribute "ShortNickName" "" "HP LaserJet m1120n MFP hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet m1120n mfp;DES:hp laserjet m1120n mfp;"
     PCFileName "hp-laserjet_m1120n_mfp-hpijs.ppd"
@@ -11016,7 +11016,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet m1319f MFP hpijs"
-    Attribute "NickName" "" "HP LaserJet m1319f MFP hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet m1319f MFP hpijs, $Version"
     Attribute "ShortNickName" "" "HP LaserJet m1319f MFP hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet m1319f mfp;DES:hp laserjet m1319f mfp;"
     PCFileName "hp-laserjet_m1319f_mfp-hpijs.ppd"
@@ -11146,7 +11146,7 @@ Transparency"
   // <%LJZjsMono:NoAutoDuplex%>
   {
     ModelName "HP LaserJet Professional m1132 MFP hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional m1132 MFP hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional m1132 MFP hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro m1132 MFP hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1132 mfp;DES:hp laserjet professional m1132 mfp;"
     PCFileName "hp-laserjet_professional_m1132_mfp-hpijs.ppd"
@@ -11155,7 +11155,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional m1136 MFP hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional m1136 MFP hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional m1136 MFP hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro m1136 MFP hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1136 mfp;DES:hp laserjet professional m1136 mfp;"
     PCFileName "hp-laserjet_professional_m1136_mfp-hpijs.ppd"
@@ -11163,7 +11163,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional m1137 MFP hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional m1137 MFP hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional m1137 MFP hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro m1137 MFP hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1137 mfp;DES:hp laserjet professional m1137 mfp;"
     PCFileName "hp-laserjet_professional_m1137_mfp-hpijs.ppd"
@@ -11171,7 +11171,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional m1138 MFP hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional m1138 MFP hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional m1138 MFP hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro m1138 MFP hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1138 mfp;DES:hp laserjet professional m1138 mfp;"
     PCFileName "hp-laserjet_professional_m1138_mfp-hpijs.ppd"
@@ -11179,7 +11179,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional m1139 MFP hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional m1139 MFP hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional m1139 MFP hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro m1139 MFP hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1139 mfp;DES:hp laserjet professional m1139 mfp;"
     PCFileName "hp-laserjet_professional_m1139_mfp-hpijs.ppd"
@@ -11187,7 +11187,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional m1212nf MFP hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional m1212nf MFP hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional m1212nf MFP hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro m1212nf MFP hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1212nf mfp;DES:hp laserjet professional m1212nf mfp;"
     PCFileName "hp-laserjet_professional_m1212nf_mfp-hpijs.ppd"
@@ -11195,7 +11195,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional m1213nf MFP hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional m1213nf MFP hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional m1213nf MFP hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro m1213nf MFP hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1213nf mfp;DES:hp laserjet professional m1213nf mfp;"
     PCFileName "hp-laserjet_professional_m1213nf_mfp-hpijs.ppd"
@@ -11203,7 +11203,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional m1214nfh MFP hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional m1214nfh MFP hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional m1214nfh MFP hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro m1214nfh MFP hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1214nfh mfp;DES:hp laserjet professional m1214nfh mfp;"
     PCFileName "hp-laserjet_professional_m1214nfh_mfp-hpijs.ppd"
@@ -11211,7 +11211,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional m1216nfh MFP hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional m1216nfh MFP hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional m1216nfh MFP hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro m1216nfh MFP hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1216nfh mfp;DES:hp laserjet professional m1216nfh mfp;"
     PCFileName "hp-laserjet_professional_m1216nfh_mfp-hpijs.ppd"
@@ -11219,7 +11219,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional m1217nfw MFP hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional m1217nfw MFP hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional m1217nfw MFP hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro m1217nfw MFP hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1217nfw mfp;DES:hp laserjet professional m1217nfw mfp;"
     PCFileName "hp-laserjet_professional_m1217nfw_mfp-hpijs.ppd"
@@ -11227,7 +11227,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional m1218nfg MFP hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional m1218nfg MFP hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional m1218nfg MFP hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro m1218nfg MFP hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1218nfg mfp;DES:hp laserjet professional m1218nfg mfp;"
     PCFileName "hp-laserjet_professional_m1218nfg_mfp-hpijs.ppd"
@@ -11235,7 +11235,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional m1218nfs MFP hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional m1218nfs MFP hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional m1218nfs MFP hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro m1218nfs MFP hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1218nfs mfp;DES:hp laserjet professional m1218nfs mfp;"
     PCFileName "hp-laserjet_professional_m1218nfs_mfp-hpijs.ppd"
@@ -11243,7 +11243,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional m1219nf MFP hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional m1219nf MFP hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional m1219nf MFP hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro m1219nf MFP hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1219nf mfp;DES:hp laserjet professional m1219nf mfp;"
     PCFileName "hp-laserjet_professional_m1219nf_mfp-hpijs.ppd"
@@ -11251,21 +11251,21 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional m1219nfg MFP hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional m1219nfg MFP hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional m1219nfg MFP hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro m1219nfg MFP hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1219nfg mfp;DES:hp laserjet professional m1219nfg mfp;"
     PCFileName "hp-laserjet_professional_m1219nfg_mfp-hpijs.ppd"
   }
   {
     ModelName "HP LaserJet Professional m1219nfs MFP hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional m1219nfs MFP hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional m1219nfs MFP hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro m1219nfs MFP hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional m1219nfs mfp;DES:hp laserjet professional m1219nfs mfp;"
     PCFileName "hp-laserjet_professional_m1219nfs_mfp-hpijs.ppd"
   }
   {
     ModelName "HP LaserJet Professional p1102 hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional p1102 hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional p1102 hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro p1102 hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1102;DES:hp laserjet professional p1102;"
     PCFileName "hp-laserjet_professional_p1102-hpijs.ppd"
@@ -11274,7 +11274,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional p1106 hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional p1106 hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional p1106 hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro p1106 hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1106;DES:hp laserjet professional p1106;"
     PCFileName "hp-laserjet_professional_p1106-hpijs.ppd"
@@ -11282,7 +11282,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional p1106w hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional p1106w hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional p1106w hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro p1106w hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1106w;DES:hp laserjet professional p1106w;"
     PCFileName "hp-laserjet_professional_p1106w-hpijs.ppd"
@@ -11290,7 +11290,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional p1107 hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional p1107 hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional p1107 hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro p1107 hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1107;DES:hp laserjet professional p1107;"
     PCFileName "hp-laserjet_professional_p1107-hpijs.ppd"
@@ -11298,7 +11298,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional p1107w hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional p1107w hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional p1107w hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro p1107w hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1107w;DES:hp laserjet professional p1107w;"
     PCFileName "hp-laserjet_professional_p1107w-hpijs.ppd"
@@ -11306,7 +11306,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional p1108 hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional p1108 hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional p1108 hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro p1108 hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1108;DES:hp laserjet professional p1108;"
     PCFileName "hp-laserjet_professional_p1108-hpijs.ppd"
@@ -11314,7 +11314,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional p1108w hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional p1108w hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional p1108w hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro p1108w hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1108w;DES:hp laserjet professional p1108w;"
     PCFileName "hp-laserjet_professional_p1108w-hpijs.ppd"
@@ -11322,7 +11322,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional p1109 hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional p1109 hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional p1109 hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro p1109 hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1109;DES:hp laserjet professional p1109;"
     PCFileName "hp-laserjet_professional_p1109-hpijs.ppd"
@@ -11330,7 +11330,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional p1109w hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional p1109w hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional p1109w hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro p1109w hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1109w;DES:hp laserjet professional p1109w;"
     PCFileName "hp-laserjet_professional_p1109w-hpijs.ppd"
@@ -11338,7 +11338,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional p1566 hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional p1566 hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional p1566 hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro p1566 hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1566;DES:hp laserjet professional p1566;"
     PCFileName "hp-laserjet_professional_p1566-hpijs.ppd"
@@ -11346,7 +11346,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional p1567 hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional p1567 hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional p1567 hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro p1567 hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1567;DES:hp laserjet professional p1567;"
     PCFileName "hp-laserjet_professional_p1567-hpijs.ppd"
@@ -11354,7 +11354,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional p1568 hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional p1568 hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional p1568 hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro p1568 hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1568;DES:hp laserjet professional p1568;"
     PCFileName "hp-laserjet_professional_p1568-hpijs.ppd"
@@ -11362,7 +11362,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional p1569 hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional p1569 hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional p1569 hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro p1569 hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1569;DES:hp laserjet professional p1569;"
     PCFileName "hp-laserjet_professional_p1569-hpijs.ppd"
@@ -11370,7 +11370,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional p 1102w hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional p 1102w hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional p 1102w hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro p 1102w hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p 1102w;DES:hp laserjet professional p 1102w;"
     PCFileName "hp-laserjet_professional_p_1102w-hpijs.ppd"
@@ -11500,7 +11500,7 @@ Transparency"
   // <%LJZjsMono:Duplex%>
   {
     ModelName "HP LaserJet Professional p1606dn hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional p1606dn hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional p1606dn hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro p1606dn hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1606dn;DES:hp laserjet professional p1606dn;"
     PCFileName "hp-laserjet_professional_p1606dn-hpijs.ppd"
@@ -11508,7 +11508,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional p1607dn hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional p1607dn hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional p1607dn hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro p1607dn hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1607dn;DES:hp laserjet professional p1607dn;"
     PCFileName "hp-laserjet_professional_p1607dn-hpijs.ppd"
@@ -11516,7 +11516,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional p1608dn hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional p1608dn hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional p1608dn hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro p1608dn hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1608dn;DES:hp laserjet professional p1608dn;"
     PCFileName "hp-laserjet_professional_p1608dn-hpijs.ppd"
@@ -11524,7 +11524,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet Professional p1609dn hpijs"
-    Attribute "NickName" "" "HP LaserJet Professional p1609dn hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet Professional p1609dn hpijs, $Version"
     Attribute "ShortNickName" "" "HP LJ Pro p1609dn hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet professional p1609dn;DES:hp laserjet professional p1609dn;"
     PCFileName "hp-laserjet_professional_p1609dn-hpijs.ppd"
@@ -11852,7 +11852,7 @@ Transparency"
   // <%LJm1005:Normal%>
   {
     ModelName "HP LaserJet m1005 hpijs"
-    Attribute "NickName" "" "HP LaserJet m1005 hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet m1005 hpijs, $Version"
     Attribute "ShortNickName" "" "HP LaserJet m1005 hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet m1005;DES:hp laserjet m1005;"
     PCFileName "hp-laserjet_m1005-hpijs.ppd"
@@ -11860,7 +11860,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet p1505 hpijs"
-    Attribute "NickName" "" "HP LaserJet p1505 hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet p1505 hpijs, $Version"
     Attribute "ShortNickName" "" "HP LaserJet p1505 hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet p1505;DES:hp laserjet p1505;"
     PCFileName "hp-laserjet_p1505-hpijs.ppd"
@@ -12025,7 +12025,7 @@ Transparency"
     // <%LJZjsColor:Normal%>
     {
       ModelName "HP Color LaserJet 1600 hpijs"
-      Attribute "NickName" "" "HP Color LaserJet 1600 hpijs, $Version, requires proprietary plugin"
+      Attribute "NickName" "" "HP Color LaserJet 1600 hpijs, $Version"
       Attribute "ShortNickName" "" "HP Color LaserJet 1600 hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet 1600;DES:hp color laserjet 1600;"
       PCFileName "hp-color_laserjet_1600-hpijs.ppd"
@@ -12033,7 +12033,7 @@ Transparency"
     }
     {
       ModelName "HP Color LaserJet 2600n hpijs"
-      Attribute "NickName" "" "HP Color LaserJet 2600n hpijs, $Version, requires proprietary plugin"
+      Attribute "NickName" "" "HP Color LaserJet 2600n hpijs, $Version"
       Attribute "ShortNickName" "" "HP Color LaserJet 2600n hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet 2600n;DES:hp color laserjet 2600n;"
       PCFileName "hp-color_laserjet_2600n-hpijs.ppd"
@@ -12041,7 +12041,7 @@ Transparency"
     }
     {
       ModelName "HP Color LaserJet cp1215 hpijs"
-      Attribute "NickName" "" "HP Color LaserJet cp1215 hpijs, $Version, requires proprietary plugin"
+      Attribute "NickName" "" "HP Color LaserJet cp1215 hpijs, $Version"
       Attribute "ShortNickName" "" "HP Color LaserJet cp1215 hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet cp1215;DES:hp color laserjet cp1215;"
       PCFileName "hp-color_laserjet_cp1215-hpijs.ppd"
@@ -12049,7 +12049,7 @@ Transparency"
     }
     {
       ModelName "HP Color LaserJet cp1217 hpijs"
-      Attribute "NickName" "" "HP Color LaserJet cp1217 hpijs, $Version, requires proprietary plugin"
+      Attribute "NickName" "" "HP Color LaserJet cp1217 hpijs, $Version"
       Attribute "ShortNickName" "" "HP Color LaserJet cp1217 hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp color laserjet cp1217;DES:hp color laserjet cp1217;"
       PCFileName "hp-color_laserjet_cp1217-hpijs.ppd"
@@ -12061,7 +12061,7 @@ Transparency"
     // <%LJZjsColor:Advanced%>  
     {
       ModelName "HP LaserJet cp1025 hpijs"
-      Attribute "NickName" "" "HP LaserJet cp1025 hpijs, $Version, requires proprietary plugin"
+      Attribute "NickName" "" "HP LaserJet cp1025 hpijs, $Version"
       Attribute "ShortNickName" "" "HP LaserJet cp1025 hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet cp1025;DES:hp laserjet cp1025;"
       PCFileName "hp-laserjet_cp1025-hpijs.ppd"
@@ -12069,7 +12069,7 @@ Transparency"
     }
     {
       ModelName "HP LaserJet cp1025nw hpijs"
-      Attribute "NickName" "" "HP LaserJet cp1025nw hpijs, $Version, requires proprietary plugin"
+      Attribute "NickName" "" "HP LaserJet cp1025nw hpijs, $Version"
       Attribute "ShortNickName" "" "HP LaserJet cp1025nw hpijs"
       Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet cp1025nw;DES:hp laserjet cp1025nw;"
       PCFileName "hp-laserjet_cp1025nw-hpijs.ppd"
@@ -12640,7 +12640,7 @@ Transparency"
   // <%LJP1XXX:Normal%>
   {
     ModelName "HP LaserJet p1005 hpijs"
-    Attribute "NickName" "" "HP LaserJet p1005 hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet p1005 hpijs, $Version"
     Attribute "ShortNickName" "" "HP LaserJet p1005 hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet p1005;DES:hp laserjet p1005;"
     PCFileName "hp-laserjet_p1005-hpijs.ppd"
@@ -12648,7 +12648,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet p1006 hpijs"
-    Attribute "NickName" "" "HP LaserJet p1006 hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet p1006 hpijs, $Version"
     Attribute "ShortNickName" "" "HP LaserJet p1006 hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet p1006;DES:hp laserjet p1006;"
     PCFileName "hp-laserjet_p1006-hpijs.ppd"
@@ -12656,7 +12656,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet p1007 hpijs"
-    Attribute "NickName" "" "HP LaserJet p1007 hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet p1007 hpijs, $Version"
     Attribute "ShortNickName" "" "HP LaserJet p1007 hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet p1007;DES:hp laserjet p1007;"
     PCFileName "hp-laserjet_p1007-hpijs.ppd"
@@ -12664,7 +12664,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet p1008 hpijs"
-    Attribute "NickName" "" "HP LaserJet p1008 hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet p1008 hpijs, $Version"
     Attribute "ShortNickName" "" "HP LaserJet p1008 hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet p1008;DES:hp laserjet p1008;"
     PCFileName "hp-laserjet_p1008-hpijs.ppd"
@@ -12672,7 +12672,7 @@ Transparency"
   }
   {
     ModelName "HP LaserJet p1009 hpijs"
-    Attribute "NickName" "" "HP LaserJet p1009 hpijs, $Version, requires proprietary plugin"
+    Attribute "NickName" "" "HP LaserJet p1009 hpijs, $Version"
     Attribute "ShortNickName" "" "HP LaserJet p1009 hpijs"
     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet p1009;DES:hp laserjet p1009;"
     PCFileName "hp-laserjet_p1009-hpijs.ppd"
