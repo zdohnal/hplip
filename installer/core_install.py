@@ -200,6 +200,7 @@ SCANEXT_STR = 'Scan-SANE-Extension'
 QT_STR = "Python-Qt"
 EPM_STR = "Build Debian Package"
 AUTOMAKE_STR = "Build Driver"
+LIB_AVAHI="libavahi-dev"
 
 APPARMOR_DIR = "/etc/apparmor.d"
 SELINUX_DIR = "/etc/selinux/targeted/policy/policy*"
@@ -302,6 +303,7 @@ class CoreInstall(object):
             'package_arch': TYPE_LIST,
             'open_mdns_port': TYPE_LIST,  # command to use to open mdns multicast port 5353
             'libdir_path': TYPE_STRING,
+            'hp_libs_remove_cmd': TYPE_STRING,
         }
 
         # components
@@ -377,6 +379,7 @@ class CoreInstall(object):
             # Required scan packages
             'sane':            (True,  ['scan'], SANE_STR, self.check_sane, DEPENDENCY_RUN_TIME, '-', 'sane-config --version', GENERALDEP),
             'sane-devel':      (True,  ['scan'], SANE_DEV_STR, self.check_sane_devel, DEPENDENCY_COMPILE_TIME, '-', 'sane-config --version', GENERALDEP),
+            'libavahi-dev':    (True,  ['scan'], LIB_AVAHI, self.check_libavahi_dev, DEPENDENCY_RUN_AND_COMPILE_TIME, '-', 'FUNC#check_libavahi_dev', GENERALDEP),
             #'tesseract':       (True, ['scan'], TESS_STR, self.check_tesseract, DEPENDENCY_RUN_TIME, '-', 'tesseract --version', GENERALDEP),
            
             #'zbar':            (True, ['scan'], ZBAR_STR, self.check_zbar, DEPENDENCY_RUN_TIME, '-', None, GENERALDEP),
@@ -1245,6 +1248,11 @@ class CoreInstall(object):
         # TODO: Compute these paths some way or another...
         return check_file('media.defs', "/usr/share/cups/ppdc/")
 
+    def check_libavahi_dev(self):
+        log.debug("Checking for libavahi-dev")
+        # TODO: Compute these paths some way or another...
+        return check_file('client.h', "/usr/include/avahi-client")
+
     def check_policykit(self):
         log.debug("Checking for PolicyKit...")
         if check_file('PolicyKit.conf', "/etc/PolicyKit") and check_file('org.gnome.PolicyKit.AuthorizationManager.service', "/usr/share/dbus-1/services"):
@@ -1865,6 +1873,25 @@ class CoreInstall(object):
 
         else:
             return False
+    def remove_default_hplip_libs(self, callback=None, distro_ver=None):
+        hp_lib_rm_cmd = self.get_distro_ver_data('hp_libs_remove_cmd', None, distro_ver)
+        log.debug(hp_lib_rm_cmd)
+        print(hp_lib_rm_cmd)
+        if hp_lib_rm_cmd:
+            x = 1
+            #for cmd in hp_lib_rm_cmd:
+            status, output = utils.run(hp_lib_rm_cmd, self.passwordObj)
+            if any(['yum' in hp_lib_rm_cmd,'zypper' in hp_lib_rm_cmd, 'dnf' in hp_lib_rm_cmd, 'pacman' in hp_lib_rm_cmd]):
+                if status == 1:
+                    log.warn("An error occurred running '%s'" % hp_lib_rm_cmd)
+            else:
+                if status != 0:
+                    log.warn("An error occurred running '%s'" % hp_lib_rm_cmd)
+
+            if callback is not None:
+                callback(hp_lib_rm_cmd, " hp_libs_remove step %d" % x)
+
+            x += 1
 
     def run_pre_depend(self, callback=None, distro_ver=None):
         pre_cmd = self.get_distro_ver_data('pre_depend_cmd', None, distro_ver)

@@ -284,10 +284,13 @@ libapdk_la_OBJECTS = $(am_libapdk_la_OBJECTS)
 libapdk_la_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(libapdk_la_CXXFLAGS) \
 	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-libhpdiscovery_la_DEPENDENCIES =
-am__libhpdiscovery_la_SOURCES_DIST = protocol/discovery/mdns.c \
-	protocol/discovery/mdns.h
-@HPLIP_BUILD_TRUE@@NETWORK_BUILD_TRUE@am_libhpdiscovery_la_OBJECTS = libhpdiscovery_la-mdns.lo
+am__DEPENDENCIES_1 =
+@HPLIP_BUILD_TRUE@@NETWORK_BUILD_TRUE@libhpdiscovery_la_DEPENDENCIES =  \
+@HPLIP_BUILD_TRUE@@NETWORK_BUILD_TRUE@	$(am__DEPENDENCIES_1)
+am__libhpdiscovery_la_SOURCES_DIST =  \
+	protocol/discovery/avahiDiscovery.c \
+	protocol/discovery/avahiDiscovery.h
+@HPLIP_BUILD_TRUE@@NETWORK_BUILD_TRUE@am_libhpdiscovery_la_OBJECTS = libhpdiscovery_la-avahiDiscovery.lo
 libhpdiscovery_la_OBJECTS = $(am_libhpdiscovery_la_OBJECTS)
 libhpdiscovery_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) \
@@ -355,7 +358,6 @@ libhpmud_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(CFLAGS) $(libhpmud_la_LDFLAGS) $(LDFLAGS) -o $@
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@am_libhpmud_la_rpath =  \
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	-rpath $(libdir)
-am__DEPENDENCIES_1 =
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@libsane_hpaio_la_DEPENDENCIES = libhpip.la \
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@	libhpmud.la \
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@	libhpipp.la \
@@ -440,6 +442,7 @@ am__hp_SOURCES_DIST = prnt/backend/hp.c
 hp_OBJECTS = $(am_hp_OBJECTS)
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@hp_DEPENDENCIES =  \
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	libhpmud.la \
+@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	libhpdiscovery.la \
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	$(am__DEPENDENCIES_1)
 hp_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(hp_CFLAGS) $(CFLAGS) $(hp_LDFLAGS) \
@@ -612,7 +615,8 @@ am__ptest_SOURCES_DIST = pcard/ptest.c pcard/ptest.h pcard/fat.c \
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@am_ptest_OBJECTS = ptest.$(OBJEXT) \
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	fat.$(OBJEXT)
 ptest_OBJECTS = $(am_ptest_OBJECTS)
-@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@ptest_DEPENDENCIES = libhpmud.la
+@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@ptest_DEPENDENCIES = libhpmud.la \
+@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	libhpdiscovery.la
 am__dist_cmd_SCRIPTS_DIST = align.py info.py print.py toolbox.py \
 	clean.py colorcal.py unload.py testpage.py makeuri.py check.py \
 	fab.py levels.py sendfax.py setup.py makecopies.py probe.py \
@@ -818,6 +822,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-laserjet_3050-ps.ppd.gz \
 	prnt/ps/hp-designjet_4020ps-ps.ppd.gz \
 	prnt/ps/hp-designjet_t1530-postscript.ppd.gz \
 	prnt/ps/hp-color_laserjet_2820-ps.ppd.gz \
+	prnt/ps/hp-color_laserjet_flowmfp_m578-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_cm2320_mfp-ps.ppd.gz \
 	prnt/ps/hp-pagewide_xl_4500ps_mfp-ps.ppd.gz \
 	prnt/ps/hp-pagewide_color_755-ps.ppd.gz \
@@ -827,6 +832,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-laserjet_3050-ps.ppd.gz \
 	prnt/ps/hp-laserjet_pro_m706-ps.ppd.gz \
 	prnt/ps/hp-laserjet_200_colormfp_m276-ps.ppd.gz \
 	prnt/ps/hp-officejet_color_x555-ps.ppd.gz \
+	prnt/ps/hp-color_laserjet_mfp_m578-ps.ppd.gz \
 	prnt/ps/hp-laserjet_4100_series-ps.ppd.gz \
 	prnt/ps/hp-laserjet_9050-ps.ppd.gz \
 	prnt/ps/hp-designjet_z6600-postscript.ppd.gz \
@@ -979,8 +985,10 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-laserjet_3050-ps.ppd.gz \
 	prnt/ps/hp-laserjet_flow_mfp_m830-ps.ppd.gz \
 	prnt/ps/hp-pagewide_xl_6000ps-ps.ppd.gz \
 	prnt/ps/hp-laserjet_pro_m201_m202-ps.ppd.gz \
+	prnt/ps/hp-color_laserjet_e55040-ps.ppd.gz \
 	prnt/ps/hp-pagewide_color_mfp_586-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_5m-ps.ppd.gz \
+	prnt/ps/hp-color_laserjet_mfp_e57540-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_cp5225n-ps.ppd.gz \
 	prnt/ps/hp-laserjet_8150_mfp-ps.ppd.gz \
 	prnt/ps/hp-pagewide_377_mfp-ps.ppd.gz \
@@ -1001,6 +1009,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-laserjet_3050-ps.ppd.gz \
 	prnt/ps/hp-laserjet_5si_mopier-ps.ppd.gz \
 	prnt/ps/hp-laserjet_4-ps.ppd.gz \
 	prnt/ps/hp-laserjet_500_mfp_m525-ps.ppd.gz \
+	prnt/ps/hp-color_laserjet_flow_e57540-ps.ppd.gz \
 	prnt/ps/hp-laserjet_8000-ps.ppd.gz \
 	prnt/ps/hp-laserjet_m4555_mfp-ps.ppd.gz \
 	prnt/ps/hp-laserjet_4300-ps.ppd.gz \
@@ -1019,6 +1028,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-laserjet_3050-ps.ppd.gz \
 	prnt/ps/hp-laserjet_4mp-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet-ps.ppd.gz \
 	prnt/ps/hp-laserjet_4250-ps.ppd.gz \
+	prnt/ps/hp-color_laserjet_m554-ps.ppd.gz \
 	prnt/ps/hp-postscript-laserjet.ppd.gz \
 	prnt/ps/hp-laserjet_mfp_e72425-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_m552-ps.ppd.gz \
@@ -1103,6 +1113,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-laserjet_3050-ps.ppd.gz \
 	prnt/ps/hp-laserjet_4050_series-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_e65050_e65060-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_pro_m478f-9f-ps.ppd.gz \
+	prnt/ps/hp-color_laserjet_m555-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_cm1017-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_e67550_e67560-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_4600_series-ps.ppd.gz \
@@ -3197,6 +3208,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-designjet_4020ps-ps.ppd.gz \
     prnt/ps/hp-designjet_t1530-postscript.ppd.gz \
     prnt/ps/hp-color_laserjet_2820-ps.ppd.gz \
+    prnt/ps/hp-color_laserjet_flowmfp_m578-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_cm2320_mfp-ps.ppd.gz \
     prnt/ps/hp-pagewide_xl_4500ps_mfp-ps.ppd.gz \
     prnt/ps/hp-pagewide_color_755-ps.ppd.gz \
@@ -3206,6 +3218,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-laserjet_pro_m706-ps.ppd.gz \
     prnt/ps/hp-laserjet_200_colormfp_m276-ps.ppd.gz \
     prnt/ps/hp-officejet_color_x555-ps.ppd.gz \
+    prnt/ps/hp-color_laserjet_mfp_m578-ps.ppd.gz \
     prnt/ps/hp-laserjet_4100_series-ps.ppd.gz \
     prnt/ps/hp-laserjet_9050-ps.ppd.gz \
     prnt/ps/hp-designjet_z6600-postscript.ppd.gz \
@@ -3358,8 +3371,10 @@ foomatic_ps_printers = \
     prnt/ps/hp-laserjet_flow_mfp_m830-ps.ppd.gz \
     prnt/ps/hp-pagewide_xl_6000ps-ps.ppd.gz \
     prnt/ps/hp-laserjet_pro_m201_m202-ps.ppd.gz \
+    prnt/ps/hp-color_laserjet_e55040-ps.ppd.gz \
     prnt/ps/hp-pagewide_color_mfp_586-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_5m-ps.ppd.gz \
+    prnt/ps/hp-color_laserjet_mfp_e57540-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_cp5225n-ps.ppd.gz \
     prnt/ps/hp-laserjet_8150_mfp-ps.ppd.gz \
     prnt/ps/hp-pagewide_377_mfp-ps.ppd.gz \
@@ -3380,6 +3395,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-laserjet_5si_mopier-ps.ppd.gz \
     prnt/ps/hp-laserjet_4-ps.ppd.gz \
     prnt/ps/hp-laserjet_500_mfp_m525-ps.ppd.gz \
+    prnt/ps/hp-color_laserjet_flow_e57540-ps.ppd.gz \
     prnt/ps/hp-laserjet_8000-ps.ppd.gz \
     prnt/ps/hp-laserjet_m4555_mfp-ps.ppd.gz \
     prnt/ps/hp-laserjet_4300-ps.ppd.gz \
@@ -3398,6 +3414,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-laserjet_4mp-ps.ppd.gz \
     prnt/ps/hp-color_laserjet-ps.ppd.gz \
     prnt/ps/hp-laserjet_4250-ps.ppd.gz \
+    prnt/ps/hp-color_laserjet_m554-ps.ppd.gz \
     prnt/ps/hp-postscript-laserjet.ppd.gz \
     prnt/ps/hp-laserjet_mfp_e72425-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_m552-ps.ppd.gz \
@@ -3482,6 +3499,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-laserjet_4050_series-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_e65050_e65060-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_pro_m478f-9f-ps.ppd.gz \
+    prnt/ps/hp-color_laserjet_m555-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_cm1017-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_e67550_e67560-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_4600_series-ps.ppd.gz \
@@ -4441,7 +4459,7 @@ dist_unrel_DATA =
 # hp backend.
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@hpdir = $(cupsbackenddir)
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@hp_SOURCES = prnt/backend/hp.c
-@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@hp_LDADD = libhpmud.la $(DBUS_LIBS)
+@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@hp_LDADD = libhpmud.la libhpdiscovery.la $(DBUS_LIBS)
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@hp_LDFLAGS = $(libhpmud_la_LDFLAGS)
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@hp_CFLAGS = $(DBUS_CFLAGS)
 # hpaio sane backend
@@ -4471,10 +4489,11 @@ dist_unrel_DATA =
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@libsane_hpaio_la_CFLAGS = $(DBUS_CFLAGS) \
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@	-Iprotocol \
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@	$(am__append_2)
-@HPLIP_BUILD_TRUE@@NETWORK_BUILD_TRUE@libhpdiscovery_la_SOURCES = protocol/discovery/mdns.c protocol/discovery/mdns.h
-@HPLIP_BUILD_TRUE@@NETWORK_BUILD_TRUE@libhpdiscovery_la_CFLAGS = -DCONFDIR=\"$(hplip_confdir)\"
-@HPLIP_BUILD_TRUE@@NETWORK_BUILD_TRUE@libhpdiscovery_la_LDFLAGS = -version-info 0:1:0
-@HPLIP_BUILD_TRUE@@NETWORK_BUILD_TRUE@libhpdiscovery_la_LIBADD = -l$(SNMPLIB) -lcrypto
+#libhpdiscovery_la_SOURCES = protocol/discovery/mdns.c protocol/discovery/mdns.h
+@HPLIP_BUILD_TRUE@@NETWORK_BUILD_TRUE@libhpdiscovery_la_SOURCES = protocol/discovery/avahiDiscovery.c protocol/discovery/avahiDiscovery.h
+@HPLIP_BUILD_TRUE@@NETWORK_BUILD_TRUE@libhpdiscovery_la_CFLAGS = -DCONFDIR=\"$(hplip_confdir)\" -I/usr/include/avahi-client -I/usr/include/avahi-core -I/usr/include/avahi-common $(DBUS_CFLAGS)
+@HPLIP_BUILD_TRUE@@NETWORK_BUILD_TRUE@libhpdiscovery_la_LDFLAGS = -version-info 0:1:0 -L$(libdir)
+@HPLIP_BUILD_TRUE@@NETWORK_BUILD_TRUE@libhpdiscovery_la_LIBADD = -l$(SNMPLIB) -lcrypto -lavahi-client -lavahi-core -lavahi-common $(DBUS_LIBS)
 
 # hpmud library
 @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@MUDNAME = hpmud
@@ -4597,7 +4616,7 @@ dist_unrel_DATA =
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@selinuxdir = 
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@dist_selinux_DATA = selinux/hplip.te selinux/hplip.fc selinux/hplip.pp selinux/hplip.if selinux/mypol.pp selinux/mypol.te
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@ptest_SOURCES = pcard/ptest.c pcard/ptest.h pcard/fat.c pcard/fat.h
-@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@ptest_LDADD = libhpmud.la
+@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@ptest_LDADD = libhpmud.la libhpdiscovery.la
 
 # data
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@modelsdir = $(hplipdir)/data/models
@@ -5927,7 +5946,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libapdk_la-utils.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libapdk_la-version.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libapdk_la-versioncode.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libhpdiscovery_la-mdns.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libhpdiscovery_la-avahiDiscovery.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libhpipp_la-hp_ipp.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libhpmud_la-dot4.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libhpmud_la-hpmud.Plo@am__quote@
@@ -6053,12 +6072,12 @@ libapdk_la-utils.lo: common/utils.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libapdk_la_CFLAGS) $(CFLAGS) -c -o libapdk_la-utils.lo `test -f 'common/utils.c' || echo '$(srcdir)/'`common/utils.c
 
-libhpdiscovery_la-mdns.lo: protocol/discovery/mdns.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libhpdiscovery_la_CFLAGS) $(CFLAGS) -MT libhpdiscovery_la-mdns.lo -MD -MP -MF $(DEPDIR)/libhpdiscovery_la-mdns.Tpo -c -o libhpdiscovery_la-mdns.lo `test -f 'protocol/discovery/mdns.c' || echo '$(srcdir)/'`protocol/discovery/mdns.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libhpdiscovery_la-mdns.Tpo $(DEPDIR)/libhpdiscovery_la-mdns.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='protocol/discovery/mdns.c' object='libhpdiscovery_la-mdns.lo' libtool=yes @AMDEPBACKSLASH@
+libhpdiscovery_la-avahiDiscovery.lo: protocol/discovery/avahiDiscovery.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libhpdiscovery_la_CFLAGS) $(CFLAGS) -MT libhpdiscovery_la-avahiDiscovery.lo -MD -MP -MF $(DEPDIR)/libhpdiscovery_la-avahiDiscovery.Tpo -c -o libhpdiscovery_la-avahiDiscovery.lo `test -f 'protocol/discovery/avahiDiscovery.c' || echo '$(srcdir)/'`protocol/discovery/avahiDiscovery.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libhpdiscovery_la-avahiDiscovery.Tpo $(DEPDIR)/libhpdiscovery_la-avahiDiscovery.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='protocol/discovery/avahiDiscovery.c' object='libhpdiscovery_la-avahiDiscovery.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libhpdiscovery_la_CFLAGS) $(CFLAGS) -c -o libhpdiscovery_la-mdns.lo `test -f 'protocol/discovery/mdns.c' || echo '$(srcdir)/'`protocol/discovery/mdns.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libhpdiscovery_la_CFLAGS) $(CFLAGS) -c -o libhpdiscovery_la-avahiDiscovery.lo `test -f 'protocol/discovery/avahiDiscovery.c' || echo '$(srcdir)/'`protocol/discovery/avahiDiscovery.c
 
 xconvolve.lo: ip/xconvolve.c
 @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT xconvolve.lo -MD -MP -MF $(DEPDIR)/xconvolve.Tpo -c -o xconvolve.lo `test -f 'ip/xconvolve.c' || echo '$(srcdir)/'`ip/xconvolve.c

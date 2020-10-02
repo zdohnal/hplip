@@ -357,18 +357,9 @@ def makeURI(param, port=1):
     else: # Try Zeroconf hostname
         log.debug("Trying ZC hostname %s" % param)
 
-        result_code, uri = hpmudext.make_zc_uri(param, port)
+        if ( len (param) < 251):
 
-        if result_code == hpmudext.HPMUD_R_OK and uri:
-            uri = to_string_utf8(uri)
-            log.debug("Found: %s" % uri)
-            found = True
-            cups_uri = uri
-
-        else: # Try DNS hostname
-            log.debug("Device not found using mDNS hostname. Trying with DNS hostname %s" % param)
-
-            result_code, uri = hpmudext.make_net_uri(param, port)
+            result_code, uri = hpmudext.make_zc_uri(param, port)
 
             if result_code == hpmudext.HPMUD_R_OK and uri:
                 uri = to_string_utf8(uri)
@@ -376,8 +367,20 @@ def makeURI(param, port=1):
                 log.debug("Found: %s" % uri)
                 found = True
                 cups_uri = uri
-            else:
-                log.debug("Not found.")
+
+            else: # Try DNS hostname
+                log.debug("Device not found using mDNS hostname. Trying with DNS hostname %s" % param)
+
+                result_code, uri = hpmudext.make_net_uri(param, port)
+
+                if result_code == hpmudext.HPMUD_R_OK and uri:
+                    uri = to_string_utf8(uri)
+                    uri = uri.replace("ip=","hostname=")
+                    log.debug("Found: %s" % uri)
+                    found = True
+                    cups_uri = uri
+                else:
+                    log.debug("Not found.")
 
     if not found:
         log.debug("Trying serial number %s" % param)
@@ -1009,6 +1012,7 @@ class Device(object):
                 raise Error(ERROR_DEVICE_NOT_FOUND)
 
         self.device_uri = device_uri
+        self.printer_name = printer_name
         self.callback = callback
         self.device_type = DEVICE_TYPE_UNKNOWN
 
@@ -1693,7 +1697,7 @@ class Device(object):
 
             elif status_type == STATUS_TYPE_IPP:
                 log.debug("Type 12: IPP")
-                status_block = status.StatusTypeIPP(self.device_uri)
+                status_block = status.StatusTypeIPP(self.device_uri,self.printer_name)
 
             else:
                 log.error("Unimplemented status type: %d" % status_type)

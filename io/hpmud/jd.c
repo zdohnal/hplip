@@ -773,7 +773,7 @@ enum HPMUD_RESULT hpmud_make_mdns_uri(const char *host, int port, char *uri, int
       goto bugout;
    }
 
-   if (mdns_lookup(host, ip) != MDNS_STATUS_OK)
+   if (avahi_lookup(host) != AVAHI_STATUS_OK)
    {
       BUG("invalid host %s, check firewall UDP/5353 or try using IP\n", host);
       stat = HPMUD_R_INVALID_MDNS;

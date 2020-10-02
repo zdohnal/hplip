@@ -506,10 +506,10 @@ int hpmud_get_uri_datalink(const char *uri, char *buf, int buf_size)
    if (zc)
    {
 #ifdef HAVE_LIBNETSNMP
-    if (mdns_lookup(p, ip) != MDNS_STATUS_OK)
+    if (avahi_lookup(p) != AVAHI_STATUS_OK)
         return 0;
-    for (i=0; (ip[i] != 0) && (i < buf_size); i++)
-        buf[i] = ip[i];
+    for (i=0; (ipAddressBuff[i] != 0) && (i < buf_size); i++)
+        buf[i] = ipAddressBuff[i];
 #else
       return 0;
 #endif

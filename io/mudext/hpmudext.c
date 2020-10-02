@@ -344,12 +344,12 @@ static PyObject *get_zc_ip_address(PyObject *self, PyObject *args)
 
     Py_BEGIN_ALLOW_THREADS
 
-    if(mdns_lookup(hn, ip) != MDNS_STATUS_OK)
+    if(avahi_lookup(hn) != AVAHI_STATUS_OK)
         result =  HPMUD_R_INVALID_MDNS;
 
     Py_END_ALLOW_THREADS
 
-    return Py_BuildValue("(is)", result, ip);
+    return Py_BuildValue("(is)", result, ipAddressBuff);
 }
 #else
 static PyObject *get_zc_ip_address(PyObject *self, PyObject *args)

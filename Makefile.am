@@ -47,7 +47,7 @@ if !HPLIP_CLASS_DRIVER
 hpdir = $(cupsbackenddir)
 hp_PROGRAMS = hp
 hp_SOURCES = prnt/backend/hp.c
-hp_LDADD = libhpmud.la $(DBUS_LIBS)
+hp_LDADD = libhpmud.la libhpdiscovery.la $(DBUS_LIBS)
 hp_LDFLAGS = $(libhpmud_la_LDFLAGS)
 hp_CFLAGS = $(DBUS_CFLAGS)
 endif #HPLIP_CLASS_DRIVER 
@@ -86,10 +86,11 @@ endif # SCAN_BUILD
 # HP Service Discovery library
 if NETWORK_BUILD
 lib_LTLIBRARIES += libhpdiscovery.la
-libhpdiscovery_la_SOURCES = protocol/discovery/mdns.c protocol/discovery/mdns.h
-libhpdiscovery_la_CFLAGS  = -DCONFDIR=\"$(hplip_confdir)\"
-libhpdiscovery_la_LDFLAGS = -version-info 0:1:0
-libhpdiscovery_la_LIBADD  = -l$(SNMPLIB) -lcrypto
+#libhpdiscovery_la_SOURCES = protocol/discovery/mdns.c protocol/discovery/mdns.h
+libhpdiscovery_la_SOURCES = protocol/discovery/avahiDiscovery.c protocol/discovery/avahiDiscovery.h
+libhpdiscovery_la_CFLAGS  = -DCONFDIR=\"$(hplip_confdir)\" -I/usr/include/avahi-client -I/usr/include/avahi-core -I/usr/include/avahi-common $(DBUS_CFLAGS)
+libhpdiscovery_la_LDFLAGS = -version-info 0:1:0 -L$(libdir)
+libhpdiscovery_la_LIBADD  = -l$(SNMPLIB) -lcrypto -lavahi-client -lavahi-core -lavahi-common $(DBUS_LIBS)
 endif #NETWORK_BUILD
 
 
@@ -250,7 +251,7 @@ if !HPLIP_CLASS_DRIVER
 # ptest
 noinst_PROGRAMS += ptest
 ptest_SOURCES = pcard/ptest.c pcard/ptest.h pcard/fat.c pcard/fat.h
-ptest_LDADD = libhpmud.la
+ptest_LDADD = libhpmud.la libhpdiscovery.la
 endif #!HPLIP_CLASS_DRIVER
 
 # data

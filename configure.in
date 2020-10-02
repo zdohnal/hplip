@@ -26,7 +26,7 @@
 #   104 = no libdl
 
 #AC_PREREQ(2.59)
-AC_INIT([HP Linux Imaging and Printing], [3.20.6], [3.20.6], [hplip])
+AC_INIT([HP Linux Imaging and Printing], [3.20.9], [3.20.9], [hplip])
 #AM_INIT_AUTOMAKE([1.9 foreign])
 AM_INIT_AUTOMAKE
 AC_DISABLE_STATIC
@@ -620,6 +620,7 @@ fi
 #CFLAGS=`(python-config --includes)`
 if test "$class_driver" = "no" && test "$hpijs_only_build" = "no" && test "$lite_build" = "no" && test "$hpcups_only_build" = "no"; then
    AC_ARG_VAR([PYTHON], [Python interpreter/compiler command])
+   AC_CHECK_PROGS(PYTHON,[python python3 python2])
    AM_PATH_PYTHON([2.2])
    AC_MSG_CHECKING([for path to Python.h])
    PYTHONINCLUDEDIR=`$PYTHON -c "from distutils.sysconfig import get_python_inc; print (get_python_inc());"`

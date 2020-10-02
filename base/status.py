@@ -1948,7 +1948,7 @@ def StatusTypeIPPAgents(attrs):
 
     return status_block
 
-def StatusTypeIPP(device_uri):
+def StatusTypeIPP(device_uri,printer_name):
     status_block = { 'revision' :    STATUS_REV_UNKNOWN,
                      'agents' :      [],
                      'top-door' :    TOP_DOOR_NOT_PRESENT,
@@ -1961,7 +1961,7 @@ def StatusTypeIPP(device_uri):
                      'status-code' : STATUS_PRINTER_IDLE,
                    }
 
-    status_attrs = cupsext.getStatusAttributes(device_uri)
+    status_attrs = cupsext.getStatusAttributes(device_uri,printer_name)
 
     if status_attrs:
         status_block.update(StatusTypeIPPAgents(status_attrs) )

@@ -85,7 +85,7 @@
 # open_mdns_port=<command(s) to use to open the mdns multicast port 5353> [TYPE_LIST]
 # acl_rules=1|0 [TYPE_BOOL] # For Karmic+
 # libdir_path=<lib directory path> [TYPE_STRING] # Used if libdir location is to be provided in 64 bit machines
-
+# hp_libs_remove_cmd to remove the hp libs 
 # # Only include these sections if supported==1 for this <distro name>:<version name>.
 # [<distro name>:<version name>:<dependency name>]
 # packages=<package list to satisfy dependency (comma sep. list)> [TYPE_LIST]
@@ -114,7 +114,7 @@ supported=0
 
 [suse]
 index=3
-versions=12.2,12.3,13.1,13.2,42.1,42.2,42.3,15.0,15.1
+versions=12.2,12.3,13.1,13.2,42.1,42.2,42.3,15.0,15.1,15.2
 display_name=SUSE Linux
 alt_names=
 display=1
@@ -123,6 +123,7 @@ package_mgrs=yast,yast2,opensuse-updater,zypper,package-manager
 package_mgr_cmd=su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses $packages_to_install"
 pre_depend_cmd=
 post_depend_cmd=
+hp_libs_remove_cmd=su -c "zypper --non-interactive rm hplip-sane hplip-devel"
 scanjet_depend_cmd=su -c "zypper --non-interactive --no-gpg-checks remove python-numpy",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses python-pip",su -c "pip2 install --upgrade pip",su -c "pip2 install setuptools",su -c "pip2 install opencv-python",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses leptonica-devel",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr-devel",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr-traineddata-*",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses libzbar-devel",su -c "pip2 install zbar",su -c "pip2 install PyPDF2",su -c "pip2 install imutils",su -c "pip2 install tesserocr",su -c "pip2 install pypdfocr",su -c "pip2 install --ignore-installed decorator",su -c "pip2 install scikit-image",su -c "pip2 install scipy"
 #su -c "pip2 install --upgrade setuptools"
 scanjet_py3_depend_cmd=su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses python3-pip",su -c "pip3 install --upgrade pip",su -c "pip3 install opencv-python",su -c "pip3 install setuptools",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses leptonica-devel",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr-devel",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr-traineddata-*",su -c "pip3 install PyPDF2",su -c "pip3 install imutils",su -c "pip3 install tesserocr",su -c "pip3 install ocrmypdf",su -c "pip3 install --ignore-installed decorator",su -c "pip3 install scikit-image",su -c "pip3 install scipy"
@@ -276,6 +277,9 @@ packages=python3-xml
 [suse:12.2:automake]
 packages=automake
 
+[suse:12.2:libavahi-dev]
+packages=libavahi-devel
+
 
 # ********************
 [suse:12.3]
@@ -423,6 +427,9 @@ packages=python3-notify2
 
 [suse:12.3:automake]
 packages=automake
+
+[suse:12.3:libavahi-dev]
+packages=libavahi-devel
 
 
 # ****************************************
@@ -583,6 +590,9 @@ packages=python3-notify2
 [suse:13.2:automake]
 packages=automake
 
+[suse:13.2:libavahi-dev]
+packages=libavahi-devel
+
 # ****************************************
 
 [suse:42.1]
@@ -742,6 +752,9 @@ packages=python3-notify2
 [suse:42.2:automake]
 packages=automake
 
+[suse:42.2:libavahi-dev]
+packages=libavahi-devel
+
 
 # ****************************************
 
@@ -893,6 +906,9 @@ packages=python3-notify2
 
 [suse:42.3:automake]
 packages=automake
+
+[suse:42.3:libavahi-dev]
+packages=libavahi-devel
 
 
 # ****************************************
@@ -1048,6 +1064,10 @@ packages=python3-notify2
 [suse:15.0:automake]
 packages=automake
 
+[suse:15.0:libavahi-dev]
+packages=libavahi-devel
+
+
 # ****************************************
 
 
@@ -1200,6 +1220,166 @@ packages=python3-notify2
 
 [suse:15.1:automake]
 packages=automake
+
+[suse:15.1:libavahi-dev]
+packages=libavahi-devel
+
+
+# ****************************************
+
+[suse:15.2]
+code_name=Leap
+supported=1
+packaged_version=3.20.9
+release_date=02.07.2020
+scan_supported=1
+fax_supported=1
+pcard_supported=0
+network_supported=1
+parallel_supported=0
+usb_supported=1
+notes=Please be sure to disable the CD repositories in YaST.
+ppd_install=drv
+udev_mode_fix=1
+ppd_dir=/usr/share/cups/model/HP
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+cups_path_with_bitness=0
+ui_toolkit=qt4
+native_cups=1
+pre_depend_cmd=su -c "zypper refresh"
+post_depend_cmd=su -c "zypper --non-interactive --no-gpg-checks in --force --auto-agree-with-licenses cups-filters-ghostscript",su -c "service cups restart"
+scanjet_depend_cmd=su -c "zypper --non-interactive --no-gpg-checks remove python-numpy",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses python-pip",su -c "pip2 install --upgrade pip",su -c "pip2 install setuptools",su -c "pip2 install opencv-contrib-python",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses leptonica-devel",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr-devel",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr-traineddata-*",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses libzbar-devel",su -c "pip2 install zbar-py",su -c "pip2 install PyPDF2",su -c "pip2 install imutils",su -c "pip2 install tesserocr",su -c "pip2 install pypdfocr",su -c "pip2 install --ignore-installed decorator",su -c "pip2 install scikit-image",su -c "pip2 install reportlab==3.4.0",su -c "pip2 install scipy"
+#su -c "pip2 install --upgrade setuptools"
+scanjet_py3_depend_cmd=su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses python3-pip",su -c "pip3 install --upgrade pip",su -c "pip3 install opencv-python",su -c "pip3 install setuptools",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses leptonica-devel",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr-devel",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr-traineddata-*",su -c "pip3 install PyPDF2",su -c "pip3 install imutils",su -c "pip3 install tesserocr",su -c "pip3 install ocrmypdf",su -c "pip3 install --ignore-installed decorator",su -c "pip3 install scikit-image",su -c "pip3 install reportlab==3.4.0",su -c "pip3 install scipy"
+
+[suse:15.2:cups]
+packages=cups,cups-client
+
+[suse:15.2:cups-devel]
+packages=cups-devel,cupsddk
+
+[suse:15.2:gcc]
+packages=gcc-c++
+
+[suse:15.2:gs]
+packages=ghostscript-library
+
+[suse:15.2:libcrypto]
+packages=openssl
+
+[suse:15.2:libjpeg]
+packages=libjpeg-devel,zlib-devel
+
+[suse:15.2:libnetsnmp-devel]
+packages=net-snmp-devel
+
+[suse:15.2:libpthread]
+packages=glibc
+
+[suse:15.2:libtool]
+packages=libtool,libgphoto2-devel,rpm-build
+
+[suse:15.2:libusb]
+packages=libusb-1_0-devel,libusb-1_0-0
+
+[suse:15.2:make]
+packages=make
+
+[suse:15.2:pil]
+packages=python-imaging
+
+[suse:15.2:ppdev]
+packages=
+commands=su -c "modprobe ppdev"
+
+[suse:15.2:pyqt]
+packages=python-qt
+
+[suse:15.2:pyqt4]
+packages=python-qt4
+
+[suse:15.2:pyqt4-dbus]
+packages=dbus-1-python-devel,dbus-1-python
+
+[suse:15.2:python-devel]
+packages=python-devel,python-xml,libpython2_7-1_0
+
+[suse:15.2:python23]
+packages=python
+
+[suse:15.2:python2X]
+packages=python
+
+[suse:15.2:reportlab]
+packages=
+
+[suse:15.2:sane]
+packages=xsane
+
+[suse:15.2:sane-devel]
+packages=sane-backends-devel
+
+[suse:15.2:scanimage]
+packages=sane-backends
+
+[suse:15.2:xsane]
+packages=xsane
+
+[suse:15.2:cups-ddk]
+packages=cupsddk
+
+[suse:15.2:python-dbus]
+packages=dbus-1-python
+
+[suse:15.2:dbus]
+packages=dbus-1-devel,python-gobject2
+
+[suse:15.2:python-xml]
+packages=python-xml,libpython2_7-1_0
+
+[suse:15.2:cups-image]
+packages=cups-devel
+
+[suse:15.2:python-notify]
+packages=python-notify
+
+[suse:15.2:network]
+packages=wget
+
+[suse:15.2:avahi-utils]
+packages=avahi-utils
+
+[suse:15.2:python3-pyqt4]
+packages=python3-qt4,python3-qt4-devel
+
+[suse:15.2:python3-dbus]
+packages=dbus-1-python3,python3-gobject,python3-gobject2-devel
+
+[suse:15.2:python3-xml]
+packages=python3-xml,python3-lxml
+
+[suse:15.2:python3-devel]
+packages=python3-devel
+
+[suse:15.2:python3-pyqt4-dbus]
+packages=dbus-1-python3-devel,dbus-1-python3
+
+[suse:15.2:python3-pil]
+packages=python3-Pillow
+
+[suse:15.2:python3-reportlab]
+packages=python3-reportlab
+
+[suse:15.2:python3-notify2]
+packages=python3-notify2
+
+[suse:15.2:automake]
+packages=automake
+
+[suse:15.2:libavahi-dev]
+packages=libavahi-devel
+
 
 # ****************************************
 [redhat]
@@ -1411,6 +1591,7 @@ package_mgrs=yum,rpm,up2date
 package_mgr_cmd=su -c "yum -y -d 10 -e 1 install $packages_to_install"
 pre_depend_cmd=su -c "yum clean all",su -c "yum check-update"
 post_depend_cmd=
+hp_libs_remove_cmd=sudo yum -y -d 10 -e 1 remove hplip-libs libsane-hpaio
 #scanjet_depend_cmd=su -c "dnf -y -d 10 -e 1 install python2-pip",su -c "dnf -y -d 10 -e 1 install leptonica",su -c "dnf -y -d 10 -e 1 install leptonica-devel",su -c "dnf -y -d 10 -e 1 install tesseract",su -c "dnf -y -d 10 -e 1 install tesseract-devel",su -c "pip2 install tesserocr",su -c "dnf -y -d 10 -e 1 install tesseract-langpack-*",su -c "dnf -y -d 10 -e 1 install zbar-devel",su -c "pip2 install zbar",su -c "pip2 install opencv-python",su -c "pip2 install pypdf2",su -c "pip2 install imutils",su -c "pip2 install pypdfocr",su -c "pip2 install scikit-image",su -c "pip2 install scipy"
 scanjet_depend_cmd=su -c "dnf -y -d 10 -e 1 install python-pip",su -c "pip install opencv-python",su -c "pip install pypdf2",su -c "pip install imutils",su -c "dnf -y -d 10 -e 1 install zbar-devel",su -c "dnf update gcc",su -c "dnf -y -d 10 -e 1 install zbar-*",su -c "dnf -y -d 10 -e 1 install ImageMagick*",su -c "dnf -y -d 10 -e 1 install leptonica",su -c "dnf -y -d 10 -e 1 install leptonica-devel",su -c "dnf -y -d 10 -e 1 install tesseract",su -c "dnf -y -d 10 -e 1 install tesseract-devel",su -c "pip install tesserocr",su -c "dnf -y -d 10 -e 1 install tesseract-langpack-*",su -c "dnf -y -d 10 -e 1 install tesseract-osd",,su -c "pip install pypdfocr",su -c "pip install scikit-image",su -c "pip install scipy"
 scanjet_py3_depend_cmd=su -c "dnf -y -d 10 -e 1 install python3-pip",su -c "pip3 install opencv-python",su -c "pip3 install pypdf2",su -c "pip3 install imutils",su -c "dnf -y -d 10 -e 1 install ImageMagick*",su -c "dnf -y -d 10 -e 1 install leptonica",su -c "dnf -y -d 10 -e 1 install leptonica-devel",su -c "dnf -y -d 10 -e 1 install tesseract",su -c "dnf -y -d 10 -e 1 install tesseract-devel",su -c "pip3 install tesserocr",su -c "dnf -y -d 10 -e 1 install tesseract-langpack-*",su -c "dnf -y -d 10 -e 1 install tesseract-osd",su -c "pip3 install ocrmypdf",su -c "pip3 install scikit-image",su -c "pip3 install scipy"
@@ -1544,6 +1725,9 @@ packages=avahi-tools
 [fedora:17:automake]
 packages=automake
 
+[fedora:17:libavahi-dev]
+packages=avahi-devel
+
 # ********************
 [fedora:18]
 code_name=Sperical Cow
@@ -1664,6 +1848,9 @@ packages=avahi-tools
 
 [fedora:18:automake]
 packages=automake
+
+[fedora:18:libavahi-dev]
+packages=avahi-devel
 
 # ****************************************
 
@@ -1840,6 +2027,9 @@ packages=python3-reportlab
 
 [fedora:22:automake]
 packages=automake
+
+[fedora:22:libavahi-dev]
+packages=avahi-devel
 
 # ****************************************
 
@@ -2025,6 +2215,9 @@ packages=python3-reportlab
 [fedora:27:automake]
 packages=automake
 
+[fedora:27:libavahi-dev]
+packages=avahi-devel
+
 
 # ****************************************
 
@@ -2051,6 +2244,7 @@ native_cups=1
 open_mdns_port=/bin/bash ./init-iptables-firewall
 package_mgr_cmd= sudo dnf -y -d 10 -e 1 install $packages_to_install
 pre_depend_cmd=sudo dnf check-update
+hp_libs_remove_cmd=sudo yum -y -d 10 -e 1 remove hplip-libs libsane-hpaio
 scanjet_depend_cmd=sudo dnf -y -d 10 -e 1 install python-pip,sudo pip install opencv-python,sudo pip install pypdf2,sudo pip install imutils,sudo dnf -y -d 10 -e 1 install zbar-devel,sudo dnf update gcc,sudo dnf -y -d 10 -e 1 install zbar-*,sudo dnf -y -d 10 -e 1 install leptonica,sudo dnf -y -d 10 -e 1 install leptonica-devel,sudo dnf -y -d 10 -e 1 install tesseract,sudo dnf -y -d 10 -e 1 install tesseract-devel,sudo pip install tesserocr,sudo dnf -y -d 10 -e 1 install tesseract-langpack-*,sudo dnf -y -d 10 -e 1 install tesseract-osd, sudo pip install pypdfocr,sudo pip install scikit-image,sudo pip install scipy
 scanjet_py3_depend_cmd=sudo dnf -y -d 10 -e 1 install python3-pip,sudo pip3 install opencv-python,sudo pip3 install pypdf2,sudo pip3 install imutils,sudo dnf -y -d 10 -e 1 install leptonica,sudo dnf -y -d 10 -e 1 install leptonica-devel,sudo dnf -y -d 10 -e 1 install tesseract,sudo dnf -y -d 10 -e 1 install tesseract-devel,sudo pip3 install tesserocr,sudo dnf -y -d 10 -e 1 install tesseract-langpack-*,sudo dnf -y -d 10 -e 1 install tesseract-osd,sudo pip3 install ocrmypdf,sudo pip3 install scikit-image,sudo pip3 install scipy
 hplip_remove_cmd=sudo dnf -y -d 10 -e 1 remove hplip
@@ -2172,6 +2366,9 @@ packages=python3-reportlab
 
 [fedora:28:automake]
 packages=automake
+
+[fedora:28:libavahi-dev]
+packages=avahi-devel
 
 # ****************************************
 
@@ -2320,6 +2517,9 @@ packages=python3-reportlab
 [fedora:29:automake]
 packages=automake
 
+[fedora:29:libavahi-dev]
+packages=avahi-devel
+
 # ****************************************
 
 [fedora:30]
@@ -2466,6 +2666,9 @@ packages=python3-reportlab
 
 [fedora:30:automake]
 packages=automake
+
+[fedora:30:libavahi-dev]
+packages=avahi-devel
 
 # ****************************************
 
@@ -2614,6 +2817,9 @@ packages=python3-reportlab
 [fedora:31:automake]
 packages=automake
 
+[fedora:31:libavahi-dev]
+packages=avahi-devel
+
 # ****************************************
 
 [fedora:32]
@@ -2639,8 +2845,8 @@ native_cups=1
 open_mdns_port=/bin/bash ./init-iptables-firewall
 package_mgr_cmd= sudo dnf -y -d 10 -e 1 install $packages_to_install
 pre_depend_cmd=sudo dnf check-update
-scanjet_depend_cmd=sudo dnf -y -d 10 -e 1 install python-pip,sudo pip install opencv-python,sudo pip install pypdf2,sudo pip install imutils,sudo dnf -y -d 10 -e 1 install zbar-devel,sudo dnf update gcc,sudo dnf -y -d 10 -e 1 install zbar-*,sudo dnf -y -d 10 -e 1 install leptonica,sudo dnf -y -d 10 -e 1 install leptonica-devel,sudo dnf -y -d 10 -e 1 install tesseract,sudo dnf -y -d 10 -e 1 install tesseract-devel,sudo pip install tesserocr,sudo dnf -y -d 10 -e 1 install tesseract-langpack-*,sudo dnf -y -d 10 -e 1 install tesseract-osd,sudo dnf -y -d 10 -e 1 install qpdf,sudo pip install pypdfocr,sudo pip install scikit-image,sudo pip install scipy
-scanjet_py3_depend_cmd=sudo dnf -y -d 10 -e 1 install python3-pip,sudo pip3 install opencv-python,sudo pip3 install pypdf2,sudo pip3 install imutils,sudo dnf -y -d 10 -e 1 install leptonica,sudo dnf -y -d 10 -e 1 install leptonica-devel,sudo dnf -y -d 10 -e 1 install tesseract,sudo dnf -y -d 10 -e 1 install tesseract-devel,sudo pip3 install tesserocr,sudo dnf -y -d 10 -e 1 install tesseract-langpack-*,sudo dnf -y -d 10 -e 1 install tesseract-osd,sudo dnf -y -d 10 -e 1 install qpdf,sudo pip3 install ocrmypdf,sudo pip3 install scikit-image,sudo pip3 install scipy
+scanjet_depend_cmd=sudo dnf -y -d 10 -e 1 install python-pip,sudo pip install opencv-python,sudo pip install pypdf2,sudo pip install imutils,sudo dnf -y -d 10 -e 1 install zbar-devel,sudo dnf update gcc,sudo dnf -y -d 10 -e 1 install zbar-*,sudo dnf -y -d 10 -e 1 install leptonica,sudo dnf -y -d 10 -e 1 install leptonica-devel,sudo dnf -y -d 10 -e 1 install tesseract,sudo dnf -y -d 10 -e 1 install tesseract-devel,sudo pip install tesserocr,sudo dnf -y -d 10 -e 1 install tesseract-langpack-*,sudo dnf -y -d 10 -e 1 install tesseract-osd,sudo pip install pikepdf,sudo pip install pypdfocr,sudo pip install scikit-image,sudo pip install scipy
+scanjet_py3_depend_cmd=sudo dnf -y -d 10 -e 1 install python3-pip,sudo pip3 install opencv-python,sudo pip3 install pypdf2,sudo pip3 install imutils,sudo dnf -y -d 10 -e 1 install leptonica,sudo dnf -y -d 10 -e 1 install leptonica-devel,sudo dnf -y -d 10 -e 1 install tesseract,sudo dnf -y -d 10 -e 1 install tesseract-devel,sudo pip3 install tesserocr,sudo dnf -y -d 10 -e 1 install tesseract-langpack-*,sudo dnf -y -d 10 -e 1 install tesseract-osd,sudo pip3 install pikepdf,sudo pip3 install ocrmypdf,sudo pip3 install scikit-image,sudo pip3 install scipy
 hplip_remove_cmd=sudo dnf -y -d 10 -e 1 remove hplip
 
 [fedora:32:cups]
@@ -2760,6 +2966,9 @@ packages=python3-reportlab
 
 [fedora:32:automake]
 packages=automake
+
+[fedora:32:libavahi-dev]
+packages=avahi-devel
 
 # ****************************************
 
@@ -2943,6 +3152,9 @@ packages=avahi-tools
 [rhel:5.0:automake]
 packages=automake1.11
 
+[rhel:5.0:libavahi-dev]
+packages=avahi-devel
+
 # ********************
 [rhel:6.0]
 code_name=Santiago
@@ -3062,6 +3274,9 @@ packages=avahi-tools
 
 [rhel:6.0:automake]
 packages=automake1.11
+
+[rhel:6.0:libavahi-dev]
+packages=avahi-devel
 
 # ****************************************
 [rhel:7.0]
@@ -3212,6 +3427,9 @@ packages=avahi-tools
 [rhel:8:0:automake]
 packages=automake1.11
 
+[rhel:8.0:libavahi-dev]
+packages=avahi-devel
+
 # ****************************************
 [rhel:8.1]
 code_name=Ootpa
@@ -3328,6 +3546,9 @@ packages=avahi-tools
 
 [rhel:8.1:automake]
 packages=automake1.11
+
+[rhel:8.1:libavahi-dev]
+packages=avahi-devel
 
 # ****************************************
 [rhel:8.2]
@@ -3526,6 +3747,7 @@ notes=
 package_mgrs=pup,yum,rpm
 package_mgr_cmd=su -c 'yum -y -d 10 -e 1 install $packages_to_install'
 pre_depend_cmd=su -c 'yum list update'
+hp_libs_remove_cmd=su -c "yum -y -d 10 -e 1 remove hplip-libs libsane-hpaio"
 post_depend_cmd=
 hplip_remove_cmd=
 su_sudo=su
@@ -3658,6 +3880,9 @@ packages=avahi-tools
 [centos:any:automake]
 packages=automake1.11
 
+[centos:any:libavahi-dev]
+packages=avahi-devel
+
 # ****************************************
 [gentoo]
 index=9
@@ -3713,6 +3938,7 @@ pre_install_cmd=su - -c "/etc/init.d/cups restart",su -c "touch /etc/security/co
 pre_depend_cmd=su -c "apt-get update"
 post_depend_cmd=
 hplip_remove_cmd=su -c "apt-get remove --yes hplip hpijs"
+hp_libs_remove_cmd=su -c "apt-get remove hplip-libs libsane-hpaio"
 su_sudo=su
 ppd_install=ppd
 udev_mode_fix=1
@@ -3836,6 +4062,9 @@ packages=avahi
 [pclinuxos:2006.0:automake]
 packages=automake1.11
 
+[pclinuxos:2006.0:libavahi-dev]
+packages=lib64avahi-common-devel,lib64avahi-core-devel,lib64avahi-client-devel
+
 # ********************
 [pclinuxos:2006]
 same_as_version=2006.0
@@ -3957,6 +4186,9 @@ packages=avahi
 
 [pclinuxos:2007.0:automake]
 packages=automake1.11
+
+[pclinuxos:2007.0:libavahi-dev]
+packages=lib64avahi-common-devel,lib64avahi-core-devel,lib64avahi-client-devel
 
 # ********************
 [pclinuxos:2007]
@@ -4080,6 +4312,9 @@ packages=avahi
 [pclinuxos:2008.0:automake]
 packages=automake1.11
 
+[pclinuxos:2008.0:libavahi-dev]
+packages=lib64avahi-common-devel,lib64avahi-core-devel,lib64avahi-client-devel
+
 # ********************
 [pclinuxos:2008]
 same_as_version=2008.0
@@ -4202,6 +4437,9 @@ packages=avahi
 [pclinuxos:2009.0:automake]
 packages=automake1.11
 
+[pclinuxos:2009.0:libavahi-dev]
+packages=lib64avahi-common-devel,lib64avahi-core-devel,lib64avahi-client-devel
+
 # ********************
 [pclinuxos:2009]
 same_as_version=2009.0
@@ -4323,6 +4561,9 @@ packages=avahi
 
 [pclinuxos:2009.1:automake]
 packages=automake1.11
+
+[pclinuxos:2009.1:libavahi-dev]
+packages=lib64avahi-common-devel,lib64avahi-core-devel,lib64avahi-client-devel
 
 # ****************************************
 [igos]
@@ -4473,6 +4714,7 @@ package_mgrs=dpkg,apt-get,synaptic,update-manager,adept,aptitude,adept-updater
 package_mgr_cmd=sudo apt-get install --assume-yes $packages_to_install
 pre_depend_cmd=sudo dpkg --configure -a,sudo apt-get install --yes --force-yes -f,sudo apt-get update
 post_depend_cmd=
+hp_libs_remove_cmd= sudo apt-get remove libhpmud0 libsane-hpaio
 scanjet_depend_cmd=sudo apt-get install --assume-yes python-pip,sudo pip2 install --upgrade pip,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip2 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-all,sudo apt-get install --assume-yes libzbar-dev,sudo apt-get install --assume-yes python-zbar,sudo -H pip2 install opencv-python,sudo -H pip2 install PyPDF2,sudo -H pip2 install imutils,sudo -H pip2 install pypdfocr,sudo -H pip2 install scikit-image,sudo -H pip2 install scipy
 #sudo apt-get install --assume-yes tesseract-ocr-all
 scanjet_py3_depend_cmd=sudo apt-get install --assume-yes python3-pip,sudo pip3 install --upgrade pip,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip3 install tesserocr,sudo -H pip3 install opencv-python,sudo -H pip3 install PyPDF2,sudo -H pip3 install imutils,sudo -H pip3 install ocrmypdf,sudo -H pip3 install scikit-image,sudo -H pip3 install scipy,sudo apt-get install --assume-yes qpdf
@@ -4605,6 +4847,9 @@ packages=wget
 [ubuntu:10.04:avahi-utils]
 packages=avahi-utils
 
+[ubuntu:10.04:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
 [ubuntu:10.04:automake]
 packages=automake1.11
 
@@ -4731,6 +4976,9 @@ packages=wget
 
 [ubuntu:11.10:avahi-utils]
 packages=avahi-utils
+
+[ubuntu:11.10:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 [ubuntu:11.10:automake]
 packages=automake1.11
@@ -4882,6 +5130,9 @@ packages=python3-dev
 
 [ubuntu:12.04:python3-pil]
 packages=PKG_FROM_PIP:pillow
+
+[ubuntu:12.04:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 [ubuntu:12.04:automake]
 packages=automake1.11
@@ -5041,6 +5292,9 @@ packages=python3-dev
 [ubuntu:13.04:python3-pil]
 packages=python3-imaging
 
+[ubuntu:13.04:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
 [ubuntu:13.04:automake]
 packages=automake1.11
 
@@ -5190,6 +5444,9 @@ packages=python3-imaging
 
 [ubuntu:13.10:python3-reportlab]
 packages=python3-reportlab
+
+[ubuntu:13.10:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 [ubuntu:13.10:automake]
 packages=automake1.11
@@ -5348,6 +5605,9 @@ packages=python3-pil
 [ubuntu:14.10:python3-reportlab]
 packages=python3-reportlab
 
+[ubuntu:14.10:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
 [ubuntu:14.10:automake]
 packages=automake1.11
 
@@ -5498,6 +5758,9 @@ packages=python3-pil
 [ubuntu:15.04:python3-reportlab]
 packages=python3-reportlab
 
+[ubuntu:15.04:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
 [ubuntu:15.04:automake]
 packages=automake1.11
 
@@ -5514,6 +5777,9 @@ same_as_version=15.04
 
 [ubuntu:15.10:python3-devel]
 packages=python3-dev,python3.4-dev,python3.5-dev
+
+[ubuntu:15.10:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 # ********************
 [ubuntu:16.04]
@@ -5643,6 +5909,9 @@ packages=wget
 
 [ubuntu:16.04:avahi-utils]
 packages=avahi-utils
+
+[ubuntu:16.04:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 [ubuntu:16.04:python3-notify2]
 packages=python3-notify2
@@ -5808,6 +6077,9 @@ packages=wget
 [ubuntu:16.10:avahi-utils]
 packages=avahi-utils
 
+[ubuntu:16.10:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
 [ubuntu:16.10:python3-notify2]
 packages=python3-notify2
 
@@ -5971,6 +6243,9 @@ packages=wget
 
 [ubuntu:17.04:avahi-utils]
 packages=avahi-utils
+
+[ubuntu:17.04:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 [ubuntu:17.04:python3-notify2]
 packages=python3-notify2
@@ -6137,6 +6412,9 @@ packages=wget
 [ubuntu:17.10:avahi-utils]
 packages=avahi-utils
 
+[ubuntu:17.10:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
 [ubuntu:17.10:python3-notify2]
 packages=python3-notify2
 
@@ -6299,6 +6577,9 @@ packages=wget
 
 [ubuntu:18.04:avahi-utils]
 packages=avahi-utils
+
+[ubuntu:18.04:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 [ubuntu:18.04:python3-notify2]
 packages=python3-notify2
@@ -6469,6 +6750,9 @@ packages=wget
 [ubuntu:18.10:avahi-utils]
 packages=avahi-utils
 
+[ubuntu:18.10:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
 [ubuntu:18.10:python3-notify2]
 packages=python3-notify2
 
@@ -6637,6 +6921,9 @@ packages=wget
 
 [ubuntu:19.04:avahi-utils]
 packages=avahi-utils
+
+[ubuntu:19.04:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 [ubuntu:19.04:python3-notify2]
 packages=python3-notify2
@@ -6808,6 +7095,9 @@ packages=wget
 [ubuntu:19.10:avahi-utils]
 packages=avahi-utils
 
+[ubuntu:19.10:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
 [ubuntu:19.10:python3-notify2]
 packages=python3-notify2
 
@@ -6977,6 +7267,9 @@ packages=wget
 [ubuntu:20.04:avahi-utils]
 packages=avahi-utils
 
+[ubuntu:20.04:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
 [ubuntu:20.04:python3-notify2]
 packages=python3-notify2
 
@@ -7011,7 +7304,7 @@ packages=epm
 # ****************************************
 [debian]
 index=2
-versions=6.0,6.0.1,6.0.2,6.0.3,6.0.4,6.0.5,6.0.6,6.0.7,6.0.8,6.0.9,6.0.10,7.0,7.1,7.2,7.3,7.4,7.5,7.6,7.7,7.8,7.9,8.0,8.1,8.2,8.3,8.4,8.5,8.6,8.7,8.8,9.1,9.2,9.3,9.4,9.5,9.6,9.7,9.8,9.9,10.0,10.1,10.2,10.3
+versions=6.0,6.0.1,6.0.2,6.0.3,6.0.4,6.0.5,6.0.6,6.0.7,6.0.8,6.0.9,6.0.10,7.0,7.1,7.2,7.3,7.4,7.5,7.6,7.7,7.8,7.9,8.0,8.1,8.2,8.3,8.4,8.5,8.6,8.7,8.8,9.1,9.2,9.3,9.4,9.5,9.6,9.7,9.8,9.9,10.0,10.1,10.2,10.3,10.4
 display_name=Debian
 alt_names=
 display=1
@@ -7020,6 +7313,7 @@ package_mgrs=dpkg,apt-get,synaptic,update-manager,adept,aptitude
 package_mgr_cmd=su -c "apt-get install --force-yes -y $packages_to_install"
 pre_depend_cmd=su -c "dpkg --configure -a",su -c "apt-get install -f",su -c "apt-get update"
 post_depend_cmd=
+hp_libs_remove_cmd= sudo apt-get remove libhpmud0 libsane-hpaio
 #su -c "apt-get install --force-yes -y python-qt4",su -c "apt-get install --force-yes -y python-qt4-dbus",
 scanjet_depend_cmd=su -c "apt-get install --force-yes -y python-pip",su -c "pip install --upgrade pip",su -c "apt-get install --force-yes -y libleptonica-dev",su -c "apt-get install --force-yes -y tesseract-ocr",su -c "apt-get install --force-yes -y libtesseract-dev",su -c "pip install tesserocr",su -c "apt-get install --force-yes -y libzbar-dev",su -c "apt-get install --force-yes -y python-zbar",su -c "apt-get install --force-yes -y python-opencv",su -c "apt-get install --force-yes -y python-pypdf2",su -c "pip install imutils",su -c "pip install pypdfocr",su -c "pip install scikit-image",su -c "pip install scipy"
 #su -c "apt-get install --force-yes -y tesseract-ocr-all",
@@ -7162,6 +7456,9 @@ packages=automake1.11
 
 [debian:6.0:epm]
 packages=epm
+
+[debian:6.0:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 # *********************
 [debian:6.0.1]
@@ -7350,6 +7647,8 @@ packages=automake1.11
 [debian:7.0:epm]
 packages=epm
 
+[debian:7.0:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 # ****************************************
 
@@ -7540,6 +7839,8 @@ packages=automake1.11
 [debian:8.0:epm]
 packages=epm
 
+[debian:8.0:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 # *********************
 
@@ -7727,6 +8028,8 @@ packages=automake1.11
 [debian:8.4:epm]
 packages=epm
 
+[debian:8.4:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 # *********************
 
@@ -7899,6 +8202,9 @@ packages=automake1.11
 [debian:8.5:epm]
 packages=epm
 
+[debian:8.5:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
 
 # *********************
 
@@ -8024,7 +8330,8 @@ packages=automake1.11
 [debian:8.6:epm]
 packages=epm
 
-
+[debian:8.6:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 # *********************
 
@@ -8150,6 +8457,8 @@ packages=automake1.11
 [debian:8.7:epm]
 packages=epm
 
+[debian:8.7:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 
 # *********************
@@ -8278,6 +8587,8 @@ packages=automake1.11
 [debian:8.8:epm]
 packages=epm
 
+[debian:8.8:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 # *********************
 
@@ -8403,7 +8714,8 @@ packages=automake1.11
 [debian:9.1:epm]
 packages=epm
 
-
+[debian:9.1:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 # ****************************************
 
@@ -8594,6 +8906,8 @@ packages=python-dbus.mainloop.pyqt5
 packages=automake1.11
 [debian:9.9:epm]
 packages=epm
+[debian:9.9:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 # ****************************************
 [debian:10.0]
@@ -8715,6 +9029,9 @@ packages=automake1.11
 
 [debian:10.0:epm]
 packages=epm
+
+[debian:10.0:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 
 # ****************************************
@@ -8838,6 +9155,9 @@ packages=automake1.11
 [debian:10.1:epm]
 packages=epm
 
+[debian:10.1:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
 # ****************************************
 [debian:10.2]
 code_name=Buster
@@ -8956,6 +9276,8 @@ packages=python-dbus.mainloop.pyqt5
 packages=automake1.11
 [debian:10.2:epm]
 packages=epm
+[debian:10.2:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 # ****************************************
 
@@ -9076,9 +9398,132 @@ packages=python-dbus.mainloop.pyqt5
 packages=automake1.11
 [debian:10.3:epm]
 packages=epm
-
+[debian:10.3:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 # ****************************************
+
+[debian:10.4]
+code_name=Buster
+supported=1
+scan_supported=1
+fax_supported=1
+pcard_supported=1
+network_supported=1
+parallel_supported=1
+usb_supported=1
+packaged_version=3.20.9
+release_date=09/05/2020
+notes=NOTE: Disable the CD Sources in your apt sources.list or the install will fail and hang.
+ppd_install=drv
+udev_mode_fix=1
+ppd_dir=/usr/share/ppd/HP
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+ui_toolkit=qt5
+native_cups=1
+policykit=0
+# This libdir_path will be used only for 64 bit machine.
+libdir_path=/usr/lib/x86_64-linux-gnu
+[debian:10.4:cups]
+packages=cups,libcups2
+[debian:10.4:cups-devel]
+packages=libcups2-dev,cups-bsd,cups-client
+[debian:10.4:gcc]
+packages=g++
+[debian:10.4:gs]
+packages=ghostscript,ghostscript-cups,ghostscript-x
+[debian:10.4:libcrypto]
+packages=libssl-dev
+[debian:10.4:libjpeg]
+packages=libjpeg62-turbo-dev
+[debian:10.4:libnetsnmp-devel]
+packages=libsnmp-dev,snmp
+[debian:10.4:libpthread]
+packages=libc6
+[debian:10.4:libtool]
+packages=libtool,libtool-bin
+[debian:10.4:libusb]
+packages=libusb-1.0.0-dev
+[debian:10.4:make]
+packages=make
+[debian:10.4:ppdev]
+packages=
+commands=su -c "modprobe ppdev",su -c cp -f /etc/modules /etc/modules.hplip,echo ppdev | su -c tee -a /etc/modules
+[debian:10.4:pyqt]
+packages=python-qt3
+[debian:10.4:python-devel]
+packages=python-dev
+[debian:10.4:pyqt4]
+packages=python-qt4
+[debian:10.4:pyqt4-dbus]
+packages=python-qt4-dbus
+[debian:10.4:python23]
+packages=python
+[debian:10.4:python2X]
+packages=python
+[debian:10.4:reportlab]
+packages=python-reportlab
+[debian:10.4:sane]
+packages=sane
+[debian:10.4:sane-devel]
+packages=libsane-dev
+[debian:10.4:scanimage]
+packages=sane-utils
+[debian:10.4:xsane]
+packages=xsane
+[debian:10.4:cups-ddk]
+packages=
+[debian:10.4:python-dbus]
+packages=python-dbus,python-gobject
+[debian:10.4:dbus]
+packages=libdbus-1-dev
+[debian:10.4:python-ctypes]
+packages=python-ctypes
+[debian:10.4:cups-image]
+packages=libcupsimage2,libcupsimage2-dev
+[debian:10.4:policykit]
+packages=policykit-1,policykit-1-gnome
+[debian:10.4:python-notify]
+packages=python-notify
+[debian:10.4:network]
+packages=wget
+[debian:10.4:avahi-utils]
+packages=avahi-utils
+[debian:10.4:gtk]
+packages=libcanberra-gtk-module
+[debian:10.4:python3-notify2]
+packages=python3-notify2
+[debian:10.4:python3-pyqt4-dbus]
+packages=python3-dbus.mainloop.qt
+[debian:10.4:python3-pyqt4]
+packages=python3-pyqt4,gtk2-engines-pixbuf
+[debian:10.4:python3-dbus]
+packages=python3-dbus,python3-gi
+[debian:10.4:python3-xml]
+packages=python3-lxml
+[debian:10.4:python3-devel]
+packages=python3-dev
+[debian:10.4:python3-pil]
+packages=python3-pil
+[debian:10.4:python3-reportlab]
+packages=python3-reportlab
+[debian:10.4:python3-pyqt5-dbus]
+packages=python3-dbus.mainloop.pyqt5
+[debian:10.4:python3-pyqt5]
+packages=python3-pyqt5,gtk2-engines-pixbuf
+[debian:10.4:pyqt5]
+packages=gtk2-engines-pixbuf,python-pyqt5
+[debian:10.4:pyqt5-dbus]
+packages=python-dbus.mainloop.pyqt5
+[debian:10.4:automake]
+packages=automake1.11
+[debian:10.4:epm]
+packages=epm
+[debian:10.4:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+# ****************************************
+
 [xandros]
 index=13
 versions=any
@@ -11179,7 +11624,7 @@ packages=epm
 # ****************************************
 [linuxmint]
 index=22
-versions=13,14,15,16,17,17.1,17.2,17.3,18,18.1,18.2,18.3,19,19.1,19.2,19.3
+versions=13,14,15,16,17,17.1,17.2,17.3,18,18.1,18.2,18.3,19,19.1,19.2,19.3,20
 display_name=Linux Mint
 alt_names=mint, mint linux
 display=1
@@ -11188,6 +11633,7 @@ package_mgrs=dpkg,apt-get,synaptic,update-manager,adept,aptitude,adept-updater
 package_mgr_cmd=sudo apt-get install --assume-yes $packages_to_install
 pre_depend_cmd=sudo dpkg --configure -a,sudo apt-get install --yes --force-yes -f,sudo apt-get update
 post_depend_cmd=
+hp_libs_remove_cmd= sudo apt-get remove libhpmud0 libsane-hpaio
 scanjet_depend_cmd=sudo apt-get install --assume-yes python-pip,sudo pip install --upgrade pip,sudo -H pip install setuptools,sudo pip install --upgrade setuptools,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-eng,sudo apt-get install --assume-yes libzbar-dev,sudo apt-get install --assume-yes python-zbar,sudo apt-get install --assume-yes python-opencv,sudo apt-get install --assume-yes python-pypdf2,sudo -H pip install imutils,sudo apt-get install --assume-yes imagemagick*,sudo apt-get install --assume-yes graphicsmagick* ,sudo -H pip install pypdfocr,sudo -H pip install scikit-image,sudo -H pip install scipy
 scanjet_py3_depend_cmd=sudo apt-get install --assume-yes python3-pip,sudo pip3 install --upgrade pip,sudo -H pip3 install setuptools,sudo pip3 install --upgrade setuptools,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip3 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-eng,sudo -H pip3 install opencv-python,sudo -H pip3 install PyPDF2,sudo -H pip3 install imutils,sudo apt-get install --assume-yes imagemagick*,sudo apt-get install --assume-yes graphicsmagick*,sudo -H pip3 install ocrmypdf,sudo -H pip3 install scikit-image,sudo -H pip3 install scipy
 hplip_remove_cmd=sudo aptitude remove --assume-yes hplip hpijs
@@ -11348,6 +11794,8 @@ packages=automake1.11
 [linuxmint:13:epm]
 packages=epm
 
+[linuxmint:13:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 # ****************************************
 
@@ -11495,6 +11943,9 @@ packages=automake1.11
 
 [linuxmint:14:epm]
 packages=epm
+
+[linuxmint:14:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 
 # ****************************************
@@ -11646,6 +12097,10 @@ packages=automake1.11
 
 [linuxmint:15:epm]
 packages=epm
+
+[linuxmint:15:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
 
 # ****************************************
 
@@ -11806,6 +12261,10 @@ packages=automake1.11
 
 [linuxmint:17:epm]
 packages=epm
+
+[linuxmint:17:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
 
 # ****************************************
 
@@ -11986,6 +12445,10 @@ packages=automake1.11
 [linuxmint:18:epm]
 packages=epm
 
+[linuxmint:18:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
+
 # ****************************************
 
 [linuxmint:18.1]
@@ -12138,6 +12601,10 @@ packages=automake1.11
 [linuxmint:18.1:epm]
 packages=epm
 
+[linuxmint:18.1:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
+
 # ****************************************
 
 [linuxmint:18.2]
@@ -12289,6 +12756,9 @@ packages=automake1.11
 
 [linuxmint:18.2:epm]
 packages=epm
+
+[linuxmint:18.2:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 
 # ****************************************
@@ -12445,6 +12915,10 @@ packages=automake1.11
 [linuxmint:18.3:epm]
 packages=epm
 
+[linuxmint:18.3:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
+
 
 # ****************************************
 
@@ -12600,6 +13074,8 @@ packages=automake1.11
 [linuxmint:19:epm]
 packages=epm
 
+[linuxmint:19:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 # ****************************************
 
@@ -12757,6 +13233,10 @@ packages=automake1.11
 [linuxmint:19.1:epm]
 packages=epm
 
+[linuxmint:19.1:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
+
 # ****************************************
 
 [linuxmint:19.2]
@@ -12913,6 +13393,8 @@ packages=automake1.11
 [linuxmint:19.2:epm]
 packages=epm
 
+[linuxmint:19.2:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 # ****************************************
 
@@ -13070,8 +13552,153 @@ packages=automake1.11
 [linuxmint:19.3:epm]
 packages=epm
 
+[linuxmint:19.3:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
+
 # ****************************************
 
+[linuxmint:20]
+code_name=Ulyana
+packaged_version=3.20.9
+release_date=23/04/20
+supported=1
+scan_supported=1
+fax_supported=1
+pcard_supported=1
+network_supported=1
+parallel_supported=1
+usb_supported=1
+notes=Enable the universe/multiverse repositories. Also be sure you are using the Ubuntu "Main" Repositories. See: https://help.ubuntu.com/community/Repositories/Ubuntu for more information.  Disable the CD-ROM/DVD source if you do not have the Ubuntu installation media inserted in the drive.
+ppd_install=drv
+udev_mode_fix=1
+ppd_dir=/usr/share/ppd/HP
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+ui_toolkit=qt5
+native_cups=1
+acl_rules=1
+#scanjet_depend_cmd=sudo apt-get install --assume-yes python2-pip,sudo pip2 install --upgrade pip,sudo -H pip2 install setuptools,sudo pip2 install --upgrade setuptools,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip2 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-all,sudo apt-get install --assume-yes libzbar-dev,sudo apt-get install --assume-yes python-zbar,sudo apt-get install --assume-yes python-opencv,sudo apt-get install --assume-yes python-pypdf2,sudo -H pip2 install imutils,sudo -H pip2 install pypdfocr,sudo -H pip2 install scikit-image,sudo -H pip2 install scipy
+#scanjet_py3_depend_cmd=sudo apt-get install --assume-yes python3-pip,sudo pip3 install --upgrade pip,sudo -H pip3 install setuptools,sudo pip3 install --upgrade setuptools,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip3 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-all,sudo -H pip3 install opencv-python,sudo -H pip3 install PyPDF2,sudo -H pip3 install imutils,sudo -H pip3 install ocrmypdf,sudo -H pip3 install scikit-image,sudo -H pip3 install scipy
+
+libdir_path=/usr/lib/x86_64-linux-gnu
+
+[linuxmint:20:cups]
+packages=libcups2
+
+[linuxmint:20:cups-devel]
+packages=libcups2-dev,cups-bsd,cups-client
+
+[linuxmint:20:gcc]
+packages=build-essential
+
+[linuxmint:20:gs]
+packages=ghostscript
+
+[linuxmint:20:libcrypto]
+packages=
+commands=sudo DEBIAN_FRONTEND=noninteractive apt-get --assume-yes install openssl
+
+[linuxmint:20:libjpeg]
+packages=libjpeg8-dev
+
+[linuxmint:20:libnetsnmp-devel]
+packages=
+commands=sudo DEBIAN_FRONTEND=noninteractive apt-get --assume-yes install libsnmp-dev,sudo apt-get --assume-yes install snmp-mibs-downloader
+
+[linuxmint:20:libpthread]
+packages=build-essential
+
+[linuxmint:20:libtool]
+packages=libtool,libtool-bin
+
+[linuxmint:20:libusb]
+packages=libusb-1.0.0-dev
+
+[linuxmint:20:make]
+packages=build-essential
+
+#[linuxmint:20:pil]
+#packages=python-imaging
+
+[linuxmint:20:ppdev]
+packages=
+commands=sudo modprobe ppdev,sudo cp -f /etc/modules /etc/modules.hplip,echo ppdev | sudo tee -a /etc/modules
+
+[linuxmint:20:reportlab]
+packages=python-reportlab
+
+[linuxmint:20:sane]
+packages=libsane
+
+[linuxmint:20:sane-devel]
+packages=libsane-dev
+
+[linuxmint:20:scanimage]
+packages=sane-utils
+
+[linuxmint:20:xsane]
+packages=xsane
+
+[linuxmint:20:python-dbus]
+packages=python-dbus,python-gobject
+
+[linuxmint:20:dbus]
+packages=libdbus-1-dev
+
+[linuxmint:20:cups-image]
+packages=libcupsimage2-dev
+
+[linuxmint:20:cups-ddk]
+packages=cups,libcupsimage2-dev
+
+[linuxmint:20:policykit]
+packages=policykit-1,policykit-1-gnome
+
+[linuxmint:20:python-notify]
+packages=python-notify
+
+[linuxmint:20:network]
+packages=wget
+
+[linuxmint:20:avahi-utils]
+packages=avahi-utils
+
+[linuxmint:20:python3-pyqt5-dbus]
+packages=python3-dbus.mainloop.pyqt5
+
+[linuxmint:20:python3-pyqt5]
+packages=python3-pyqt5,gtk2-engines-pixbuf
+
+[linuxmint:20:python3-dbus]
+packages=python3-dbus,python3-gi
+
+[linuxmint:20:python3-xml]
+packages=python3-lxml
+
+[linuxmint:20:python3-devel]
+packages=python3-dev
+
+[linuxmint:20:python3-pil]
+packages=python3-pil
+
+[linuxmint:20:python3-reportlab]
+packages=python3-reportlab
+
+[linuxmint:20:python3-notify2]
+packages=python3-notify2,mate-notification-daemon
+
+[linuxmint:20:automake]
+packages=automake1.11
+
+[linuxmint:20:epm]
+packages=epm
+
+[linuxmint:20:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
+
+# ****************************************
 [linpus]
 index=25
 versions=9.4,9.5
@@ -14081,6 +14708,8 @@ packages=
 [manjarolinux:17.1.4:automake]
 packages=automake
 
+[manjarolinux:17.1.4:libavahi-dev]
+packages=avahi
 
 # ****************************************
 
@@ -14262,6 +14891,9 @@ packages=
 [manjarolinux:18.0:automake]
 packages=automake
 
+[manjarolinux:18.0:libavahi-dev]
+packages=avahi
+
 # ****************************************
 
 [manjarolinux:18.0.4]
@@ -14442,6 +15074,9 @@ packages=
 [manjarolinux:18.0.4:automake]
 packages=automake
 
+[manjarolinux:18.0.4:libavahi-dev]
+packages=avahi
+
 # ****************************************
 
 [manjarolinux:18.1.0]
@@ -14611,6 +15246,9 @@ packages=
 
 [manjarolinux:18.1.0:automake]
 packages=automake
+
+[manjarolinux:18.1.0:libavahi-dev]
+packages=avahi
 
 
 # ****************************************
@@ -14783,6 +15421,9 @@ packages=
 [manjarolinux:18.1.2:automake]
 packages=automake
 
+[manjarolinux:18.1.2:libavahi-dev]
+packages=avahi
+
 
 # ****************************************
 
@@ -14954,6 +15595,9 @@ packages=
 [manjarolinux:19.0:automake]
 packages=automake
 
+[manjarolinux:19.0:libavahi-dev]
+packages=avahi
+
 # ****************************************
 
 [manjarolinux:20.0.1]
@@ -15123,4 +15767,7 @@ packages=
 
 [manjarolinux:20.0.1:automake]
 packages=automake
+
+[manjarolinux:20.0.1:libavahi-dev]
+packages=avahi
 

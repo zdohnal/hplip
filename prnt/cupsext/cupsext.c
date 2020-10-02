@@ -867,13 +867,14 @@ PyObject * getStatusAttributes( PyObject * self, PyObject * args )
     int index = 0;
     int valueindex = 0;
     char * device_uri;
+    char * printer_name;
 
-    if ( !PyArg_ParseTuple( args, "z", &device_uri) )
+    if ( !PyArg_ParseTuple( args, "zz", &device_uri,&printer_name) )
     {
         goto abort;
     }
 
-    response = getDeviceStatusAttributes(device_uri, &attr_count);
+    response = getDeviceStatusAttributes(device_uri,printer_name, &attr_count);
     if(!response)
         goto abort;
 

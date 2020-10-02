@@ -1645,40 +1645,10 @@
 :model "HP LaserJet MFP e72430dn"
 :status :good
 
-:model "HP LaserJet MFP m232sdn"
-:status :good
-
-:model "HP LaserJet MFP m233d"
-:status :good
-
-:model "HP LaserJet MFP m233dw"
-:status :good
-
-:model "HP LaserJet MFP m233sdn"
-:status :good
-
-:model "HP LaserJet MFP m233sdw"
-:status :good
-
 :model "HP LaserJet MFP m234dw"
 :status :good
 
-:model "HP LaserJet MFP m234sdn"
-:status :good
-
-:model "HP LaserJet MFP m234sdw"
-:status :good
-
-:model "HP LaserJet MFP m236d"
-:status :good
-
-:model "HP LaserJet MFP m236dw"
-:status :good
-
-:model "HP LaserJet MFP m236sdn"
-:status :good
-
-:model "HP LaserJet MFP m236sdw"
+:model "HP LaserJet MFP m234dwe"
 :status :good
 
 :model "HP LaserJet Pro 200 Color MFP m276n"

@@ -781,6 +781,13 @@ def start(language, auto=True, test_depends=False,
         log.info("OK")
 
         #
+        # HPLIP LIBS REMOVE COMMANDS
+        #
+        tui.title("RUNNING HPLIP LIBS REMOVE COMMANDS")
+        core.remove_default_hplip_libs(progress_callback, distro_alternate_version)
+        log.info("OK")
+
+        #
         # REQUIRED DEPENDENCIES INSTALL
         #
         package_mgr_cmd = core.get_distro_ver_data('package_mgr_cmd')
@@ -1262,6 +1269,10 @@ def start(language, auto=True, test_depends=False,
                     cmd1 = 'sudo pacman -Sy --force --noconfirm ghostscript'
                     if os_utils.execute(cmd1) != 0:
                         log.warning("Missing ghost script dependency,installation may fail")
+                if core.distro_version >= '19.0':
+                    cmd3 = 'sudo pacman -Sy --noconfirm libxcrypt --overwrite "*"'
+                    if os_utils.execute(cmd3) != 0:
+                        log.warning("Missing libxcrypt dependency, configure may fail due to missing crypt.h")
 
             if core.distro_name.lower() == 'fedora' and core.distro_version >= '30':
                 cmd_fedora = 'sudo dnf -y -d 10 -e 1 install dbus-devel'

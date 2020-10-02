@@ -586,9 +586,9 @@ void initializeIPPRequest(ipp_t *request)
 /*
  * 'createDeviceStatusRequest()' - Create IPP request and update the same with values needed for getting device status attributes.
  */
-ipp_t * createDeviceStatusRequest()
+ipp_t * createDeviceStatusRequest(const char *printer_name)
 {
-
+    char uri[ HTTP_MAX_URI ] = {0};
     ipp_t *request = NULL;                /* IPP request object */
     static const char * attrs[] =         /* Requested attributes */
     {
@@ -605,7 +605,8 @@ ipp_t * createDeviceStatusRequest()
     initializeIPPRequest(request);
     if (request)
     {
-        ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, "");
+        snprintf(uri, HTTP_MAX_URI, "ipp://localhost/printers/%s", printer_name);
+        ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, uri);
         ippAddStrings( request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes", sizeof( attrs ) / sizeof( attrs[ 0 ] ),  NULL, attrs );
     }
     
@@ -693,7 +694,7 @@ HPIPP_RESULT parseResponseHeader(char *header, int *content_length, int *chunked
  * marker-names, marker-types, marker-levels, marker-low-levels, printer-state, printer-state-reasons.
  * In addition to this it also updates the attribute count in the response.
  */
-ipp_t * getDeviceStatusAttributes(char* device_uri, int *count)
+ipp_t * getDeviceStatusAttributes(char* device_uri,char* printer_name, int *count)
 {   
     ipp_t *request = NULL;  /* IPP request object */
     ipp_t *response = NULL; /* IPP response object */
@@ -701,7 +702,7 @@ ipp_t * getDeviceStatusAttributes(char* device_uri, int *count)
     int max_count = 0;    
 
     //Create Device Status Request
-    request = createDeviceStatusRequest();
+    request = createDeviceStatusRequest(printer_name);
     if (request == NULL)
         goto abort;
 

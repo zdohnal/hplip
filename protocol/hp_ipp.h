@@ -157,10 +157,10 @@ static ssize_t raw_ipp_request_callback(volatile raw_ipp  *raw_buffer, ipp_uchar
 
 void initializeIPPRequest(ipp_t *request);
 int parsePrinterAttributes(ipp_t *response, printer_t * printer_list, int size);
-ipp_t * createDeviceStatusRequest();
+ipp_t * createDeviceStatusRequest(const char* printer_name);
 ipp_t * usbDoRequest(ipp_t *request, char* device_uri);
 ipp_t * networkDoRequest(ipp_t *request, char* device_uri);
-ipp_t * getDeviceStatusAttributes(char* device_uri, int *count);
+ipp_t * getDeviceStatusAttributes(char* device_uri,char* printer_name, int *count);
 int     getCupsPrinters(printer_t **printer_list);
 
 HPIPP_RESULT parseResponseHeader(char* header, int *content_length, int *chunked, int* header_size);

@@ -52,7 +52,8 @@
 #include "pml.h"
 #ifdef HAVE_LIBNETSNMP
 #include "jd.h"
-#include "mdns.h"
+//#include "mdns.h"
+#include "avahiDiscovery.h"
 #endif
 #ifdef HAVE_PPORT
 #include "pp.h"

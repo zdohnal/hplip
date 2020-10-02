@@ -757,7 +757,7 @@ class Ui_HpScan(object):
                 self.bp_barcode.stateChanged.connect(self.bp_Barcode)
                 self.bp_blankpage.stateChanged.connect(self.bp_Blankpage)
         else:
-            if (re.search(r'_7500', self.device_uri)) or (re.search(r'_N9120', self.device_uri)) or (re.search(r'_8500fn2', self.device_uri)) or (re.search(r'_3500_f1', self.device_uri)) or (re.search(r'_4500_fn1', self.device_uri)) or (re.search(r'hpgt2500', self.device_uri)):
+            if (re.search(r'_7500', self.device_uri)) or (re.search(r'_N9120', self.device_uri,re.I)) or (re.search(r'_8500fn2', self.device_uri)) or (re.search(r'_3500_f1', self.device_uri)) or (re.search(r'_4500_fn1', self.device_uri)) or (re.search(r'hpgt2500', self.device_uri)):
                 self.comboBox_Flatbed.clear()
                 self.comboBox_Flatbed.addItem(_fromUtf8(""))
                 self.comboBox_Flatbed.addItem(_fromUtf8(""))
@@ -836,7 +836,7 @@ class Ui_HpScan(object):
                 self.multi_pick.setEnabled(True)
             self.CheckEnable()
         else:
-            if (re.search(r'_7500', self.device_uri)) or (re.search(r'_N9120', self.device_uri)) or (re.search(r'_8500fn2', self.device_uri)) or (re.search(r'_3500_f1', self.device_uri)) or (re.search(r'_4500_fn1', self.device_uri)) or (re.search(r'hpgt2500', self.device_uri)):
+            if (re.search(r'_7500', self.device_uri)) or (re.search(r'_N9120', self.device_uri,re.I)) or (re.search(r'_8500fn2', self.device_uri)) or (re.search(r'_3500_f1', self.device_uri)) or (re.search(r'_4500_fn1', self.device_uri)) or (re.search(r'hpgt2500', self.device_uri)):
                 self.comboBox_Flatbed.clear()
                 self.comboBox_Flatbed.addItem(_fromUtf8(""))
                 self.comboBox_Flatbed.addItem(_fromUtf8(""))
@@ -1103,7 +1103,7 @@ class Ui_HpScan(object):
             self.color_dropout.setChecked(False)
             self.color_dropout.setEnabled(False)
         else:
-            if (re.search(r'_7500', self.device_uri)) or (re.search(r'_N9120', self.device_uri)) or (re.search(r'_8500fn2', self.device_uri)) or (re.search(r'_3500_f1', self.device_uri)) or (re.search(r'_4500_fn1', self.device_uri)) or (re.search(r'2500', self.device_uri)):
+            if (re.search(r'_7500', self.device_uri)) or (re.search(r'_N9120', self.device_uri,re.I)) or (re.search(r'_8500fn2', self.device_uri)) or (re.search(r'_3500_f1', self.device_uri)) or (re.search(r'_4500_fn1', self.device_uri)) or (re.search(r'2500', self.device_uri)):
                 self.comboBox_Flatbed.clear()
                 self.comboBox_Flatbed.addItem(_fromUtf8(""))
                 self.comboBox_Flatbed.addItem(_fromUtf8(""))
@@ -1283,7 +1283,7 @@ class Ui_HpScan(object):
                 self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "Duplex", None))
                 self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "ADF-Backside", None))
                 self.comboBox_Flatbed.setCurrentIndex(1)
-            elif (re.search(r'_7500', self.device_uri)) or (re.search(r'_N9120', self.device_uri)) or (re.search(r'_8500fn2', self.device_uri)) or (re.search(r'_3500_f1', self.device_uri)) or (re.search(r'_4500_fn1', self.device_uri)) or (re.search(r'2500', self.device_uri)):
+            elif (re.search(r'_7500', self.device_uri)) or (re.search(r'_N9120', self.device_uri,re.I)) or (re.search(r'_8500fn2', self.device_uri)) or (re.search(r'_3500_f1', self.device_uri)) or (re.search(r'_4500_fn1', self.device_uri)) or (re.search(r'2500', self.device_uri)):
                 self.comboBox_Flatbed.clear()
                 self.comboBox_Flatbed.addItem(_fromUtf8(""))
                 self.comboBox_Flatbed.addItem(_fromUtf8(""))
@@ -1314,7 +1314,7 @@ class Ui_HpScan(object):
             if self.color_dropout_pri == True:
                 self.color_dropout.setEnabled(True)
             self.comboBox_Flatbed.setEnabled(True)
-            if (re.search(r'_7500', self.device_uri)) or (re.search(r'_N9120', self.device_uri)) or (re.search(r'_8500fn2', self.device_uri)) or (re.search(r'_3500_f1', self.device_uri)) or (re.search(r'_4500_fn1', self.device_uri)) or (re.search(r'2500', self.device_uri)):
+            if (re.search(r'_7500', self.device_uri)) or (re.search(r'_N9120', self.device_uri,re.I)) or (re.search(r'_8500fn2', self.device_uri)) or (re.search(r'_3500_f1', self.device_uri)) or (re.search(r'_4500_fn1', self.device_uri)) or (re.search(r'2500', self.device_uri)):
                 self.comboBox_Flatbed.clear()
                 self.comboBox_Flatbed.addItem(_fromUtf8(""))
                 self.comboBox_Flatbed.addItem(_fromUtf8(""))
@@ -1416,7 +1416,7 @@ class Ui_HpScan(object):
             self.device_name = '2000'
         elif re.search(r'hpgt2500', self.device_uri):
             self.device_name = '2500'
-        elif re.search(r'_N9120', self.device_uri):
+        elif re.search(r'_N9120', self.device_uri,re.I):
             self.device_name = '9120'
         elif re.search(r'_8500fn2', self.device_uri):
             self.device_name = '8500'
@@ -1538,7 +1538,7 @@ class Ui_HpScan(object):
         #print (self.devicelist)
         for device in self.devicelist:
             #print(device)
-            if re.search(r'_5000_', device) or re.search(r'_7500', device) or re.search(r'_N9120', device) or re.search(r'_8500fn2', device) or re.search(r'_3500_f1', device) or re.search(r'_4500_fn1', device) or re.search(r'_7000_s3', device) or re.search(r'_3000_s3', device) or re.search(r'hp2000S1', device) or re.search(r'hpgt2500', device) or re.search(r'_2000_s2', device) or re.search(r'7000_snw1', device) or re.search(r'4000_snw1', device) or re.search(r'_3000_s4', device) or re.search(r'_5000_s5', device):
+            if re.search(r'_5000_', device) or re.search(r'_7500', device) or re.search(r'_N9120', device,re.I) or re.search(r'_8500fn2', device) or re.search(r'_3500_f1', device) or re.search(r'_4500_fn1', device) or re.search(r'_7000_s3', device) or re.search(r'_3000_s3', device) or re.search(r'hp2000S1', device) or re.search(r'hpgt2500', device) or re.search(r'_2000_s2', device) or re.search(r'7000_snw1', device) or re.search(r'4000_snw1', device) or re.search(r'_3000_s4', device) or re.search(r'_5000_s5', device):
                 self.comboBox_Device_URI.addItem(device)
                 self.comboBox_Device_URI.setItemText(i, _translate("HpScan", device, None))
                 i += 1
@@ -1569,7 +1569,7 @@ class SetupDialog():
         sane_devices = sane.getDevices()
         
         for device, mfg, mdl, t in sane_devices:
-            if re.search(r'_5000_', device) or re.search(r'_7500', device) or re.search(r'_N9120', device) or re.search(r'_8500fn2', device) or re.search(r'_3500_f1', device) or re.search(r'_4500_fn1', device) or re.search(r'_7000_s3', device) or re.search(r'_3000_s3', device) or re.search(r'hp2000S1', device) or re.search(r'hpgt2500', device) or re.search(r'_2000_s2', device) or re.search(r'7000_snw1', device) or re.search(r'4000_snw1', device) or re.search(r'_3000_s4', device) or re.search(r'_5000_s5', device):
+            if re.search(r'_5000_', device) or re.search(r'_7500', device) or re.search(r'_N9120', device,re.I) or re.search(r'_8500fn2', device) or re.search(r'_3500_f1', device) or re.search(r'_4500_fn1', device) or re.search(r'_7000_s3', device) or re.search(r'_3000_s3', device) or re.search(r'hp2000S1', device) or re.search(r'hpgt2500', device) or re.search(r'_2000_s2', device) or re.search(r'7000_snw1', device) or re.search(r'4000_snw1', device) or re.search(r'_3000_s4', device) or re.search(r'_5000_s5', device):
                 try:
                     scanDevice = sane.openDevice(device)
                     #source_option = scanDevice.getOptionObj("source").constraint
