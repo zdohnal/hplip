@@ -36,7 +36,11 @@
 #include <string.h>
 #include <cups/cups.h>
 #include "hpmud.h"
+
+#ifdef HAVE_LIBAVAHI
 #include "avahiDiscovery.h"
+#endif
+
 #include "hp_ipp.h"
 #include "soap.h"
 #include "soapht.h"
@@ -304,7 +308,6 @@ static int DevDiscovery(int localOnly)
         GetUriLine(tail, uri, &tail);
         total += AddDevice(uri);
     }
-    //memset(message, 0, sizeof(message));
     /* Look for Network Scan devices if localonly flag if FALSE. */
     if (!localOnly)
     {   
@@ -317,9 +320,8 @@ static int DevDiscovery(int localOnly)
         }
         if (cups_printer)
             free(cups_printer);
-#ifdef HAVE_LIBNETSNMP
+#ifdef HAVE_LIBAVAHI
         /* Discover NW scanners using Bonjour*/
-        //bytes_read = avahi_probe_nw_scanners();
         if( (avahi_probe_nw_scanners() == AVAHI_STATUS_OK) && (aUriBuf != NULL) )
         {           
           token = strtok(aUriBuf, ";");

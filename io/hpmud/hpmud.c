@@ -505,7 +505,7 @@ int hpmud_get_uri_datalink(const char *uri, char *buf, int buf_size)
 
    if (zc)
    {
-#ifdef HAVE_LIBNETSNMP
+#ifdef HAVE_LIBAVAHI
     if (avahi_lookup(p) != AVAHI_STATUS_OK)
         return 0;
     for (i=0; (ipAddressBuff[i] != 0) && (i < buf_size); i++)

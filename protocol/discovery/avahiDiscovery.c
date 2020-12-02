@@ -28,6 +28,21 @@ char ipAddressBuff[MAX_IP_ADDR_LEN]={'\0'};
 static int aBytesRead = 0;
 static AvahiSimplePoll *aSimplePoll = NULL;
 static int aMemAllocated = 0;
+static int aAllForNow = 0, aResolving = 0;
+
+/*
+This function will check all the services are resolved or not, if resolved
+it will call avahi_simple_poll_quit
+*/
+static void check_terminate()
+{
+    assert(aAllForNow >= 0);
+    assert(aResolving >= 0);
+    if (aAllForNow <= 0 && aResolving <= 0)
+    {
+        avahi_simple_poll_quit(aSimplePoll);
+    }
+}
 
 /*
 This function will fill the dictionary arguments for the dbus function call
@@ -206,31 +221,62 @@ Note:
      "mopria-certified-scan=1.2" "vers=2.63" "txtvers=1"
 */
 
-static bool getHPScannerModel(AvahiStringList *iStrList, const char *ikey,char **oKeyValue,size_t *aMdlStrLen)
+static bool getHPScannerModel(AvahiStringList *iStrList, const char *ikey,char **oKeyValue,size_t *aMdlStrLen, size_t *oOffset)
 {
-    AvahiStringList *aStrList = NULL;
+    AvahiStringList *aStrList = NULL, *bStrList = NULL;
     bool aValueFound = false;
-    char *aKey = NULL;
+    char *aKey = NULL,*aMfgValue = NULL;
     aStrList = avahi_string_list_find(iStrList, ikey); 
     /*
     	aStrList will be Null ,if given key is not found,
         avahi_string_list_get_pair will return zero if key found,
         also need to process the response form HP scanner only.
-    */  
-    if( ( aStrList != NULL ) && ( avahi_string_list_get_pair(aStrList, &aKey, oKeyValue, aMdlStrLen) == 0 ) 
-        && ( *oKeyValue != NULL ) && ( strncmp(MFG_HP,*oKeyValue,MFG_HP_LEN) == 0 ))
+    */
+     
+    if ( ( aStrList != NULL ) && ( avahi_string_list_get_pair(aStrList, &aKey, oKeyValue, aMdlStrLen) == 0 ) && ( *oKeyValue != NULL ) ) 
     {
-      size_t aIndex = 0;
-      for(aIndex = 0; aIndex<(*aMdlStrLen); aIndex++)
+      //check ty field of DNS record has HP
+      //otherwise look at mfg field of DNS record
+      if ( strncmp(MFG_HP, *oKeyValue, MFG_HP_LEN) == 0 ) 
       {
-         if(isspace((*oKeyValue)[aIndex]))
-         {
-             (*oKeyValue)[aIndex] = '_';
-         }
-         (*oKeyValue)[aIndex] = tolower((*oKeyValue)[aIndex]);
+          aValueFound = true;
+          //skip the "HP " from the ty field of the DNS record
+          //"ty=HP DeskJet 2700 series"
+          *oOffset = HP_SKIP_MFG_NAME_SIZE;
       }
-      DBG("oKeyValue is %s\n", *oKeyValue);     
-      aValueFound = true;       
+      else
+      {
+          //ty doesn't have the HP in the ty field
+          //check the mfg field of the DNS record
+          bStrList = avahi_string_list_find(iStrList, MFG_NAME);
+          if (bStrList)
+	  {
+              aMfgValue = avahi_string_list_get_text(bStrList);
+              DBG("aMfgValue : %s\n",aMfgValue);
+          }
+          // aMfgValue (DNS record) would be like "mfg=HP"
+          // to locate HP in aMfgValue , need to increment the string position to +4
+          if( (aMfgValue != NULL) && (strncmp(MFG_HP, aMfgValue + 4, MFG_HP_LEN) == 0) )
+          {
+             aValueFound = true;
+             //Since ty field doesn't have the HP ,we can take the field as model name
+             // and no need to skip the HP from the ty value.
+             *oOffset = 0;
+          } 
+      }
+      if( aValueFound )
+      {
+          size_t aIndex = 0;
+          for(aIndex = 0; aIndex<(*aMdlStrLen); aIndex++)
+          {
+             if(isspace((*oKeyValue)[aIndex]))
+             {
+                 (*oKeyValue)[aIndex] = '_';
+             }
+             (*oKeyValue)[aIndex] = tolower((*oKeyValue)[aIndex]);
+          }
+          DBG("oKeyValue is %s\n", *oKeyValue);
+      }     
     }    
     if( aKey != NULL )
         avahi_free( (void *)aKey );
@@ -264,33 +310,34 @@ static void resolve_callback(
             char aIPAddress[AVAHI_ADDRESS_STR_MAX]={'\0'};
             char *aMdlStr = NULL;
             size_t aMdlStrLen = 0 ;
+            size_t aOffset = 0;
             DBG( "Service '%s' of type '%s' in domain '%s':\n", name, type, domain);
             avahi_address_snprint(aIPAddress, AVAHI_ADDRESS_STR_MAX, address);
             DBG("avahi_address_snprint : \n %s \n",aIPAddress);
-            if( getHPScannerModel(txt,TYPE_NAME,&aMdlStr,&aMdlStrLen) == true ) 
+            if( getHPScannerModel(txt,TYPE_NAME,&aMdlStr,&aMdlStrLen,&aOffset) == true ) 
             {
                 DBG("aMdlStr name is %s \n",aMdlStr); 
                 DBG("aMdlStrLen is %zu \n",aMdlStrLen);
                 char aTempUri[MAX_URI_LEN] = {'\0'};
-                snprintf( aTempUri, MAX_URI_LEN, "hp:/net/%s?ip=%s&queue=false", aMdlStr+HP_SKIP_MFG_NAME_SIZE, aIPAddress);
+                snprintf( aTempUri, MAX_URI_LEN, "hp:/net/%s?ip=%s&queue=false", aMdlStr+aOffset, aIPAddress);
                 if(aUriBuf == NULL)
                 {
-                	aUriBuf = (char *)calloc(HP_MAX_SCAN_BUFF,sizeof(char));
-                	if(aUriBuf == NULL)
-                	{
-                		BUG("Unable to alloacate the memeory\n");
-                		exit(0);
-                	}
-                 	aMemAllocated = HP_MAX_SCAN_BUFF ;                        
+                    aUriBuf = (char *)calloc(HP_MAX_SCAN_BUFF,sizeof(char));
+                    if(aUriBuf == NULL)
+                    {
+               	        BUG("Unable to alloacate the memeory\n");
+                        exit(0);
+                    }
+                    aMemAllocated = HP_MAX_SCAN_BUFF ;                        
                 }
                 //Check whether buffer has enough space to add new URI and check for duplicate URIs.
                 if( !strstr(aUriBuf, aTempUri) )
                 {   
-                	if ( (aBytesRead + MAX_URI_LEN) > aMemAllocated )
-                	{
-                		aUriBuf = realloc(aUriBuf, ( MAX_URI_LEN * sizeof(char) ) );
+                    if ( (aBytesRead + MAX_URI_LEN) > aMemAllocated )
+                    {
+                	aUriBuf = realloc(aUriBuf, ( MAX_URI_LEN * sizeof(char) ) );
                         aMemAllocated = aMemAllocated + HP_EXT_SCAN_BUFF;
-                	}
+                    }
                     aBytesRead += snprintf(aUriBuf + aBytesRead, MAX_URI_LEN,"%s;", aTempUri);
                 }
             }
@@ -300,6 +347,9 @@ static void resolve_callback(
         }
     }
     //avahi_service_resolver_free(r);
+    assert(aResolving > 0);
+    aResolving--;
+    check_terminate();
 }
 /* Called whenever a new services becomes available on the LAN or is removed from the LAN */
 static void browse_callback(
@@ -322,13 +372,12 @@ static void browse_callback(
              break;
 
         case AVAHI_BROWSER_FAILURE:
-
             BUG( "(Browser) %s\n", avahi_strerror(avahi_client_errno(avahi_service_browser_get_client(b))));
             avahi_simple_poll_quit(aSimplePoll);
             return;
 
         case AVAHI_BROWSER_NEW:
-            BUG( "(Browser) NEW: service '%s' of type '%s' in domain '%s'\n", name, type, domain);
+            DBG( "(Browser) NEW: service '%s' of type '%s' in domain '%s'\n", name, type, domain);
 
             /* We ignore the returned resolver object. In the callback
                function we free it. If the server is terminated before
@@ -337,11 +386,14 @@ static void browse_callback(
 
             if (!(avahi_service_resolver_new(c, interface, protocol, name, type, domain, AVAHI_PROTO_INET, (AvahiLookupFlags)0, resolve_callback, c)))
                 BUG( "Failed to resolve service '%s': %s\n", name, avahi_strerror(avahi_client_errno(c)));
+            else
++               aResolving++;
 
             break;
 
-        case AVAHI_BROWSER_ALL_FOR_NOW:
-             avahi_simple_poll_quit(aSimplePoll);
+        case AVAHI_BROWSER_ALL_FOR_NOW:             
+             aAllForNow--;
+             check_terminate();
              break;
     }
 }
@@ -444,13 +496,15 @@ static void avahi_setup(const int iCommandType, const char* iHostName)
             goto fail;            
         }
        }
-
+       aAllForNow++;
        /* Create the service browser */
+       
        if (!(sb = avahi_service_browser_new(client, AVAHI_IF_UNSPEC, AVAHI_PROTO_INET, "_scanner._tcp", NULL, (AvahiLookupFlags)0, browse_callback, client))) 
        {
            BUG( "Failed to create service browser: %s\n", avahi_strerror(avahi_client_errno(client)));
            goto fail;
        }
+       aAllForNow++;
    }
    else if ( iCommandType == AVAHI_HOST_LOOKUP ) /* Find the IP (IPV4) address of given host name */
    {

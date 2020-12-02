@@ -30,7 +30,7 @@
 #define HP_SKIP_MFG_NAME_SIZE 3
 #define MFG_HP "HP"
 #define MFG_HP_LEN 2
-#define MFG_NAME "usb_MFG"
+#define MFG_NAME "mfg"
 #define MDL_NAME "mdl"
 #define TYPE_NAME "ty"
 #define HPMUD_LINE_SIZE 256

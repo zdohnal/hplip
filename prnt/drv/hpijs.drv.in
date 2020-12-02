@@ -12274,15 +12274,6 @@ Transparency"
     Attribute "Product" "" "(HP LaserJet Pro MFP m130fw)"
   }
   {
-    ModelName "HP LaserJet MFP m232-m237 hpijs"
-    Attribute "NickName" "" "HP LaserJet MFP m232-m237 hpijs, $Version"
-    Attribute "ShortNickName" "" "HP LaserJet MFP m232-m237 hpijs"
-    Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet mfp m232-m237;DES:hp laserjet mfp m232-m237;"
-    PCFileName "hp-laserjet_mfp_m232-m237-hpijs.ppd"
-    Attribute "Product" "" "(HP LaserJet MFP m234dw)"
-    Attribute "Product" "" "(HP LaserJet MFP m234dwe)"
-  }
-  {
     ModelName "HP LaserJet MFP m28-m31 hpijs"
     Attribute "NickName" "" "HP LaserJet MFP m28-m31 hpijs, $Version"
     Attribute "ShortNickName" "" "HP LaserJet MFP m28-m31 hpijs"

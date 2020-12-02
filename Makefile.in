@@ -683,10 +683,10 @@ DIST_SOURCES = $(am__cupsext_la_SOURCES_DIST) \
 am__dist_apparmor_abstraction_DATA_DIST = apparmor/abstractions/hplip
 am__dist_apparmor_profile_DATA_DIST = apparmor/usr.share.hplip
 am__dist_base_DATA_DIST = base/maint.py base/codes.py base/g.py \
-	base/pml.py base/status.py base/__init__.py base/mfpdtf.py \
-	base/utils.py base/wifi.py base/LedmWifi.py base/device.py \
-	base/logger.py base/slp.py base/exif.py base/strings.py \
-	base/magic.py base/imagesize.py base/models.py \
+	base/pml.py base/status.py base/local.py base/__init__.py \
+	base/mfpdtf.py base/utils.py base/wifi.py base/LedmWifi.py \
+	base/device.py base/logger.py base/slp.py base/exif.py \
+	base/strings.py base/magic.py base/imagesize.py base/models.py \
 	base/validation.py base/sixext.py base/avahi.py base/mdns.py \
 	base/tui.py base/dime.py base/ldif.py base/vcard.py \
 	base/module.py base/pkit.py base/queues.py base/password.py \
@@ -2418,7 +2418,6 @@ foomatic_ppd_printers = \
     ppd/hpijs/hp-photosmart_plus_b209a-m-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_pro_mfp_m128fn-hpijs.ppd.gz \
     ppd/hpijs/hp-photosmart_c309a_series-hpijs.ppd.gz \
-    ppd/hpijs/hp-laserjet_mfp_m232-m237-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_6mp-pcl3-hpijs.ppd.gz \
     ppd/hpijs/hp-laser_ns_1020-hpijs.ppd.gz \
     ppd/hpijs/hp-deskjet_6600-hpijs.ppd.gz \
@@ -4574,7 +4573,7 @@ dist_unrel_DATA =
 
 # base
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@basedir = $(hplipdir)/base
-@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@dist_base_DATA = base/maint.py base/codes.py base/g.py base/pml.py base/status.py  \
+@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@dist_base_DATA = base/maint.py base/codes.py base/g.py base/pml.py base/status.py base/local.py \
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	base/__init__.py base/mfpdtf.py base/utils.py base/wifi.py base/LedmWifi.py \
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	base/device.py base/logger.py base/slp.py base/exif.py base/strings.py base/magic.py \
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	base/imagesize.py base/models.py base/validation.py base/sixext.py base/avahi.py \

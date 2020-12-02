@@ -522,6 +522,19 @@ int HPCupsFilter::StartPrintJob(int  argc, char *argv[])
     memset(m_JA.job_start_time,0,sizeof(m_JA.job_start_time));
     snprintf(m_JA.job_start_time, sizeof(m_JA.job_start_time),"Mon Dec  9 17:48:58:586 2013" );
 #endif
+   
+    if((strstr(argv[5],"Duplex=DuplexTumble")) || (strstr(argv[5],"Duplex=DuplexNoTumble")))
+
+    {
+        m_JA.args_duplex_mode = 2;
+    
+    }
+
+    else
+   {
+        m_JA.args_duplex_mode = 0;
+     
+   }
 
     m_iLogLevel = getHPLogLevel();
     m_JA.job_id = atoi(argv[1]);

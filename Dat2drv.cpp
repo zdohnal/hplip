@@ -866,6 +866,39 @@ char CreateTechClassDrv(DRV_DATA drv_data, MODEL_DICT_MAP model_dict, STRING_PAI
                               {                              
                               ShortModelLength(write_data1);                              
                               }
+                              if (write_data1.length() > 31)
+                          {
+                             index = write_data1.find("Plus"); 
+                             if(index != string::npos)
+                             { 
+                                write_data1.replace(index, 4, "Ps");
+                                index = write_data1.find("  ");
+                                if(index != string::npos)
+                                  write_data1.replace(index, 2, " ");
+                              }
+                          }
+                          
+                          if (write_data1.length() > 31)
+                          {
+                             index = write_data1.find("Neverstop"); 
+                             if(index != string::npos)
+                             { 
+                                write_data1.replace(index, 9, "Ns");
+                                index = write_data1.find("  ");
+                                if(index != string::npos)
+                                  write_data1.replace(index, 2, " ");
+                             }}
+                             
+                             if (write_data1.length() > 31)
+                          {
+                             index = write_data1.find("Printer"); 
+                             if(index != string::npos)
+                             { 
+                                write_data1.replace(index, 7, "Pt");
+                                index = write_data1.find("  ");
+                                if(index != string::npos)
+                                  write_data1.replace(index, 2, " ");
+                             }}
                               write_data += indent2 + "Attribute \"ShortNickName\" \"\" " + "\"" + write_data1 + "\"" + "\n";                              
 			     }
                             file_out_pointer << write_data;

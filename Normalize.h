@@ -6,7 +6,7 @@
 #define MAX_TECH_CLASS_PDL                 67
 #define MAX_TECH_CLASS                     76
 #define MAX_FAMILY_CLASS                   53
-#define MAX_SUB_CLASS                      30
+#define MAX_SUB_CLASS                      31
 
 
 #define COLOR                              "Color"

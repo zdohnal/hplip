@@ -772,14 +772,14 @@ enum HPMUD_RESULT hpmud_make_mdns_uri(const char *host, int port, char *uri, int
       stat = HPMUD_R_INVALID_MDNS;
       goto bugout;
    }
-
+   #ifdef HAVE_LIBAVAHI
    if (avahi_lookup(host) != AVAHI_STATUS_OK)
    {
       BUG("invalid host %s, check firewall UDP/5353 or try using IP\n", host);
       stat = HPMUD_R_INVALID_MDNS;
       goto bugout;
    }
-
+   #endif
    if (device_id(ip, port, id, sizeof(id)) > 0 && is_hp(id))
    {
       hpmud_get_model(id, model, sizeof(model));

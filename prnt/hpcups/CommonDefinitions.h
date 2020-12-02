@@ -466,6 +466,7 @@ typedef struct JobAttributes_s
     int                printer_platform_version;
     int                pre_process_raster;
     int                HPSPDClass;
+    int 	       args_duplex_mode;
 } JobAttributes;
 
 #endif // COMMON_DEFINITIONS_H

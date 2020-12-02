@@ -26,7 +26,7 @@
 #   104 = no libdl
 
 #AC_PREREQ(2.59)
-AC_INIT([HP Linux Imaging and Printing], [3.20.9], [3.20.9], [hplip])
+AC_INIT([HP Linux Imaging and Printing], [3.20.11], [3.20.11], [hplip])
 #AM_INIT_AUTOMAKE([1.9 foreign])
 AM_INIT_AUTOMAKE
 AC_DISABLE_STATIC
@@ -586,6 +586,16 @@ if test "$check_ucd" = "yes"; then
 else
    AC_CHECK_HEADERS(net-snmp/net-snmp-config.h,, [AC_MSG_ERROR([cannot find net-snmp-devel support (or --disable-network-build)], 5)])
 fi
+
+fi
+
+#checking for AVAHI LIBS
+if test "$hpijs_only_build" = "no" && test "$network_build" = "yes" && test "$hpcups_only_build" = "no"; then
+   AC_DEFINE([HAVE_LIBAVAHI], 1, [Needed by the compiler.])
+   AC_CHECK_LIB([avahi-client], [avahi_client_new], , AC_MSG_ERROR(cannot find avahi_client support (or --disable-network-build)))
+   AC_CHECK_LIB([avahi-common], [avahi_strerror], , AC_MSG_ERROR(cannot find avahi_common support (or --disable-network-build)))
+   AC_CHECK_HEADERS(avahi-client/client.h,, [AC_MSG_ERROR([cannot find avahi_client support (or --disable-network-build)], 6)])   
+   AC_CHECK_HEADERS(avahi-common/malloc.h,, [AC_MSG_ERROR([cannot find avahi_common support (or --disable-network-build)], 6)])
 fi
 
 if test "$hpijs_only_build" = "no" && test "$pp_build" = "yes" && test "$hpcups_only_build" = "no"; then

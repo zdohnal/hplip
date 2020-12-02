@@ -1273,6 +1273,10 @@ def start(language, auto=True, test_depends=False,
                     cmd3 = 'sudo pacman -Sy --noconfirm libxcrypt --overwrite "*"'
                     if os_utils.execute(cmd3) != 0:
                         log.warning("Missing libxcrypt dependency, configure may fail due to missing crypt.h")
+                if core.distro_version == '20.1.1':
+                    cmd4 = 'sudo pacman -Sy --noconfirm pkgconf'
+                    if os_utils.execute(cmd4) != 0:
+                        log.warning("Missing pkgconf dependency")
 
             if core.distro_name.lower() == 'fedora' and core.distro_version >= '30':
                 cmd_fedora = 'sudo dnf -y -d 10 -e 1 install dbus-devel'

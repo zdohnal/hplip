@@ -68015,7 +68015,7 @@ support-type=2
 support-ver=3.20.9
 tech-class=Hbpl1
 family-class=PCLM_MONO
-tech-subclass=Mono
+tech-subclass=Mono_Duplex
 tech-type=3
 usb-pid=0972
 usb-vid=03F0
@@ -68822,6 +68822,7 @@ family-class=Undefined
 # LargeFormatA3
 # LargeFormatSuperB
 # Mono
+# Mono_Duplex
 # No1200dpiNoSensor
 # NoAutoDuplex
 # NoAutoTray

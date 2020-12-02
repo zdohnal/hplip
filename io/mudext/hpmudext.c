@@ -332,7 +332,7 @@ static PyObject *make_zc_uri(PyObject *self, PyObject *args)
 }
 #endif /* HAVE_LIBSNMP */
 
-#ifdef HAVE_LIBNETSNMP
+#ifdef HAVE_LIBAVAHI
 static PyObject *get_zc_ip_address(PyObject *self, PyObject *args)
 {
     char *hn;

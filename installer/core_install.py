@@ -370,7 +370,7 @@ class CoreInstall(object):
             'libpthread':      (True,  ['base', 'prnt'], THREAD_STR, self.check_libpthread, DEPENDENCY_RUN_AND_COMPILE_TIME, '-', 'FUNC#get_libpthread_version', GENERALDEP),
             'gs':               (True,  ['base', 'prnt'], GS_STR, self.check_gs, DEPENDENCY_RUN_TIME, '7.05', 'gs --version', EXTERNALDEP),
             'libusb':           (True,  ['base'], USB_STR, self.check_libusb, DEPENDENCY_RUN_AND_COMPILE_TIME, '-', 'FUNC#get_libusb_version', GENERALDEP),
-
+            #'pkgconf':             (True,  ['base', 'prnt'], PKG_CONF, self.check_pkgconf, DEPENDENCY_COMPILE_TIME, '-', None, GENERALDEP),
             # Optional base packages
             # req. for .drv PPD installs
             'cups-ddk':          (False, ['base', 'prnt'], CUPS_DDK_STR, self.check_cupsddk, DEPENDENCY_RUN_TIME, '-', None, GENERALDEP),
@@ -956,6 +956,9 @@ class CoreInstall(object):
 
     def check_make(self):
         return check_tool('make --version', 3.0)
+       
+    #def check_pkgconf(self):
+        #return check_tool('pkgconf --version', 0)
 
     def check_libusb(self):
         Is_libusb01_enabled = self.get_distro_ver_data('libusb01', False)

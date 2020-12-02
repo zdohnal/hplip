@@ -188,7 +188,7 @@ dist_home_DATA +=  hplip_clean.sh
 # base
 basedir = $(hplipdir)/base
 
-dist_base_DATA = base/maint.py base/codes.py base/g.py base/pml.py base/status.py  \
+dist_base_DATA = base/maint.py base/codes.py base/g.py base/pml.py base/status.py base/local.py \
 	base/__init__.py base/mfpdtf.py base/utils.py base/wifi.py base/LedmWifi.py \
 	base/device.py base/logger.py base/slp.py base/exif.py base/strings.py base/magic.py \
 	base/imagesize.py base/models.py base/validation.py base/sixext.py base/avahi.py \

@@ -266,6 +266,7 @@ TECH_SUBCLASSES = [
     "Advanced",
     "Mono",
     "Color",
+    "Mono_Duplex",
     "AutoDuplex",
     "K10"
 ]

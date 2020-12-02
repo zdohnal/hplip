@@ -171,7 +171,7 @@ DRIVER_ERROR Hbpl1Wrapper::StartPage(void **pOutBuffer, int *pOutBufferSize)
 	PCLmSSettings.userOrientation = portraitOrientation;
 
 
-	PCLmPageContent.duplexDisposition = simplex;
+	PCLmPageContent.duplexDisposition = (duplexDispositionEnum)o_Hbpl1->m_JA.args_duplex_mode;
 
 	m_pPCLmGenerator->StartPage(&PCLmSContent,true,pOutBuffer,pOutBufferSize);
 

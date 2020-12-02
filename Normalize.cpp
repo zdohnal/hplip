@@ -114,6 +114,7 @@ string TECH_SUBCLASSES[MAX_SUB_CLASS] = {
     "Advanced",
     "Mono",
     "Color",
+    "Mono_Duplex",
     "AutoDuplex",
     "K10"
 };

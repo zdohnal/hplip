@@ -48,7 +48,6 @@ foomatic_ppd_printers = \
     ppd/hpijs/hp-photosmart_plus_b209a-m-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_pro_mfp_m128fn-hpijs.ppd.gz \
     ppd/hpijs/hp-photosmart_c309a_series-hpijs.ppd.gz \
-    ppd/hpijs/hp-laserjet_mfp_m232-m237-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_6mp-pcl3-hpijs.ppd.gz \
     ppd/hpijs/hp-laser_ns_1020-hpijs.ppd.gz \
     ppd/hpijs/hp-deskjet_6600-hpijs.ppd.gz \
