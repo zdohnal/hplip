@@ -9898,7 +9898,7 @@ lity:PenSet=2,Quality:FullBleed=1"
 
 } // End PCL3-Class3B
 
-///////////////////// PCLM_COLOR
+///////////////////// PCLM-COLOR
 {
   Attribute "hpPrinterLanguage" "" "hbpl1"
 
@@ -9954,7 +9954,7 @@ lity:PenSet=2,Quality:FullBleed=1"
     *Choice "RGB/Color" "<</cupsColorSpace 17/cupsBitsPerColor 8/cupsRowStep 0>>setpagedevice"
     Choice "KGray/Black Only Grayscale" "<</cupsColorSpace 1/cupsBitsPerColor 8/cupsRowStep 2>>setpagedevice"
 
-   // <%PCLM_COLOR%>
+   // <%PCLM-COLOR%>
   }
 
   {
@@ -9995,10 +9995,10 @@ lity:PenSet=2,Quality:FullBleed=1"
 
   }
 
-} // End PCLM_COLOR
+} // End PCLM-COLOR
 
 
-///////////////////// PCLM_MONO
+///////////////////// PCLM-MONO
 {
   Attribute "hpPrinterLanguage" "" "hbpl1"
 
@@ -10054,7 +10054,7 @@ lity:PenSet=2,Quality:FullBleed=1"
     *Choice "RGB/Color" "<</cupsColorSpace 17/cupsBitsPerColor 8/cupsRowStep 0>>setpagedevice"
     Choice "KGray/Black Only Grayscale" "<</cupsColorSpace 1/cupsBitsPerColor 8/cupsRowStep 2>>setpagedevice"
 
-   // <%PCLM_MONO%>
+   // <%PCLM-MONO%>
   }
 
   {
@@ -10095,7 +10095,7 @@ lity:PenSet=2,Quality:FullBleed=1"
 
   }
 
-} // End PCLM_MONO
+} // End PCLM-MONO
 
 ///////////// PCL4-Class1
 {

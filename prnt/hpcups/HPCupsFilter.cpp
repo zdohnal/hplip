@@ -650,16 +650,22 @@ int HPCupsFilter::processRasterData(cups_raster_t *cups_raster)
 
 
     sprintf(hpPreProcessedRasterFile, "%s/hp_%s_cups_SwapedPagesXXXXXX",CUPS_TMP_DIR, m_JA.user_name);
-    image_processor_t* imageProcessor = imageProcessorCreate();
-
+ 
+    image_processor_t* imageProcessor=NULL;
+    IMAGE_PROCESSOR_ERROR result;
+    //added if condition to check if pinter language is "ljzjstream"
+    //If so, then bypass imageprocessing functions while running HPCUPS filter.
+    if(strncmp(m_JA.printer_platform, "ljzjstream",10) == 0){
+        imageProcessor = imageProcessorCreate();
+    }
     while (cupsRasterReadHeader2(cups_raster, &cups_header))
     {
-
-        IMAGE_PROCESSOR_ERROR result = imageProcessorStartPage(imageProcessor, &cups_header);
+       if(strncmp(m_JA.printer_platform, "ljzjstream",10) == 0){
+        result = imageProcessorStartPage(imageProcessor, &cups_header);
         if (result != IPE_SUCCESS){
             dbglog("DEBUG: imageProcessorStartPage failed result = %d\n", result);
         }
-
+     }
         current_page_number++;
 
         if (current_page_number == 1) {
@@ -758,11 +764,13 @@ int HPCupsFilter::processRasterData(cups_raster_t *cups_raster)
             color_raster = rgbRaster;
             black_raster = kRaster;
 
+	if(strncmp(m_JA.printer_platform, "ljzjstream",10) == 0)
+	{
             result = imageProcessorProcessLine(imageProcessor, m_pPrinterBuffer, cups_header.cupsBytesPerLine);
             if (result != IPE_SUCCESS){
                 dbglog("DEBUG: imageProcessorProcessLine failed result = %d\n", result);
             }
-
+	}
 
             if ((y == 0) && !is_ljmono) {
                 //For ljmono, make sure that first line is not a blankRaster line.Otherwise printer
@@ -793,11 +801,13 @@ int HPCupsFilter::processRasterData(cups_raster_t *cups_raster)
             }
         }  // for() loop end
 
+	if(strncmp(m_JA.printer_platform, "ljzjstream",10) == 0)
+	{
         result = imageProcessorEndPage(imageProcessor);
         if (result != IPE_SUCCESS){
                 dbglog("DEBUG: imageProcessorEndPage failed result = %d\n", result);
         }
-
+	}
 
         m_Job.NewPage();
         if (err != NO_ERROR) {
@@ -813,8 +823,11 @@ int HPCupsFilter::processRasterData(cups_raster_t *cups_raster)
         rgbRaster = NULL;
     }
 
+ 
+   if(strncmp(m_JA.printer_platform, "ljzjstream",10) == 0)
+   {
     imageProcessorDestroy(imageProcessor);
-
+   }
     unlink(hpPreProcessedRasterFile);
     return ret_status;
 }

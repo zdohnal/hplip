@@ -275,14 +275,14 @@ Version $Version
 // Custom driver
 DriverType custom
 
+//Color output
+ColorDevice Yes
+
 // All standard fonts...
 Font *
 
 // Generate copies manually
 ManualCopies Yes
-
-// Color output
-ColorDevice Yes
 
 // 1 page per minute
 Throughput 1
@@ -5195,7 +5195,7 @@ Manufacturer "HP"
 
 } // End PCL3-Class3B
 
-///////////////////// PCLM_COLOR
+///////////////////// PCLM-COLOR
 {
   Attribute "hpPrinterLanguage" "" "hbpl1"
   Attribute "cupsEvenDuplex" "" "True"
@@ -5302,18 +5302,18 @@ Manufacturer "HP"
      MinSize 3in 5in
      MaxSize 8.5in 14in
 
-    } // <%PCLM_COLOR%>
+    } // <%PCLM-COLOR%>
 
-} // End PCLM_COLOR
+} // End PCLM-COLOR
 
 
-///////////////////// PCLM_MONO
+///////////////////// PCLM-MONO
 {
   Attribute "hpPrinterLanguage" "" "hbpl1"
   Attribute "cupsEvenDuplex" "" "True"
   Attribute "cupsBackSide" "" "Rotated"
   Attribute "cupsFlipDuplex" "" "True"
-
+  ColorDevice No
 
   Group "General/General"
 
@@ -5415,9 +5415,9 @@ Manufacturer "HP"
      MinSize 3in 5in
      MaxSize 8.5in 14in
 
-    } // <%PCLM_MONO%>
+    } // <%PCLM-MONO%>
 
-} // End PCLM_MONO
+} // End PCLM-MONO
 
 ///////////// PCL4-Class1
 {
@@ -13439,6 +13439,8 @@ Group "RLT/HP Real Life Technologies"
 {
   Attribute "cupsEvenDuplex" "" "True"
   Attribute "hpPrinterLanguage" "" "ljmono"
+  ColorDevice No
+  
 
   Group "General/General"
 
@@ -14885,6 +14887,7 @@ Group "RLT/HP Real Life Technologies"
 ///////////////// LJZjsMono (for proprietary plugin)
 {
   Attribute "hpPrinterLanguage" "" "ljzjstream"
+  ColorDevice No
 
   Group "General/General"
 
@@ -15331,6 +15334,7 @@ Group "RLT/HP Real Life Technologies"
 ///////////////////// Hbpl1 (for proprietary plugin)
 {
   Attribute "hpPrinterLanguage" "" "hbpl1"
+  ColorDevice No
 
   // cupsMediaType values map to MEDIATYPE from global_types.h
   Option "MediaType/Media Type" PickOne AnySetup 10.0

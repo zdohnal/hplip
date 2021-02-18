@@ -417,6 +417,7 @@ cups_ppd_printers = \
    ppd/hpcups/hp-laserjet_m1537dnf_mfp-pcl3.ppd.gz \
    ppd/hpcups/hp-laserjet_m1538dnf_mfp-pcl3.ppd.gz \
    ppd/hpcups/hp-laserjet_m1539dnf_mfp-pcl3.ppd.gz \
+   ppd/hpcups/hp-laserjet_m207-m212.ppd.gz \
    ppd/hpcups/hp-laserjet_m2727_mfp-pcl3.ppd.gz \
    ppd/hpcups/hp-laserjet_m3027_mfp-pcl3.ppd.gz \
    ppd/hpcups/hp-laserjet_m3035_mfp-pcl3.ppd.gz \

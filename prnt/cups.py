@@ -185,6 +185,36 @@ def getFamilyClassName(model):
         if f in family_type:
            return f
 
+def getPpdName(model):
+    """
+    get ppds from models.dat for postscript printers
+    for pclm printers forming ppd name from model name
+    """
+    
+    m = models.ModelData()
+    
+    dict=m.read_all_files(False)
+    
+    for m in dict:
+        if model in m:
+          print('dict[m]',dict[m])
+          key = 'ppd-name'
+          
+          if key in dict[m].keys():
+             # postscript name from models.dat is model-ps.ppd so adding .gz string
+             ppd_name= dict[m]['ppd-name'] + ".gz"
+             
+          else:
+             # for pclm forming ppd with model_name.ppd.gz
+             ppd_name= model+".ppd.gz"
+             
+             ppd_name = "hp-"+ppd_name[3:]
+             
+        else:
+          #print("Model not present ", model)
+          pass
+    return ppd_name
+           
 def isfamilydrv(ppds):
     family_check=0
     #for f in ppds:
@@ -216,6 +246,21 @@ def getPPDPath(addtional_paths=None):
         if os.path.exists(ppd_path):
             return ppd_path
 
+def getPPDPath1(addtional_paths=None):
+    """
+        return path for hplip ppds. 
+    """
+   
+    filename_config = "/etc/hp/hplip.conf"
+    file_conf = open(filename_config,'r')
+    for line in file_conf:
+        if 'ppd=' in line:
+            
+            count = line.find('=')
+            ppd_path = line[count+1:len(line)-1]
+            
+            
+    return ppd_path
 
 def getAllowableMIMETypes():
     """

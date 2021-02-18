@@ -275,14 +275,14 @@ Version $Version
 // Custom driver
 DriverType custom
 
+//Color output
+ColorDevice Yes
+
 // All standard fonts...
 Font *
 
 // Generate copies manually
 ManualCopies Yes
-
-// Color output
-ColorDevice Yes
 
 // 1 page per minute
 Throughput 1
@@ -7543,7 +7543,7 @@ Manufacturer "HP"
 
 } // End PCL3-Class3B
 
-///////////////////// PCLM_COLOR
+///////////////////// PCLM-COLOR
 {
   Attribute "hpPrinterLanguage" "" "hbpl1"
   Attribute "cupsEvenDuplex" "" "True"
@@ -7650,18 +7650,18 @@ Manufacturer "HP"
      MinSize 3in 5in
      MaxSize 8.5in 14in
 
-    } // <%PCLM_COLOR%>
+    } // <%PCLM-COLOR%>
 
-} // End PCLM_COLOR
+} // End PCLM-COLOR
 
 
-///////////////////// PCLM_MONO
+///////////////////// PCLM-MONO
 {
   Attribute "hpPrinterLanguage" "" "hbpl1"
   Attribute "cupsEvenDuplex" "" "True"
   Attribute "cupsBackSide" "" "Rotated"
   Attribute "cupsFlipDuplex" "" "True"
-
+  ColorDevice No
 
   Group "General/General"
 
@@ -7763,9 +7763,9 @@ Manufacturer "HP"
      MinSize 3in 5in
      MaxSize 8.5in 14in
 
-    } // <%PCLM_MONO%>
+    } // <%PCLM-MONO%>
 
-} // End PCLM_MONO
+} // End PCLM-MONO
 
 ///////////// PCL4-Class1
 {
@@ -18036,6 +18036,8 @@ Group "RLT/HP Real Life Technologies"
 {
   Attribute "cupsEvenDuplex" "" "True"
   Attribute "hpPrinterLanguage" "" "ljmono"
+  ColorDevice No
+  
 
   Group "General/General"
 
@@ -21949,6 +21951,7 @@ Group "RLT/HP Real Life Technologies"
 ///////////////// LJZjsMono (for proprietary plugin)
 {
   Attribute "hpPrinterLanguage" "" "ljzjstream"
+  ColorDevice No
 
   Group "General/General"
 
@@ -22765,6 +22768,7 @@ Group "RLT/HP Real Life Technologies"
 ///////////////////// Hbpl1 (for proprietary plugin)
 {
   Attribute "hpPrinterLanguage" "" "hbpl1"
+  ColorDevice No
 
   // cupsMediaType values map to MEDIATYPE from global_types.h
   Option "MediaType/Media Type" PickOne AnySetup 10.0
@@ -23188,6 +23192,28 @@ Group "RLT/HP Real Life Technologies"
 
    // <%Hbpl1:Mono_Duplex%>
    {
+     ModelName "HP LaserJet m207-m212"
+     Attribute "NickName" "" "HP LaserJet m207-m212, hpcups $Version"
+     Attribute "ShortNickName" "" "HP LaserJet m207-m212 hpijs"
+     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet m207-m212;DES:hp laserjet m207-m212;"
+     PCFileName "hp-laserjet_m207-m212.ppd"
+     Attribute "Product" "" "(HP LaserJet m207d)"
+     Attribute "Product" "" "(HP LaserJet m208d)"
+     Attribute "Product" "" "(HP LaserJet m209d)"
+     Attribute "Product" "" "(HP LaserJet m210d)"
+     Attribute "Product" "" "(HP LaserJet m212d)"
+     Attribute "Product" "" "(HP Lasejet  m211d)"
+     Attribute "Product" "" "(HP LaserJet m209dw)"
+     Attribute "Product" "" "(HP LaserJet m209dwe)"
+     Attribute "Product" "" "(HP LaserJet m210dw)"
+     Attribute "Product" "" "(HP LaserJet m210dwe)"
+     Attribute "Product" "" "(HP LaserJet m212dw)"
+     Attribute "Product" "" "(HP LaserJet m212dwe)"
+     Attribute "Product" "" "(HP LaserJet m208dw)"
+     Attribute "Product" "" "(HP LaserJet m207dw)"
+     Attribute "Product" "" "(HP LaserJet m211dw)"
+   }
+   {
      ModelName "HP LaserJet MFP m232-m237"
      Attribute "NickName" "" "HP LaserJet MFP m232-m237, hpcups $Version"
      Attribute "ShortNickName" "" "HP LaserJet MFP m232-m237 hpijs"
@@ -23195,6 +23221,37 @@ Group "RLT/HP Real Life Technologies"
      PCFileName "hp-laserjet_mfp_m232-m237.ppd"
      Attribute "Product" "" "(HP LaserJet MFP m234dw)"
      Attribute "Product" "" "(HP LaserJet MFP m234dwe)"
+     Attribute "Product" "" "(HP LaserJet MFP m233d)"
+     Attribute "Product" "" "(HP LaserJet MFP m232d)"
+     Attribute "Product" "" "(HP LaserJet MFP m235d)"
+     Attribute "Product" "" "(HP LaserJet MFP m237d)"
+     Attribute "Product" "" "(HP LaserJet MFP m236d)"
+     Attribute "Product" "" "(HP LaserJet MFP m232dw)"
+     Attribute "Product" "" "(HP LaserJet MFP m232dwc)"
+     Attribute "Product" "" "(HP LaserJet MFP m233dw)"
+     Attribute "Product" "" "(HP LaserJet MFP m236dw)"
+     Attribute "Product" "" "(HP LaserJet MFP m235dw)"
+     Attribute "Product" "" "(HP LaserJet MFP m235dwe)"
+     Attribute "Product" "" "(HP LaserJet MFP m237dwe)"
+     Attribute "Product" "" "(HP LaserJet MFP m237dw)"
+     Attribute "Product" "" "(HP LaserJet MFP m232sdn)"
+     Attribute "Product" "" "(HP LaserJet MFP m233sdn)"
+     Attribute "Product" "" "(HP LaserJet MFP m236sdn)"
+     Attribute "Product" "" "(HP LaserJet MFP m234sdn)"
+     Attribute "Product" "" "(HP LaserJet MFP m234sdne)"
+     Attribute "Product" "" "(HP LaserJet MFP m235sdn)"
+     Attribute "Product" "" "(HP LaserJet MFP m235sdne)"
+     Attribute "Product" "" "(HP LaserJet MFP m237sdne)"
+     Attribute "Product" "" "(HP LaserJet MFP m237sdn)"
+     Attribute "Product" "" "(HP LaserJet MFP m232sdw)"
+     Attribute "Product" "" "(HP LaserJet MFP m233sdw)"
+     Attribute "Product" "" "(HP LaserJet MFP m236sdw)"
+     Attribute "Product" "" "(HP LaserJet MFP m234sdw)"
+     Attribute "Product" "" "(HP LaserJet MFP m234sdwe)"
+     Attribute "Product" "" "(HP LaserJet MFP m235sdw)"
+     Attribute "Product" "" "(HP LaserJet MFP m235sdwe)"
+     Attribute "Product" "" "(HP LaserJet MFP m237sdwe)"
+     Attribute "Product" "" "(HP LaserJet MFP m237sdw)"
    }
   }
 

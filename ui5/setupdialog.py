@@ -783,11 +783,27 @@ class SetupDialog(QDialog, Ui_Dialog):
 
 
     def findPrinterPPD(self):
+        """
+        for ubuntu 20.10 not able get ppd list from cups server.
+        so fetching ppds hplip ppds directly 
+        """
         QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
         try:
             self.print_ppd = None
             self.ppds = cups.getSystemPPDs()
             self.print_ppd = cups.getPPDFile2(self.mq, self.model, self.ppds)
+            self.ppd_name = "" 
+            # if ppd list from cups server is empty searching for hplip ppds.
+            if not self.ppds:
+               ppdName = cups.getPpdName(self.model)
+               self.path = cups.getPPDPath1()
+               # path for hplip ppds in local system
+               self.ppd_name = str(self.path + '/' + ppdName)
+               self.print_ppd = (self.ppd_name, '')
+   
+            else :
+               
+               self.print_ppd = cups.getPPDFile2(self.mq, self.model, self.ppds)         
             if "scanjet" in self.model or "digital_sender" in self.model:
                 self.print_ppd = None
             

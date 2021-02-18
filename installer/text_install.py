@@ -1277,6 +1277,10 @@ def start(language, auto=True, test_depends=False,
                     cmd4 = 'sudo pacman -Sy --noconfirm pkgconf'
                     if os_utils.execute(cmd4) != 0:
                         log.warning("Missing pkgconf dependency")
+                if core.distro_version == '20.2':
+                    cmd5 = 'sudo pacman -Sy --noconfirm pkg-config'
+                    if os_utils.execute(cmd5) != 0:
+                        log.warning("Missing pkgconf dependency")
 
             if core.distro_name.lower() == 'fedora' and core.distro_version >= '30':
                 cmd_fedora = 'sudo dnf -y -d 10 -e 1 install dbus-devel'

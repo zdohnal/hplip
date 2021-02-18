@@ -215,6 +215,21 @@ string SetSubClass(STRING_VECTOR sub_class)
    return subclass;
 }
 
+/** @brief convert the vector into the string for adding subclass for  family-class ppd name
+ *
+ *  @param sub_class vector of sub classed
+ *  @return string
+ *
+ */
+string SetFamilySubClass(STRING_VECTOR sub_class)
+{
+   string subclass = "";
+   for(unsigned int count = 0; count< sub_class.size(); count ++)
+      subclass += sub_class[count] + '-';
+   subclass.assign(subclass, 0, subclass.length() - 1);
+   return subclass;
+}
+
 /** @brief setting the path of the model.dat, drv & set the name of template files
  *
  *  @return DRV_DATA
@@ -522,8 +537,11 @@ char CreateFamilyClassDrv(DRV_DATA drv_data, MODEL_DICT_MAP model_dict, string m
                      matches =  CreateFamilyClassMatch(model_dict, family_class);
                      if(matches.size() > 0)
                      {
-                        string model_name = family_class;
-                        string orignal_model_name = model_name;
+                        std::string model_name = family_class;
+			std::replace( model_name.begin(), model_name.end(), '_', '-');// replace all '_' to '-' in model name
+                      
+                        std::string orignal_model_name = model_name;
+                        std::replace( orignal_model_name.begin(), orignal_model_name.end(), '_', '-');// replace all '_' to '-' in family class
 
                         indent1 = "";
                         indent2 = "";
@@ -610,29 +628,41 @@ char CreateFamilyClassDrv(DRV_DATA drv_data, MODEL_DICT_MAP model_dict, string m
                             write_data = "";
                             write_data += indent2 + "Attribute \"1284DeviceID\" \"\" \"" + devid + "\"\n";
                             file_out_pointer << write_data;
- 
-                          if(family_class != POST_SCRIPT)
-                          {
-                                  write_data = "";
-                                  write_data += indent2+"PCFileName \"" + FixFileName(family_class) +".ppd\"\n";
+                            string subclass_name = SetFamilySubClass(sub_class); 
+			 
+                            std::string family_class_final = family_class;
+                            std::replace( family_class_final.begin(), family_class_final.end(), '_', '-'); // replace all '_' to '-' in family class
+                                                                        
+                            if(family_class != POST_SCRIPT)
+                            {
+                                 write_data = "";
+                                 if(sub_class.size()!=0)
+                                 {
+                                  write_data += indent2+"PCFileName \"" + FixFileName(family_class_final) + "-" +subclass_name +".ppd\"\n";
+                                 }
+                                 else
+                                 {
+                                 write_data += indent2+"PCFileName \"" + FixFileName(family_class_final) +".ppd\"\n";
+                                 }
+
                                   file_out_pointer << write_data;
                           
-                          }
+                            }
                           else if (family_class == PDF)  
                           {
                                 write_data = "";
-                                write_data += indent2+"PCFileName \""+ FixFileName(family_class) + "-pdf.ppd\"\n";
+                                write_data += indent2+"PCFileName \""+ FixFileName(family_class_final) + "-pdf.ppd\"\n";
                                 file_out_pointer << write_data;
 
                           }
                           else
                           {
                                 write_data = "";
-                                write_data +=indent2+"PCFileName \""+ FixFileName(family_class) + "-ps.ppd\"\n";
+                                write_data +=indent2+"PCFileName \""+ FixFileName(family_class_final) + "-ps.ppd\"\n";
                                 file_out_pointer << write_data;
                           } 
                           write_data = "";
-                          write_data +=indent2+"Attribute \"Product\" \"\" \"("+ family_class + ")\"\n";
+                          write_data +=indent2+"Attribute \"Product\" \"\" \"("+ family_class_final + ")\"\n";
                           file_out_pointer << write_data;
 
                           file_out_pointer << indent1 + "}\n";

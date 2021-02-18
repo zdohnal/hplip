@@ -134,11 +134,11 @@ def setAdaptorPower(dev, adapterList, power_state='on'):
        URI = LEDM_WIFI_BASE_URI + adaptorName
        powerXml = adapterPowerXml_payload1 %(power_state)  
   
-       ret['errorreturn'] = writeXmlDataToURI(dev,URI,powerXml,10)    
+       ret['errorreturn'] = writeXmlDataToURI(dev,URI,powerXml,15)
        if not(ret['errorreturn'] == HTTP_OK or ret['errorreturn'] == HTTP_NOCONTENT):
           log.debug("Wifi Adapter turn ON request Failed. ResponseCode=%s AdaptorId=%s AdaptorName=%s. Trying another interface" %(ret['errorreturn'],adaptor_id,adaptorName))
           powerXml = adapterPowerXml_payload2 %(power_state)
-          ret['errorreturn'] = writeXmlDataToURI(dev,URI,powerXml,10)
+          ret['errorreturn'] = writeXmlDataToURI(dev,URI,powerXml,15)
 
        if not(ret['errorreturn'] == HTTP_OK or ret['errorreturn'] == HTTP_NOCONTENT):
           log.error("Wifi Adapter turn ON request Failed. ResponseCode=%s AdaptorId=%s AdaptorName=%s" %(ret['errorreturn'],adaptor_id,adaptorName))
@@ -196,6 +196,8 @@ def performScan(dev, adapterName, ssid=None):
                         ssid = binascii.unhexlify(str(params['io:wifinetworks-io:wifinetwork-wifi:ssid-%d' % a]).encode('utf-8')).decode('utf-8')
                     except TypeError: 
                         # Some devices returns one invalid SSID (i.e. 0) along with valid SSIDs. e.g. Epic.
+                        ssid = params['io:wifinetworks-io:wifinetwork-wifi:ssid-%d' % a]
+                    except binascii.Error as err:
                         ssid = params['io:wifinetworks-io:wifinetwork-wifi:ssid-%d' % a]
 
                     if not ssid:
@@ -391,7 +393,7 @@ def associate(dev, adapterName, ssid, communication_mode, encryption_type, key):
         ppXml = (passPhraseXml[:pos] + keyInfoXml + passPhraseXml[pos:])%(binascii.hexlify(to_bytes_utf8(ssid)).decode('utf-8'),communication_mode,encryption_type,\
         authMode,binascii.hexlify(to_bytes_utf8(key)).decode('utf-8'))        
 
-    code = writeXmlDataToURI(dev,URI,ppXml,10)    
+    code = writeXmlDataToURI(dev,URI,ppXml,15)
     ret['errorreturn'] = code
     if not(code == HTTP_OK or HTTP_NOCONTENT):
         log.error("Request Failed With Response Code %d" % ret['errorreturn'])
