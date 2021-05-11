@@ -478,13 +478,13 @@ class FaxDevice(device.Device):
 
     def isSendFaxActive(self):
         if self.send_fax_thread is not None:
-            return self.send_fax_thread.isAlive()
+            return self.send_fax_thread.is_alive()
         else:
             return False
 
     def waitForSendFaxThread(self):
         if self.send_fax_thread is not None and \
-            self.send_fax_thread.isAlive():
+            self.send_fax_thread.is_alive():
 
             try:
                 self.send_fax_thread.join()

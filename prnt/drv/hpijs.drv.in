@@ -19147,6 +19147,14 @@ lity:PenSet=2,Quality:FullBleed=1"
     Attribute "Product" "" "(HP Envy 6000 Series)"
   }
   {
+    ModelName "HP Envy 6400 Series hpijs"
+    Attribute "NickName" "" "HP Envy 6400 Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP Envy 6400 Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:envy 6400 series;DES:envy 6400 series;"
+    PCFileName "hp-envy_6400_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Envy 6400 Series)"
+  }
+  {
     ModelName "HP Envy Pro 6400 Series hpijs"
     Attribute "NickName" "" "HP Envy Pro 6400 Series hpijs, $Version"
     Attribute "ShortNickName" "" "HP Envy Pro 6400 Series hpijs"

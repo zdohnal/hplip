@@ -1168,6 +1168,9 @@
 :model "HP Envy 6000 Series"
 :status :good
 
+:model "HP Envy 6400 Series"
+:status :good
+
 :model "HP Envy 7640 E-all-in-one"
 :status :good
 

@@ -516,6 +516,7 @@ foomatic_ppd_printers = \
     ppd/hpijs/hp-smart_tank_plus_650_series-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_4350-pcl3-hpijs.ppd.gz \
     ppd/hpijs/hp-officejet_r40xi-hpijs.ppd.gz \
+    ppd/hpijs/hp-envy_6400_series-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_m4345_mfp-pcl3-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_p1505n-zxs-hpijs.ppd.gz \
     ppd/hpijs/hp-smart_tank_plus_570_series-hpijs.ppd.gz \

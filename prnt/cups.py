@@ -206,10 +206,13 @@ def getPpdName(model):
              
           else:
              # for pclm forming ppd with model_name.ppd.gz
-             ppd_name= model+".ppd.gz"
-             
-             ppd_name = "hp-"+ppd_name[3:]
-             
+             if model.startswith("apollo"):
+                 ppd_name=model+".ppd.gz"
+             elif model.startswith("hp_"):
+                 model1 =model.replace("hp_","hp-")
+                 ppd_name=model1+".ppd.gz"
+             else:
+                 ppd_name="hp-"+model+".ppd.gz"
         else:
           #print("Model not present ", model)
           pass

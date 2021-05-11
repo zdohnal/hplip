@@ -69295,6 +69295,45 @@ usb-pid=0872
 usb-vid=03F0
 wifi-config=3
 
+[envy_6400_series]
+align-type=15
+clean-type=4
+color-cal-type=0
+copy-type=0
+embedded-server-type=1
+fax-type=0
+fw-download=False
+icon=psc_2300_series.png
+io-mfp-mode=1
+io-mode=1
+io-support=10
+job-storage=0
+linefeed-cal-type=0
+model1=HP ENVY 6400 series
+panel-check-type=0
+pcard-type=0
+plugin=0
+plugin-reason=0
+power-settings=0
+pq-diag-type=0
+r-type=0
+scan-src=3
+scan-type=9
+status-battery-check=0
+status-dynamic-counters=0
+status-type=10
+support-released=True
+support-subtype=41a4
+support-type=2
+support-ver=3.21.4
+tech-class=Mimas
+family-class=Mimas
+tech-subclass=NoCDDVD
+tech-type=2
+usb-pid=4054
+usb-vid=03F0
+wifi-config=3
+
 # align-type
 # ----------
 # Align cartridges type

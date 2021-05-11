@@ -179,13 +179,13 @@ class PMLFaxDevice(FaxDevice):
 
     def isUploadLogActive(self):
         if self.upload_log_thread is not None:
-            return self.upload_log_thread.isAlive()
+            return self.upload_log_thread.is_alive()
         else:
             return False
 
     def waitForUploadLogThread(self):
         if self.upload_log_thread is not None and \
-            self.upload_log_thread.isAlive():
+            self.upload_log_thread.is_alive():
 
             self.upload_log_thread.join()
 

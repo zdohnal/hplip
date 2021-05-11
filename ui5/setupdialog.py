@@ -791,7 +791,6 @@ class SetupDialog(QDialog, Ui_Dialog):
         try:
             self.print_ppd = None
             self.ppds = cups.getSystemPPDs()
-            self.print_ppd = cups.getPPDFile2(self.mq, self.model, self.ppds)
             self.ppd_name = "" 
             # if ppd list from cups server is empty searching for hplip ppds.
             if not self.ppds:

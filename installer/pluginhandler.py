@@ -162,6 +162,9 @@ class PluginHandle(object):
                 copies = self.__getPluginFilesList( home )
 
                 for src, trg, link in copies:
+                    #added below if condition to ignore "rules" files for checking links in plugin.spec for HPLIP-122-'Driver plug-in required' pop-up is shown even if plugin is installed.
+                    if src.find('.rules'):
+                        continue
                     if link != "":
                         if not utils.check_library(link):
                             self.__plugin_state = PLUGIN_FILES_CORRUPTED

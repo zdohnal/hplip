@@ -73,13 +73,13 @@ class PMLCopyDevice(device.Device):
 
     def isCopyActive(self):
         if self.copy_thread is not None:
-            return self.copy_thread.isAlive()
+            return self.copy_thread.is_alive()
         else:
             return False
 
     def waitForCopyThread(self):
         if self.copy_thread is not None and \
-            self.copy_thread.isAlive():
+            self.copy_thread.is_alive():
 
             self.copy_thread.join()
 

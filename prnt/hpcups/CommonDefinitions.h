@@ -48,7 +48,6 @@
 #include <syslog.h>
 #include <assert.h>
 #include <time.h>
-#include <sys/timeb.h>
 #include <string.h>
 
 #ifndef _GNU_SOURCE

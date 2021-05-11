@@ -1489,6 +1489,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-laserjet_3050-ps.ppd.gz \
 	ppd/hpcups/hp-envy_5640_series.ppd.gz \
 	ppd/hpcups/hp-envy_5660_series.ppd.gz \
 	ppd/hpcups/hp-envy_6000_series.ppd.gz \
+	ppd/hpcups/hp-envy_6400_series.ppd.gz \
 	ppd/hpcups/hp-envy_7640_series.ppd.gz \
 	ppd/hpcups/hp-envy_8000_series.ppd.gz \
 	ppd/hpcups/hp-envy_photo_6200_series.ppd.gz \
@@ -2352,6 +2353,7 @@ hpppddir = @hpppddir@
 hpps_install = @hpps_install@
 htmldir = $(hphtmldir)
 icondir = @icondir@
+imageProcessor_build = @imageProcessor_build@
 includedir = @includedir@
 infodir = @infodir@
 install_sh = @install_sh@
@@ -2930,6 +2932,7 @@ foomatic_ppd_printers = \
     ppd/hpijs/hp-smart_tank_plus_650_series-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_4350-pcl3-hpijs.ppd.gz \
     ppd/hpijs/hp-officejet_r40xi-hpijs.ppd.gz \
+    ppd/hpijs/hp-envy_6400_series-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_m4345_mfp-pcl3-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_p1505n-zxs-hpijs.ppd.gz \
     ppd/hpijs/hp-smart_tank_plus_570_series-hpijs.ppd.gz \
@@ -3929,6 +3932,7 @@ dist_unrel_DATA =
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_5640_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_5660_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_6000_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_6400_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_7640_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_8000_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_photo_6200_series.ppd.gz \

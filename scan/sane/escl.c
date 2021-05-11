@@ -446,6 +446,17 @@ SANE_Status __attribute__ ((visibility ("hidden"))) escl_open(SANE_String_Const 
   hpmud_query_model(session->uri, &ma);
   session->scan_type = ma.scantype;
 
+  memset(session->ip, 0, sizeof(session->ip));
+/*Added below if condition for Network devices to fetch the ip from printer URI */
+  if(strncasecmp("hp:/net", session->uri, 7)==0)
+  {
+    hpmud_get_uri_datalink(session->uri, session->ip, sizeof(session->ip));
+  }
+  else
+  {
+    snprintf(session->ip,6,"HPLIP");
+  }
+
   if (hpmud_open_device(session->uri, ma.mfp_mode, &session->dd) != HPMUD_R_OK)
      goto bugout;
 

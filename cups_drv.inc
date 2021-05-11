@@ -296,6 +296,7 @@ cups_ppd_printers = \
    ppd/hpcups/hp-envy_5640_series.ppd.gz \
    ppd/hpcups/hp-envy_5660_series.ppd.gz \
    ppd/hpcups/hp-envy_6000_series.ppd.gz \
+   ppd/hpcups/hp-envy_6400_series.ppd.gz \
    ppd/hpcups/hp-envy_7640_series.ppd.gz \
    ppd/hpcups/hp-envy_8000_series.ppd.gz \
    ppd/hpcups/hp-envy_photo_6200_series.ppd.gz \

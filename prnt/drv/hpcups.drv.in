@@ -7662,6 +7662,7 @@ Manufacturer "HP"
   Attribute "cupsBackSide" "" "Rotated"
   Attribute "cupsFlipDuplex" "" "True"
   ColorDevice No
+  
 
   Group "General/General"
 
@@ -12625,6 +12626,14 @@ Manufacturer "HP"
     Attribute "Product" "" "(HP Envy 6000 Series)"
   }
   {
+    ModelName "HP Envy 6400 Series"
+    Attribute "NickName" "" "HP Envy 6400 Series, hpcups $Version"
+    Attribute "ShortNickName" "" "HP Envy 6400 Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:envy 6400 series;DES:envy 6400 series;"
+    PCFileName "hp-envy_6400_series.ppd"
+    Attribute "Product" "" "(HP Envy 6400 Series)"
+  }
+  {
     ModelName "HP Envy Pro 6400 Series"
     Attribute "NickName" "" "HP Envy Pro 6400 Series, hpcups $Version"
     Attribute "ShortNickName" "" "HP Envy Pro 6400 Series hpijs"
@@ -13834,9 +13843,17 @@ Manufacturer "HP"
 //////// P15_CISS
 {
   Attribute "hpPrinterLanguage" "" "pcl3gui2"
+  Attribute "cupsEvenDuplex" "" "True"
+  Attribute "cupsBackSide" "" "Rotated"
+  Attribute "cupsFlipDuplex" "" "True"
   Attribute "HPMechOffset" "" "117"
   
   Group "General/General"
+
+  Option "Duplex/Double-Sided Printing" PickOne AnySetup 10.0
+     Choice "DuplexNoTumble/Long Edge (Standard)" "<</Duplex true/Tumble false>>setpagedevice"
+     Choice "DuplexTumble/Short Edge (Flip)" "<</Duplex true/Tumble true>>setpagedevice"
+     *Choice "None/Off" "<</Duplex false/Tumble false>>setpagedevice"
 
   // MediaPosition values map to MediaSource enumeration in global_types.h
   Option "InputSlot/Media Source" PickOne AnySetup 10.0
