@@ -132,7 +132,7 @@ DRIVER_ERROR Pcl3Gui2::StartPage(JobAttributes *pJA)
     int    i = strlen(szStr);
     memcpy(szStr+i, MediaSubtypeSeq, sizeof(MediaSubtypeSeq));
     i += sizeof(MediaSubtypeSeq);
-    szStr[i++] = (char) (m_pQA->media_subtype & 0xFFFF) >> 8;
+    szStr[i++] = (char) (m_pQA->media_subtype >> 8);
     szStr[i++] = (char) m_pQA->media_subtype & 0xFF;
     addToHeader((const BYTE *) szStr, i);
 

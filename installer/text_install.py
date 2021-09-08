@@ -213,6 +213,11 @@ def start(language, auto=True, test_depends=False,
                 cmd1 = 'sudo pacman -Sy --force --noconfirm ghostscript'
                 if os_utils.execute(cmd1) != 0:
                     log.warning("Missing ghost script dependency,installation may fail")
+            log.debug("Installing pkgconf")
+            if core.distro_version == '21.0.7':
+                cmd6 = 'sudo pacman -Sy --noconfirm pkgconf'
+                if os_utils.execute(cmd6) != 0:
+                    log.warning("Missing pkgconf dependency")
 
         if distro_alternate_version:
             core.distro_version = distro_alternate_version
@@ -1281,7 +1286,6 @@ def start(language, auto=True, test_depends=False,
                     cmd5 = 'sudo pacman -Sy --noconfirm pkg-config'
                     if os_utils.execute(cmd5) != 0:
                         log.warning("Missing pkgconf dependency")
-
             if core.distro_name.lower() == 'fedora' and core.distro_version >= '30':
                 cmd_fedora = 'sudo dnf -y -d 10 -e 1 install dbus-devel'
                 status, output = utils.run(cmd_fedora, core.passwordObj)

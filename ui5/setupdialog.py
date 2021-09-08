@@ -1010,29 +1010,33 @@ class SetupDialog(QDialog, Ui_Dialog):
 
 
     def setAddPrinterButton(self):
-        from base import local
-        from base.local import detectLocalDevices
-        ttl=4
-        timeout=10
-        try:
-            detected_devices = local.detectLocalDevices(ttl, timeout)
-            log.debug(" Detected devices from local.py ")
-            log.debug(detected_devices)       
-            current_printer = self.model.replace('_'," ")
-            log.debug(" current pritner is: ")
-            #log.debug(detected_devices['printer_uri'])
-            log.debug(current_printer)
-            for key in detected_devices:                
-                if(detected_devices[key].lower() ==  current_printer.lower()):
-                    log.debug("Assign ipp URI to the current printer")
-                    #self.device_uri = Ipp_uri
-                    self.device_uri = detected_devices['printer_uri']                    
-                else:
-                    return                                                                      
-        except Error as socket_error:
-            socket.error = socket_error
-            log.error("An error occured during network probe.[%s]"%socket_error)
-            raise ERROR_INTERNAL
+        '''
+        If the device is on usb we assign new ipp uri to the printer. 
+        this is for driverless usb printer held by ippusbxd service on ubuntu 20 and above.
+        For network devices follow the old code.
+        '''
+        if(self.bus == "usb"):
+            from base import local
+            from base.local import detectLocalDevices
+            try:
+                detected_devices = local.detectLocalDevices(ttl=4, timeout=10)
+                log.debug(" Detected devices from local.py ")
+                log.debug(detected_devices)
+                current_printer = self.model.replace('_'," ")
+                log.debug(" current pritner is: ")
+                #log.debug(detected_devices['printer_uri'])
+                log.debug(current_printer)
+                for key in detected_devices:
+                    if(detected_devices[key].lower() ==  current_printer.lower()):
+                        log.debug("Assign ipp URI to the current printer")
+                        #self.device_uri = Ipp_uri
+                        self.device_uri = detected_devices['printer_uri']
+                    else:
+                        return
+            except Error as socket_error:
+                socket.error = socket_error
+                log.error("An error occured during network probe.[%s]"%socket_error)
+                raise ERROR_INTERNAL
     
         if self.SetupPrintGroupBox.isChecked() or self.SetupFaxGroupBox.isChecked():
             self.NextButton.setEnabled((self.print_setup and self.printer_name_ok and self.print_ppd is not None) or

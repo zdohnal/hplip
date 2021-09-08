@@ -14390,6 +14390,14 @@ lity:PenSet=2,Quality:FullBleed=1"
             Attribute "Product" "" "(HP Deskjet Ink Advantage 4100 All-in-one Printer Series)"
           }
           {
+            ModelName "HP Deskjet 4800 Series hpijs"
+            Attribute "NickName" "" "HP Deskjet 4800 Series hpijs, $Version"
+            Attribute "ShortNickName" "" "HP Deskjet 4800 Series hpijs"
+            Attribute "1284DeviceID" "" "MFG:HP;MDL:deskjet 4800 series;DES:deskjet 4800 series;"
+            PCFileName "hp-deskjet_4800_series-hpijs.ppd"
+            Attribute "Product" "" "(HP Deskjet Ink Advantage Ultra 4800 All-in-one Printer Series)"
+          }
+          {
             ModelName "HP Deskjet Plus 4100 Series hpijs"
             Attribute "NickName" "" "HP Deskjet Plus 4100 Series hpijs, $Version"
             Attribute "ShortNickName" "" "HP DJ Plus 4100 Series hpijs"

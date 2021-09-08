@@ -42,6 +42,13 @@
 #define HPPJLINKBLEED		"HPPJLInkBleed"
 #define HPPJLCOLORASGRAY	"HPPJLColorAsGray"
 #define HPPJLTRUEBLACK		"HPPJLTrueBlack"
-
+#define DEFAULTHPPJLECONOMODE2   "DefaultHPPJLEconoMode2"
+#define DEFAULTHPPJLPRINTQUALITY "DefaultHPPJLPrintQuality"
+#define DEFAULTHPPJLOUTPUTMODE   "DefaultHPPJLOutputMode"
+#define DEFAULTHPPJLDRYTIME      "DefaultHPPJLDryTime"
+#define DEFAULTHPPJLSATURATION   "DefaultHPPJLSaturation"
+#define DEFAULTHPPJLINKBLEED     "DefaultHPPJLInkBleed"
+#define DEFAULTHPPJLCOLORASGRAY  "DefaultHPPJLColorAsGray"
+#define DEFAULTHPPJLTRUEBLACK    "DefaultHPPJLTrueBlack"
 
 #endif

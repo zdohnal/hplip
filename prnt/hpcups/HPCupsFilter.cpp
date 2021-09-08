@@ -286,6 +286,7 @@ DRIVER_ERROR HPCupsFilter::startPage (cups_page_header2_t *cups_header)
     }
 
     m_JA.quality_attributes.media_type = cups_header->cupsMediaType;
+    m_JA.quality_attributes.media_subtype = cups_header->cupsInteger[6];
     m_JA.quality_attributes.print_quality = atoi(cups_header->OutputType);
     m_JA.quality_attributes.horizontal_resolution = cups_header->HWResolution[0];
     m_JA.quality_attributes.vertical_resolution   = cups_header->HWResolution[1];
@@ -337,7 +338,16 @@ DRIVER_ERROR HPCupsFilter::startPage (cups_page_header2_t *cups_header)
 
     int    horz_res = cups_header->HWResolution[0];
     int    vert_res = cups_header->HWResolution[1];
-    m_JA.media_attributes.pcl_id = cups_header->cupsInteger[0];
+    //  Custom Page size should have cupsInteger0 set as 101 instead of 0
+    if(strncmp(cups_header->cupsPageSizeName, "Custom",6) == 0)
+    {
+	m_JA.media_attributes.pcl_id = 101;    
+    }
+    else
+    {
+        m_JA.media_attributes.pcl_id = cups_header->cupsInteger[0];
+    }	    
+
     m_JA.media_attributes.printable_start_x = (cups_header->Margins[0] * horz_res) / 72;
     m_JA.media_attributes.printable_start_y = ((cups_header->PageSize[1] - cups_header->ImagingBoundingBox[3]) * vert_res) / 72;
     m_JA.media_attributes.horizontal_overspray = (xoverspray * horz_res) / 1000;

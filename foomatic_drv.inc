@@ -125,6 +125,7 @@ foomatic_ppd_printers = \
     ppd/hpijs/hp-laserjet_cm1417fnw-pcl3-hpijs.ppd.gz \
     ppd/hpijs/hp-photosmart_7345-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_professional_m1218nfg_mfp-hpijs.ppd.gz \
+    ppd/hpijs/hp-deskjet_4800_series-hpijs.ppd.gz \
     ppd/hpijs/hp-deskjet_895c-hpijs.ppd.gz \
     ppd/hpijs/hp-deskjet_5600-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_m1539dnf_mfp-pcl3-hpijs.ppd.gz \

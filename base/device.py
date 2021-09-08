@@ -2149,6 +2149,16 @@ class Device(object):
             elif END_OF_DATA == temp_buf.getvalue():   # Chunked data end
                     break
 
+    def readLEDMAllData(dev, func, reply, timeout=6):
+        '''
+        Read any leftover response data from the previous session.
+        We read and disregard all such leftover data here to have a clean new session.
+        If we are getting a blank responses that means there is no more junk data. 
+        '''
+        while True:
+            bytes_read = func(1024, reply, timeout)
+            if bytes_read == 0:
+                break
 
 
     def __readChannel(self, opener, bytes_to_read, stream=None,

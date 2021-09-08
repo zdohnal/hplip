@@ -155,6 +155,7 @@ cups_ppd_printers = \
    ppd/hpcups/hp-deskjet_4640_series.ppd.gz \
    ppd/hpcups/hp-deskjet_4670_series.ppd.gz \
    ppd/hpcups/hp-deskjet_4720_series.ppd.gz \
+   ppd/hpcups/hp-deskjet_4800_series.ppd.gz \
    ppd/hpcups/hp-deskjet_500.ppd.gz \
    ppd/hpcups/hp-deskjet_5000_series.ppd.gz \
    ppd/hpcups/hp-deskjet_500c.ppd.gz \
@@ -811,7 +812,15 @@ cups_ppd_printers = \
    ppd/hpcups/hp-smart_tank_500_series.ppd.gz \
    ppd/hpcups/hp-smart_tank_510_series.ppd.gz \
    ppd/hpcups/hp-smart_tank_530_series.ppd.gz \
+   ppd/hpcups/hp-smart_tank_6000_series.ppd.gz \
    ppd/hpcups/hp-smart_tank_610_series.ppd.gz \
+   ppd/hpcups/hp-smart_tank_660-670_series.ppd.gz \
+   ppd/hpcups/hp-smart_tank_7000_series.ppd.gz \
+   ppd/hpcups/hp-smart_tank_710-720_series.ppd.gz \
+   ppd/hpcups/hp-smart_tank_7300_series.ppd.gz \
+   ppd/hpcups/hp-smart_tank_750_series.ppd.gz \
+   ppd/hpcups/hp-smart_tank_7600_series.ppd.gz \
+   ppd/hpcups/hp-smart_tank_790_series.ppd.gz \
    ppd/hpcups/hp-smart_tank_plus_550_series.ppd.gz \
    ppd/hpcups/hp-smart_tank_plus_570_series.ppd.gz \
    ppd/hpcups/hp-smart_tank_plus_650_series.ppd.gz \

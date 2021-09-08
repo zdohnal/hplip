@@ -45,6 +45,7 @@ static char temp_filename[FILE_NAME_SIZE] = {0};
 static char booklet_filename[FILE_NAME_SIZE] = {0};
 static char Nup_filename[FILE_NAME_SIZE] = {0};
 extern void PS_Booklet(char *tempfile, char *bookletfile, char *nupfile,int order, int nup, char* pagesize, int bookletMaker);
+static const char *GetOptionValue(const char *iOptionValue);
 
 /* get log level from the cups config file */
 static void get_LogLevel ()
@@ -292,6 +293,37 @@ static void WriteHeader(char **argument)
 
 */
 
+void GetSecurePin(char sec_pin[], int num_options, cups_option_t *options)
+{
+    const char *val = NULL;
+    /* This is for Old ppd secure printing support */
+    if((val = cupsGetOption("HPFIDigit", num_options, options)) != NULL || 
+      ((val = GetOptionValue("DefaultHPFIDigit")) != NULL )) 
+        sec_pin[0] = val[0]; 
+    else 
+        sec_pin[0] = '0'; 
+
+    if((val = cupsGetOption("HPSEDigit", num_options, options)) != NULL || 
+      ((val = GetOptionValue("DefaultHPSEDigit")) != NULL ))
+        sec_pin[1] = val[0]; 
+    else 
+        sec_pin[1] = '0'; 
+
+    if((val = cupsGetOption("HPTHDigit", num_options, options)) != NULL || 
+      ((val = GetOptionValue("DefaultHPTHDigit")) != NULL ))
+        sec_pin[2] = val[0]; 
+    else 
+        sec_pin[2] = '0'; 
+
+    if((val = cupsGetOption("HPFTDigit", num_options, options)) != NULL || 
+      ((val = GetOptionValue("DefaultHPFTDigit")) != NULL ))
+        sec_pin[3] = val[0]; 
+    else 
+        sec_pin[3] = '0';  
+    sec_pin[4] = '\0';    
+
+}
+
 static unsigned char WriteSecurePrinting(char is_secure_printing_old, int num_options, cups_option_t *options) 
 {
   char sec_pin[MAX_BUFFER]   = {0},
@@ -300,34 +332,15 @@ static unsigned char WriteSecurePrinting(char is_secure_printing_old, int num_op
 
   if(is_secure_printing_old == -1)
   {
-           /* This is for Old ppd secure printing support */
-            if((val = cupsGetOption("HPFIDigit", num_options, options)) != NULL)
-                sec_pin[0] = val[0]; 
-            else 
-                sec_pin[0] = '0'; 
-
-            if((val = cupsGetOption("HPSEDigit", num_options, options)) != NULL)
-                sec_pin[1] = val[0]; 
-            else 
-                sec_pin[1] = '0'; 
-
-            if((val = cupsGetOption("HPTHDigit", num_options, options)) != NULL)
-                sec_pin[2] = val[0]; 
-            else 
-                sec_pin[2] = '0'; 
-
-            if((val = cupsGetOption("HPFTDigit", num_options, options)) != NULL)
-                sec_pin[3] = val[0]; 
-            else 
-                sec_pin[3] = '0';  
-            sec_pin[4] = '\0';
+    GetSecurePin(sec_pin, num_options, options);   
   }
   else 
   {
      if(is_secure_printing_old == 1)
        {
          /* This is for new ppd secure printing support */
-         if((val = cupsGetOption("HPDigit", num_options, options)) != NULL)
+         if((val = cupsGetOption("HPDigit", num_options, options)) != NULL || 
+           ((val = GetOptionValue("DefaultHPDigit")) != NULL ))
          {
            strncpy(input_slot, val, strlen(val));
            if((strstr(input_slot, "Custom.")) != NULL)
@@ -538,7 +551,8 @@ static void  WriteECONOMODE2(int num_options, cups_option_t *options)
   char input_slot[MAX_BUFFER] = {0};
   const char *val             = NULL;
 
-  if((val = cupsGetOption(HPPJLECONOMODE2, num_options, options)) != NULL)
+  if((val = cupsGetOption(HPPJLECONOMODE2, num_options, options)) != NULL || 
+      ((val = GetOptionValue(DEFAULTHPPJLECONOMODE2)) != NULL ))
   {
     strncpy(input_slot, val, strlen(val));
     if(input_slot)
@@ -583,7 +597,8 @@ static void  WriteHPPJLPRINTQUALITY(int num_options, cups_option_t *options)
   char input_slot[MAX_BUFFER] = {0};
   const char *val             = NULL;
 
-  if((val = cupsGetOption(HPPJLPRINTQUALITY, num_options, options)) != NULL)
+  if((val = cupsGetOption(HPPJLPRINTQUALITY, num_options, options)) != NULL ||
+    ((val = GetOptionValue(DEFAULTHPPJLPRINTQUALITY)) != NULL ))
   {
    strncpy(input_slot, val, strlen(val));
    if(input_slot)
@@ -618,7 +633,8 @@ static void  WriteHPPJLOUTPUTMODE(int num_options, cups_option_t *options)
   char input_slot[MAX_BUFFER] = {0};
   const char *val             = NULL;
 
-  if((val = cupsGetOption(HPPJLOUTPUTMODE, num_options, options)) != NULL)
+  if((val = cupsGetOption(HPPJLOUTPUTMODE, num_options, options)) != NULL ||
+    ((val = GetOptionValue(DEFAULTHPPJLOUTPUTMODE)) != NULL ))
   {
      strncpy(input_slot, val, strlen(val));
      if(input_slot)
@@ -658,7 +674,8 @@ static void  WriteHPPJLDRYTIME(int num_options, cups_option_t *options)
   char input_slot[MAX_BUFFER] = {0};
   const char *val             = NULL;
 
-  if((val = cupsGetOption(HPPJLDRYTIME, num_options, options)) != NULL)
+  if((val = cupsGetOption(HPPJLDRYTIME, num_options, options)) != NULL ||
+    ((val = GetOptionValue(DEFAULTHPPJLDRYTIME)) != NULL ))
   {
      strncpy(input_slot, val, strlen(val));
      if(input_slot)
@@ -693,7 +710,8 @@ static void  WriteHPPJLSATURATION(int num_options, cups_option_t *options)
   char input_slot[MAX_BUFFER] = {0};
   const char *val             = NULL;
 
-  if((val = cupsGetOption(HPPJLSATURATION, num_options, options)) != NULL)
+  if((val = cupsGetOption(HPPJLSATURATION, num_options, options)) != NULL ||
+    ((val = GetOptionValue(DEFAULTHPPJLSATURATION)) != NULL ))
   {
       strncpy(input_slot, val, strlen(val));
       if(input_slot)
@@ -734,7 +752,8 @@ static void  WriteHPPJLINKBLEED(int num_options, cups_option_t *options)
   char input_slot[MAX_BUFFER] = {0};
   const char *val             = NULL;
 
-  if((val = cupsGetOption(HPPJLINKBLEED, num_options, options)) != NULL)
+  if((val = cupsGetOption(HPPJLINKBLEED, num_options, options)) != NULL ||
+    ((val = GetOptionValue(DEFAULTHPPJLINKBLEED)) != NULL ))
   {
      strncpy(input_slot, val, strlen(val));
      if(input_slot)
@@ -763,6 +782,32 @@ static void  WriteHPPJLINKBLEED(int num_options, cups_option_t *options)
    fprintf(stderr, "HP PS filter func = WriteHPPJLINKBLEED    : WRITING INKBLEED INFO\n");
    return;
 }
+/*************************************************************
+  GetOptionValue( Option ) : 
+  Get the default option value from the PPD file. So that the 
+  default options in the PPD will reflect in applications           
+*************************************************************/ 
+static const char *GetOptionValue(const char *iOptionValue)
+{
+  ppd_file_t	*ppd;
+  ppd_attr_t * attr;
+  char *ppd_file = getenv("PPD");
+  if ((ppd = ppdOpenFile(ppd_file)) == NULL)
+  {
+    fprintf(stderr,"HPPS: Unable to open PPD file for %s \n",ppd_file);
+    return NULL;
+  }
+  attr = ppdFindAttr(ppd, iOptionValue, NULL);
+  if (attr == NULL)
+  {
+    fprintf(stderr,"Attr is emplty \n");
+    return NULL;
+  }
+  fprintf(stderr,"attr->value =  %s \n",attr->value);
+  const char *rValue = strdup(attr->value);
+  ppdClose(ppd);
+  return rValue;
+}
 
 /*
 	This function write ColorAsGray information
@@ -775,7 +820,8 @@ static void  WriteHPPJLCOLORASGRAY(int num_options, cups_option_t *options)
   char input_slot[MAX_BUFFER] = {0};
   const char *val             = NULL;
 
-  if((val = cupsGetOption(HPPJLCOLORASGRAY, num_options, options)) != NULL)
+  if((val = cupsGetOption(HPPJLCOLORASGRAY, num_options, options)) != NULL || 
+    ((val = GetOptionValue(DEFAULTHPPJLCOLORASGRAY)) != NULL ))
   {
      strncpy(input_slot, val, strlen(val));
      if(input_slot)
@@ -829,7 +875,8 @@ static void  WriteHPPJLTRUEBLACK(int num_options, cups_option_t *options)
   char input_slot[MAX_BUFFER] = {0};
   const char *val             = NULL;
 
-  if((val = cupsGetOption(HPPJLTRUEBLACK, num_options, options)) != NULL)
+  if((val = cupsGetOption(HPPJLTRUEBLACK, num_options, options)) != NULL ||
+    ((val = GetOptionValue(DEFAULTHPPJLTRUEBLACK)) != NULL ))
   {
       strncpy(input_slot, val, strlen(val));
       if(input_slot)
@@ -872,6 +919,7 @@ int main (int argc, char **argv)
    int booklet_enabled=0;// default for testing
    int bookletMaker=0;
    char buffer[MAX_BUFFER]     = {0};
+   int LfpSecurePin = 0;
 
     get_LogLevel();
     setbuf (stderr, NULL);
@@ -912,6 +960,10 @@ int main (int argc, char **argv)
     {
          WriteHeader(argv);
          ppd_values = GetPPDValues();
+
+         if (strstr(argv[5], "HPLFPPinPrnt") != NULL && (strstr(argv[5], "noHPLFPPinPrnt"))== NULL)
+         	LfpSecurePin = 1;
+
          if((strstr(argv[5], "HPPinPrnt")) != NULL && (strstr(argv[5], "noHPPinPrnt"))== NULL)
              WriteSecurePrinting(ppd_values[0], num_options, options);
          if( ((strstr(argv[5], "HPBookletFilter")) != NULL) && ((strstr(argv[5], "fitplot")) != NULL) && ((strstr(argv[5], "Duplex=DuplexTumble")) != NULL) && ((strstr(argv[5], "number-up=1")) != NULL) )
@@ -1015,8 +1067,25 @@ int main (int argc, char **argv)
     }
     else
     {
-        while ( (numBytes = cupsFileGetLine(fp_input, line, sizeof(line))) > 0)
-            hpwrite (line, numBytes);
+	while ( (numBytes = cupsFileGetLine(fp_input, line, sizeof(line))) > 0)
+        {
+           if (LfpSecurePin == 1 && strstr(line,"stopped cleartomark") != NULL)
+           {
+ 		char sec_pin[MAX_BUFFER] = {0};
+    		GetSecurePin(sec_pin, num_options, options);  
+		hpwrite (line, numBytes);
+
+                sprintf(buffer, "[{\x0a%%BeginFeature: *PrivacyLevel PrivacyLevelPin\x0a/HPDict /ProcSet findresource /SetPrivacyLevel get /PrivacyLevelPin exch exec /HPDict /ProcSet findresource /SetPrivacyPIN get %s exch exec\x0a%%EndFeature\x0a} stopped cleartomark\x0a", sec_pin);
+                hpwrite(buffer, strlen(buffer));
+                memset(buffer, 0, sizeof(buffer));
+
+                LfpSecurePin = 0;
+           }
+           else
+           {
+                hpwrite (line, numBytes);
+           }
+        }
     }
 
     /* WRITING END OF JOB */

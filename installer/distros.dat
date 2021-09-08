@@ -3477,7 +3477,7 @@ ui_toolkit=qt3
 # ****************************************
 [rhel]
 index=7
-versions=5.0,6.0,7.0,7.1,7.2,7.3,7.6,8.0,8.1,8.2,8.3,7.7,7.9,7.8
+versions=5.0,6.0,7.0,7.1,7.2,7.3,7.6,8.0,8.1,8.2,8.3,7.7,7.9,7.8,8.4
 display_name=Red Hat Enterprise Linux
 alt_names=red hat enterprise linux
 display=1
@@ -4041,6 +4041,12 @@ same_as_version=8.0
 [rhel:8.3]
 packaged_version=3.21.1
 release_date=29/10/2020
+same_as_version=8.0
+
+# ****************************************
+[rhel:8.4]
+packaged_version=3.21.8
+release_date=03/01/2021
 same_as_version=8.0
 
 # ****************************************
@@ -12932,7 +12938,7 @@ packages=epm
 # ****************************************
 [linuxmint]
 index=22
-versions=13,14,15,16,17,17.1,17.2,17.3,18,18.1,18.2,18.3,19,19.1,19.2,19.3,20,20.1
+versions=13,14,15,16,17,17.1,17.2,17.3,18,18.1,18.2,18.3,19,19.1,19.2,19.3,20,20.1,20.2
 display_name=Linux Mint
 alt_names=mint, mint linux
 display=1
@@ -15150,6 +15156,148 @@ packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 # ****************************************
 
+[linuxmint:20.2]
+code_name=Ulyana
+packaged_version=3.21.8
+release_date=03/01/2021
+supported=1
+scan_supported=1
+fax_supported=1
+pcard_supported=1
+network_supported=1
+parallel_supported=1
+usb_supported=1
+notes=Enable the universe/multiverse repositories. Also be sure you are using the Ubuntu "Main" Repositories. See: https://help.ubuntu.com/community/Repositories/Ubuntu for more information.  Disable the CD-ROM/DVD source if you do not have the Ubuntu installation media inserted in the drive.
+ppd_install=drv
+udev_mode_fix=1
+ppd_dir=/usr/share/ppd/HP
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+ui_toolkit=qt5
+native_cups=1
+acl_rules=1
+#scanjet_depend_cmd=sudo apt-get install --assume-yes python2-pip,sudo pip2 install --upgrade pip,sudo -H pip2 install setuptools,sudo pip2 install --upgrade setuptools,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip2 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-all,sudo apt-get install --assume-yes libzbar-dev,sudo apt-get install --assume-yes python-zbar,sudo apt-get install --assume-yes python-opencv,sudo apt-get install --assume-yes python-pypdf2,sudo -H pip2 install imutils,sudo -H pip2 install pypdfocr,sudo -H pip2 install scikit-image,sudo -H pip2 install scipy
+#scanjet_py3_depend_cmd=sudo apt-get install --assume-yes python3-pip,sudo pip3 install --upgrade pip,sudo -H pip3 install setuptools,sudo pip3 install --upgrade setuptools,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip3 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-all,sudo -H pip3 install opencv-python,sudo -H pip3 install PyPDF2,sudo -H pip3 install imutils,sudo -H pip3 install ocrmypdf,sudo -H pip3 install scikit-image,sudo -H pip3 install scipy
+
+libdir_path=/usr/lib/x86_64-linux-gnu
+
+[linuxmint:20.2:cups]
+packages=libcups2
+
+[linuxmint:20.2:cups-devel]
+packages=libcups2-dev,cups-bsd,cups-client
+
+[linuxmint:20.2:gcc]
+packages=build-essential
+
+[linuxmint:20.2:gs]
+packages=ghostscript
+
+[linuxmint:20.2:libcrypto]
+packages=
+commands=sudo DEBIAN_FRONTEND=noninteractive apt-get --assume-yes install openssl
+
+[linuxmint:20.2:libjpeg]
+packages=libjpeg8-dev
+
+[linuxmint:20.2:libnetsnmp-devel]
+packages=
+commands=sudo DEBIAN_FRONTEND=noninteractive apt-get --assume-yes install libsnmp-dev,sudo apt-get --assume-yes install snmp-mibs-downloader
+
+[linuxmint:20.2:libpthread]
+packages=build-essential
+
+[linuxmint:20.2:libtool]
+packages=libtool,libtool-bin
+
+[linuxmint:20.2:libusb]
+packages=libusb-1.0.0-dev
+
+[linuxmint:20.2:make]
+packages=build-essential
+
+#[linuxmint:20.2:pil]
+#packages=python-imaging
+
+[linuxmint:20.2:ppdev]
+packages=
+commands=sudo modprobe ppdev,sudo cp -f /etc/modules /etc/modules.hplip,echo ppdev | sudo tee -a /etc/modules
+
+[linuxmint:20.2:reportlab]
+packages=python-reportlab
+
+[linuxmint:20.2:sane]
+packages=libsane
+
+[linuxmint:20.2:sane-devel]
+packages=libsane-dev
+
+[linuxmint:20.2:scanimage]
+packages=sane-utils
+
+[linuxmint:20.2:xsane]
+packages=xsane
+
+[linuxmint:20.2:python-dbus]
+packages=python-dbus,python-gobject
+
+[linuxmint:20.2:dbus]
+packages=libdbus-1-dev
+
+[linuxmint:20.2:cups-image]
+packages=libcupsimage2-dev
+
+[linuxmint:20.2:cups-ddk]
+packages=cups,libcupsimage2-dev
+
+[linuxmint:20.2:policykit]
+packages=policykit-1,policykit-1-gnome
+
+[linuxmint:20.2:python-notify]
+packages=python-notify
+
+[linuxmint:20.2:network]
+packages=wget
+
+[linuxmint:20.2:avahi-utils]
+packages=avahi-utils
+
+[linuxmint:20.2:python3-pyqt5-dbus]
+packages=python3-dbus.mainloop.pyqt5
+
+[linuxmint:20.2:python3-pyqt5]
+packages=python3-pyqt5,gtk2-engines-pixbuf
+
+[linuxmint:20.2:python3-dbus]
+packages=python3-dbus,python3-gi
+
+[linuxmint:20.2:python3-xml]
+packages=python3-lxml
+
+[linuxmint:20.2:python3-devel]
+packages=python3-dev
+
+[linuxmint:20.2:python3-pil]
+packages=python3-pil
+
+[linuxmint:20.2:python3-reportlab]
+packages=python3-reportlab
+
+[linuxmint:20.2:python3-notify2]
+packages=python3-notify2,mate-notification-daemon
+
+[linuxmint:20.2:automake]
+packages=automake1.11
+
+[linuxmint:20.2:epm]
+packages=epm
+
+[linuxmint:20.2:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
+
+# ****************************************
+
 [linpus]
 index=25
 versions=9.4,9.5
@@ -15961,7 +16109,7 @@ packages=epm
 
 [manjarolinux]
 index=26
-versions=17.1.4,18.0,18.0.4,18.1.0,18.1.2,19.0,20.0.1,20.1.1,20.2
+versions=17.1.4,18.0,18.0.4,18.1.0,18.1.2,19.0,20.0.1,20.1.1,20.2,21.0.7
 display_name=Manjaro Linux
 alt_names=ManjaroLinux,manjaro
 display=1
@@ -17570,3 +17718,168 @@ packages=automake
 
 [manjarolinux:20.2:libavahi-dev]
 packages=avahi
+# ****************************************
+
+[manjarolinux:21.0.7]
+code_name=Ornara
+supported=1
+scan_supported=1
+fax_supported=1
+pcard_supported=1
+network_supported=1
+parallel_supported=1
+usb_supported=1
+packaged_version=3.21.8
+release_date=01/09/2021
+notes=Enable the universe/multiverse repositories. Also be sure you are using the Manjaro "Main" Repositories. See: https://wiki.manjaro.org/index.php/Arch_User_Repository for more information.  Disable the CD-ROM/DVD source if you do not have the Manjaro installation media inserted in the drive.
+ppd_install=drv
+udev_mode_fix=1
+ppd_dir=/usr/share/ppd/HP
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+ui_toolkit=qt5
+native_cups=1
+acl_rules=1
+package_mgr_cmd=sudo pacman -S --noconfirm $packages_to_install
+#scanjet_depend_cmd=sudo pacman -Sy --noconfirm python2-pip,sudo pacman -Sy --noconfirm tesseract,sudo pacman -Sy --noconfirm leptonica,sudo pip2 install tesserocr,sudo pacman -Sy --noconfirm tesseract-data-*,sudo pip2 install opencv-python,sudo pip2 install PyPDF2,sudo pip2 install imutils,sudo pip2 install pypdfocr,sudo pip2 install scikit-image,sudo pip2 install scipy
+#scanjet_py3_depend_cmd=sudo pacman -Sy --noconfirm python3-pip,sudo pacman -Sy --noconfirm tesseract,sudo pacman -Sy --noconfirm leptonica,sudo pip3 install tesserocr,sudo pacman -Sy --noconfirm tesseract-data-*,sudo pip3 install opencv-python,sudo pip3 install PyPDF2,sudo pip3 install imutils,sudo pip3 install ocrmypdf,sudo pip3 install scikit-image,sudo pip3 install scipy
+scanjet_depend_cmd=sudo pacman -Sy --noconfirm python2-pip,sudo pacman -Sy --noconfirm tesseract,sudo pacman -Sy --noconfirm leptonica,sudo pip2 install tesserocr,sudo pacman -Sy --noconfirm tesseract-data-eng,sudo pip2 install opencv-python,sudo pip2 install PyPDF2,sudo pip2 install imutils,sudo pacman -Sy --noconfirm zbar,sudo pip2 install pypdfocr,sudo pip2 install scikit-image,sudo pip2 install scipy
+scanjet_py3_depend_cmd=sudo pacman -Sy --noconfirm llvm,sudo pacman -Sy --noconfirm llvm-libs,sudo pacman -Sy --noconfirm python-pip,sudo easy_install pip==18.0,sudo pip install Pillow,sudo pacman -Sy --noconfirm tesseract,sudo pacman -Sy --noconfirm leptonica,sudo pip3 install tesserocr,sudo pacman -Sy --noconfirm tesseract-data-eng,sudo pip3 install opencv-python,sudo pip3 install PyPDF2,sudo pip3 install imutils,sudo pip3 install ocrmypdf,sudo pip3 install scikit-image,sudo pip3 install scipy,sudo pip3 install notify2
+
+libdir_path=/usr/lib
+[manjarolinux:21.0.7:cups]
+packages=libcups2
+
+[manjarolinux:21.0.7:libjpeg]
+packages=libjpeg-turbo
+
+[manjarolinux:21.0.7:cups-devel]
+packages=libcups2-dev,cups-bsd,cups-client
+
+[manjarolinux:21.0.7:gcc]
+packages=libusb-compat
+commands=/bin/bash -c "yes | sudo pacman -Sy gcc-multilib gcc-libs-multilib lib32-gcc-libs lib32-glibc",/bin/bash -c "yes | sudo pacman -S --needed gcc"
+
+[manjarolinux:21.0.7:gs]
+packages=libidn,ghostscript
+
+[manjarolinux:21.0.7:gtk-engine-murrine]
+packages=gtk-engine-murrine
+
+[manjarolinux:21.0.7:libcrypto]   
+packages=openssl,libssl-dev 
+
+[manjarolinux:21.0.7:libnetsnmp-devel]
+packages=libsnmp-dev,snmp-mibs-downloader
+
+[manjarolinux:21.0.7:libpthread]
+packages=libpthread-stubs
+
+[manjarolinux:21.0.7:libtool]
+packages=libtool,libtool-bin
+
+[manjarolinux:21.0.7:libusb]
+packages=libusb-1.0.0-dev
+
+[manjarolinux:21.0.7:make]
+packages=make
+
+[manjarolinux:21.0.7:pil]
+packages=python2-imaging
+
+[manjarolinux:21.0.7:ppdev]
+packages=
+commands=sudo modprobe ppdev,sudo cp -f /etc/modules /etc/modules.hplip,echo ppdev | sudo tee -a /etc/modules
+
+[manjarolinux:21.0.7:pyqt]
+packages=python-qtpy
+
+[manjarolinux:21.0.7:python2-devel]
+packages=
+commands=sudo pacman -S --noconfirm pygtk
+
+[manjarolinux:21.0.7:pyqt5]
+packages=python-qtpy
+
+[manjarolinux:21.0.7:pyqt5-dbus]
+packages=qt5-tools
+
+[manjarolinux:21.0.7:python23]
+packages=python2
+
+[manjarolinux:21.0.7:python2X]
+packages=python2
+
+[manjarolinux:21.0.7:reportlab]
+packages=python2-reportlab
+
+[manjarolinux:21.0.7:sane]
+packages=sane
+
+[manjarolinux:21.0.7:sane-devel]
+packages=
+
+[manjarolinux:21.0.7:scanimage]
+packages=
+
+[manjarolinux:21.0.7:xsane]
+packages=xsane
+
+[manjarolinux:21.0.7:python-dbus]
+packages=dbus-python,python2-dbus
+
+[manjarolinux:21.0.7:dbus]
+packages=libdbus-1-dev
+
+[manjarolinux:21.0.7:cups-image]
+packages=libcupsimage2-dev
+
+[manjarolinux:21.0.7:cups-ddk]
+packages=cups
+
+[manjarolinux:21.0.7:policykit]
+packages=polkit,polkit-gnome
+
+[manjarolinux:21.0.7:network]
+packages=wget
+
+[manjarolinux:21.0.7:avahi-utils]
+packages=avahi-utils
+
+[manjarolinux:21.0.7:python3-pyqt4]
+packages=python-pyqt5
+
+[manjarolinux:21.0.7:python3-pyqt5-dbus]
+packages=libdbusmenu-qt5,lib32-dbus,pkgconf
+
+[manjarolinux:21.0.7:python3-pyqt5]
+packages=python-pyqt5
+
+[manjarolinux:21.0.7:python3-dbus]
+packages=python-dbus,python-gi
+
+[manjarolinux:21.0.7:python3-xml]
+packages=python-lxml
+
+[manjarolinux:21.0.7:python3-devel]
+packages=
+
+[manjarolinux:21.0.7:python3-pil]
+packages=python2-pillow
+
+[manjarolinux:21.0.7:python3-reportlab]
+packages=python-reportlab
+
+[manjarolinux:21.0.7:autoconf]
+packages=autoconf
+
+[manjarolinux:21.0.7:epm]
+packages=
+
+[manjarolinux:21.0.7:automake]
+packages=automake
+
+[manjarolinux:21.0.7:libavahi-dev]
+packages=avahi
+
+# ****************************************

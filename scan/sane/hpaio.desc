@@ -1009,6 +1009,9 @@
 :model "HP Deskjet Ink Advantage Ultra 4729 All-in-one Printer"
 :status :good
 
+:model "HP Deskjet Ink Advantage Ultra 4800 All-in-one Printer Series"
+:status :good
+
 :model "HP Deskjet Ink Advantage Ultra 5738 All-in-one Printer"
 :status :good
 
@@ -4165,13 +4168,34 @@
 :model "HP Smart Tank 610"
 :status :good
 
+:model "HP Smart Tank 750"
+:status :good
+
+:model "HP Smart Tank 7600"
+:status :good
+
+:model "HP Smart Tank 790"
+:status :good
+
 :model "HP Smart Tank Plus 550"
 :status :good
 
 :model "HP Smart Tank Plus 570 Series"
 :status :good
 
+:model "HP Smart Tank Plus 6000"
+:status :good
+
 :model "HP Smart Tank Plus 650"
+:status :good
+
+:model "HP Smart Tank Plus 660-670"
+:status :good
+
+:model "HP Smart Tank Plus 7000"
+:status :good
+
+:model "HP Smart Tank Plus 710-720"
 :status :good
 
 :model "HP Smart Tank Wireless 450"

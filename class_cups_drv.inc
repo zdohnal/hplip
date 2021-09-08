@@ -49,6 +49,7 @@ class_cups_ppd_printers = \
    ppd/classppd/hpcups/hp-PCLM-MONO.ppd.gz \
    ppd/classppd/hpcups/hp-PSP100-Normal.ppd.gz \
    ppd/classppd/hpcups/hp-PSP470-FullBleed.ppd.gz \
+   ppd/classppd/hpcups/hp-Peaks-mod-mech-Normal.ppd.gz \
    ppd/classppd/hpcups/hp-Pyramid-K10.ppd.gz \
    ppd/classppd/hpcups/hp-Pyramid-NoAutoDuplex-NoCDDVD.ppd.gz \
    ppd/classppd/hpcups/hp-Pyramid15-Normal.ppd.gz \

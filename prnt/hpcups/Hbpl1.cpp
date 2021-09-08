@@ -132,7 +132,7 @@ DRIVER_ERROR Hbpl1::StartJob(SystemServices *pSystemServices, JobAttributes *pJA
     err = m_pHbpl1Wrapper->StartJob((void**)&m_pOutBuffer, &m_OutBuffSize);
     err = sendBuffer(static_cast<const BYTE *>(m_pOutBuffer), m_OutBuffSize);
     m_pHbpl1Wrapper->FreeBuffer(m_pOutBuffer, m_OutBuffSize);
-
+    
     if (m_PrintinGrayscale ==  ON){  //Grayscale = ON
         m_ColorMode = COLORTYPE_BOTH;
     } else if(m_JA.color_mode == COLOR){ // if color cartridge && Grayscale = OFF
@@ -180,7 +180,12 @@ DRIVER_ERROR Hbpl1::sendBlankBands()
     DRIVER_ERROR err = NO_ERROR;
     return err;
 }
-
+/***********************************************************************************
+FormFeed writes any remaining raster data at the end of the page.
+For cases when the lines remaining at the end of the page are less than strip height,
+FormFeed will put all such remaing lines from input raster into the OutBuffer.
+And will reset scan lines counter to zero for next page(HPLIP-1041).
+************************************************************************************/
 DRIVER_ERROR Hbpl1::FormFeed ()
 {
 
@@ -203,12 +208,16 @@ DRIVER_ERROR Hbpl1::FormFeed ()
 	sendBuffer(m_pOutBuffer, m_OutBuffSize);
     m_pHbpl1Wrapper->FreeBuffer(m_pOutBuffer,m_OutBuffSize);
 	m_nBandCount = 0;
+	m_numScanLines = 0;
 
 	return NO_ERROR;
 
 }
 
-
+/***********************************************************************************
+Encapsulate reads one strip at a time and puts it in the Out Buffer.
+For a strip height of 128 we iterate through input StripData one scanline at a time
+************************************************************************************/
 DRIVER_ERROR    Hbpl1::Encapsulate (RASTERDATA *InputRaster, bool bLastPlane)
 {
     DRIVER_ERROR    err = NO_ERROR;

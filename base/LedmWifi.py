@@ -51,9 +51,39 @@ passPhraseXml="""<io:Profile xmlns:io="http://www.hp.com/schemas/imaging/con/led
 
 keyInfoXml = """<io:KeyInfo><io:WpaPassPhraseInfo><wifi:RsnEncryption>AESOrTKIP</wifi:RsnEncryption><wifi:RsnAuthorization>autoWPA</wifi:RsnAuthorization><wifi:PassPhrase>%s</wifi:PassPhrase></io:WpaPassPhraseInfo></io:KeyInfo>"""
 
+def flushThePort(dev):
+    response = io.BytesIO()
+    timeout = 1
+    if dev.openLEDM() == -1:
+        dev.closeLEDM()
+        if dev.openEWS_LEDM() == -1:            
+            dev.openMarvell_EWS()
+            try:
+                while dev.readMarvell_EWS(1024, response, timeout):
+                    pass
+            except Error:                
+                log.error("Unable to read Marvell_EWS Channel")
+            finally:
+                dev.closeMarvell_EWS() 
+        else:
+            try:
+                dev.readLEDMAllData(dev.readEWS_LEDM, response, timeout)
+            except Error:                
+                log.error("Unable to read EWS_LEDM Channel")
+            finally:
+                dev.closeEWS_LEDM()    
+    else:
+        try:
+            dev.readLEDMAllData(dev.readLEDM, response, timeout)
+        except Error:            
+            log.error("Unable to read LEDM Channel")
+        finally:
+            dev.closeLEDM()
+
 def getAdaptorList(dev):
     ret,params,elementCount,code ={},{},0,HTTP_ERROR         
     max_tries = 0
+    flushThePort(dev)
     while max_tries < MAX_RETRIES:
         max_tries +=1
         URI = LEDM_WIFI_BASE_URI[0:len(LEDM_WIFI_BASE_URI)-1]# to remove "\" from the string
@@ -134,7 +164,7 @@ def setAdaptorPower(dev, adapterList, power_state='on'):
        URI = LEDM_WIFI_BASE_URI + adaptorName
        powerXml = adapterPowerXml_payload1 %(power_state)  
   
-       ret['errorreturn'] = writeXmlDataToURI(dev,URI,powerXml,15)
+       ret['errorreturn'] = writeXmlDataToURI(dev,URI,powerXml,60)
        if not(ret['errorreturn'] == HTTP_OK or ret['errorreturn'] == HTTP_NOCONTENT):
           log.debug("Wifi Adapter turn ON request Failed. ResponseCode=%s AdaptorId=%s AdaptorName=%s. Trying another interface" %(ret['errorreturn'],adaptor_id,adaptorName))
           powerXml = adapterPowerXml_payload2 %(power_state)
@@ -158,7 +188,7 @@ def performScan(dev, adapterName, ssid=None):
         URI = LEDM_WIFI_BASE_URI + adapterName + "/WifiNetworks/SSID="+ssid 
 
     while True:            
-        params,code,elementCount = readXmlDataFromURI(dev,URI,'<io:WifiNetworks', '<io:WifiNetwork>',10)        
+        params,code,elementCount = readXmlDataFromURI(dev,URI,'<io:WifiNetworks', '<io:WifiNetwork>',30)        
         if code == HTTP_ACCEPTED:
             continue
         else:
@@ -524,7 +554,8 @@ def readXmlTagDataFromURI(dev,URI,xmlRootNode,xmlReqDataNode,timeout=5):
     if strResp is not None:                             
         code = get_error_code(strResp)
         if code == HTTP_OK:
-            strResp = utils.unchunck_xml_data(strResp)
+            #strResp = utils.unchunck_xml_data(strResp)
+            strResp = utils.extract_xml_chunk(strResp)
             pos = strResp.find(xmlRootNode,0,len(strResp))    
             repstr = strResp[pos:].strip()
             repstr = repstr.replace('\r',' ').replace('\t',' ').replace('\n',' ') # To remove formating characters from the received xml

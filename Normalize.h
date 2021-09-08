@@ -4,9 +4,9 @@
 #include"Common.h"
 
 #define MAX_TECH_CLASS_PDL                 67
-#define MAX_TECH_CLASS                     76
-#define MAX_FAMILY_CLASS                   53
-#define MAX_SUB_CLASS                      31
+#define MAX_TECH_CLASS                     77
+#define MAX_FAMILY_CLASS                   54
+#define MAX_SUB_CLASS                      32
 
 
 #define COLOR                              "Color"
