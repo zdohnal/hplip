@@ -1011,11 +1011,11 @@ class SetupDialog(QDialog, Ui_Dialog):
 
     def setAddPrinterButton(self):
         '''
-        If the device is on usb we assign new ipp uri to the printer. 
+        If the device is on usb and os doesn't supports ipp-usb we assign new ipp uri to the printer. 
         this is for driverless usb printer held by ippusbxd service on ubuntu 20 and above.
         For network devices follow the old code.
         '''
-        if(self.bus == "usb"):
+        if(self.bus == "usb" and not os.path.isdir('/usr/share/ipp-usb/quirks')):
             from base import local
             from base.local import detectLocalDevices
             try:

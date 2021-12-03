@@ -12242,6 +12242,14 @@ Transparency"
     Attribute "Product" "" "(HP LaserJet m106w)"
   }
   {
+    ModelName "HP LaserJet m109-m112 hpijs"
+    Attribute "NickName" "" "HP LaserJet m109-m112 hpijs, $Version"
+    Attribute "ShortNickName" "" "HP LaserJet m109-m112 hpijs"
+    Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet m109-m112;DES:hp laserjet m109-m112;"
+    PCFileName "hp-laserjet_m109-m112-hpijs.ppd"
+    Attribute "Product" "" "(HP LaserJet m109-m112)"
+  }
+  {
     ModelName "HP LaserJet m14-m17 hpijs"
     Attribute "NickName" "" "HP LaserJet m14-m17 hpijs, $Version"
     Attribute "ShortNickName" "" "HP LaserJet m14-m17 hpijs"
@@ -12272,6 +12280,14 @@ Transparency"
     Attribute "Product" "" "(HP LaserJet Pro MFP m130nw)"
     Attribute "Product" "" "(HP LaserJet Pro MFP m130fn)"
     Attribute "Product" "" "(HP LaserJet Pro MFP m130fw)"
+  }
+  {
+    ModelName "HP LaserJet MFP m139-m142 hpijs"
+    Attribute "NickName" "" "HP LaserJet MFP m139-m142 hpijs, $Version"
+    Attribute "ShortNickName" "" "HP LaserJet MFP m139-m142 hpijs"
+    Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet mfp m139-m142;DES:hp laserjet mfp m139-m142;"
+    PCFileName "hp-laserjet_mfp_m139-m142-hpijs.ppd"
+    Attribute "Product" "" "(HP LaserJet MFP m139-m142)"
   }
   {
     ModelName "HP LaserJet MFP m28-m31 hpijs"
@@ -14948,6 +14964,22 @@ lity:PenSet=2,Quality:FullBleed=1"
     Attribute "1284DeviceID" "" "MFG:HP;MDL:envy 8000 series;DES:envy 8000 series;"
     PCFileName "hp-envy_8000_series-hpijs.ppd"
     Attribute "Product" "" "(HP Envy 8000 E-all-in-one)"
+  }
+  {
+    ModelName "HP Envy Inspire 7200 Series hpijs"
+    Attribute "NickName" "" "HP Envy Inspire 7200 Series hpijs, $Version"
+    Attribute "ShortNickName" "" "envy_inspire_7200_series"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:envy inspire 7200 series;DES:envy inspire 7200 series;"
+    PCFileName "hp-envy_inspire_7200_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Envy Inspire 7200e Series)"
+  }
+  {
+    ModelName "HP Envy Inspire 7900 Series hpijs"
+    Attribute "NickName" "" "HP Envy Inspire 7900 Series hpijs, $Version"
+    Attribute "ShortNickName" "" "envy_inspire_7900_series"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:envy inspire 7900 series;DES:envy inspire 7900 series;"
+    PCFileName "hp-envy_inspire_7900_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Envy Inspire 7900e Series)"
   }
   {
     ModelName "HP Officejet 5740 Series hpijs"

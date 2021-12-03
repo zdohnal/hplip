@@ -168,6 +168,8 @@ dist_hplip_SCRIPTS = hpssd.py __init__.py hpdio.py
 endif #HPLIP_CLASS_DRIVER
 
 dist_noinst_DATA += prnt/drv/hpijs.drv.in.template prnt/drv/hpcups.drv.in.template prnt/hpcups/libImageProcessor-x86_64.so prnt/hpcups/libImageProcessor-x86_32.so
+
+dist_noinst_DATA += prnt/ipp-usb/HPLIP.conf
 dist_noinst_SCRIPTS += dat2drv.py install.py  hplip-install init-suse-firewall init-iptables-firewall class_rpm_build.sh hplipclassdriver.spec createPPD.sh Makefile_dat2drv hpijs-drv
 
 if !HPLIP_CLASS_DRIVER
@@ -694,6 +696,10 @@ if HPLIP_BUILD
 		cp prnt/hpcups/libImageProcessor-x86_32.so $(libdir)/ ; \
 		chmod 775 $(libdir)/libImageProcessor-x86_32.so ; \
 		ln -sf $(libdir)/libImageProcessor-x86_32.so $(libdir)/libImageProcessor.so ; \
+	fi
+	if [ -d "/usr/share/ipp-usb/quirks/" ]; then \
+		echo "ipp-usb directory exists"; \
+		cp prnt/ipp-usb/HPLIP.conf /usr/share/ipp-usb/quirks/ ; \
 	fi
 if !HPLIP_CLASS_DRIVER
 #	   If scanner build, add hpaio entry to sane dll.conf.

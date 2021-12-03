@@ -39,6 +39,7 @@ owner @{HOME}/.config/dconf/user w,
 dbus,
 
 /{,usr/}bin/cut rix,
+/{,usr/}bin/tar rix,
 /{,usr/}bin/lsb_release rix,
 /{,usr/}bin/head rix,
 /{,usr/}bin/gawk rix,

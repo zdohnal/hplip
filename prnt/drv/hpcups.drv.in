@@ -5787,6 +5787,22 @@ Manufacturer "HP"
       Attribute "Product" "" "(HP Envy 8000 E-all-in-one)"
     }
     {
+      ModelName "HP Envy Inspire 7200 Series"
+      Attribute "NickName" "" "HP Envy Inspire 7200 Series, hpcups $Version"
+      Attribute "ShortNickName" "" "HP Envy Inspire 7200 Series hpijs"
+      Attribute "1284DeviceID" "" "MFG:HP;MDL:envy inspire 7200 series;DES:envy inspire 7200 series;"
+      PCFileName "hp-envy_inspire_7200_series.ppd"
+      Attribute "Product" "" "(HP Envy Inspire 7200e Series)"
+    }
+    {
+      ModelName "HP Envy Inspire 7900 Series"
+      Attribute "NickName" "" "HP Envy Inspire 7900 Series, hpcups $Version"
+      Attribute "ShortNickName" "" "HP Envy Inspire 7900 Series hpijs"
+      Attribute "1284DeviceID" "" "MFG:HP;MDL:envy inspire 7900 series;DES:envy inspire 7900 series;"
+      PCFileName "hp-envy_inspire_7900_series.ppd"
+      Attribute "Product" "" "(HP Envy Inspire 7900e Series)"
+    }
+    {
       ModelName "HP Officejet 5740 Series"
       Attribute "NickName" "" "HP Officejet 5740 Series, hpcups $Version"
       Attribute "ShortNickName" "" "HP Officejet 5740 Series hpijs"
@@ -7733,6 +7749,16 @@ Manufacturer "HP"
          "<</cupsString0(na_number-10_4.125x9.5in)/PageSize[297 684]/ImagingBBox null>>setpagedevice"
   CustomMedia "EnvC5/C5 Envelope 162x229mm" 459 649 14 14 14 14 "<</cupsString0(iso_c5_162x229mm)/PageSize[459 649]/ImagingBBox null>>setpagedevice"
          "<</cupsString0(iso_c5_162x229mm)/PageSize[459 649]/ImagingBBox null>>setpagedevice"
+  CustomMedia "8.5x13in/Oficio 8.5x13" 612 936 14 14 14 14 "<</cupsString0(na_foolscap_8.5x13in)/PageSize[612 936]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(na_foolscap_8.5x13in)/PageSize[612 936]/ImagingBBox null>>setpagedevice"
+  CustomMedia "216x340mm/Oficio 216x340mm" 612 936 14 14 14 14 "<</cupsString0(na_legal_216x340mm)/PageSize[612 964]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(na_legal_216x340mm)/PageSize[612 964]/ImagingBBox null>>setpagedevice" 
+  CustomMedia "A5/A5 148x210mm" 419.76 595.44 14 14 14 14 "<</cupsString0(iso_a5_148x210mm)/PageSize[420 595]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(iso_a5_148x210mm)/PageSize[419.76 595.44]/ImagingBBox null>>setpagedevice"
+  CustomMedia "EnvC6/C6 Envelope 114x162mm" 323.28 459.36 14 14 14 14 "<</cupsString0(iso_c6_114x162mm)/PageSize[323.28 459.36]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 92/PageSize[323.28 459.36]/ImagingBBox null>>setpagedevice"
+  CustomMedia "EnvChou3/#3 Japanese Envelope 120x235mm" 339.84 666 14 14 14 14 "<</cupsString0(jpn_chou3_120x235mm)/PageSize[339.84 666]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 110/PageSize[339.84 666]/ImagingBBox null>>setpagedevice"              
     // Custom page sizes from 1x4in to Legal
     
    // cupsRowCount values map to PEN_TYPE + 1 from global_types.h
@@ -7781,7 +7807,7 @@ Manufacturer "HP"
     {
      HWMargins 14 14 14 14
      VariablePaperSize Yes
-     MinSize 3in 5in
+     MinSize 3.94in 5.83in
      MaxSize 8.5in 14in
 
     } // <%PCLM-MONO%>
@@ -12586,6 +12612,18 @@ Manufacturer "HP"
          "<</cupsInteger0 110/PageSize[339.84 666]/ImagingBBox null>>setpagedevice"
   CustomMedia "EnvChou4/#4 Japanese Envelope 90x205mm" 254.88 581.04 9 40.536 9 9 "<</cupsInteger0 111/PageSize[254.88 581.04]/ImagingBBox null>>setpagedevice"
          "<</cupsInteger0 111/PageSize[254.88 581.04]/ImagingBBox null>>setpagedevice"
+  CustomMedia "Custom1/Custom 1" 612 1008 8.4 8.4 8.4 8.4 "<</cupsInteger0 101/PageSize [612 1008]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 101/PageSize[612 1008]/ImagingBBox null>>setpagedevice"
+  CustomMedia "Custom1.FB/Borderless Custom" 612 1008 0 0 0 0 "<</cupsInteger0 101/PageSize [612 1008]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 75/PageSize[360 576]/ImagingBBox null>>setpagedevice"
+  CustomMedia "IndexCardA4/Index Card A4" 595.44 841.68 8.4 8.4 8.4 8.4 "<</cupsInteger0 26/PageSize [595.44 841.68]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 26/PageSize[595.44 841.68]/ImagingBBox null>>setpagedevice"
+  CustomMedia "IndexCardA4.FB/Borderless Index Card A4" 595.44 841.68 0 0 0 0 "<</cupsInteger0 26/PageSize [595.44 841.68]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 26/PageSize[595.44 841.68]/ImagingBBox null>>setpagedevice"
+  CustomMedia "IndexCardLetter/Index Card Letter" 612 792 8.4 8.4 8.4 8.4 "<</cupsInteger0 2/PageSize [612 792]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 2/PageSize[612 792]/ImagingBBox null>>setpagedevice"
+  CustomMedia "IndexCardLetter.FB/Borderless Index Card Letter" 612 792 0 0 0 0 "<</cupsInteger0 2/PageSize [612 792]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 2/PageSize[612 792]/ImagingBBox null>>setpagedevice"
 
   // Custom page sizes from 3x4in to Legal
   HWMargins 9 9 9 9
@@ -23169,6 +23207,10 @@ Group "RLT/HP Real Life Technologies"
          "<</cupsString0(iso_c5_162x229mm)/PageSize[459 649]/ImagingBBox null>>setpagedevice"
   CustomMedia "EnvISOB5/B5 Envelope 176x250mm" 499 709 14 14 14 14 "<</cupsString0(iso_b5_176x250mm)/PageSize[499 709]/ImagingBBox null>>setpagedevice"
          "<</cupsString0(iso_b5_176x250mm)/PageSize[499 709]/ImagingBBox null>>setpagedevice"
+  CustomMedia "EnvC6/C6 Envelope 114x162mm" 323.28 459.36 14 14 14 14 "<</cupsString0(iso_c6_114x162mm)/PageSize[323.28 459.36]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 92/PageSize[323.28 459.36]/ImagingBBox null>>setpagedevice"
+  CustomMedia "EnvChou3/#3 Japanese Envelope 120x235mm" 339.84 666 14 14 14 14 "<</cupsString0(jpn_chou3_120x235mm)/PageSize[339.84 666]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 110/PageSize[339.84 666]/ImagingBBox null>>setpagedevice"              
 
     // Custom page sizes from 1x4in to Legal
     HWMargins 14 14 14 14
@@ -23237,6 +23279,14 @@ Group "RLT/HP Real Life Technologies"
      Attribute "Product" "" "(HP LaserJet m106w)"
    }
    {
+     ModelName "HP LaserJet m109-m112"
+     Attribute "NickName" "" "HP LaserJet m109-m112, hpcups $Version"
+     Attribute "ShortNickName" "" "HP LaserJet m109-m112 hpijs"
+     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet m109-m112;DES:hp laserjet m109-m112;"
+     PCFileName "hp-laserjet_m109-m112.ppd"
+     Attribute "Product" "" "(HP LaserJet m109-m112)"
+   }
+   {
      ModelName "HP LaserJet m14-m17"
      Attribute "NickName" "" "HP LaserJet m14-m17, hpcups $Version"
      Attribute "ShortNickName" "" "HP LaserJet m14-m17 hpijs"
@@ -23267,6 +23317,14 @@ Group "RLT/HP Real Life Technologies"
      Attribute "Product" "" "(HP LaserJet Pro MFP m130nw)"
      Attribute "Product" "" "(HP LaserJet Pro MFP m130fn)"
      Attribute "Product" "" "(HP LaserJet Pro MFP m130fw)"
+   }
+   {
+     ModelName "HP LaserJet MFP m139-m142"
+     Attribute "NickName" "" "HP LaserJet MFP m139-m142, hpcups $Version"
+     Attribute "ShortNickName" "" "HP LaserJet MFP m139-m142 hpijs"
+     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet mfp m139-m142;DES:hp laserjet mfp m139-m142;"
+     PCFileName "hp-laserjet_mfp_m139-m142.ppd"
+     Attribute "Product" "" "(HP LaserJet MFP m139-m142)"
    }
    {
      ModelName "HP LaserJet MFP m28-m31"

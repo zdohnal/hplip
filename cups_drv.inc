@@ -300,6 +300,8 @@ cups_ppd_printers = \
    ppd/hpcups/hp-envy_6400_series.ppd.gz \
    ppd/hpcups/hp-envy_7640_series.ppd.gz \
    ppd/hpcups/hp-envy_8000_series.ppd.gz \
+   ppd/hpcups/hp-envy_inspire_7200_series.ppd.gz \
+   ppd/hpcups/hp-envy_inspire_7900_series.ppd.gz \
    ppd/hpcups/hp-envy_photo_6200_series.ppd.gz \
    ppd/hpcups/hp-envy_photo_7100_series.ppd.gz \
    ppd/hpcups/hp-envy_photo_7800_series.ppd.gz \
@@ -411,6 +413,7 @@ cups_ppd_printers = \
    ppd/hpcups/hp-laserjet_cp1025nw.ppd.gz \
    ppd/hpcups/hp-laserjet_m1005.ppd.gz \
    ppd/hpcups/hp-laserjet_m101-m106.ppd.gz \
+   ppd/hpcups/hp-laserjet_m109-m112.ppd.gz \
    ppd/hpcups/hp-laserjet_m1120_mfp.ppd.gz \
    ppd/hpcups/hp-laserjet_m1120n_mfp.ppd.gz \
    ppd/hpcups/hp-laserjet_m1319f_mfp.ppd.gz \
@@ -432,6 +435,7 @@ cups_ppd_printers = \
    ppd/hpcups/hp-laserjet_m9050_mfp-pcl3.ppd.gz \
    ppd/hpcups/hp-laserjet_m9059_mfp-pcl3.ppd.gz \
    ppd/hpcups/hp-laserjet_mfp_m129-m134.ppd.gz \
+   ppd/hpcups/hp-laserjet_mfp_m139-m142.ppd.gz \
    ppd/hpcups/hp-laserjet_mfp_m232-m237.ppd.gz \
    ppd/hpcups/hp-laserjet_mfp_m28-m31.ppd.gz \
    ppd/hpcups/hp-laserjet_p1005.ppd.gz \

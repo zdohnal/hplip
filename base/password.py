@@ -57,6 +57,10 @@ AUTH_TYPES = {'mepis': 'su',
               'boss': 'su',
               'lfs': 'su',
               'manjarolinux': 'sudo',
+              'uos': 'sudo',
+              'zorinos': 'sudo',
+              'zorin' : 'sudo',
+              'debiangnu/linux' : 'su',
               }
 
 

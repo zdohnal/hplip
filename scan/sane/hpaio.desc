@@ -1183,6 +1183,12 @@
 :model "HP Envy 8000 E-all-in-one"
 :status :good
 
+:model "HP Envy Inspire 7200e Series"
+:status :good
+
+:model "HP Envy Inspire 7900e Series"
+:status :good
+
 :model "HP Envy Photo 6200 All-in-one"
 :status :good
 
@@ -1649,6 +1655,9 @@
 :status :good
 
 :model "HP LaserJet MFP e72430dn"
+:status :good
+
+:model "HP LaserJet MFP m139-m142"
 :status :good
 
 :model "HP LaserJet MFP m232d"

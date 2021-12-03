@@ -392,7 +392,7 @@ def start(language, auto=True, test_depends=False,
                     tui.title("Package Generation")
                     bClassPkg = True
 
-                    if core.distro_name in ['ubuntu', 'debian', 'linuxmint']:
+                    if core.distro_name in ['ubuntu', 'debian', 'linuxmint','zorin']:
                         ok, choice = tui.enter_choice(
                             "Which package would you like to create('t'=tar*,'b'=deb,'q'=Quit) : ", ['t', 'b', 'q'], 't')
                         if not ok or choice == 'q':
@@ -654,7 +654,7 @@ def start(language, auto=True, test_depends=False,
         #                     tui.title("Package Generation")
         #                     bClassPkg = True
 
-        #                     if core.distro_name in ['ubuntu', 'debian', 'linuxmint']:
+        #                     if core.distro_name in ['ubuntu', 'debian', 'linuxmint','zorin']:
         #                        ok, choice = tui.enter_choice("Which package would you like to create('t'=tar*,'b'=deb,'q'=Quit) : ",['t', 'b','q'], 't')
         #                        if not ok or choice=='q':
         #                           log.error("User Exit")
@@ -1428,6 +1428,8 @@ def start(language, auto=True, test_depends=False,
                 cups.getSystemPPDs()
             except ImportError:
                 log.error("Failed to Import Cups")
+            except :
+                log.debug("Could not update PPD cache file")
 
         #
         # OPEN MDNS MULTICAST PORT
