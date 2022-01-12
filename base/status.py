@@ -30,7 +30,7 @@ from .sixext import BytesIO, to_bytes_utf8, to_bytes_latin, to_string_latin, to_
 from .g import *
 import xml.parsers.expat as expat
 import re
-import cupsext
+  
 
 try:
     from xml.etree import ElementTree
@@ -47,7 +47,8 @@ except ImportError:
 from .g import *
 from .codes import *
 from . import pml, utils
-import hpmudext
+cupsext = utils.import_ext('cupsext')
+hpmudext = utils.import_ext('hpmudext')
 """
 status dict structure:
     { 'revision' :     STATUS_REV_00 .. STATUS_REV_04,

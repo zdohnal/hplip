@@ -61,6 +61,8 @@ AUTH_TYPES = {'mepis': 'su',
               'zorinos': 'sudo',
               'zorin' : 'sudo',
               'debiangnu/linux' : 'su',
+              'mxlinux' : 'su',
+              'elementaryos' : 'sudo',
               }
 
 
@@ -80,6 +82,7 @@ def showPasswordPrompt(prompt):
 # TBD this function shoud be removed once distro class implemented
 def get_distro_name():
     os_name = None
+    distro_release_name = str()
     try:
         import platform
     except ImportError:
@@ -90,6 +93,7 @@ def get_distro_name():
     except AttributeError:
         import distro
         os_name = distro.linux_distribution()[0]
+        distro_release_name = distro.distro_release_attr('name')
 
     if not os_name:
         name = os.popen('lsb_release -i | cut -f 2')
@@ -102,12 +106,16 @@ def get_distro_name():
         name.close()
 
     os_name = os_name.lower()
+    if 'MX' in distro_release_name:
+        os_name = "mxlinux"
     if "redhatenterprise" in os_name:
-        os_name = 'rhel'
+        os_name = 'rhel'    
     elif "suse" in os_name:
         os_name = 'suse'
     elif "arch" in os_name:
-         os_name = 'manjarolinux'
+        os_name = 'manjarolinux'
+    elif "fedora" in os_name:
+        os_name = 'fedora'
 
     return os_name
 

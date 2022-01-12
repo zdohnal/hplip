@@ -53,7 +53,7 @@ HTTP_OK = 200
 HTTP_ERROR = 500
 
 try:
-    import hpmudext
+    hpmudext=utils.import_ext('hpmudext')
 except ImportError:
     if not os.getenv("HPLIP_BUILD"):
         log.error("HPMUDEXT could not be loaded. Please check HPLIP installation.")

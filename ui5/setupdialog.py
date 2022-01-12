@@ -589,7 +589,7 @@ class SetupDialog(QDialog, Ui_Dialog):
             if self.bus == 'net' and utils.check_lan():
                 FailureUI(self, self.__tr('''<b>HPLIP cannot detect printers in your network.</b><p>This may be due to existing firewall settings blocking the required ports.
                 When you are in a trusted network environment, you may open the ports for network services like mdns and slp in the firewall. For detailed steps follow the link.
-                <b>http://hplipopensource.com/node/374</b></p>'''),
+                <b>https://developers.hp.com/hp-linux-imaging-and-printing/KnowledgeBase/Troubleshooting/TroubleshootNetwork</b></p>'''),
                         self.__tr("HP Device Manager"))
             
 

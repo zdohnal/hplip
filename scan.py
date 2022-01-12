@@ -37,7 +37,7 @@ import signal
 import time
 import socket
 import operator
-import scanext
+
 # Local
 from base.g import *
 from base.sixext import PY3
@@ -45,6 +45,7 @@ from base import tui, device, module, utils, os_utils
 from prnt import cups
 from scan import sane
 
+scanext = utils.import_ext('scanext')
 #if con_device == 5000 or con_device == 7500:
 import platform
 #from datetime import datetime

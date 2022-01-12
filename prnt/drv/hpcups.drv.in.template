@@ -3332,7 +3332,7 @@ Manufacturer "HP"
     Attribute "cupsBackSide" "" "Rotated"
     Attribute "cupsFlipDuplex" "" "True"
     Attribute "hpPrinterLanguage" "" "pcl3gui2"
-    Attribute "HPMechOffset" "" "69"
+    Attribute "HPMechOffset" "" "140"
 
     Group "General/General"
 
@@ -10998,7 +10998,7 @@ Manufacturer "HP"
   Attribute "cupsEvenDuplex" "" "True"
   Attribute "cupsBackSide" "" "Rotated"
   Attribute "cupsFlipDuplex" "" "True"
-  Attribute "HPMechOffset" "" "117"
+  Attribute "HPMechOffset" "" "140"
   
   Group "General/General"
 
@@ -11981,7 +11981,7 @@ Manufacturer "HP"
     Attribute "cupsEvenDuplex" "" "True"
     Attribute "cupsBackSide" "" "Rotated"
     Attribute "cupsFlipDuplex" "" "True"
-    Attribute "HPMechOffset" "" "117"
+    Attribute "HPMechOffset" "" "192"
     Attribute "hpPrinterPlatform" "" "SPDOfficejetProAsize"
     Attribute "HPSPDClass" "" 1
 

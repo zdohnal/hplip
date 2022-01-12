@@ -54,7 +54,7 @@ try:
 
     os.environ['LANG'] = newlang
 
-    import cupsext
+    cupsext = utils.import_ext('cupsext')
 
     # restore the old env values
     if current_language is not None:

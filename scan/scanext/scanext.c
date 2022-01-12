@@ -46,6 +46,7 @@ PERFORMANCE OF THIS SOFTWARE.
 
 
 /* _ScanDevice objects */
+#define PY_SSIZE_T_CLEAN
 
 #include "Python.h"
 #include "sane.h"

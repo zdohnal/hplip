@@ -26,7 +26,7 @@
 #   104 = no libdl
 
 #AC_PREREQ(2.59)
-AC_INIT([HP Linux Imaging and Printing], [3.21.10], [3.21.10], [hplip])
+AC_INIT([HP Linux Imaging and Printing], [3.21.12], [3.21.12], [hplip])
 #AM_INIT_AUTOMAKE([1.9 foreign])
 AM_INIT_AUTOMAKE
 AC_DISABLE_STATIC
@@ -652,6 +652,15 @@ if test "$class_driver" = "no" && test "$hpijs_only_build" = "no" && test "$lite
    AC_ARG_VAR(PYTHONINCLUDEDIR, [path to Python.h C header file])
    AC_CHECK_HEADERS([python${PYTHON_VERSION}/Python.h python${PYTHON_VERSION}mu/Python.h python${PYTHON_VERSION}m/Python.h ],
           [FOUND_HEADER=yes; break;])
+
+   if test "x$FOUND_HEADER" != "xyes"; then
+   	PYTHONVERSION=`$PYTHON -c "import sys; sys.stdout.write('{}.{}'.format(*sys.version_info[[:2]]));"`
+   	AC_MSG_RESULT("using $PYTHONVERSION ....  python${PYTHONVERSION}")
+   	AC_ARG_VAR(PYTHONVERSION, [python version upto 2 decimals])
+   	AC_CHECK_HEADERS([python${PYTHONVERSION}/Python.h python${PYTHONVERSION}mu/Python.h python${PYTHONVERSION}m/Python.h ],
+          [FOUND_HEADER=yes; break;])
+   fi       
+   
    AS_IF([test "x$FOUND_HEADER" != "xyes"],
           [AC_MSG_ERROR([cannot find python-devel support], 6)])
 fi

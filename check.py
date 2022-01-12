@@ -630,7 +630,7 @@ class DependenciesCheck(object):
                         lsusb_pat = re.compile("""^Bus\s([0-9a-fA-F]{3,3})\sDevice\s([0-9a-fA-F]{3,3}):\sID\s([0-9a-fA-F]{4,4}):([0-9a-fA-F]{4,4})(.*)""", re.IGNORECASE)
                         log.debug(output)
                         try:
-                            import hpmudext
+                            hpmudext = utils.import_ext('hpmudext')
                         except ImportError:
                             log.error("NOT FOUND OR FAILED TO LOAD! Please reinstall HPLIP and check for the proper installation of hpmudext.")
                             self.num_errors += 1

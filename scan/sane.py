@@ -55,7 +55,6 @@
 #
 
 # Std Lib
-import scanext
 import threading
 import time
 import os
@@ -65,6 +64,8 @@ from base.g import *
 from base import utils
 from base.sixext import to_bytes_utf8
 from base.sixext.moves import queue
+
+scanext = utils.import_ext('scanext')
 
 EVENT_SCAN_CANCELED = 1
 

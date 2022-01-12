@@ -35,7 +35,8 @@ from base.codes import *
 from base import device, utils, pml, codes
 from prnt import cups
 from .fax import *
-import hpmudext
+
+hpmudext = utils.import_ext('hpmudext')
 
 try:
     from ctypes import cdll

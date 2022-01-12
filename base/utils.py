@@ -47,6 +47,7 @@ import locale
 from .sixext.moves import html_entities, urllib2_request, urllib2_parse, urllib2_error
 from .sixext import PY3, to_unicode, to_bytes_utf8, to_string_utf8, BytesIO, StringIO, subprocess
 from . import os_utils
+import importlib
 try:
     import xml.parsers.expat as expat
     xml_expat_avail = True
@@ -2497,3 +2498,11 @@ def dyn_import_mod(mod_name_as_str):
     for comp in components[1:]:
         mod = getattr(mod, comp)
     return mod
+
+def import_ext(ext_name):
+    try:
+        return importlib.import_module(ext_name)
+    except ImportError:
+        import sysconfig
+        sys.path.append(sysconfig.get_path('platlib'))
+        return importlib.import_module(ext_name)

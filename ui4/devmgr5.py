@@ -37,13 +37,13 @@ from prnt import cups
 from base.sixext import PY3
 from base.codes import *
 from .ui_utils import *
-import hpmudext
 from installer.core_install import *
 # Qt
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 import collections
 
+hpmudext = utils.import_ext('hpmudext')
 # dbus
 try:
     import dbus
@@ -1645,7 +1645,7 @@ class DevMgr5(QMainWindow,  Ui_MainWindow):
 
     def createStatusLevelGraphic(self, percent, agent_type, w=100, h=18):
         if percent:
-            fw = w/100*percent
+            fw = int(w/100*percent)
         else:
             fw = 0
 
@@ -1663,13 +1663,13 @@ class DevMgr5(QMainWindow,  Ui_MainWindow):
             pp.fillRect(0, 0, fw, h, QBrush(QColor(map[0])))
 
         elif map_len == 2:
-            h2 = h / 2
+            h2 = int(h / 2)
             pp.fillRect(0, 0, fw, h2, QBrush(QColor(map[0])))
             pp.fillRect(0, h2, fw, h, QBrush(QColor(map[1])))
 
         elif map_len == 3:
-            h3 = h / 3
-            h23 = 2 * h3
+            h3 = int(h / 3)
+            h23 = int(2 * h3)
             pp.fillRect(0, 0, fw, h3, QBrush(QColor(map[0])))
             pp.fillRect(0, h3, fw, h23, QBrush(QColor(map[1])))
             pp.fillRect(0, h23, fw, h, QBrush(QColor(map[2])))
@@ -1682,8 +1682,8 @@ class DevMgr5(QMainWindow,  Ui_MainWindow):
             pp.setPen(Qt.white)
 
         # 75% ticks
-        w1 = 3 * w / 4
-        h6 = h / 6
+        w1 = int(3 * w / 4)
+        h6 = int(h / 6)
         pp.drawLine(w1, 0, w1, h6)
         pp.drawLine(w1, h, w1, h-h6)
 
@@ -1692,8 +1692,8 @@ class DevMgr5(QMainWindow,  Ui_MainWindow):
             pp.setPen(Qt.white)
 
         # 50% ticks
-        w2 = w / 2
-        h4 = h / 4
+        w2 = int(w / 2)
+        h4 = int(h / 4)
         pp.drawLine(w2, 0, w2, h4)
         pp.drawLine(w2, h, w2, h-h4)
 
@@ -1702,7 +1702,7 @@ class DevMgr5(QMainWindow,  Ui_MainWindow):
             pp.setPen(Qt.white)
 
         # 25% ticks
-        w4 = w / 4
+        w4 = int(w / 4)
         pp.drawLine(w4, 0, w4, h6)
         pp.drawLine(w4, h, w4, h-h6)
 

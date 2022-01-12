@@ -639,7 +639,7 @@ class CoreInstall(object):
         log.debug("Determining distro...")
         name, ver = '', '0.0'
         found = False
-
+        distro_release_name = str()
         # Getting distro information using platform module
         try:
             import platform
@@ -650,7 +650,7 @@ class CoreInstall(object):
                 import distro
                 name = distro.linux_distribution()[0].lower()
                 ver = distro.linux_distribution()[1]
-
+                distro_release_name = distro.distro_release_attr('name')
             if not name:
                 found = False
                 log.debug("Not able to detect distro")
@@ -708,7 +708,9 @@ class CoreInstall(object):
                 ver = "5.0"
             elif name == "rhel" and ver[0] == "6" and ver[1] == ".":
                 ver = "6.0"
-
+            if 'MX' in distro_release_name:
+                name = "mxlinux"
+                ver = distro_release_name[3:5]
             found_in_list = False
             for d in self.distros:
                 if name.find(d) > -1:
@@ -1272,7 +1274,7 @@ class CoreInstall(object):
     def check_cupsext(self):
         log.debug("Checking 'cupsext' CUPS extension...")
         try:
-            import cupsext
+            utils.import_ext('cupsext')
         except ImportError:
             log.error(
                 "NOT FOUND OR FAILED TO LOAD! Please reinstall HPLIP and check for the proper installation of cupsext.")
@@ -1283,7 +1285,7 @@ class CoreInstall(object):
     def check_hpmudext(self):
         log.debug("Checking 'hpmudext' I/O extension...")
         try:
-            import hpmudext
+            utils.import_ext('hpmudext')
         except ImportError:
             log.error(
                 "NOT FOUND OR FAILED TO LOAD! Please reinstall HPLIP and check for the proper installation of hpmudext.")
@@ -1294,7 +1296,7 @@ class CoreInstall(object):
     def check_pcardext(self):
         log.debug("Checking 'pcardext' Photocard extension...")
         try:
-            import pcardext
+            utils.import_ext('pcardext')
         except ImportError:
             log.error(
                 "NOT FOUND OR FAILED TO LOAD! Please reinstall HPLIP and check for the proper installation of pcardext.")
@@ -1375,7 +1377,7 @@ class CoreInstall(object):
         log.debug("Checking 'scanext' SANE scanning extension...")
         found = False
         try:
-            import scanext
+            utils.import_ext('scanext')
         except ImportError:
             log.error(
                 "NOT FOUND OR FAILED TO LOAD! Please reinstall HPLIP and check for the proper installation of scanext.")

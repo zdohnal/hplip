@@ -94,7 +94,7 @@
 # ****************************************
 
 [distros]
-distros=unknown,mepis,debian,suse,mandriva,fedora,redhat,rhel,slackware,gentoo,redflag,ubuntu,xandros,freebsd,linspire,ark,pclinuxos,centos,igos,linuxmint,linpus,gos,boss,lfs,manjarolinux,zorin
+distros=unknown,mepis,debian,suse,mandriva,fedora,redhat,rhel,slackware,gentoo,redflag,ubuntu,xandros,freebsd,linspire,ark,pclinuxos,centos,igos,linuxmint,linpus,gos,boss,lfs,manjarolinux,zorin,mxlinux,elementary
 
 # ****************************************
 
@@ -1739,7 +1739,7 @@ ui_toolkit=qt3
 # ****************************************
 [fedora]
 index=5
-versions=17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34
+versions=17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35
 display_name=Fedora
 alt_names=Fedora Core
 display=1
@@ -3431,6 +3431,156 @@ packages=automake
 [fedora:34:libavahi-dev]
 packages=avahi-devel
 
+
+# ****************************************
+
+[fedora:35]
+code_name=
+supported=1
+scan_supported=1
+fax_supported=1
+pcard_supported=0
+network_supported=1
+parallel_supported=0
+usb_supported=1
+packaged_version=3.21.10
+release_date=01/11/2021
+notes=To complete the install in Fedora you must quit the installer at the printer setup stage, log out, log back in, and run hp-setup.
+ppd_install=drv
+udev_mode_fix=1
+ppd_dir=/usr/share/cups/model/HP
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+ui_toolkit=qt5
+policykit=0
+native_cups=1
+open_mdns_port=/bin/bash ./init-iptables-firewall
+package_mgr_cmd= sudo dnf -y -d 10 -e 1 install $packages_to_install
+pre_depend_cmd=sudo dnf check-update
+scanjet_depend_cmd=sudo dnf -y -d 10 -e 1 install python-pip,sudo pip install opencv-python,sudo pip install pypdf2,sudo pip install imutils,sudo dnf -y -d 10 -e 1 install zbar-devel,sudo dnf update gcc,sudo dnf -y -d 10 -e 1 install zbar-*,sudo dnf -y -d 10 -e 1 install leptonica,sudo dnf -y -d 10 -e 1 install leptonica-devel,sudo dnf -y -d 10 -e 1 install tesseract,sudo dnf -y -d 10 -e 1 install tesseract-devel,sudo pip install tesserocr,sudo dnf -y -d 10 -e 1 install tesseract-langpack-*,sudo dnf -y -d 10 -e 1 install tesseract-osd,sudo pip install pikepdf,sudo pip install pypdfocr,sudo pip install scikit-image,sudo pip install scipy
+scanjet_py3_depend_cmd=sudo dnf -y -d 10 -e 1 install python3-pip,sudo pip3 install opencv-python,sudo pip3 install pypdf2,sudo pip3 install imutils,sudo dnf -y -d 10 -e 1 install leptonica,sudo dnf -y -d 10 -e 1 install leptonica-devel,sudo dnf -y -d 10 -e 1 install tesseract,sudo dnf -y -d 10 -e 1 install tesseract-devel,sudo pip3 install tesserocr,sudo dnf -y -d 10 -e 1 install tesseract-langpack-*,sudo dnf -y -d 10 -e 1 install tesseract-osd,sudo pip3 install pikepdf,sudo pip3 install ocrmypdf,sudo pip3 install scikit-image,sudo pip3 install scipy
+hplip_remove_cmd=sudo dnf -y -d 10 -e 1 remove hplip
+
+[fedora:35:cups]
+packages=cups
+
+[fedora:35:cups-devel]
+packages=cups-devel
+
+[fedora:35:gcc]
+packages=gcc-c++
+
+[fedora:35:gs]
+packages=ghostscript
+
+[fedora:35:libcrypto]
+packages=openssl-devel
+
+[fedora:35:libjpeg]
+packages=libjpeg-devel
+
+[fedora:35:libnetsnmp-devel]
+packages=net-snmp-devel
+
+[fedora:35:libpthread]
+packages=glibc-headers
+
+[fedora:35:libtool]
+packages=libtool,rpm-build
+
+[fedora:35:libusb]
+packages=libusb1-devel
+
+[fedora:35:make]
+packages=make
+
+[fedora:35:pil]
+packages=python-imaging
+
+[fedora:35:ppdev]
+packages=
+commands=sudo /sbin/modprobe ppdev
+
+[fedora:35:pyqt]
+packages=PyQt
+
+[fedora:35:python-devel]
+packages=python-devel
+
+[fedora:35:pyqt4]
+packages=PyQt4
+
+[fedora:35:pyqt4-dbus]
+packages=dbus-python
+
+[fedora:35:python2X]
+packages=python
+
+[fedora:35:reportlab]
+packages=python-reportlab
+
+[fedora:35:sane]
+packages=sane-backends
+
+[fedora:35:sane-devel]
+packages=sane-backends-devel
+
+[fedora:35:scanimage]
+packages=sane-frontends
+
+[fedora:35:xsane]
+packages=xsane
+
+[fedora:35:python-dbus]
+packages=dbus-python,pygobject2
+
+[fedora:35:dbus]
+packages=dbus-devel
+
+[fedora:35:cups-image]
+packages=cups-devel
+
+[fedora:35:python-notify]
+packages=notify-python
+
+[fedora:35:policykit]
+packages=polkit,polkit-gnome
+
+[fedora:35:network]
+packages=wget
+
+[fedora:35:avahi-utils]
+packages=avahi-tools
+
+[fedora:35:python3X]
+packages=python3
+
+[fedora:35:python3-notify2]
+packages=PKG_FROM_PIP:notify2
+
+[fedora:35:python3-pyqt5]
+packages=python3-qt5,python3-qt5-devel
+
+[fedora:35:python3-dbus]
+packages=python3-dbus,python3-gobject
+
+[fedora:35:python3-xml]
+packages=python3-lxml
+
+[fedora:35:python3-devel]
+packages=python3-devel
+
+[fedora:35:python3-pil]
+packages=python3-pillow
+
+[fedora:35:python3-reportlab]
+packages=python3-reportlab
+
+[fedora:35:automake]
+packages=automake
+
+[fedora:35:libavahi-dev]
+packages=avahi-devel
 
 # ****************************************
 
@@ -18507,5 +18657,292 @@ packages=epm
 
 [zorin:16:libavahi-dev]
 packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
+# ****************************************
+
+[mxlinux]
+index=28
+versions=21
+display_name=MX linux
+alt_names=
+display=1
+notes=
+package_mgrs=dpkg,apt-get,synaptic,update-manager,adept,aptitude
+package_mgr_cmd=su -c "apt-get install --force-yes -y $packages_to_install"
+pre_depend_cmd=su -c "dpkg --configure -a",su -c "apt-get install -f",su -c "apt-get update"
+post_depend_cmd=
+hp_libs_remove_cmd= su -c "apt-get remove libhpmud0 libsane-hpaio printer-driver-postscript-hp"
+#su -c "apt-get install --force-yes -y python-qt4",su -c "apt-get install --force-yes -y python-qt4-dbus",
+scanjet_depend_cmd=su -c "apt-get install --force-yes -y python-pip",su -c "pip install --upgrade pip",su -c "apt-get install --force-yes -y libleptonica-dev",su -c "apt-get install --force-yes -y tesseract-ocr",su -c "apt-get install --force-yes -y libtesseract-dev",su -c "pip install tesserocr",su -c "apt-get install --force-yes -y libzbar-dev",su -c "apt-get install --force-yes -y python-zbar",su -c "apt-get install --force-yes -y python-opencv",su -c "apt-get install --force-yes -y python-pypdf2",su -c "pip install imutils",su -c "pip install pypdfocr",su -c "pip install scikit-image",su -c "pip install scipy"
+#su -c "apt-get install --force-yes -y tesseract-ocr-all",
+#su -c "apt-get install --force-yes -y python3-pyqt4",su -c "apt-get install --force-yes -y gtk2-engines-pixbuf",su -c "apt-get install --force-yes -y python3-dbus.mainloop.qt",
+scanjet_py3_depend_cmd=su -c "apt-get install --force-yes -y python3-pip",su -c "pip3 install --upgrade pip",su -c "apt-get install --force-yes -y libleptonica-dev",su -c "apt-get install --force-yes -y tesseract-ocr",su -c "apt-get install --force-yes -y libtesseract-dev",su -c "pip3 install tesserocr",su -c "pip3 install opencv-python",su -c "pip3 install PyPDF2",su -c "pip3 install imutils,su -c "pip3 install ocrmypdf",su -c "pip3 install scikit-image",su -c "pip3 install scipy"
+#su -c "apt-get install --force-yes -y tesseract-ocr-all",
+hplip_remove_cmd=su -c "apt-get remove --yes hplip hpijs hplip-data"
+su_sudo=su
+ppd_install=ppd
+udev_mode_fix=1
+ppd_dir=/usr/share/ppd/HP
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+
+# ****************************************
+
+[mxlinux:21]
+code_name=wildflower
+supported=1
+scan_supported=1
+fax_supported=1
+pcard_supported=1
+network_supported=1
+parallel_supported=1
+usb_supported=1
+packaged_version=3.21.12
+release_date=01/01/2022
+notes=NOTE: Disable the CD Sources in your apt sources.list or the install will fail and hang.
+ppd_install=drv
+udev_mode_fix=1
+ppd_dir=/usr/share/ppd/HP
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+ui_toolkit=qt5
+native_cups=1
+policykit=0
+# This libdir_path will be used only for 64 bit machine.
+libdir_path=/usr/lib/x86_64-linux-gnu
+[mxlinux:21:cups]
+packages=cups,libcups2
+[mxlinux:21:cups-devel]
+packages=cups,libcups2-dev,cups-bsd,cups-client
+[mxlinux:21:gcc]
+packages=g++
+[mxlinux:21:gs]
+packages=ghostscript,ghostscript-cups,ghostscript-x
+[mxlinux:21:libcrypto]
+packages=libssl-dev
+[mxlinux:21:libjpeg]
+packages=libjpeg62-turbo-dev
+[mxlinux:21:libnetsnmp-devel]
+packages=libsnmp-dev,snmp
+[mxlinux:21:libpthread]
+packages=libc6
+[mxlinux:21:libtool]
+packages=libtool,libtool-bin
+[mxlinux:21:libusb]
+packages=libusb-1.0.0-dev
+[mxlinux:21:make]
+packages=make
+[mxlinux:21:ppdev]
+packages=
+commands=su -c "modprobe ppdev",su -c cp -f /etc/modules /etc/modules.hplip,echo ppdev | su -c tee -a /etc/modules
+[mxlinux:21:sane]
+packages=sane
+[mxlinux:21:sane-devel]
+packages=libsane-dev
+[mxlinux:21:scanimage]
+packages=sane-utils
+[mxlinux:21:xsane]
+packages=xsane
+[mxlinux:21:dbus]
+packages=libdbus-1-dev
+[mxlinux:21:cups-image]
+packages=libcupsimage2,libcupsimage2-dev
+[mxlinux:21:policykit]
+packages=policykit-1,policykit-1-gnome
+[mxlinux:21:network]
+packages=wget
+[mxlinux:21:avahi-utils]
+packages=avahi-utils
+[mxlinux:21:gtk]
+packages=libcanberra-gtk-module
+[mxlinux:21:python3-notify2]
+packages=python3-notify2
+[mxlinux:21:python3-pyqt4-dbus]
+packages=python3-dbus.mainloop.qt
+[mxlinux:21:python3-pyqt4]
+packages=python3-pyqt4,gtk2-engines-pixbuf
+[mxlinux:21:python3-dbus]
+packages=python3-dbus,python3-gi
+[mxlinux:21:python3-xml]
+packages=python3-lxml
+[mxlinux:21:python3-devel]
+packages=python3-dev
+[mxlinux:21:python3-pil]
+packages=python3-pil
+[mxlinux:21:python3-reportlab]
+packages=python3-reportlab
+[mxlinux:21:python3-pyqt5-dbus]
+packages=python3-dbus.mainloop.pyqt5
+[mxlinux:21:python3-pyqt5]
+packages=python3-pyqt5,gtk2-engines-pixbuf
+[mxlinux:21:pyqt5]
+packages=gtk2-engines-pixbuf,python-pyqt5
+[mxlinux:21:pyqt5-dbus]
+packages=python-dbus.mainloop.pyqt5
+[mxlinux:21:automake]
+packages=automake1.11
+[mxlinux:21:epm]
+packages=epm
+[mxlinux:21:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
+
+# ****************************************
+
+[elementary]
+index=29
+versions=6
+display_name=Elementary OS
+alt_names=
+display=1
+notes=
+package_mgrs=dpkg,apt-get,synaptic,update-manager,adept,aptitude,adept-updater
+package_mgr_cmd=sudo apt-get install --assume-yes $packages_to_install
+pre_depend_cmd=sudo dpkg --configure -a,sudo apt-get install --yes --force-yes -f,sudo apt-get update
+post_depend_cmd=
+hp_libs_remove_cmd= sudo apt-get remove libhpmud0 libsane-hpaio printer-driver-postscript-hp
+scanjet_depend_cmd=sudo apt-get install --assume-yes python-pip,sudo pip install --upgrade pip,sudo -H pip install setuptools,sudo pip install --upgrade setuptools,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-eng,sudo apt-get install --assume-yes libzbar-dev,sudo apt-get install --assume-yes python-zbar,sudo apt-get install --assume-yes python-opencv,sudo apt-get install --assume-yes python-pypdf2,sudo -H pip install imutils,sudo apt-get install --assume-yes imagemagick*,sudo apt-get install --assume-yes graphicsmagick* ,sudo -H pip install pypdfocr,sudo -H pip install scikit-image,sudo -H pip install scipy
+scanjet_py3_depend_cmd=sudo apt-get install --assume-yes python3-pip,sudo pip3 install --upgrade pip,sudo -H pip3 install setuptools,sudo pip3 install --upgrade setuptools,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip3 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-eng,sudo -H pip3 install opencv-python,sudo -H pip3 install PyPDF2,sudo -H pip3 install imutils,sudo apt-get install --assume-yes imagemagick*,sudo apt-get install --assume-yes graphicsmagick*,sudo -H pip3 install ocrmypdf,sudo -H pip3 install scikit-image,sudo -H pip3 install scipy
+hplip_remove_cmd=sudo aptitude remove --assume-yes hplip hpijs
+su_sudo=sudo
+ppd_install=ppd
+udev_mode_fix=1
+ppd_dir=
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+
+# ****************************************
+
+[elementary:6]
+code_name=odin
+supported=1
+scan_supported=1
+fax_supported=1
+pcard_supported=1
+network_supported=1
+parallel_supported=1
+usb_supported=1
+packaged_version=3.21.12
+release_date=01/01/2022
+notes=Enable the universe/multiverse repositories. Also be sure you are using the Ubuntu "Main" Repositories. See: https://help.ubuntu.com/community/Repositories/Ubuntu for more information.  Disable the CD-ROM/DVD source if you do not have the Ubuntu installation media inserted in the drive.
+ppd_install=drv
+udev_mode_fix=1
+ppd_dir=/usr/share/ppd/HP
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+ui_toolkit=qt5
+native_cups=1
+acl_rules=1
+#scanjet_depend_cmd=sudo apt-get install --assume-yes python-pip,sudo pip2 install --upgrade pip,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip2 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-all,sudo apt-get install --assume-yes libzbar-dev,sudo apt-get install --assume-yes python-zbar,sudo -H pip2 install opencv-python,sudo -H pip2 install PyPDF2,sudo -H pip2 install imutils,sudo -H pip2 install pypdfocr,sudo -H pip2 install scikit-image,sudo -H pip2 install scipy
+#scanjet_py3_depend_cmd=sudo apt-get install --assume-yes python3-pip,sudo pip3 install --upgrade pip,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip3 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-all,sudo -H pip3 install opencv-python,sudo -H pip3 install PyPDF2,sudo -H pip3 install imutils,sudo -H pip3 install ocrmypdf,sudo -H pip3 install scikit-image,sudo -H pip3 install scipy
+
+libdir_path=/usr/lib
+
+[elementary:6:cups]
+packages=libcups2
+
+[elementary:6:cups-devel]
+packages=libcups2-dev,cups-bsd,cups-client
+
+[elementary:6:gcc]
+packages=build-essential
+
+[elementary:6:gs]
+packages=ghostscript
+
+[elementary:6:libcrypto]
+packages=openssl
+
+[elementary:6:libjpeg]
+packages=libjpeg-dev
+
+[elementary:6:libatk-adaptor]
+packages=libatk-adaptor
+
+[elementary:6:libgail-common]
+packages=libgail-common
+
+[elementary:6:libnetsnmp-devel]
+packages=libsnmp-dev,snmp-mibs-downloader
+
+[elementary:6:libpthread]
+packages=build-essential
+
+[elementary:6:libtool]
+packages=libtool,libtool-bin
+
+[elementary:6:libusb]
+packages=libusb-1.0.0-dev,libusb-0.1-4
+
+[elementary:6:make]
+packages=build-essential
+
+[elementary:6:ppdev]
+packages=
+commands=sudo modprobe ppdev,sudo cp -f /etc/modules /etc/modules.hplip,echo ppdev | sudo tee -a /etc/modules
+
+
+[elementary:6:sane]
+packages=libsane
+
+[elementary:6:sane-devel]
+packages=libsane-dev
+
+[elementary:6:scanimage]
+packages=sane-utils
+
+[elementary:6:xsane]
+packages=gtk2-engines-pixbuf,xsane
+
+[elementary:6:dbus]
+packages=libdbus-1-dev
+
+[elementary:6:cups-image]
+packages=libcupsimage2-dev
+
+[elementary:6:cups-ddk]
+packages=cups
+
+[elementary:6:policykit]
+packages=policykit-1,policykit-1-gnome
+
+[elementary:6:network]
+packages=wget
+
+[elementary:6:avahi-utils]
+packages=avahi-utils
+
+[elementary:6:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
+[elementary:6:python3-notify2]
+packages=python3-notify2
+
+[elementary:6:python3-pyqt5-dbus]
+packages=python3-dbus.mainloop.pyqt5
+
+[elementary:6:python3-pyqt5]
+packages=python3-pyqt5,gtk2-engines-pixbuf
+
+[elementary:6:python3-dbus]
+packages=python3-dbus,python3-gi
+
+[elementary:6:python3-xml]
+packages=python3-lxml
+
+[elementary:6:python3-devel]
+packages=python3-dev
+
+[elementary:6:python3-pil]
+packages=python3-pil
+
+[elementary:6:python3-reportlab]
+packages=python3-reportlab
+
+[elementary:6:automake]
+packages=automake1.11
+
+[elementary:6:epm]
+packages=epm
 
 # ****************************************
