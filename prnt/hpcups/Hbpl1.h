@@ -43,7 +43,7 @@
 #include "PrinterCommands.h"
 #include "Utils.h"
 #include "Hbpl1_Wrapper.h"
-#define HBPL1_DEFAULT_STRIP_HEIGHT 128
+#define HBPL1_DEFAULT_STRIP_HEIGHT 64
 
 class Hbpl1Wrapper;
 

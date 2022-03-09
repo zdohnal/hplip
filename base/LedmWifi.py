@@ -168,7 +168,7 @@ def setAdaptorPower(dev, adapterList, power_state='on'):
        if not(ret['errorreturn'] == HTTP_OK or ret['errorreturn'] == HTTP_NOCONTENT):
           log.debug("Wifi Adapter turn ON request Failed. ResponseCode=%s AdaptorId=%s AdaptorName=%s. Trying another interface" %(ret['errorreturn'],adaptor_id,adaptorName))
           powerXml = adapterPowerXml_payload2 %(power_state)
-          ret['errorreturn'] = writeXmlDataToURI(dev,URI,powerXml,15)
+          ret['errorreturn'] = writeXmlDataToURI(dev,URI,powerXml,60)
 
        if not(ret['errorreturn'] == HTTP_OK or ret['errorreturn'] == HTTP_NOCONTENT):
           log.error("Wifi Adapter turn ON request Failed. ResponseCode=%s AdaptorId=%s AdaptorName=%s" %(ret['errorreturn'],adaptor_id,adaptorName))
@@ -423,7 +423,7 @@ def associate(dev, adapterName, ssid, communication_mode, encryption_type, key):
         ppXml = (passPhraseXml[:pos] + keyInfoXml + passPhraseXml[pos:])%(binascii.hexlify(to_bytes_utf8(ssid)).decode('utf-8'),communication_mode,encryption_type,\
         authMode,binascii.hexlify(to_bytes_utf8(key)).decode('utf-8'))        
 
-    code = writeXmlDataToURI(dev,URI,ppXml,15)
+    code = writeXmlDataToURI(dev,URI,ppXml,60)
     ret['errorreturn'] = code
     if not(code == HTTP_OK or HTTP_NOCONTENT):
         log.error("Request Failed With Response Code %d" % ret['errorreturn'])
@@ -517,7 +517,7 @@ def getSignalStrength(dev, adapterName, ssid, adaptor_id=0):
     return  ss_max, ss_min, ss_val, ss_dbm
 
 
-def readXmlTagDataFromURI(dev,URI,xmlRootNode,xmlReqDataNode,timeout=5):
+def readXmlTagDataFromURI(dev,URI,xmlRootNode,xmlReqDataNode,timeout=60):
     paramsList,code =[],HTTP_ERROR
     
     data = format_http_get(URI,0,"")
@@ -578,7 +578,7 @@ def readXmlTagDataFromURI(dev,URI,xmlRootNode,xmlReqDataNode,timeout=5):
 
 
 
-def readXmlDataFromURI(dev,URI,xmlRootNode,xmlChildNode,timeout=5):
+def readXmlDataFromURI(dev,URI,xmlRootNode,xmlChildNode,timeout=60):
     params,code,elementCount ={},HTTP_ERROR,0 
     
     data = format_http_get(URI,0,"")
@@ -632,7 +632,7 @@ def readXmlDataFromURI(dev,URI,xmlRootNode,xmlChildNode,timeout=5):
     return params,code,elementCount
 
 
-def writeXmlDataToURI(dev,URI,xml,timeout=5):
+def writeXmlDataToURI(dev,URI,xml,timeout=60):
     code = HTTP_ERROR
 
     data = format_http_put(URI,len(xml),xml)

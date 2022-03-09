@@ -91,10 +91,13 @@ def get_distro_name():
     try:
         os_name = platform.dist()[0]
     except AttributeError:
-        import distro
-        os_name = distro.linux_distribution()[0]
-        distro_release_name = distro.distro_release_attr('name')
-
+        try:
+            import distro
+            os_name = distro.linux_distribution()[0]
+            distro_release_name = distro.distro_release_attr('name')
+        except:
+            os_name = None
+            
     if not os_name:
         name = os.popen('lsb_release -i | cut -f 2')
         os_name = name.read().strip()

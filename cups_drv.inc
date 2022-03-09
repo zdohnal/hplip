@@ -528,6 +528,12 @@ cups_ppd_printers = \
    ppd/hpcups/hp-laserjet_professional_p1608dn.ppd.gz \
    ppd/hpcups/hp-laserjet_professional_p1609dn.ppd.gz \
    ppd/hpcups/hp-laserjet_professional_p_1102w.ppd.gz \
+   ppd/hpcups/hp-laserjet_tank_1020.ppd.gz \
+   ppd/hpcups/hp-laserjet_tank_150x.ppd.gz \
+   ppd/hpcups/hp-laserjet_tank_250x.ppd.gz \
+   ppd/hpcups/hp-laserjet_tank_mfp_1005.ppd.gz \
+   ppd/hpcups/hp-laserjet_tank_mfp_160x.ppd.gz \
+   ppd/hpcups/hp-laserjet_tank_mfp_260x.ppd.gz \
    ppd/hpcups/hp-mopier_240-pcl3.ppd.gz \
    ppd/hpcups/hp-mopier_320-pcl3.ppd.gz \
    ppd/hpcups/hp-neverstop_laser_100x.ppd.gz \

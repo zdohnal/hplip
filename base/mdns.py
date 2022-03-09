@@ -349,7 +349,7 @@ def detectNetworkDevices(ttl=4, timeout=10):
         data = to_string_latin(data)
         if data:
             y, answers = updateReceivedData(data, answers)
-            found_devices[y['ip']] = y
+            found_devices[y.get('ip')] = y
 
     log.debug("Found %d devices" % len(found_devices))
     s.close()

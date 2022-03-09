@@ -124,15 +124,9 @@ class WifiSetupDialog(QDialog, Ui_Dialog):
         self.InfoIcon.setPixmap(load_pixmap("info", "16x16"))
 
         if self.standalone:
-            self.MainTitleLabel.setText(self.__tr("""This utility allows you configure your wireless capable printer using a temporary USB connection. You will be prompted to disconnect the USB cable once wireless network setup is complete.
-
-<p><i>Note: This configuration utility does not setup (install) your printer on this computer. Use hp-setup to setup your printer after it has been configured on the network by this utility.</i></p>
-<p><i>Note: Only select wireless capable printers are supported by this utility.</i></p>"""))
+            self.MainTitleLabel.setText(self.__tr("This utility allows you configure your wireless capable printer using a temporary USB connection. You will be prompted to disconnect the USB cable once wireless network setup is complete. <p><i>Note: This configuration utility does not setup (install) your printer on this computer. Use hp-setup to setup your printer after it has been configured on the network by this utility.</i></p> <p><i>Note: Only select wireless capable printers are supported by this utility.</i></p>"))
         else:
-            self.MainTitleLabel.setText(self.__tr("""This utility allows you configure your wireless capable printer using a temporary USB connection. You will be prompted to disconnect the USB cable once wireless network setup is complete.
-
-<p><i>Note: Printer setup (installation) will continue after your printer is configured on the network.</i></p>
-<p><i>Note: Only select wireless capable printers are supported by this utility.</i></p>"""))
+            self.MainTitleLabel.setText(self.__tr("This utility allows you configure your wireless capable printer using a temporary USB connection. You will be prompted to disconnect the USB cable once wireless network setup is complete. <p><i>Note: Printer setup (installation) will continue after your printer is configured on the network.</i></p> <p><i>Note: Only select wireless capable printers are supported by this utility.</i></p>"))
 
 
     def showIntroPage(self):

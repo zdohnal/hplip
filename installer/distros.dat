@@ -3627,7 +3627,7 @@ ui_toolkit=qt3
 # ****************************************
 [rhel]
 index=7
-versions=5.0,6.0,7.0,7.1,7.2,7.3,7.6,8.0,8.1,8.2,8.3,7.7,7.9,7.8,8.4
+versions=5.0,6.0,7.0,7.1,7.2,7.3,7.6,8.0,8.1,8.2,8.3,7.7,7.9,7.8,8.4,8.5
 display_name=Red Hat Enterprise Linux
 alt_names=red hat enterprise linux
 display=1
@@ -4196,6 +4196,12 @@ same_as_version=8.0
 # ****************************************
 [rhel:8.4]
 packaged_version=3.21.8
+release_date=03/01/2021
+same_as_version=8.0
+
+# ****************************************
+[rhel:8.5]
+packaged_version=3.22.2
 release_date=03/01/2021
 same_as_version=8.0
 
@@ -13376,7 +13382,7 @@ packages=epm
 # ****************************************
 [linuxmint]
 index=22
-versions=13,14,15,16,17,17.1,17.2,17.3,18,18.1,18.2,18.3,19,19.1,19.2,19.3,20,20.1,20.2
+versions=13,14,15,16,17,17.1,17.2,17.3,18,18.1,18.2,18.3,19,19.1,19.2,19.3,20,20.1,20.2,20.3
 display_name=Linux Mint
 alt_names=mint, mint linux
 display=1
@@ -15733,6 +15739,12 @@ packages=epm
 [linuxmint:20.2:libavahi-dev]
 packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
+[linuxmint:20.3]
+code_name=Una
+supported=1
+packaged_version=3.22.2
+release_date=19.01.2022
+same_as_version=20.2
 
 # ****************************************
 
@@ -16547,7 +16559,7 @@ packages=epm
 
 [manjarolinux]
 index=26
-versions=17.1.4,18.0,18.0.4,18.1.0,18.1.2,19.0,20.0.1,20.1.1,20.2,21.0.7
+versions=17.1.4,18.0,18.0.4,18.1.0,18.1.2,19.0,20.0.1,20.1.1,20.2,21.0
 display_name=Manjaro Linux
 alt_names=ManjaroLinux,manjaro
 display=1
@@ -18158,7 +18170,7 @@ packages=automake
 packages=avahi
 # ****************************************
 
-[manjarolinux:21.0.7]
+[manjarolinux:21.0]
 code_name=Ornara
 supported=1
 scan_supported=1
@@ -18185,142 +18197,143 @@ scanjet_depend_cmd=sudo pacman -Sy --noconfirm python2-pip,sudo pacman -Sy --noc
 scanjet_py3_depend_cmd=sudo pacman -Sy --noconfirm llvm,sudo pacman -Sy --noconfirm llvm-libs,sudo pacman -Sy --noconfirm python-pip,sudo easy_install pip==18.0,sudo pip install Pillow,sudo pacman -Sy --noconfirm tesseract,sudo pacman -Sy --noconfirm leptonica,sudo pip3 install tesserocr,sudo pacman -Sy --noconfirm tesseract-data-eng,sudo pip3 install opencv-python,sudo pip3 install PyPDF2,sudo pip3 install imutils,sudo pip3 install ocrmypdf,sudo pip3 install scikit-image,sudo pip3 install scipy,sudo pip3 install notify2
 
 libdir_path=/usr/lib
-[manjarolinux:21.0.7:cups]
+[manjarolinux:21.0:cups]
 packages=libcups2
 
-[manjarolinux:21.0.7:libjpeg]
+[manjarolinux:21.0:libjpeg]
 packages=libjpeg-turbo
 
-[manjarolinux:21.0.7:cups-devel]
+[manjarolinux:21.0:cups-devel]
 packages=libcups2-dev,cups-bsd,cups-client
 
-[manjarolinux:21.0.7:gcc]
+[manjarolinux:21.0:gcc]
 packages=libusb-compat
 commands=/bin/bash -c "yes | sudo pacman -Sy gcc-multilib gcc-libs-multilib lib32-gcc-libs lib32-glibc",/bin/bash -c "yes | sudo pacman -S --needed gcc"
 
-[manjarolinux:21.0.7:gs]
+[manjarolinux:21.0:gs]
 packages=libidn,ghostscript
 
-[manjarolinux:21.0.7:gtk-engine-murrine]
+[manjarolinux:21.0:gtk-engine-murrine]
 packages=gtk-engine-murrine
 
-[manjarolinux:21.0.7:libcrypto]   
+[manjarolinux:21.0:libcrypto]   
 packages=openssl,libssl-dev 
 
-[manjarolinux:21.0.7:libnetsnmp-devel]
+[manjarolinux:21.0:libnetsnmp-devel]
 packages=libsnmp-dev,snmp-mibs-downloader
 
-[manjarolinux:21.0.7:libpthread]
+[manjarolinux:21.0:libpthread]
 packages=libpthread-stubs
 
-[manjarolinux:21.0.7:libtool]
+[manjarolinux:21.0:libtool]
 packages=libtool,libtool-bin
 
-[manjarolinux:21.0.7:libusb]
+[manjarolinux:21.0:libusb]
 packages=libusb-1.0.0-dev
 
-[manjarolinux:21.0.7:make]
+[manjarolinux:21.0:make]
 packages=make
 
-[manjarolinux:21.0.7:pil]
+[manjarolinux:21.0:pil]
 packages=python2-imaging
 
-[manjarolinux:21.0.7:ppdev]
+[manjarolinux:21.0:ppdev]
 packages=
 commands=sudo modprobe ppdev,sudo cp -f /etc/modules /etc/modules.hplip,echo ppdev | sudo tee -a /etc/modules
 
-[manjarolinux:21.0.7:pyqt]
+[manjarolinux:21.0:pyqt]
 packages=python-qtpy
 
-[manjarolinux:21.0.7:python2-devel]
+[manjarolinux:21.0:python2-devel]
 packages=
 commands=sudo pacman -S --noconfirm pygtk
 
-[manjarolinux:21.0.7:pyqt5]
+[manjarolinux:21.0:pyqt5]
 packages=python-qtpy
 
-[manjarolinux:21.0.7:pyqt5-dbus]
+[manjarolinux:21.0:pyqt5-dbus]
 packages=qt5-tools
 
-[manjarolinux:21.0.7:python23]
+[manjarolinux:21.0:python23]
 packages=python2
 
-[manjarolinux:21.0.7:python2X]
+[manjarolinux:21.0:python2X]
 packages=python2
 
-[manjarolinux:21.0.7:reportlab]
+[manjarolinux:21.0:reportlab]
 packages=python2-reportlab
 
-[manjarolinux:21.0.7:sane]
+[manjarolinux:21.0:sane]
 packages=sane
 
-[manjarolinux:21.0.7:sane-devel]
+[manjarolinux:21.0:sane-devel]
 packages=
 
-[manjarolinux:21.0.7:scanimage]
+[manjarolinux:21.0:scanimage]
 packages=
 
-[manjarolinux:21.0.7:xsane]
+[manjarolinux:21.0:xsane]
 packages=xsane
 
-[manjarolinux:21.0.7:python-dbus]
+[manjarolinux:21.0:python-dbus]
 packages=dbus-python,python2-dbus
 
-[manjarolinux:21.0.7:dbus]
+[manjarolinux:21.0:dbus]
 packages=libdbus-1-dev
 
-[manjarolinux:21.0.7:cups-image]
+[manjarolinux:21.0:cups-image]
 packages=libcupsimage2-dev
 
-[manjarolinux:21.0.7:cups-ddk]
+[manjarolinux:21.0:cups-ddk]
 packages=cups
 
-[manjarolinux:21.0.7:policykit]
+[manjarolinux:21.0:policykit]
 packages=polkit,polkit-gnome
 
-[manjarolinux:21.0.7:network]
+[manjarolinux:21.0:network]
 packages=wget
 
-[manjarolinux:21.0.7:avahi-utils]
+[manjarolinux:21.0:avahi-utils]
 packages=avahi-utils
 
-[manjarolinux:21.0.7:python3-pyqt4]
+[manjarolinux:21.0:python3-pyqt4]
 packages=python-pyqt5
 
-[manjarolinux:21.0.7:python3-pyqt5-dbus]
+[manjarolinux:21.0:python3-pyqt5-dbus]
 packages=libdbusmenu-qt5,lib32-dbus,pkgconf
 
-[manjarolinux:21.0.7:python3-pyqt5]
+[manjarolinux:21.0:python3-pyqt5]
 packages=python-pyqt5
 
-[manjarolinux:21.0.7:python3-dbus]
+[manjarolinux:21.0:python3-dbus]
 packages=python-dbus,python-gi
 
-[manjarolinux:21.0.7:python3-xml]
+[manjarolinux:21.0:python3-xml]
 packages=python-lxml
 
-[manjarolinux:21.0.7:python3-devel]
+[manjarolinux:21.0:python3-devel]
 packages=
 
-[manjarolinux:21.0.7:python3-pil]
+[manjarolinux:21.0:python3-pil]
 packages=python2-pillow
 
-[manjarolinux:21.0.7:python3-reportlab]
+[manjarolinux:21.0:python3-reportlab]
 packages=python-reportlab
 
-[manjarolinux:21.0.7:autoconf]
+[manjarolinux:21.0:autoconf]
 packages=autoconf
 
-[manjarolinux:21.0.7:epm]
+[manjarolinux:21.0:epm]
 packages=
 
-[manjarolinux:21.0.7:automake]
+[manjarolinux:21.0:automake]
 packages=automake
 
-[manjarolinux:21.0.7:libavahi-dev]
+[manjarolinux:21.0:libavahi-dev]
 packages=avahi
 
 # ****************************************
+
 
 [zorin]
 index=27
@@ -18791,7 +18804,7 @@ packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 [elementary]
 index=29
-versions=6
+versions=6,6.1
 display_name=Elementary OS
 alt_names=
 display=1
@@ -18943,6 +18956,140 @@ packages=python3-reportlab
 packages=automake1.11
 
 [elementary:6:epm]
+packages=epm
+
+# ****************************************
+
+[elementary:6.1]
+code_name=jolnir
+supported=1
+scan_supported=1
+fax_supported=1
+pcard_supported=1
+network_supported=1
+parallel_supported=1
+usb_supported=1
+packaged_version=3.22.02
+release_date=01/03/2022
+notes=Enable the universe/multiverse repositories. Also be sure you are using the Ubuntu "Main" Repositories. See: https://help.ubuntu.com/community/Repositories/Ubuntu for more information.  Disable the CD-ROM/DVD source if you do not have the Ubuntu installation media inserted in the drive.
+ppd_install=drv
+udev_mode_fix=1
+ppd_dir=/usr/share/ppd/HP
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+ui_toolkit=qt5
+native_cups=1
+acl_rules=1
+#scanjet_depend_cmd=sudo apt-get install --assume-yes python-pip,sudo pip2 install --upgrade pip,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip2 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-all,sudo apt-get install --assume-yes libzbar-dev,sudo apt-get install --assume-yes python-zbar,sudo -H pip2 install opencv-python,sudo -H pip2 install PyPDF2,sudo -H pip2 install imutils,sudo -H pip2 install pypdfocr,sudo -H pip2 install scikit-image,sudo -H pip2 install scipy
+#scanjet_py3_depend_cmd=sudo apt-get install --assume-yes python3-pip,sudo pip3 install --upgrade pip,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo -H pip3 install tesserocr,sudo apt-get install --assume-yes tesseract-ocr-all,sudo -H pip3 install opencv-python,sudo -H pip3 install PyPDF2,sudo -H pip3 install imutils,sudo -H pip3 install ocrmypdf,sudo -H pip3 install scikit-image,sudo -H pip3 install scipy
+
+libdir_path=/usr/lib
+
+[elementary:6.1:cups]
+packages=libcups2
+
+[elementary:6.1:cups-devel]
+packages=libcups2-dev,cups-bsd,cups-client
+
+[elementary:6.1:gcc]
+packages=build-essential
+
+[elementary:6.1:gs]
+packages=ghostscript
+
+[elementary:6.1:libcrypto]
+packages=openssl
+
+[elementary:6.1:libjpeg]
+packages=libjpeg-dev
+
+[elementary:6.1:libatk-adaptor]
+packages=libatk-adaptor
+
+[elementary:6.1:libgail-common]
+packages=libgail-common
+
+[elementary:6.1:libnetsnmp-devel]
+packages=libsnmp-dev,snmp-mibs-downloader
+
+[elementary:6.1:libpthread]
+packages=build-essential
+
+[elementary:6.1:libtool]
+packages=libtool,libtool-bin
+
+[elementary:6.1:libusb]
+packages=libusb-1.0.0-dev,libusb-0.1-4
+
+[elementary:6.1:make]
+packages=build-essential
+
+[elementary:6.1:ppdev]
+packages=
+commands=sudo modprobe ppdev,sudo cp -f /etc/modules /etc/modules.hplip,echo ppdev | sudo tee -a /etc/modules
+
+
+[elementary:6.1:sane]
+packages=libsane
+
+[elementary:6.1:sane-devel]
+packages=libsane-dev
+
+[elementary:6.1:scanimage]
+packages=sane-utils
+
+[elementary:6.1:xsane]
+packages=gtk2-engines-pixbuf,xsane
+
+[elementary:6.1:dbus]
+packages=libdbus-1-dev
+
+[elementary:6.1:cups-image]
+packages=libcupsimage2-dev
+
+[elementary:6.1:cups-ddk]
+packages=cups
+
+[elementary:6.1:policykit]
+packages=policykit-1,policykit-1-gnome
+
+[elementary:6.1:network]
+packages=wget
+
+[elementary:6.1:avahi-utils]
+packages=avahi-utils
+
+[elementary:6.1:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
+[elementary:6.1:python3-notify2]
+packages=python3-notify2
+
+[elementary:6.1:python3-pyqt5-dbus]
+packages=python3-dbus.mainloop.pyqt5
+
+[elementary:6.1:python3-pyqt5]
+packages=python3-pyqt5,gtk2-engines-pixbuf
+
+[elementary:6.1:python3-dbus]
+packages=python3-dbus,python3-gi
+
+[elementary:6.1:python3-xml]
+packages=python3-lxml
+
+[elementary:6.1:python3-devel]
+packages=python3-dev
+
+[elementary:6.1:python3-pil]
+packages=python3-pil
+
+[elementary:6.1:python3-reportlab]
+packages=python3-reportlab
+
+[elementary:6.1:automake]
+packages=automake1.11
+
+[elementary:6.1:epm]
 packages=epm
 
 # ****************************************

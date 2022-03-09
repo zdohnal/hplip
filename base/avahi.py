@@ -60,7 +60,7 @@ def detectNetworkDevices(ttl=4, timeout=10):
                                 y['device1'] = "MFG:Hewlett-Packard;MDL:%s;CLS:PRINTER;" % value
                                 break
                         found_devices[y['ip']] = y
-                        log.debug("ip=%s hn=%s ty=%s" %(ip,y['hn'], y['mdns']))
+                        log.debug("ip=%s hn=%s ty=%s" %(ip,y['hn'], y.get('mdns')))
                 except socket.gaierror:
                     pass
     log.debug("Found %d devices" % len(found_devices))

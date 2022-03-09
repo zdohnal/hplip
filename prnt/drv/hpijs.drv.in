@@ -12471,6 +12471,46 @@ Transparency"
     Attribute "Product" "" "(HP LaserJet Pro MFP m27cnw)"
   }
   {
+    ModelName "HP LaserJet Tank 1020 hpijs"
+    Attribute "NickName" "" "HP LaserJet Tank 1020 hpijs, $Version"
+    Attribute "ShortNickName" "" "HP LaserJet Tank 1020 hpijs"
+    Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet tank 1020;DES:hp laserjet tank 1020;"
+    PCFileName "hp-laserjet_tank_1020-hpijs.ppd"
+    Attribute "Product" "" "(HP LaserJet Tank 1020)"
+    Attribute "Product" "" "(HP LaserJet Tank 1020w)"
+    Attribute "Product" "" "(HP LaserJet Tank 1020nw)"
+  }
+  {
+    ModelName "HP LaserJet Tank 150x hpijs"
+    Attribute "NickName" "" "HP LaserJet Tank 150x hpijs, $Version"
+    Attribute "ShortNickName" "" "HP LaserJet Tank 150x hpijs"
+    Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet tank 150x;DES:hp laserjet tank 150x;"
+    PCFileName "hp-laserjet_tank_150x-hpijs.ppd"
+    Attribute "Product" "" "(HP LaserJet Tank 1502a)"
+    Attribute "Product" "" "(HP LaserJet Tank 1502w)"
+    Attribute "Product" "" "(HP LaserJet Tank 1504w)"
+  }
+  {
+    ModelName "HP LaserJet Tank MFP 1005 hpijs"
+    Attribute "NickName" "" "HP LaserJet Tank MFP 1005 hpijs, $Version"
+    Attribute "ShortNickName" "" "HP LaserJet Tank MFP 1005 hpijs"
+    Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet tank mfp 1005;DES:hp laserjet tank mfp 1005;"
+    PCFileName "hp-laserjet_tank_mfp_1005-hpijs.ppd"
+    Attribute "Product" "" "(HP LaserJet Tank MFP 1005)"
+    Attribute "Product" "" "(HP LaserJet Tank MFP 1005w)"
+    Attribute "Product" "" "(HP LaserJet Tank MFP 1005nw)"
+  }
+  {
+    ModelName "HP LaserJet Tank MFP 160x hpijs"
+    Attribute "NickName" "" "HP LaserJet Tank MFP 160x hpijs, $Version"
+    Attribute "ShortNickName" "" "HP LaserJet Tank MFP 160x hpijs"
+    Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet tank mfp 160x;DES:hp laserjet tank mfp 160x;"
+    PCFileName "hp-laserjet_tank_mfp_160x-hpijs.ppd"
+    Attribute "Product" "" "(HP LaserJet Tank MFP 1602a)"
+    Attribute "Product" "" "(HP LaserJet Tank MFP 1602w)"
+    Attribute "Product" "" "(HP LaserJet Tank MFP 1604w)"
+  }
+  {
     ModelName "HP Neverstop Laser 100x hpijs"
     Attribute "NickName" "" "HP Neverstop Laser 100x hpijs, $Version"
     Attribute "ShortNickName" "" "HP Neverstop Laser 100x hpijs"

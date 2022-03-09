@@ -711,6 +711,9 @@ class CoreInstall(object):
             if 'MX' in distro_release_name:
                 name = "mxlinux"
                 ver = distro_release_name[3:5]
+            if 'manjaro' in name.lower():
+                version = ver.split('.')
+                ver = version[0] +'.'+version[1]
             found_in_list = False
             for d in self.distros:
                 if name.find(d) > -1:

@@ -2023,6 +2023,66 @@
 :model "HP LaserJet Professional m1219nfs MFP"
 :status :good
 
+:model "HP LaserJet Tank MFP 1005"
+:status :good
+
+:model "HP LaserJet Tank MFP 1005nw"
+:status :good
+
+:model "HP LaserJet Tank MFP 1005w"
+:status :good
+
+:model "HP LaserJet Tank MFP 1602a"
+:status :good
+
+:model "HP LaserJet Tank MFP 1602w"
+:status :good
+
+:model "HP LaserJet Tank MFP 1604w"
+:status :good
+
+:model "HP LaserJet Tank MFP 2602dn"
+:status :good
+
+:model "HP LaserJet Tank MFP 2602dw"
+:status :good
+
+:model "HP LaserJet Tank MFP 2602sdn"
+:status :good
+
+:model "HP LaserJet Tank MFP 2602sdw"
+:status :good
+
+:model "HP LaserJet Tank MFP 2603dw"
+:status :good
+
+:model "HP LaserJet Tank MFP 2603sdw"
+:status :good
+
+:model "HP LaserJet Tank MFP 2604dw"
+:status :good
+
+:model "HP LaserJet Tank MFP 2604sdw"
+:status :good
+
+:model "HP LaserJet Tank MFP 2605sdw"
+:status :good
+
+:model "HP LaserJet Tank MFP 2606dc"
+:status :good
+
+:model "HP LaserJet Tank MFP 2606dn"
+:status :good
+
+:model "HP LaserJet Tank MFP 2606dw"
+:status :good
+
+:model "HP LaserJet Tank MFP 2606sdn"
+:status :good
+
+:model "HP LaserJet Tank MFP 2606sdw"
+:status :good
+
 :model "HP LaserJet Ultra MFP m230sdn"
 :status :good
 
