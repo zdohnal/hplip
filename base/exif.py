@@ -1,4 +1,8 @@
 import collections
+try:
+    collectionsAbc = collections.abc
+except AttributeError:
+    collectionsAbc = collections
 # Library to extract EXIF information in digital camera image files
 #
 # Contains code from "exifdump.py" originally written by Thierry Bousch
@@ -798,7 +802,7 @@ class EXIF_header:
                 tag_name=tag_entry[0]
                 if len(tag_entry) != 1:
                     # optional 2nd tag element is present
-                    if isinstance(tag_entry[1], collections.Callable):
+                    if isinstance(tag_entry[1], collectionsAbc.Callable):
                         # call mapping function
                         printable=tag_entry[1](values)
                     else:

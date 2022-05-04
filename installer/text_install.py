@@ -214,7 +214,7 @@ def start(language, auto=True, test_depends=False,
                 if os_utils.execute(cmd1) != 0:
                     log.warning("Missing ghost script dependency,installation may fail")
             log.debug("Installing pkgconf")
-            if core.distro_version == '21.0.7':
+            if core.distro_version >= '20.0':
                 cmd6 = 'sudo pacman -Sy --noconfirm pkgconf'
                 if os_utils.execute(cmd6) != 0:
                     log.warning("Missing pkgconf dependency")
@@ -1278,13 +1278,9 @@ def start(language, auto=True, test_depends=False,
                     cmd3 = 'sudo pacman -Sy --noconfirm libxcrypt --overwrite "*"'
                     if os_utils.execute(cmd3) != 0:
                         log.warning("Missing libxcrypt dependency, configure may fail due to missing crypt.h")
-                if core.distro_version == '20.1.1':
+                if core.distro_version >= '20.0':
                     cmd4 = 'sudo pacman -Sy --noconfirm pkgconf'
                     if os_utils.execute(cmd4) != 0:
-                        log.warning("Missing pkgconf dependency")
-                if core.distro_version == '20.2':
-                    cmd5 = 'sudo pacman -Sy --noconfirm pkg-config'
-                    if os_utils.execute(cmd5) != 0:
                         log.warning("Missing pkgconf dependency")
             if core.distro_name.lower() == 'fedora' and core.distro_version >= '30':
                 cmd_fedora = 'sudo dnf -y -d 10 -e 1 install dbus-devel'

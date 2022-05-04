@@ -955,14 +955,22 @@ def punchhole_removal(im):
     from skimage.color import rgba2rgb, rgb2gray
     from skimage.transform import hough_circle, hough_circle_peaks
     from skimage.feature import canny
-    from skimage.draw import circle
+    try:
+        from skimage.draw import circle # py2 legacy code
+        draw_imported = "circle"
+    except ImportError:
+        from skimage.draw import disk #circle module renamed disk  ref:HPLIP-1475
+        draw_imported = "disk"
     from skimage.util import img_as_ubyte
 
     ''' check for punch holes and remove  '''
     max_peaks =  24 #maximum number of peaks to be found. changed from 99 to 24 for reducing the unnecessary punch holes being filled.
 
-    img = np.array(im)# Load picture .
-    img_gray = rgb2gray(img)# convert to gray
+    img = np.array(im)                      # Load picture .
+    if( img.shape[-1] == 3):                # check for 3 channel rgb data
+        img_gray = rgb2gray(img)            # convert to gray
+    else:                                   # it is 4 channel rgba data
+        img_gray = rgb2gray(rgba2rgb(img))  # first convert to rgb, then convert to gray ref:HPLIP-1475
     image = img_as_ubyte(img_gray)
     width, height = image.shape
     x1 =  punchhole_margin
@@ -985,8 +993,10 @@ def punchhole_removal(im):
            ((0 < center_y < width) and (y1 < center_x < height)) or\
            ((0 < center_y < x1) and (0 < center_x < height)) or \
            ((x2 < center_y < width) and (0 < center_x < height))):
-
-            rr, cc= circle(center_y, center_x, radius+1, img.shape)
+            if(draw_imported == "circle"):
+                rr, cc= circle(center_y, center_x, radius+1, img.shape) #py2 legacy code
+            elif(draw_imported == "disk"): 
+                rr, cc= disk((center_y, center_x), radius+1, shape=img.shape)
             dominantpix = dominantcolor(center_x, center_y, radius,img)          
             for i , j in zip(list(rr), list(cc)):
                 img[i,j]= (dominantpix[0], dominantpix[1], dominantpix[2], 255)

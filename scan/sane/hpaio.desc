@@ -1741,6 +1741,69 @@
 :model "HP LaserJet Pro m521dw Multifunction Printer"
 :status :good
 
+:model "HP LaserJet Pro MFP 4101dw"
+:status :good
+
+:model "HP LaserJet Pro MFP 4101dwe"
+:status :good
+
+:model "HP LaserJet Pro MFP 4101fdn"
+:status :good
+
+:model "HP LaserJet Pro MFP 4101fdne"
+:status :good
+
+:model "HP LaserJet Pro MFP 4101fdw"
+:status :good
+
+:model "HP LaserJet Pro MFP 4101fdwe"
+:status :good
+
+:model "HP LaserJet Pro MFP 4102dw"
+:status :good
+
+:model "HP LaserJet Pro MFP 4102dwe"
+:status :good
+
+:model "HP LaserJet Pro MFP 4102fdn"
+:status :good
+
+:model "HP LaserJet Pro MFP 4102fdne"
+:status :good
+
+:model "HP LaserJet Pro MFP 4102fdw"
+:status :good
+
+:model "HP LaserJet Pro MFP 4102fdwe"
+:status :good
+
+:model "HP LaserJet Pro MFP 4102fnw"
+:status :good
+
+:model "HP LaserJet Pro MFP 4102fnwe"
+:status :good
+
+:model "HP LaserJet Pro MFP 4103dn"
+:status :good
+
+:model "HP LaserJet Pro MFP 4103dw"
+:status :good
+
+:model "HP LaserJet Pro MFP 4103fdn"
+:status :good
+
+:model "HP LaserJet Pro MFP 4103fdw"
+:status :good
+
+:model "HP LaserJet Pro MFP 4104dw"
+:status :good
+
+:model "HP LaserJet Pro MFP 4104fdn"
+:status :good
+
+:model "HP LaserJet Pro MFP 4104fdw"
+:status :good
+
 :model "HP LaserJet Pro MFP m125a"
 :status :good
 
@@ -4198,6 +4261,9 @@
 :model "HP Scanjet Enterprise Flow 7000 s3"
 :status :good
 
+:model "HP Scanjet Enterprise Flow n6600 fnw1"
+:status :good
+
 :model "HP Scanjet Enterprise Flow n7000 snw1"
 :status :good
 
@@ -4205,6 +4271,9 @@
 :status :good
 
 :model "HP Scanjet Pro 2000 s2"
+:status :good
+
+:model "HP Scanjet Pro 2600 f1"
 :status :good
 
 :model "HP Scanjet Pro 3000 s3"
@@ -4216,10 +4285,16 @@
 :model "HP Scanjet Pro 3500 f1 Flatbed Scanner"
 :status :good
 
+:model "HP Scanjet Pro 3600 f1"
+:status :good
+
 :model "HP Scanjet Pro 4500 fn1"
 :status :good
 
 :model "HP Scanjet Pro n4000 snw1"
+:status :good
+
+:model "HP Scanjet Pro n4600 fnw1"
 :status :good
 
 :model "HP Smart Tank 350"

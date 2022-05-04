@@ -226,9 +226,12 @@ def disable(mode, ui_toolkit='qt4', dialog=None, app=None, passwordObj = None):
                     dialog.init(printer_names, "", QUEUES_SMART_INSTALL_ENABLED)
                 else:   # If QT object is not created, creating QT app
                     try:
-                        from ui4.queuesconf import QueuesDiagnose
+                        if ui_toolkit == "qt4":
+                            from ui4.queuesconf import QueuesDiagnose
+                        elif ui_toolkit == "qt5":
+                            from ui5.queuesconf import QueuesDiagnose    
                     except ImportError:
-                        log.error("Unable to load Qt4 support. Is it installed?")
+                        log.error("Unable to load Qt4/Qt5 support. Is it installed?")
                     else:       #  app = QApplication(sys.argv)   # caller needs to inoke this, if already QApplication object is not created.
                         dialog = QueuesDiagnose(None, printer_names ,"",QUEUES_SMART_INSTALL_ENABLED)
 

@@ -103,6 +103,7 @@ struct ledm_session
   char uri[HPMUD_LINE_SIZE];
   char model[HPMUD_LINE_SIZE];
   char url[256];
+  char ip[32];
   int scan_type;
   int user_cancel;
 

@@ -48,6 +48,7 @@ then
 	install -d ppd/classppd/hpcups 
 	install -d ppd/classppd/ps
 	ppdc -d ppd/classppd/hpcups prnt/drv/hpcups.drv
+	#ppdc -d ppd/classppd/hpcups prnt/spd/hpcupsSPD.drv
     	if [ -f "prnt/ps/hp-postscript-inkjet.ppd.gz" ]
 	then
 		cp prnt/ps/hp-postscript*.ppd.gz ppd/classppd/ps
@@ -57,7 +58,8 @@ then
 			gzip -c "$i" > "$i.gz"
 		done
 	fi
-        #cp prnt/ps/hp-postscript*.ppd.gz ppd/classppd/ps
+	#cp prnt/spd/*.ppd ppd/classppd/hpcups/.
+    #cp prnt/ps/hp-postscript*.ppd.gz ppd/classppd/ps
 	for i in ppd/classppd/hpcups/*.ppd; do
 		gzip -c "$i" > "$i.gz"
 	done

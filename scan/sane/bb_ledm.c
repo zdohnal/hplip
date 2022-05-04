@@ -159,7 +159,7 @@ static const char *sf_element[SF_MAX] = { "", "raw", "jpeg" };  /* SCAN_FORMAT (
 static const char *ce_element[CE_MAX] = { "", "K1", "Gray8", "Color8" };   /* COLOR_ENTRY */
 static const char *is_element[IS_MAX] = { "", "Platen", "Adf", "ADFDuplex" };   /* INPUT_SOURCE */
 
-# define POST_HEADER "POST /Scan/Jobs HTTP/1.1\r\nHost: localhost\r\nUser-Agent: \
+# define POST_HEADER "POST /Scan/Jobs HTTP/1.1\r\nHost: %s\r\nUser-Agent: \
 hplip\r\nAccept: text/plain, */*\r\nAccept-Language: en-us,en\r\n\
 Accept-Charset: ISO-8859-1,utf-8\r\nKeep-Alive: 1000\r\nProxy-Connection: keep-alive\r\n\
 Content-Type: */*; charset=UTF-8\r\nX-Requested-With: XMLHttpRequest\r\n\
@@ -167,14 +167,14 @@ Content-Length: %d\r\nCookie: AccessCounter=new\r\n\
 Pragma: no-cache\r\nCache-Control: no-cache\r\n\r\n" 
 
 # define GET_SCANNER_ELEMENTS "GET /Scan/ScanCaps HTTP/1.1\r\n\
-Host: localhost\r\nUser-Agent: hplip\r\n\
+Host: %s\r\nUser-Agent: hplip\r\n\
 Accept: text/xml\r\n\
 Accept-Language: en-us,en\r\n\
 Accept-Charset:utf-8\r\n\
 Keep-Alive: 20\r\nProxy-Connection: keep-alive\r\nCookie: AccessCounter=new\r\n0\r\n\r\n"
 
 # define GET_SCANNER_STATUS "GET /Scan/Status HTTP/1.1\r\n\
-Host: localhost\r\nUser-Agent: hplip\r\n\
+Host: %s\r\nUser-Agent: hplip\r\n\
 Accept: text/xml\r\n\
 Accept-Language: en-us,en\r\n\
 Accept-Charset:utf-8\r\n\
@@ -203,7 +203,7 @@ Keep-Alive: 20\r\nProxy-Connection: keep-alive\r\nCookie: AccessCounter=new\r\n0
 <Shadow>0</Shadow></ToneMap>\
 <ContentType>Photo</ContentType></ScanSettings>" 
 
-# define CANCEL_JOB_REQUEST "PUT %s HTTP/1.1\r\nHost: localhost\r\nUser-Agent: hplip\r\n\
+# define CANCEL_JOB_REQUEST "PUT %s HTTP/1.1\r\nHost: %s\r\nUser-Agent: hplip\r\n\
 Accept: text/plain\r\nAccept-Language: en-us,en\r\nAccept-Charset:utf-8\r\nKeep-Alive: 10\r\n\
 Content-Type: text/xml\r\nProxy-Connection: Keep-alive\r\nX-Requested-With: XMLHttpRequest\r\nReferer: localhost\r\n\
 Content-Length: %d\r\nCookie: AccessCounter=new\r\n\r\n"
@@ -216,7 +216,7 @@ xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" \
 xsi:schemaLocation=\"http://www.hp.com/schemas/imaging/con/ledm/jobs/2009/04/30 ../schemas/Jobs.xsd\">\
 <j:JobState>Canceled</j:JobState></j:Job>"
 
-# define GET_SCAN_JOB_URL "GET %s HTTP/1.1\r\nHost: localhost\r\nUser-Agent: hplip\r\n\
+# define GET_SCAN_JOB_URL "GET %s HTTP/1.1\r\nHost: %s\r\nUser-Agent: hplip\r\n\
 Accept: text/plain\r\nAccept-Language: en-us,en\r\nAccept-Charset:utf-8\r\nX-Requested-With: XMLHttpRequest\r\n\
 Keep-Alive: 300\r\nProxy-Connection: keep-alive\r\nCookie: AccessCounter=new\r\n0\r\n\r\n"
 
@@ -523,7 +523,8 @@ static int get_scanner_elements(struct ledm_session *ps, struct wscn_scan_elemen
 {
   struct bb_ledm_session *pbb = ps->bb_session;
   int bytes_read = 0;
-  int stat=1, tmo=10;
+  int stat=1, tmo=10, buf_len=0;
+  char write_buf[1024]={0};
   char buf[8192];
 
   if (http_open(ps->dd, HPMUD_S_LEDM_SCAN, &pbb->http_handle) != HTTP_R_OK)
@@ -533,7 +534,8 @@ static int get_scanner_elements(struct ledm_session *ps, struct wscn_scan_elemen
   }
 
   /* Write the xml payload. */
-  if (http_write(pbb->http_handle, GET_SCANNER_ELEMENTS, sizeof(GET_SCANNER_ELEMENTS)-1, tmo) != HTTP_R_OK)
+  buf_len = snprintf(write_buf,sizeof(write_buf),GET_SCANNER_ELEMENTS,ps->ip);
+  if (http_write(pbb->http_handle, write_buf, buf_len, tmo) != HTTP_R_OK)
   {
     _BUG("unable to get_scanner_elements %s\n", ps->uri);
     goto bugout;
@@ -582,7 +584,7 @@ static int cancel_job(struct ledm_session *ps)
     goto bugout;
   }
 
-  len = snprintf(buf, sizeof(buf), CANCEL_JOB_REQUEST, ps->url, strlen(CANCEL_JOB_DATA));
+  len = snprintf(buf, sizeof(buf), CANCEL_JOB_REQUEST, ps->url, ps->ip, strlen(CANCEL_JOB_DATA));
   if (http_write(pbb->http_handle, buf, len, 1) != HTTP_R_OK)
   {
     _BUG("unable to cancel_job %s\n", ps->url);
@@ -808,7 +810,8 @@ return 0;
 int bb_is_paper_in_adf(struct ledm_session *ps) /* 0 = no paper in adf, 1 = paper in adf, -1 = error */
 {
   char buf[1024];
-  int bytes_read;
+  char write_buf[1024]={0};
+  int bytes_read,buf_len=0;
   struct bb_ledm_session *pbb = ps->bb_session;
 
   if(http_open(ps->dd, HPMUD_S_LEDM_SCAN, &pbb->http_handle) != HTTP_R_OK)
@@ -816,7 +819,8 @@ int bb_is_paper_in_adf(struct ledm_session *ps) /* 0 = no paper in adf, 1 = pape
         _BUG("unable to open channel HPMUD_S_LEDM_SCAN \n");
         return -1;
   }
-  if (http_write(pbb->http_handle, GET_SCANNER_STATUS, sizeof(GET_SCANNER_STATUS)-1, 10) != HTTP_R_OK)
+  buf_len = snprintf(write_buf,sizeof(write_buf),GET_SCANNER_STATUS,ps->ip);
+  if (http_write(pbb->http_handle, write_buf, buf_len, 10) != HTTP_R_OK)
   {
     _BUG("unable to get scanner status \n");
   }
@@ -841,8 +845,10 @@ int bb_is_paper_in_adf(struct ledm_session *ps) /* 0 = no paper in adf, 1 = pape
 SANE_Status bb_start_scan(struct ledm_session *ps)
 {
   char buf[4096] = {0};
-  char buf1[1024]={0};
-  int len, bytes_read, paper_status;
+  char post_write_buf[1024]={0};
+  char status_write_buf[1024]={0};
+  int  bytes_read, paper_status;
+  int  post_buf_len=0,status_buf_len=0,len=0;
   int i, timeout = 10 ;
   char szPage_ID[5] = {0};
   char szJob_ID[5] = {0};
@@ -859,7 +865,8 @@ SANE_Status bb_start_scan(struct ledm_session *ps)
         goto bugout;
     }
 
-    if (http_write(pbb->http_handle, GET_SCANNER_STATUS, sizeof(GET_SCANNER_STATUS)-1, timeout) != HTTP_R_OK)
+    status_buf_len = snprintf(status_write_buf,sizeof(status_write_buf),GET_SCANNER_STATUS,ps->ip);
+    if (http_write(pbb->http_handle, status_write_buf, status_buf_len, 10) != HTTP_R_OK)
     {
        _BUG("unable to GET_SCANNER_STATUS \n");
        goto bugout;
@@ -900,8 +907,8 @@ SANE_Status bb_start_scan(struct ledm_session *ps)
 
     len = len + strlen(ZERO_FOOTER);
 
-    len = snprintf(buf1, sizeof(buf1), POST_HEADER, len);
-    if (http_write(pbb->http_handle, buf1, strlen(buf1), timeout) != HTTP_R_OK)
+    post_buf_len = snprintf(post_write_buf, sizeof(post_write_buf), POST_HEADER,ps->ip, len);
+    if (http_write(pbb->http_handle, post_write_buf, post_buf_len, timeout) != HTTP_R_OK)
     {
         //goto bugout;
     }
@@ -974,7 +981,7 @@ SANE_Status bb_start_scan(struct ledm_session *ps)
   while(strstr(buf, READY_TO_UPLOAD) == NULL)
   {
      _DBG("bb_start_scan() ENTERING....buf=%s\n", buf);
-     len = snprintf(buf, sizeof(buf), GET_SCAN_JOB_URL, ps->url);
+     len = snprintf(buf, sizeof(buf), GET_SCAN_JOB_URL, ps->url, ps->ip);
 
      if (http_write(pbb->http_handle, buf, strlen(buf), 1) != HTTP_R_OK)
      {
@@ -1022,7 +1029,7 @@ SANE_Status bb_start_scan(struct ledm_session *ps)
   }
   BinaryURL[i] = '\0';
   //_DBG("bb_start_scan() BinaryURL=%s\n", BinaryURL);
-  len = snprintf(buf, sizeof(buf), GET_SCAN_JOB_URL, BinaryURL);
+  len = snprintf(buf, sizeof(buf), GET_SCAN_JOB_URL, BinaryURL, ps->ip);
  
   if (http_write(pbb->http_handle, buf, strlen(buf), timeout) != HTTP_R_OK)
   {

@@ -2058,7 +2058,7 @@ int __attribute__ ((visibility ("hidden"))) musb_probe_devices(char *lst, int ls
     numdevs = libusb_get_device_list(ctx, &list);
 
     if (numdevs <= 0)
-        goto bugout;
+        goto bugout1;
 
     model[0] = serial[0] = rmodel[0] = rserial[0] = sz[0] = mfg[0] = 0;
 
@@ -2160,6 +2160,7 @@ bugout:
     if (confptr)
         libusb_free_config_descriptor(confptr);
     libusb_free_device_list(list, 1);
+bugout1:
     libusb_exit(ctx);
 
     return size;

@@ -393,6 +393,17 @@ SANE_Status __attribute__ ((visibility ("hidden"))) ledm_open(SANE_String_Const 
   hpmud_query_model(session->uri, &ma);
   session->scan_type = ma.scantype;
 
+/* Get the ip (Hostname) from uri for network devices, for usb devices set ip as "HPLIP"*/
+  memset(session->ip, 0, sizeof(session->ip));
+  if(strncasecmp("hp:/net", session->uri, 7)==0)
+  {
+    hpmud_get_uri_datalink(session->uri, session->ip, sizeof(session->ip));
+  }
+  else
+  {
+    snprintf(session->ip,6,"HPLIP");
+  }
+  
   if (hpmud_open_device(session->uri, ma.mfp_mode, &session->dd) != HPMUD_R_OK)
   {
     stat = SANE_STATUS_IO_ERROR;

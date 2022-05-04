@@ -12,7 +12,7 @@
 #include <abstractions/nameservice>
 #include <abstractions/openssl>	
 
-/usr/{,local/}bin/python[2-3].[0-9] ix,
+/usr/{,local/}bin/python* ix,
 
 /etc/ r,
 /etc/** r,

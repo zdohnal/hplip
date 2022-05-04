@@ -16559,7 +16559,7 @@ packages=epm
 
 [manjarolinux]
 index=26
-versions=17.1.4,18.0,18.0.4,18.1.0,18.1.2,19.0,20.0.1,20.1.1,20.2,21.0
+versions=17.1.4,18.0,18.0.4,18.1.0,18.1.2,19.0,20.0.1,20.1.1,20.2,21.0,21.2
 display_name=Manjaro Linux
 alt_names=ManjaroLinux,manjaro
 display=1
@@ -18330,6 +18330,158 @@ packages=
 packages=automake
 
 [manjarolinux:21.0:libavahi-dev]
+packages=avahi
+
+# ****************************************
+[manjarolinux:21.2]
+code_name=Qonos
+supported=1
+scan_supported=1
+fax_supported=1
+pcard_supported=1
+network_supported=1
+parallel_supported=1
+usb_supported=1
+packaged_version=3.22.2
+release_date=01/12/2021
+notes=Enable the universe/multiverse repositories. Also be sure you are using the Manjaro "Main" Repositories. See: https://wiki.manjaro.org/index.php/Arch_User_Repository for more information.  Disable the CD-ROM/DVD source if you do not have the Manjaro installation media inserted in the drive.
+ppd_install=drv
+udev_mode_fix=1
+ppd_dir=/usr/share/ppd/HP
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+ui_toolkit=qt5
+native_cups=1
+pre_depend_cmd=sudo systemctl enable --now cups
+post_depend_cmd=sudo systemctl enable --now cups
+acl_rules=1
+package_mgr_cmd=sudo pacman -S --noconfirm $packages_to_install
+#scanjet_depend_cmd=sudo pacman -Sy --noconfirm python2-pip,sudo pacman -Sy --noconfirm tesseract,sudo pacman -Sy --noconfirm leptonica,sudo pip2 install tesserocr,sudo pacman -Sy --noconfirm tesseract-data-*,sudo pip2 install opencv-python,sudo pip2 install PyPDF2,sudo pip2 install imutils,sudo pip2 install pypdfocr,sudo pip2 install scikit-image,sudo pip2 install scipy
+#scanjet_py3_depend_cmd=sudo pacman -Sy --noconfirm python3-pip,sudo pacman -Sy --noconfirm tesseract,sudo pacman -Sy --noconfirm leptonica,sudo pip3 install tesserocr,sudo pacman -Sy --noconfirm tesseract-data-*,sudo pip3 install opencv-python,sudo pip3 install PyPDF2,sudo pip3 install imutils,sudo pip3 install ocrmypdf,sudo pip3 install scikit-image,sudo pip3 install scipy
+scanjet_depend_cmd=sudo pacman -Sy --noconfirm python2-pip,sudo pacman -Sy --noconfirm tesseract,sudo pacman -Sy --noconfirm leptonica,sudo pip2 install tesserocr,sudo pacman -Sy --noconfirm tesseract-data-eng,sudo pip2 install opencv-python,sudo pip2 install PyPDF2,sudo pip2 install imutils,sudo pacman -Sy --noconfirm zbar,sudo pip2 install pypdfocr,sudo pip2 install scikit-image,sudo pip2 install scipy
+scanjet_py3_depend_cmd=sudo pacman -Sy --noconfirm llvm,sudo pacman -Sy --noconfirm llvm-libs,sudo pacman -Sy --noconfirm python-pip,sudo easy_install pip==18.0,sudo pip install Pillow,sudo pacman -Sy --noconfirm tesseract,sudo pacman -Sy --noconfirm leptonica,sudo pip3 install tesserocr,sudo pacman -Sy --noconfirm tesseract-data-eng,sudo pip3 install opencv-python,sudo pip3 install PyPDF2,sudo pip3 install imutils,sudo pip3 install ocrmypdf,sudo pip3 install scikit-image,sudo pip3 install scipy,sudo pip3 install notify2
+
+libdir_path=/usr/lib
+[manjarolinux:21.2:cups]
+packages=cups
+
+[manjarolinux:21.2:libjpeg]
+packages=libjpeg-turbo
+
+[manjarolinux:21.2:cups-devel]
+packages=libcups
+
+[manjarolinux:21.2:gcc]
+packages=gcc,gcc-libs,libusb-compat
+commands=/bin/bash -c "yes | sudo pacman -Sy gcc-multilib gcc-libs-multilib lib32-gcc-libs lib32-glibc",/bin/bash -c "yes | sudo pacman -S --needed gcc"
+
+[manjarolinux:21.2:gs]
+packages=libidn,ghostscript
+
+[manjarolinux:21.2:gtk-engine-murrine]
+packages=gtk-engine-murrine
+
+[manjarolinux:21.2:libcrypto]
+packages=openssl
+
+[manjarolinux:21.2:libnetsnmp-devel]
+packages=net-snmp
+
+[manjarolinux:21.2:libpthread]
+packages=libpthread-stubs
+
+[manjarolinux:21.2:libtool]
+packages=libtool
+
+[manjarolinux:21.2:libusb]
+packages=libusb
+
+[manjarolinux:21.2:make]
+packages=make
+
+[manjarolinux:21.2:pil]
+packages=python-pillow
+
+[manjarolinux:21.2:ppdev]
+packages=
+commands=sudo modprobe ppdev,sudo cp -f /etc/modules /etc/modules.hplip,echo ppdev | sudo tee -a /etc/modules
+
+[manjarolinux:21.2:pyqt]
+packages=python-pyqt5
+
+[manjarolinux:21.2:pyqt5]
+packages=python-pyqt5
+
+[manjarolinux:21.2:pyqt5-dbus]
+packages=qt5-tools
+
+[manjarolinux:21.2:reportlab]
+packages=python-reportlab
+
+[manjarolinux:21.2:sane]
+packages=sane
+
+[manjarolinux:21.2:sane-devel]
+packages=sane
+
+[manjarolinux:21.2:scanimage]
+packages=gambas3-gb-scanner
+
+[manjarolinux:21.2:xsane]
+packages=xsane
+
+[manjarolinux:21.2:python-dbus]
+packages=dbus-python
+
+[manjarolinux:21.2:dbus]
+packages=dbus,dbus-glib
+
+[manjarolinux:21.2:cups-image]
+packages=libcups
+
+[manjarolinux:21.2:cups-ddk]
+packages=cups
+
+[manjarolinux:21.2:policykit]
+packages=polkit-qt5
+
+[manjarolinux:21.2:network]
+packages=wget
+
+[manjarolinux:21.2:avahi-utils]
+packages=avahi
+
+[manjarolinux:21.2:python3-pyqt5-dbus]
+packages=libdbusmenu-qt5,lib32-dbus,pkgconf
+
+[manjarolinux:21.2:python3-pyqt5]
+packages=python-pyqt5
+
+[manjarolinux:21.2:python3-dbus]
+packages=python-dbus
+
+[manjarolinux:21.2:python3-xml]
+packages=python-lxml
+
+[manjarolinux:21.2:python3-devel]
+packages=
+
+[manjarolinux:21.2:python3-pil]
+packages=python-pillow
+
+[manjarolinux:21.2:python3-reportlab]
+packages=python-reportlab
+
+[manjarolinux:21.2:autoconf]
+packages=autoconf
+
+[manjarolinux:21.2:epm]
+packages=
+
+[manjarolinux:21.2:automake]
+packages=automake
+
+[manjarolinux:21.2:libavahi-dev]
 packages=avahi
 
 # ****************************************
