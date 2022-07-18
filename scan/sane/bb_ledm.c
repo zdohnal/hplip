@@ -937,7 +937,7 @@ SANE_Status bb_start_scan(struct ledm_session *ps)
     jl=jl+10;
 	
     int i=0;
-    while(*jl != '\r')
+    while(*jl != '\r' && i < 63)
     { 
       joblist[i]=*jl; 
       jl=jl+1; i++;
@@ -1017,12 +1017,12 @@ SANE_Status bb_start_scan(struct ledm_session *ps)
 
   char *c = strstr(buf, "<BinaryURL>");
   _DBG("bb_start_scan() BinaryURL=%s \n", c);
-  
+
   if (!c) goto bugout;
   c +=11;
   char BinaryURL[30];
   i = 0;
-  while(*c != '<')
+  while(*c != '<' && i < 29)
   {
      BinaryURL[i++] = *c ;
      c++;
@@ -1061,8 +1061,8 @@ int get_size(struct ledm_session* ps)
 
   if(ps->currentResolution >= 1200) tmo *= 5;
   
-  while(1)
-  {
+  while(i < 7)
+  { 
     if(http_read_size(pbb->http_handle, buffer+i, 1, tmo, &len) == 2) return 0;
     if( i && *(buffer+i) == '\n' && *(buffer+i-1) == '\r') break;
     i++;

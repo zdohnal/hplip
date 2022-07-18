@@ -253,7 +253,7 @@ class WifiSetupDialog(QDialog, Ui_Dialog):
             try:
                 self.dev = device.Device(self.device_uri)
             except Error as e:
-                FailureUI(self, self.__tr("<b>Error opening device:</b><p>%s</p><p>(%s)</p>") %(self.device_uri, str(e[0])))
+                FailureUI(self, self.__tr("<b>Error opening device:</b><p>%s</p><p>(%s)</p>") %(self.device_uri, str(e)))
 
                 if self.dev is not None:
                     self.dev.close()
@@ -834,7 +834,7 @@ class WifiSetupDialog(QDialog, Ui_Dialog):
 
 
     def showIOError(self, e):
-        FailureUI(self, self.__tr("<b>An I/O error occurred.</b><p>Please check the USB connection to your printer and try again.</p>(%s)" % str(e[0])))
+        FailureUI(self, self.__tr("<b>An I/O error occurred.</b><p>Please check the USB connection to your printer and try again.</p>(%s)" % str(e)))
 
         if self.dev is not None:
             self.dev.close()

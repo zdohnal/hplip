@@ -335,7 +335,7 @@ try:
                           'subject=', 'to=', 'from=', 'jpg',
                           'grey-scale', 'gray-scale', 'about=',
                           'editor=', 'dp=', 'dest-printer=', 'dd=',
-                          'dest-device=', 'brightness=', 'contrast=','filetype=', 'path=', 'uiscan', 'sharpness=','color_dropout_red_value=','color_dropout_green_value=','color_dropout_blue_value=','color_range=', 'color_value=','multipick','autoorient','blankpage','batchsepBP','mixedfeed', 'crushed', 'bg_color_removal','punchhole_removal','docmerge','adf_fladbed_merge','batchsepBC','deskew','autocrop','backside']
+                          'dest-device=', 'brightness=', 'contrast=','filetype=', 'path=', 'uiscan', 'sharpness=','color_dropout_red_value=','color_dropout_green_value=','color_dropout_blue_value=','color_range=', 'color_value=','multipick','autoorient','blankpage','batchsepBP','mixedfeed', 'crushed', 'bg_color_removal','punchhole_removal','docmerge','adf_flatbed_merge','batchsepBC','deskew','autocrop','backside']
 
     mod.setUsage(module.USAGE_FLAG_DEVICE_ARGS, extra_options, see_also_list=[])
 
@@ -833,7 +833,7 @@ try:
             except ValueError:
                 log.error("Invalid Option.Using default of False")
                 document_merge = False
-        elif o == '--adf_fladbed_merge':
+        elif o == '--adf_flatbed_merge':
             try:
                 merge_ADF_Flatbed = True                
             except ValueError:

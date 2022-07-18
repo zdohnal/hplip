@@ -610,7 +610,7 @@ class JoinDialog(QDialog):
 
 
     def retranslateUi(self):
-        self.setWindowTitle(QApplication.translate("Dialog", "Join Group", None, QApplication.UnicodeUTF8))
-        self.label.setText(QApplication.translate("Dialog", "Group to Join:", None, QApplication.UnicodeUTF8))
-        self.JoinButton.setText(QApplication.translate("Dialog", "Join", None, QApplication.UnicodeUTF8))
-        self.CancelButton.setText(QApplication.translate("Dialog", "Cancel", None, QApplication.UnicodeUTF8))
+        self.setWindowTitle(QApplication.translate("Dialog", "Join Group", None))
+        self.label.setText(QApplication.translate("Dialog", "Group to Join:", None))
+        self.JoinButton.setText(QApplication.translate("Dialog", "Join", None))
+        self.CancelButton.setText(QApplication.translate("Dialog", "Cancel", None))

@@ -5356,9 +5356,9 @@ Manufacturer "HP"
 
 // 5x7
   // Standard
-  CustomMedia "Photo5x7/Photo 5x7in" 360 504 14 14 14 14 "<</cupsInteger0 122/PageSize[360 504]/ImagingBBox null>>setpagedevice"
-         "<</cupsInteger0 101/PageSize[360 504]/ImagingBBox null>>setpagedevice"
-  CustomMedia "B5/JB5 182x257mm" 516.24 728.64 14 14 14 14 "<</cupsString0(jis_b5_182x257mm)/PageSize[516 729]/ImagingBBox null>>setpagedevice"
+  CustomMedia "Photo5x7/Photo 5x7in" 360 504 14 14 14 14 "<</cupsString0(na_5x7_5x7in)/PageSize[360 504]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(na_5x7_5x7in)/PageSize[360 504]/ImagingBBox null>>setpagedevice"
+  CustomMedia "JB5/JB5 182x257mm" 516.24 728.64 14 14 14 14 "<</cupsString0(jis_b5_182x257mm)/PageSize[516 729]/ImagingBBox null>>setpagedevice"
          "<</cupsString0(jis_b5_182x257mm)/PageSize [516.24 728.64]/ImagingBBox null>>setpagedevice"
   *CustomMedia "Letter/Letter 8.5x11in" 612 792 14 14 14 14 "<</cupsString0(na_letter_8.5x11in)/PageSize[612 792]/ImagingBBox null>>setpagedevice"
          "<</cupsString0(na_letter_8.5x11in)/PageSize[612 792]/ImagingBBox null>>setpagedevice"
@@ -5384,10 +5384,22 @@ Manufacturer "HP"
   CustomMedia "A5/A5 148x210mm" 419.76 595.44 14 14 14 14 "<</cupsString0(iso_a5_148x210mm)/PageSize[420 595]/ImagingBBox null>>setpagedevice"
          "<</cupsString0(iso_a5_148x210mm)/PageSize[419.76 595.44]/ImagingBBox null>>setpagedevice"
   CustomMedia "EnvC6/C6 Envelope 114x162mm" 323.28 459.36 14 14 14 14 "<</cupsString0(iso_c6_114x162mm)/PageSize[323.28 459.36]/ImagingBBox null>>setpagedevice"
-         "<</cupsInteger0 92/PageSize[323.28 459.36]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(iso_c6_114x162mm)/PageSize[323.28 459.36]/ImagingBBox null>>setpagedevice"
   CustomMedia "EnvChou3/#3 Japanese Envelope 120x235mm" 339.84 666 14 14 14 14 "<</cupsString0(jpn_chou3_120x235mm)/PageSize[339.84 666]/ImagingBBox null>>setpagedevice"
-         "<</cupsInteger0 110/PageSize[339.84 666]/ImagingBBox null>>setpagedevice"              
-    // Custom page sizes from 1x4in to Legal
+         "<</cupsString0(jpn_chou3_120x235mm)/PageSize[339.84 666]/ImagingBBox null>>setpagedevice"
+  CustomMedia "Executive/Executive " 522 756 8.4 36 8.4 8.4 "<</cupsString0(na_executive_7.25x10.5in)/PageSize[522 756]/ImagingBBox null>>setpagedevice"
+         	"<</cupsString0(na_executive_7.25x10.5in)/PageSize[522 756]/ImagingBBox null>>setpagedevice"
+  CustomMedia "B6/JIS B6 " 363 516 14 14 14 14 "<</cupsString0(jis_b6_128x182mm)/PageSize[363 516]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(jis_b6_128x182mm)/PageSize[363 516]/ImagingBBox null>>setpagedevice"
+  CustomMedia "EnvChou4/Japanese Envelope Chou#4 " 254.88 581.04 8.4 36 8.4 8.4  "<</cupsString0(jpn_chou4_90x205mm)/PageSize[254.88 581.04]/ImagingBBox null>>setpagedevice"
+         	"<</cupsString0(jpn_chou4_90x205mm)/PageSize[254.88 581.04]/ImagingBBox null>>setpagedevice"  
+  CustomMedia "OfukuHagaki/Japanese Postcard " 568.32 419.52 8.4 36 8.4 8.4 "<</cupsString0(jpn_oufuku_148x200mm)/PageSize[568.32 419.52]/ImagingBBox null>>setpagedevice"
+         	"<</cupsString0(jpn_oufuku_148x200mm)/PageSize[568.32 419.52]/ImagingBBox null>>setpagedevice"
+  CustomMedia "195.07x270mm/16k 195x270 mm" 552.96 765.36 18.00 36.00 18.00 9.00 "<</cupsString0(om_16k_195x270mm)/PageSize[552.96 765.36]/ImagingBBox null>>setpagedevice"
+         "<</cupsString0(om_16k_195x270mm)/PageSize[552.96 765.36]/ImagingBBox null>>setpagedevice"
+  CustomMedia "B5/B5 " 498.72 708.48 8.4 8.4 8.4 8.4 "<</cupsString0(iso_b5_176x250mm)/PageSize[498.72 708.48]/ImagingBBox null>>setpagedevice"
+            "<</cupsString0(iso_b5_176x250mm)/PageSize[498.72 708.48]/ImagingBBox null>>setpagedevice" 
+    
     
    // cupsRowCount values map to PEN_TYPE + 1 from global_types.h
     //Option "ColorModel/Output Mode" PickOne AnySetup 10.0

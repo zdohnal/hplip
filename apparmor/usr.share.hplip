@@ -36,7 +36,7 @@
   /{,usr/}bin/tar rix,
   /{,usr/}bin/dpkg-query ix,
   /bin/uname rix,
-  /{,usr/}bin/which rix,
+  /{,usr/}bin/which* rix,
   /run/sudo/ts/** k,
   / r,
   /etc/ r,
@@ -83,7 +83,8 @@
   /{,usr/}bin/rm rix,
   /{,usr/}bin/sudo rix,
   /{,usr/}bin/su rix,
-    /usr/lib{,32,64}/python{2.[4-7],3.[0-4]}/**.{pyc,so} rw,
+  /usr/lib{,32,64}/python{2.[4-7],3.[0-4]}/**.{pyc,so} rw,
+  /usr/libexec/sudo/* rix,
 }
 
 

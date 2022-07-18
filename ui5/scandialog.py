@@ -565,7 +565,7 @@ class Ui_HpScan(object):
         if self.blank_page.isChecked() == True:
             cmd = cmd + ' --' + 'blankpage'
         if self.document_merge_adf_flatbed.isChecked() == True:
-            cmd = cmd + ' --' + 'adf_fladbed_merge'
+            cmd = cmd + ' --' + 'adf_flatbed_merge'
         if self.image_enhancement.isChecked() == True and self.brightness == True:
             cmd = cmd + ' --' + 'brightness' + '=' + str(self.sizel1)
         if self.image_enhancement.isChecked() == True and self.contrast == True:

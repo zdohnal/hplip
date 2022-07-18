@@ -712,7 +712,7 @@ bugout:
 enum HPMUD_RESULT hpmud_write_channel(HPMUD_DEVICE dd, HPMUD_CHANNEL cd, const void *buf, int size, int sec_timeout, int *bytes_wrote)
 {
    enum HPMUD_RESULT stat = HPMUD_R_INVALID_STATE;
-
+   sec_timeout = 10; //hplip-1608, http write timeout issue for GEMS 2.0 
    DBG("[%d] hpmud_channel_write() dd=%d cd=%d buf=%p size=%d sectime=%d\n", getpid(), dd, cd, buf, size, sec_timeout);
 
    if (dd <= 0 || dd > HPMUD_DEVICE_MAX || msp->device[dd].index != dd ||

@@ -360,7 +360,7 @@ STRING_VECTOR CreateTechClassMatch(MODEL_DICT_MAP model_dict, STRING_VECTOR sub_
             include = 0;
             for(unsigned int count = 0; count< MAX_SUB_CLASS; count ++)
             {
-               if(sub_class[0] == TECH_SUBCLASSES[count]);  
+               if(sub_class[0] == TECH_SUBCLASSES[count]) 
                   include = 1;
             }
          }
@@ -680,7 +680,7 @@ char CreateFamilyClassDrv(DRV_DATA drv_data, MODEL_DICT_MAP model_dict, string m
     file_out_pointer.close();
     file_in_pointer.close();  
 
-    if(matches.size() >= 1) ;
+    if(matches.size() >= 1)
        matches.clear();
     return 1;
 }
@@ -1016,7 +1016,7 @@ char CreateTechClassDrv(DRV_DATA drv_data, MODEL_DICT_MAP model_dict, STRING_PAI
     file_in_pointer.close();  
     if(sub_class.size() >= 1)
        sub_class.clear();
-    if(matches.size() >= 1) ;
+    if(matches.size() >= 1)
        matches.clear();
     return 1;
 }

@@ -110,7 +110,7 @@ int addCupsPrinter(char *name, char *device_uri, char *location, char *ppd_file,
      }
 
      if ( info == NULL )
-        strcpy( info, name );
+        snprintf( info,sizeof(info), name );
 
      sprintf( printer_uri, "ipp://localhost/printers/%s", name );
 
@@ -511,27 +511,27 @@ int __parsePrinterAttributes(ipp_t *response, printer_t **printer_list)
 
              if ( strcmp(attr_name, "printer-name") == 0 &&
                                         val_tag == IPP_TAG_NAME ) {
-                  strcpy(t_printer->name, ippGetString(attr, 0, NULL) );
+                  snprintf(t_printer->name, sizeof(t_printer->name),ippGetString(attr, 0, NULL) );
              }
              else if ( strcmp(attr_name, "device-uri") == 0 &&
                                          val_tag == IPP_TAG_URI ) {
-                  strcpy(t_printer->device_uri, ippGetString(attr, 0, NULL) );
+                  snprintf(t_printer->device_uri,sizeof(t_printer->device_uri), ippGetString(attr, 0, NULL) );
              }
              else if ( strcmp(attr_name, "printer-uri-supported") == 0 &&
                                                  val_tag == IPP_TAG_URI ) {
-                  strcpy(t_printer->printer_uri, ippGetString(attr, 0, NULL) );
+                  snprintf(t_printer->printer_uri,sizeof(t_printer->printer_uri), ippGetString(attr, 0, NULL) );
              }
              else if ( strcmp(attr_name, "printer-info") == 0 &&
                                         val_tag == IPP_TAG_TEXT ) {
-                  strcpy(t_printer->info, ippGetString(attr, 0, NULL) );
+                  snprintf(t_printer->info,sizeof(t_printer->info), ippGetString(attr, 0, NULL) );
              }
              else if ( strcmp(attr_name, "printer-location") == 0 &&
                                            val_tag == IPP_TAG_TEXT ) {
-                  strcpy(t_printer->location, ippGetString(attr, 0, NULL) );
+                  snprintf(t_printer->location,sizeof(t_printer->location),ippGetString(attr, 0, NULL) );
              }
              else if ( strcmp(attr_name, "printer-make-and-model") == 0 &&
                                                   val_tag == IPP_TAG_TEXT ) {
-                  strcpy(t_printer->make_model, ippGetString(attr, 0, NULL) );
+                  snprintf(t_printer->make_model,sizeof(t_printer->make_model),ippGetString(attr, 0, NULL) );
              } 
              else if ( strcmp(attr_name, "printer-state") == 0 &&
                                              val_tag == IPP_TAG_ENUM ) {

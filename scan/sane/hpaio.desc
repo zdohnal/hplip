@@ -136,6 +136,27 @@
 :model "HP Color LaserJet Managed MFP e77830dn"
 :status :good
 
+:model "HP Color LaserJet Managed MFP e785"
+:status :good
+
+:model "HP Color LaserJet Managed MFP e78523"
+:status :good
+
+:model "HP Color LaserJet Managed MFP e78528"
+:status :good
+
+:model "HP Color LaserJet Managed MFP e786"
+:status :good
+
+:model "HP Color LaserJet Managed MFP e78625"
+:status :good
+
+:model "HP Color LaserJet Managed MFP e78630"
+:status :good
+
+:model "HP Color LaserJet Managed MFP e78635"
+:status :good
+
 :model "HP Color LaserJet Managed MFP e87640 Dn"
 :status :good
 
@@ -152,6 +173,21 @@
 :status :good
 
 :model "HP Color LaserJet Managed MFP e87660du"
+:status :good
+
+:model "HP Color LaserJet Managed MFP e877"
+:status :good
+
+:model "HP Color LaserJet Managed MFP e87740"
+:status :good
+
+:model "HP Color LaserJet Managed MFP e87750"
+:status :good
+
+:model "HP Color LaserJet Managed MFP e87760"
+:status :good
+
+:model "HP Color LaserJet Managed MFP e87770"
 :status :good
 
 :model "HP Color LaserJet MFP m277c6"
@@ -1282,6 +1318,9 @@
 :model "HP LaserJet 100 Color MFP m175r"
 :status :good
 
+:model "HP LaserJet 100 Colormfp m175nw"
+:status :good
+
 :model "HP LaserJet 1100 Printer"
 :status :good
 
@@ -1483,6 +1522,12 @@
 :model "HP LaserJet Enterprise Flow MFP m630z"
 :status :good
 
+:model "HP LaserJet Enterprise MFP m430f"
+:status :good
+
+:model "HP LaserJet Enterprise MFP m431f"
+:status :good
+
 :model "HP LaserJet Enterprise MFP m528dn"
 :status :good
 
@@ -1609,6 +1654,9 @@
 :model "HP LaserJet Managed Flow MFP e82560z"
 :status :good
 
+:model "HP LaserJet Managed MFP e42540f"
+:status :good
+
 :model "HP LaserJet Managed MFP e52645dn"
 :status :good
 
@@ -1627,6 +1675,27 @@
 :model "HP LaserJet Managed MFP e72535dn"
 :status :good
 
+:model "HP LaserJet Managed MFP e730"
+:status :good
+
+:model "HP LaserJet Managed MFP e73025"
+:status :good
+
+:model "HP LaserJet Managed MFP e73030"
+:status :good
+
+:model "HP LaserJet Managed MFP e731"
+:status :good
+
+:model "HP LaserJet Managed MFP e73130"
+:status :good
+
+:model "HP LaserJet Managed MFP e73135"
+:status :good
+
+:model "HP LaserJet Managed MFP e73140"
+:status :good
+
 :model "HP LaserJet Managed MFP e82540dn"
 :status :good
 
@@ -1643,6 +1712,18 @@
 :status :good
 
 :model "HP LaserJet Managed MFP e82560du"
+:status :good
+
+:model "HP LaserJet Managed MFP e826"
+:status :good
+
+:model "HP LaserJet Managed MFP e82650"
+:status :good
+
+:model "HP LaserJet Managed MFP e82660"
+:status :good
+
+:model "HP LaserJet Managed MFP e82670"
 :status :good
 
 :model "HP LaserJet MFP e72425a"
@@ -1739,6 +1820,9 @@
 :status :good
 
 :model "HP LaserJet Pro m521dw Multifunction Printer"
+:status :good
+
+:model "HP LaserJet Pro MFP 3101-3108"
 :status :good
 
 :model "HP LaserJet Pro MFP 4101dw"
