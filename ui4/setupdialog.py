@@ -191,7 +191,7 @@ class SetupDialog(QDialog, Ui_Dialog):
             QTimer.singleShot(0, self.showRemovePage)
         else:
             if self.skip_discovery:
-                self.discovery_method = 0 # SLP
+                self.discovery_method = 0 # mDNS
                 QTimer.singleShot(0, self.showDevicesPage)
             else:
                 QTimer.singleShot(0, self.showDiscoveryPage)
@@ -529,9 +529,9 @@ class SetupDialog(QDialog, Ui_Dialog):
 
                     if self.bus == 'net':
                         if self.discovery_method == 0:
-                            net_search_type = "slp"
-                        elif self.discovery_method == 1:
                             net_search_type = "mdns"
+                        elif self.discovery_method == 1:
+                            net_search_type = "slp"
                         else:
                             net_search_type = "avahi"
 
@@ -599,12 +599,8 @@ class SetupDialog(QDialog, Ui_Dialog):
         self.DevicesTableWidget.setRowCount(len(self.devices))
 
         if self.bus == 'net':
-            if self.discovery_method == 0:
-                headers = [self.__tr('Model'), self.__tr('IP Address'), self.__tr('Host Name'), self.__tr('Device URI')]
-                device_uri_col = 3
-            else:
-                headers = [self.__tr('Model'), self.__tr('Host Name'), self.__tr('Device URI')]
-                device_uri_col = 2
+            headers = [self.__tr('Model'), self.__tr('IP Address'), self.__tr('Host Name'), self.__tr('Device URI')]
+            device_uri_col = 3
         else:
             headers = [self.__tr('Model'), self.__tr('Device URI')]
             device_uri_col = 1
@@ -630,10 +626,9 @@ class SetupDialog(QDialog, Ui_Dialog):
                 i.setFlags(flags)
                 self.DevicesTableWidget.setItem(row, 1, i)
 
-                if self.discovery_method == 0:
-                    i = QTableWidgetItem(QString(self.devices[d][2]))
-                    i.setFlags(flags)
-                    self.DevicesTableWidget.setItem(row, 2, i)
+                i = QTableWidgetItem(QString(self.devices[d][2]))
+                i.setFlags(flags)
+                self.DevicesTableWidget.setItem(row, 2, i)
 
         self.DevicesTableWidget.resizeColumnsToContents()
         self.DevicesTableWidget.selectRow(0)

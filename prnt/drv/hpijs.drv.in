@@ -16201,6 +16201,22 @@ lity:PenSet=2,Quality:FullBleed=1"
     PCFileName "hp-officejet_pro_9020_series-hpijs.ppd"
     Attribute "Product" "" "(HP Officejet Pro All-in-one 9020)"
   }
+  {
+    ModelName "HP Officejet Pro 8020 Series hpijs"
+    Attribute "NickName" "" "HP Officejet Pro 8020 Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP OJ Pro 8020 Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet pro 8020 series;DES:officejet pro 8020 series;"
+    PCFileName "hp-officejet_pro_8020_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Officejet Pro 8020 All-in-one Printer Series)"
+  }
+  {
+    ModelName "HP Officejet Pro 9010 Series hpijs"
+    Attribute "NickName" "" "HP Officejet Pro 9010 Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP OJ Pro 9010 Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet pro 9010 series;DES:officejet pro 9010 series;"
+    PCFileName "hp-officejet_pro_9010_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Officejet Pro All-in-one 9010)"
+  }
 
 }
 {

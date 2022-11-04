@@ -51,7 +51,7 @@ NET_PATTERN = re.compile(r"""(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})""")
 NET_ZC_PATTERN = re.compile(r'''zc=(.*)''',re.IGNORECASE)
 NET_OTHER_PATTERN = re.compile(r'''(.*)://(.*)''',re.IGNORECASE)
 USB_PATTERN = re.compile(r'''serial=(.*)''',re.IGNORECASE)
-LPSTAT_PATTERN = re.compile(r"""(\S*): (.*)""", re.IGNORECASE)
+LPSTAT_PATTERN = re.compile(r"""(\S*)(\s)?: (.*)""", re.IGNORECASE)
 #BACK_END_PATTERN = re.compile(r'''(.*):(.*)''',re.IGNORECASE)
 
 

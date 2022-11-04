@@ -847,14 +847,7 @@ def run(read_pipe):
         time.sleep(1.0)
         i += 1
 
-    if not QSystemTrayIcon.isSystemTrayAvailable():
-        FailureUI(None,
-            QApplication.translate("SystemTray",
-            "<b>No system tray detected on this system.</b><p>Unable to start, exiting.</p>",
-            None),
-            QApplication.translate("SystemTray", "HPLIP Status Service",
-            None))
-    else:
+    if QSystemTrayIcon.isSystemTrayAvailable():
         notifier = QSocketNotifier(read_pipe, QSocketNotifier.Read)
         # QObject.notifier.activated[int].connect(app.notifierActivated)
         notifier.activated[int].connect(app.notifierActivated)

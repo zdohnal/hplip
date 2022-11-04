@@ -80,36 +80,9 @@ def showPasswordPrompt(prompt):
 
 
 # TBD this function shoud be removed once distro class implemented
-def get_distro_name():
-    os_name = None
-    distro_release_name = str()
-    try:
-        import platform
-    except ImportError:
-        os_name = None
-
-    try:
-        os_name = platform.dist()[0]
-    except AttributeError:
-        try:
-            import distro
-            os_name = distro.linux_distribution()[0]
-            distro_release_name = distro.distro_release_attr('name')
-        except:
-            os_name = None
-            
-    if not os_name:
-        name = os.popen('lsb_release -i | cut -f 2')
-        os_name = name.read().strip()
-        name.close()
-
-    if not os_name:
-        name = os.popen("cat /etc/issue | awk '{print $1}' | head -n 1")
-        os_name = name.read().strip()
-        name.close()
-
+def get_distro_std_name(os_name):
     os_name = os_name.lower()
-    if 'MX' in distro_release_name:
+    if 'mx' in os_name:
         os_name = "mxlinux"
     if "redhatenterprise" in os_name:
         os_name = 'rhel'    
@@ -153,8 +126,9 @@ class Password(object):
     def __readAuthType(self):
         # TBD: Getting distro name should get distro class
         # added replace() to remove the spaces in distro_name
-        distro_name = get_distro_name().lower().replace(" ","")
-
+        (os_name,_ver) = utils.get_distro_name() #.lower().replace(" ","")
+        os_name = os_name.lower().replace(" ","")
+        distro_name = get_distro_std_name(os_name)
         self.__authType = user_conf.get('authentication', 'su_sudo', '')
         if self.__authType != "su" and self.__authType != "sudo":
             try:
@@ -355,7 +329,9 @@ class Password(object):
         return AuthType, AuthCmd
 
     def __get_password_utils_ui(self):
-        distro_name = get_distro_name().lower()
+        (os_name,_ver) = utils.get_distro_name()
+        os_name = os_name.lower().replace(" ","")
+        distro_name = get_distro_std_name(os_name)
         if self.__authType == "sudo":
             AuthType, AuthCmd = 'sudo', 'sudo %s'
         else:

@@ -14122,6 +14122,26 @@ Manufacturer "HP"
          "<</cupsInteger0 72/PageSize[566.64 428.16]/ImagingBBox null>>setpagedevice"
       CustomMedia "Statement/Statement" 396 612 8.4 8.4 8.4 8.4 "<</cupsInteger0 15/PageSize [396 612]/ImagingBBox null>>setpagedevice"
          "<</cupsInteger0 15/PageSize[396 612]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Executive.FB/Executive Borderless" 522 756 0 0 0 0 "<</cupsInteger0 1/PageSize [522 756]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 1/PageSize[522 756]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Legal.FB/Legal Borderless" 612 1008 0 0 0 0 "<</cupsInteger0 3/PageSize [612 1008]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 3/PageSize[612 1008]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Statement.FB/Statement Borderless" 396 612 0 0 0 0 "<</cupsInteger0 15/PageSize [396 612]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 15/PageSize[396 612]/ImagingBBox null>>setpagedevice"
+      CustomMedia "B5.FB/B5 Borderless" 498.72 708.48 0 0 0 0 "<</cupsInteger0 65/PageSize [498.72 708.48]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 65/PageSize[498.72 708.48]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Envelope#10.FB/Envelope #10 Borderless" 296.88 684 0 0 0 0 "<</cupsInteger0 81/PageSize [296.88 684]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 81/PageSize[296.88 684]/ImagingBBox null>>setpagedevice" 
+      CustomMedia "EnvelopeDL.FB/Envelope DL Borderless" 311.76 623.52 0 0 0 0 "<</cupsInteger0 90/PageSize [311.76 623.52]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 90/PageSize[311.76 623.52]/ImagingBBox null>>setpagedevice"
+      CustomMedia "EnvelopeC6.FB/Envelope C6 Borderless" 323.04 459.12 0 0 0 0 "<</cupsInteger0 92/PageSize [323.04 459.12]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 92/PageSize[323.04 459.12]/ImagingBBox null>>setpagedevice"
+      CustomMedia "JapaneseEnvelope#3.FB/Japanese Envelope #3 Borderless" 339.84 666 0 0 0 0 "<</cupsInteger0 110/PageSize [339.84 666]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 110/PageSize[339.84 666]/ImagingBBox null>>setpagedevice"
+      CustomMedia "JapaneseEnvelope#4.FB/Japanese Envelope #4 Borderless" 254.88 581.04 0 0 0 0 "<</cupsInteger0 111/PageSize [254.88 581.04]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 111/PageSize[254.88 581.04]/ImagingBBox null>>setpagedevice"
+      CustomMedia "8.5x13.FB/8.5x13in Borderless" 612 936 0 0 0 0 "<</cupsInteger0 10/PageSize [612 936]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 10/PageSize[612 936]/ImagingBBox null>>setpagedevice"
 
 
   // Custom page sizes from 3x4in to Legal
@@ -14439,8 +14459,24 @@ Manufacturer "HP"
          "<</cupsInteger0 72/PageSize[566.64 428.16]/ImagingBBox null>>setpagedevice"   
       CustomMedia "Statement/Statement" 396 612 8.4 8.4 8.4 8.4 "<</cupsInteger0 15/PageSize [396 612]/ImagingBBox null>>setpagedevice"
          "<</cupsInteger0 15/PageSize[396 612]/ImagingBBox null>>setpagedevice"
-      
-      
+      CustomMedia "Executive.FB/Executive Borderless" 522 756 0 0 0 0 "<</cupsInteger0 1/PageSize [522 756]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 1/PageSize[522 756]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Legal.FB/Legal Borderless" 612 1008 0 0 0 0 "<</cupsInteger0 3/PageSize [612 1008]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 3/PageSize[612 1008]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Statement.FB/Statement Borderless" 396 612 0 0 0 0 "<</cupsInteger0 15/PageSize [396 612]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 15/PageSize[396 612]/ImagingBBox null>>setpagedevice"
+      CustomMedia "B5.FB/B5 Borderless" 498.72 708.48 0 0 0 0 "<</cupsInteger0 65/PageSize [498.72 708.48]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 65/PageSize[498.72 708.48]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Envelope#10.FB/Envelope #10 Borderless" 296.88 684 0 0 0 0 "<</cupsInteger0 81/PageSize [296.88 684]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 81/PageSize[296.88 684]/ImagingBBox null>>setpagedevice" 
+      CustomMedia "EnvelopeDL.FB/Envelope DL Borderless" 311.76 623.52 0 0 0 0 "<</cupsInteger0 90/PageSize [311.76 623.52]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 90/PageSize[311.76 623.52]/ImagingBBox null>>setpagedevice"
+      CustomMedia "EnvelopeC6.FB/Envelope C6 Borderless" 323.04 459.12 0 0 0 0 "<</cupsInteger0 92/PageSize [323.04 459.12]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 92/PageSize[323.04 459.12]/ImagingBBox null>>setpagedevice"
+      CustomMedia "JapaneseEnvelope#4.FB/Japanese Envelope #4 Borderless" 254.88 581.04 0 0 0 0 "<</cupsInteger0 111/PageSize [254.88 581.04]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 111/PageSize[254.88 581.04]/ImagingBBox null>>setpagedevice"
+      CustomMedia "8.5x13.FB/8.5x13in Borderless" 612 936 0 0 0 0 "<</cupsInteger0 10/PageSize [612 936]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 10/PageSize[612 936]/ImagingBBox null>>setpagedevice"
 
   // Custom page sizes from 3.5x5in to 5x14in
   HWMargins 8.4 8.4 8.4 8.4
@@ -15911,6 +15947,22 @@ Manufacturer "HP"
             Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 9020 series;DES:hp officejet pro 9020 series;"
             PCFileName "hp-officejet_pro_9020_series.ppd"
             Attribute "Product" "" "(HP Officejet Pro All-in-one 9020)"
+          }
+          {
+            ModelName "HP Officejet Pro 8020 Series"
+            Attribute "NickName" "" "HP Officejet Pro 8020 Series, hpcups $Version"
+            Attribute "ShortNickName" "" "HP OJ Pro 8020 Series hpijs"
+            Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet pro 8020 series;DES:officejet pro 8020 series;"
+            PCFileName "hp-officejet_pro_8020_series.ppd"
+            Attribute "Product" "" "(HP Officejet Pro 8020 All-in-one Printer Series)"
+          }
+          {
+            ModelName "HP Officejet Pro 9010 Series"
+            Attribute "NickName" "" "HP Officejet Pro 9010 Series, hpcups $Version"
+            Attribute "ShortNickName" "" "HP OJ Pro 9010 Series hpijs"
+            Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet pro 9010 series;DES:officejet pro 9010 series;"
+            PCFileName "hp-officejet_pro_9010_series.ppd"
+            Attribute "Product" "" "(HP Officejet Pro All-in-one 9010)"
           }
 
 }// End SPDOfficejetProAsize

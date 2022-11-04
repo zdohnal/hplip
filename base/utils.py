@@ -2506,3 +2506,107 @@ def import_ext(ext_name):
         import sysconfig
         sys.path.append(sysconfig.get_path('platlib'))
         return importlib.import_module(ext_name)
+
+def get_distro_name(passwordObj = None):
+    log.debug("Determining distro...")
+    name, ver = '', '0.0'
+    found = False
+    distro_release_name = str()
+    # Getting distro information using platform module
+    try:
+        import platform
+        try:
+            name = platform.dist()[0].lower()
+            ver = platform.dist()[1]
+        except AttributeError:
+            import distro
+            name = distro.linux_distribution()[0].lower()
+            ver = distro.linux_distribution()[1]
+            distro_release_name = distro.distro_release_attr('name')
+        if not name:
+            found = False
+            log.debug("Not able to detect distro")
+        else:
+            found = True
+            log.debug("Able to detect distro")
+    except ImportError:
+        found = False
+        log.debug("Not able to detect distro in exception")
+
+    # Getting distro information using lsb_release command
+    # platform retrurn 'redhat' even for 'RHEL' or 'arch' for ManjaroLinux so re-reading using
+    # lsb_release.
+    if not found or name == 'redhat' or name == 'arch':
+        lsb_rel = which("lsb_release", True)
+        if lsb_rel:
+            log.debug("Using 'lsb_release -is/-rs'")
+            status, name = run(lsb_rel + ' -is', passwordObj)
+            if not status and name:
+                status, ver = run(lsb_rel + ' -rs', passwordObj)
+                if not status and ver:
+                    ver = ver.lower().strip()
+                    found = True
+
+    # Getting distro information using /etc/issue file
+    if not found:
+        try:
+            name = open('/etc/issue', 'r').read().lower().strip()
+                
+        except IOError:
+            found = False
+        else:
+            found = True
+            for n in name.split():
+                m = n
+                if '.' in n:
+                    m = '.'.join(n.split('.')[:2])
+
+                try:
+                    ver = float(m)
+                except ValueError:
+                    try:
+                        ver = int(m)
+                    except ValueError:
+                        ver = '0.0'
+    if "welcome" in name:
+        found = False
+    #search in etc/os-release
+    if not found:
+        try:
+            os_release = open('/etc/os-release', 'r')
+            for line in os_release:
+                if line.lower().startswith('name='):
+                    name = line.split('"')[1]
+                if line.lower().startswith('version='):
+                    ver = line.split('"')[1]
+                found = True
+                print(name + ver)
+        except:
+            found = False          
+    # Updating the distro name and version.
+    if found:
+        name = name.lower().strip()
+        log.debug("Distro name=%s" % name)
+        if name.find("redhatenterprise") > -1 or name.find("redhat") > -1:
+            name = "rhel"
+
+        log.debug("Distro version=%s" % ver)
+        if name == "rhel" and ver[0] == "5" and ver[1] == ".":
+            ver = "5.0"
+        elif name == "rhel" and ver[0] == "6" and ver[1] == ".":
+            ver = "6.0"
+        if 'MX' in distro_release_name:
+            name = "mxlinux"
+            ver = distro_release_name[3:5]
+        if 'manjaro' in name.lower():
+            version = ver.split('.')
+            ver = version[0] +'.'+version[1]
+        
+    else:
+        log.warn("Failed to get the distro information.")
+        name, ver = 0, '0.0'
+
+    log.debug("distro=%s, distro_version=%s" %(str(name),str(ver)))
+    return (name,ver)
+                
+

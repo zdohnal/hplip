@@ -519,7 +519,7 @@ class FABWindow(QMainWindow,  Ui_MainWindow):
                          #user_conf.workingDirectory(),
                          self.user_settings.working_dir,
                          "vCard (*.vcf);;LDIF (*.ldif *.ldi)"))
-
+        result = (eval(result)[0])
         if result:
             working_directory = to_unicode(os.path.dirname(result))
             log.debug("result: %s" % result)

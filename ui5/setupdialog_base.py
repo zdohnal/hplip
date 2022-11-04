@@ -355,8 +355,8 @@ class Ui_Dialog(object):
         self.label_2.setText(_translate("Dialog", "Search term:"))
         self.DeviceTypeLabel.setText(_translate("Dialog", "Type:"))
         self.NetworkDiscoveryMethodLabel.setText(_translate("Dialog", "Network discovery method:"))
-        self.NetworkDiscoveryMethodComboBox.setItemText(0, _translate("Dialog", "SLP"))
-        self.NetworkDiscoveryMethodComboBox.setItemText(1, _translate("Dialog", "mDNS/Bonjour"))
+        self.NetworkDiscoveryMethodComboBox.setItemText(0, _translate("Dialog", "mDNS/Bonjour"))
+        self.NetworkDiscoveryMethodComboBox.setItemText(1, _translate("Dialog", "SLP"))
         if utils.which("avahi-browse"):
            self.NetworkDiscoveryMethodComboBox.setItemText(2, _translate("Dialog", "Avahi"))
         self.NetworkTimeoutLabel.setText(_translate("Dialog", "Timeout:"))

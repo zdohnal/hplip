@@ -522,15 +522,9 @@ def probeDevices(bus=DEFAULT_PROBE_BUS, timeout=10,
                             model = models.normalizeModelName(device_id.get('MDL', '?UNKNOWN?'))
 
                             if num_ports_on_jd == 1:
-                                if net_search == 'slp':
-                                    device_uri = 'hp:/net/%s?ip=%s' % (model, ip)
-                                else:
-                                    device_uri = 'hp:/net/%s?zc=%s' % (model, hn)
+                                device_uri = 'hp:/net/%s?ip=%s' % (model, ip)
                             else:
-                                if net_search == 'slp':
-                                    device_uri = 'hp:/net/%s?ip=%s&port=%d' % (model, ip, (port + 1))
-                                else:
-                                    device_uri = 'hp:/net/%s?zc=%s&port=%d' % (model, hn, (port + 1))
+                                device_uri = 'hp:/net/%s?ip=%s&port=%d' % (model, ip, (port + 1))
 
                             include = True
                             mq = queryModelByModel(model)

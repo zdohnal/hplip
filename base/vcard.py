@@ -93,14 +93,14 @@ def opentextfile(name):
     appropriate unicode decoding, else returns the file using standard
     open function"""
     #with file(name, 'rb') as f:
-    f = open(name, 'rb')
-    start = f.read(_maxbomlen)
-    for bom,codec in _boms:
-        if start.startswith(bom):
+    #f = open(name, 'rb')
+    #start = f.read(_maxbomlen)
+    #for bom,codec in _boms:
+    #    if start.startswith(bom):
             # some codecs don't do readline, so we have to vector via stringio
             # many postings also claim that the BOM is returned as the first
             # character but that hasn't been the case in my testing
-            return io.StringIO(codecs.open(name, "r", codec).read())
+    #        return io.StringIO(codecs.open(name, "r", codec).read())
     return open(name, "rtU")
 
 
@@ -167,8 +167,6 @@ def nameparser_getfullname(name):
 
 lastparts = [ "van", "von", "de", "di" ]
 
-# I would also like to proudly point out that this code has no comment saying
-# "Have I no shame".  It will be considered incomplete until that happens
 
 def nameparser_getparts_FML(name):
     n = name.get("full")
@@ -264,7 +262,10 @@ class VFile:
     def __iter__(self):
         return self
 
-        
+    #python 2 does not have __next__()
+    def next(self): 
+        return self.__next__()    
+
     def __next__(self):
         # Get the next non-blank line
         while True:  # python desperately needs do-while
@@ -423,7 +424,10 @@ class VCards:
         
     def __iter__(self):
         return self
-
+        
+    #python 2 does not have __next__()
+    def next(self): 
+        return self.__next__()  
         
     def __next__(self):
         # find vcard start

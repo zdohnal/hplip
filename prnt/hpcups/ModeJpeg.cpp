@@ -152,7 +152,7 @@ void ModeJpeg::rgbToGray(BYTE *rgbData, int iNumBytes)
         {
             *p++ = RGBTOGRAY(rgbData);
             *p++ = 0;
-            *p++ - 0;
+            *p++ = 0;
         }
         return;
     }

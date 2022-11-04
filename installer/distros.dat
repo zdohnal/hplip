@@ -114,7 +114,7 @@ supported=0
 
 [suse]
 index=3
-versions=12.2,12.3,13.1,13.2,42.1,42.2,42.3,15.0,15.1,15.2,15.3
+versions=12.2,12.3,13.1,13.2,42.1,42.2,42.3,15.0,15.1,15.2,15.3,15.4
 display_name=SUSE Linux
 alt_names=
 display=1
@@ -1437,7 +1437,7 @@ packages=glibc
 packages=libtool,libgphoto2-devel,rpm-build
 
 [suse:15.3:libusb]
-packages=libusb-1_0-devel,libusb-1_0-0
+packages=libusb-1_0-devel,libusb-1_0-0,libusb-0_1-4
 
 [suse:15.3:make]
 packages=make
@@ -1536,6 +1536,161 @@ packages=automake
 [suse:15.3:libavahi-dev]
 packages=libavahi-devel
 
+
+# ****************************************
+
+[suse:15.4]
+code_name=Leap
+supported=1
+packaged_version=3.22.8
+release_date=08/06/2022
+scan_supported=1
+fax_supported=1
+pcard_supported=0
+network_supported=1
+parallel_supported=0
+usb_supported=1
+notes=Please be sure to disable the CD repositories in YaST.
+ppd_install=drv
+udev_mode_fix=1
+ppd_dir=/usr/share/cups/model/HP
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+cups_path_with_bitness=0
+ui_toolkit=qt5
+native_cups=1
+pre_depend_cmd=su -c "zypper refresh"
+post_depend_cmd=su -c "zypper --non-interactive --no-gpg-checks in --force --auto-agree-with-licenses cups-filters-ghostscript",su -c "service cups restart"
+scanjet_depend_cmd=su -c "zypper --non-interactive --no-gpg-checks remove python-numpy",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses python-pip",su -c "pip2 install --upgrade pip",su -c "pip2 install setuptools",su -c "pip2 install opencv-contrib-python",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses leptonica-devel",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses python2-PyYAML",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr-devel",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr-traineddata-*",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses libzbar-devel",su -c "pip2 install zbar-py",su -c "pip2 install PyPDF2",su -c "pip2 install imutils",su -c "pip2 install tesserocr",su -c "pip2 install pypdfocr",su -c "pip2 install --ignore-installed decorator",su -c "pip2 install scikit-image",su -c "pip2 install reportlab==3.4.0",su -c "pip2 install scipy"
+#su -c "pip2 install --upgrade setuptools"
+scanjet_py3_depend_cmd=su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses python3-pip",su -c "pip3 install --upgrade pip",su -c "pip3 install opencv-python",su -c "pip3 install setuptools",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses leptonica-devel",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr-devel",su -c "zypper --non-interactive --no-gpg-checks in --auto-agree-with-licenses tesseract-ocr-traineddata-*",su -c "pip3 install PyPDF2",su -c "pip3 install imutils",su -c "pip3 install tesserocr",su -c "pip3 install ocrmypdf",su -c "pip3 install --ignore-installed decorator",su -c "pip3 install scikit-image",su -c "pip3 install reportlab==3.4.0",su -c "pip3 install scipy"
+
+[suse:15.4:cups]
+packages=cups,cups-client
+
+[suse:15.4:cups-devel]
+packages=cups-devel,cupsddk
+
+[suse:15.4:gcc]
+packages=gcc-c++
+
+[suse:15.4:gs]
+packages=ghostscript-library
+
+[suse:15.4:libcrypto]
+packages=openssl
+
+[suse:15.4:libjpeg]
+packages=libjpeg-devel,zlib-devel
+
+[suse:15.4:libnetsnmp-devel]
+packages=net-snmp-devel
+
+[suse:15.4:libpthread]
+packages=glibc
+
+[suse:15.4:libtool]
+packages=libtool,libgphoto2-devel,rpm-build
+
+[suse:15.4:libusb]
+packages=libusb-1_0-devel,libusb-1_0-0,libusb-0_1-4
+
+[suse:15.4:make]
+packages=make
+
+[suse:15.4:pil]
+packages=python-imaging
+
+[suse:15.4:ppdev]
+packages=
+commands=su -c "modprobe ppdev"
+
+[suse:15.4:pyqt]
+packages=python-qt
+
+[suse:15.4:pyqt5]
+packages=python2-qt5
+
+[suse:15.4:pyqt4-dbus]
+packages=python3-AnyQt
+
+[suse:15.4:python-devel]
+packages=python-devel,python-xml,libpython2_7-1_0
+
+[suse:15.4:python23]
+packages=python
+
+[suse:15.4:python2X]
+packages=python
+
+[suse:15.4:reportlab]
+packages=
+
+[suse:15.4:sane]
+packages=xsane
+
+[suse:15.4:sane-devel]
+packages=sane-backends-devel
+
+[suse:15.4:scanimage]
+packages=sane-backends
+
+[suse:15.4:xsane]
+packages=xsane
+
+[suse:15.4:cups-ddk]
+packages=cupsddk
+
+[suse:15.4:python-dbus]
+packages=dbus-1-python
+
+[suse:15.4:dbus]
+packages=dbus-1-devel
+
+[suse:15.4:python-xml]
+packages=python-xml,libpython2_7-1_0
+
+[suse:15.4:cups-image]
+packages=cups-devel
+
+[suse:15.4:python-notify]
+packages=python-notify
+
+[suse:15.4:network]
+packages=wget
+
+[suse:15.4:avahi-utils]
+packages=avahi-utils
+
+[suse:15.4:python3-pyqt5]
+packages=python3-qt5,python3-qt5-devel
+
+[suse:15.4:python3-dbus]
+packages=dbus-1-python3,python3-gobject,python3-gobject2-devel,python3-dbus-python
+
+[suse:15.4:python3-xml]
+packages=python3-xml,python3-lxml
+
+[suse:15.4:python3-devel]
+packages=python3-devel
+
+[suse:15.4:python3-pyqt4-dbus]
+packages=dbus-1-python3-devel,dbus-1-python3
+
+[suse:15.4:python3-pil]
+packages=python3-Pillow
+
+[suse:15.4:python3-reportlab]
+packages=python3-reportlab
+
+[suse:15.4:python3-notify2]
+packages=python3-notify2
+
+[suse:15.4:automake]
+packages=automake
+
+[suse:15.4:libavahi-dev]
+packages=libavahi-devel
 
 # ****************************************
 
@@ -13678,7 +13833,7 @@ packages=epm
 # ****************************************
 [linuxmint]
 index=22
-versions=13,14,15,16,17,17.1,17.2,17.3,18,18.1,18.2,18.3,19,19.1,19.2,19.3,20,20.1,20.2,20.3
+versions=13,14,15,16,17,17.1,17.2,17.3,18,18.1,18.2,18.3,19,19.1,19.2,19.3,20,20.1,20.2,20.3,21
 display_name=Linux Mint
 alt_names=mint, mint linux
 display=1
@@ -16035,12 +16190,23 @@ packages=epm
 [linuxmint:20.2:libavahi-dev]
 packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
+# ****************************************
+
 [linuxmint:20.3]
 code_name=Una
 supported=1
 packaged_version=3.22.2
 release_date=19.01.2022
 same_as_version=20.2
+
+# ****************************************
+
+[linuxmint:21]
+code_name=Vanessa
+supported=1
+packaged_version=3.22.8
+release_date=03.07.2022
+same_as_version=20.3
 
 # ****************************************
 
@@ -16855,7 +17021,7 @@ packages=epm
 
 [manjarolinux]
 index=26
-versions=17.1.4,18.0,18.0.4,18.1.0,18.1.2,19.0,20.0.1,20.1.1,20.2,21.0,21.2
+versions=17.1.4,18.0,18.0.4,18.1.0,18.1.2,19.0,20.0.1,20.1.1,20.2,21.0,21.2,21.3
 display_name=Manjaro Linux
 alt_names=ManjaroLinux,manjaro
 display=1
@@ -18782,6 +18948,13 @@ packages=avahi
 
 # ****************************************
 
+[manjarolinux:21.3]
+
+packadged_version=3.22.8
+release_date=24/06/2022
+same_as_version=21.2
+
+# ****************************************
 
 [zorin]
 index=27
@@ -19123,7 +19296,7 @@ packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 [mxlinux]
 index=28
-versions=21
+versions=21,21.2
 display_name=MX linux
 alt_names=
 display=1
@@ -19247,6 +19420,105 @@ packages=epm
 [mxlinux:21:libavahi-dev]
 packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
+# ****************************************
+
+[mxlinux:21.2]
+code_name=wildflower
+supported=1
+scan_supported=1
+fax_supported=1
+pcard_supported=1
+network_supported=1
+parallel_supported=1
+usb_supported=1
+packaged_version=3.22.10
+release_date=30/08/2022
+notes=NOTE: Disable the CD Sources in your apt sources.list or the install will fail and hang.
+ppd_install=drv
+udev_mode_fix=1
+ppd_dir=/usr/share/ppd/HP
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+ui_toolkit=qt5
+native_cups=1
+policykit=0
+# This libdir_path will be used only for 64 bit machine.
+libdir_path=/usr/lib/x86_64-linux-gnu
+[mxlinux:21.2:cups]
+packages=cups,libcups2
+[mxlinux:21.2:cups-devel]
+packages=cups,libcups2-dev,cups-bsd,cups-client
+[mxlinux:21.2:gcc]
+packages=g++
+[mxlinux:21.2:gs]
+packages=ghostscript,ghostscript-cups,ghostscript-x
+[mxlinux:21.2:libcrypto]
+packages=libssl-dev
+[mxlinux:21.2:libjpeg]
+packages=libjpeg62-turbo-dev
+[mxlinux:21.2:libnetsnmp-devel]
+packages=libsnmp-dev,snmp
+[mxlinux:21.2:libpthread]
+packages=libc6
+[mxlinux:21.2:libtool]
+packages=libtool,libtool-bin
+[mxlinux:21.2:libusb]
+packages=libusb-1.0.0-dev
+[mxlinux:21.2:make]
+packages=make
+[mxlinux:21.2:ppdev]
+packages=
+commands=su -c "modprobe ppdev",su -c cp -f /etc/modules /etc/modules.hplip,echo ppdev | su -c tee -a /etc/modules
+[mxlinux:21.2:sane]
+packages=sane
+[mxlinux:21.2:sane-devel]
+packages=libsane-dev
+[mxlinux:21.2:scanimage]
+packages=sane-utils
+[mxlinux:21.2:xsane]
+packages=xsane
+[mxlinux:21.2:dbus]
+packages=libdbus-1-dev
+[mxlinux:21.2:cups-image]
+packages=libcupsimage2,libcupsimage2-dev
+[mxlinux:21.2:policykit]
+packages=policykit-1,policykit-1-gnome
+[mxlinux:21.2:network]
+packages=wget
+[mxlinux:21.2:avahi-utils]
+packages=avahi-utils
+[mxlinux:21.2:gtk]
+packages=libcanberra-gtk-module
+[mxlinux:21.2:python3-notify2]
+packages=python3-notify2
+[mxlinux:21.2:python3-pyqt4-dbus]
+packages=python3-dbus.mainloop.qt
+[mxlinux:21.2:python3-pyqt4]
+packages=python3-pyqt4,gtk2-engines-pixbuf
+[mxlinux:21.2:python3-dbus]
+packages=python3-dbus,python3-gi
+[mxlinux:21.2:python3-xml]
+packages=python3-lxml
+[mxlinux:21.2:python3-devel]
+packages=python3-dev
+[mxlinux:21.2:python3-pil]
+packages=python3-pil
+[mxlinux:21.2:python3-reportlab]
+packages=python3-reportlab
+[mxlinux:21.2:python3-pyqt5-dbus]
+packages=python3-dbus.mainloop.pyqt5
+[mxlinux:21.2:python3-pyqt5]
+packages=python3-pyqt5,gtk2-engines-pixbuf
+[mxlinux:21.2:pyqt5]
+packages=gtk2-engines-pixbuf,python-pyqt5
+[mxlinux:21.2:pyqt5-dbus]
+packages=python-dbus.mainloop.pyqt5
+[mxlinux:21.2:automake]
+packages=automake1.11
+[mxlinux:21.2:epm]
+packages=epm
+[mxlinux:21.2:libavahi-dev]
+packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
 
 # ****************************************
 
