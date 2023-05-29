@@ -2254,7 +2254,7 @@ class PasswordDialog(QDialog):
         self.prompt = prompt
 
         Layout= QGridLayout(self)
-        Layout.setMargin(11)
+        Layout.setContentsMargins(10,10,10,10)
         Layout.setSpacing(6)
 
         self.PromptTextLabel = QLabel(self)

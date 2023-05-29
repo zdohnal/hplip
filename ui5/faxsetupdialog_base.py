@@ -80,6 +80,9 @@ class Ui_Dialog(object):
         self.CancelButton = QtWidgets.QPushButton(Dialog)
         self.CancelButton.setObjectName("CancelButton")
         self.gridlayout.addWidget(self.CancelButton, 4, 2, 1, 1)
+        self.SaveBtn = QtWidgets.QPushButton(Dialog)
+        self.SaveBtn.setObjectName("SaveBtn")
+        self.gridlayout.addWidget(self.SaveBtn, 4, 1, 1, 1)
 
         self.retranslateUi(Dialog)
         self.tabWidget.setCurrentIndex(1)
@@ -98,5 +101,6 @@ class Ui_Dialog(object):
         self.label_7.setText(_translate("Dialog", "Email Address:"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("Dialog", "Coverpage"))
         self.CancelButton.setText(_translate("Dialog", "Close"))
+        self.SaveBtn.setText(_translate("Dialog", "Save"))
 
 from .deviceuricombobox import DeviceUriComboBox

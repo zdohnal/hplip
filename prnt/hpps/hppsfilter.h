@@ -50,5 +50,7 @@
 #define DEFAULTHPPJLINKBLEED     "DefaultHPPJLInkBleed"
 #define DEFAULTHPPJLCOLORASGRAY  "DefaultHPPJLColorAsGray"
 #define DEFAULTHPPJLTRUEBLACK    "DefaultHPPJLTrueBlack"
+#define HPJOBRETENTIONOPTION    "HPJobRetentionOption"
+
 
 #endif

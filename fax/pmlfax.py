@@ -136,7 +136,9 @@ class PMLFaxDevice(FaxDevice):
 
         self.send_fax_thread = None
         self.upload_log_thread = None
-
+        
+    def isAuthRequired(self):
+        return False; 
 
     def setPhoneNum(self, num):
         return self.setPML(pml.OID_FAX_LOCAL_PHONE_NUM, str(num))

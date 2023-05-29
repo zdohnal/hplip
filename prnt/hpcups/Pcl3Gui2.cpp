@@ -39,7 +39,7 @@ Pcl3Gui2::Pcl3Gui2() : Encapsulator()
 {
     speed_mech_enabled = true;
     m_run_ernie_filter = true;
-    crd_type = eCrd_both;
+    crd_type = eCrd_color_only;   // pcl3 printers support RGB only ref:hplip-1701
     strcpy(m_szLanguage, "PCL3GUI");
 }
 
@@ -264,9 +264,11 @@ DRIVER_ERROR Pcl3Gui2::encapsulateRaster(BYTE *raster, unsigned int length, COLO
     char    scratch[20];
     int     scratchLen;
     char    c = 'W';
+    /* commented below code for rgb mode10 compresion on Lebi ref-1701
     if (crd_type == eCrd_color_only) {
         return NO_ERROR;
     }
+    */
     if (c_type == COLORTYPE_BLACK && crd_type == eCrd_both) {
         c = 'V';
     }

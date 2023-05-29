@@ -384,6 +384,7 @@ bugout:
 static int detach(libusb_device_handle *hd, int interface)
 {
     int ret ;
+    //libusb_reset_device(hd); refer -hplip-1808 
     /* If any kernel module has claimed this interface, detach it. */
     ret = libusb_kernel_driver_active (hd, interface);
     DBG("Active kernel driver on interface=%d ret=%d\n", interface, ret);

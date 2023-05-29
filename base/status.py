@@ -23,6 +23,15 @@
 
 
 # Std Lib
+import json, ast
+import ssl
+import sys
+
+try:
+    from urllib.request import urlopen
+except:
+    from urllib import urlopen
+
 import struct
 import io
 from .sixext import BytesIO, to_bytes_utf8, to_bytes_latin, to_string_latin, to_long
@@ -533,8 +542,7 @@ def StatusType3( dev, parsedID ): # LaserJet Status (PML/SNMP)
             if result_code != ERROR_SUCCESS:
                 log.debug("Failed. Defaulting to black.")
                 agent_type = AGENT_TYPE_BLACK
-            #else:
-            if 1:
+            else:
                 if agent_kind in (AGENT_KIND_MAINT_KIT, AGENT_KIND_ADF_KIT,
                                   AGENT_KIND_DRUM_KIT, AGENT_KIND_TRANSFER_KIT):
 
@@ -1511,6 +1519,8 @@ pen_health10_xlate = { 'ok' : AGENT_HEALTH_OK,
 #ExtractXMLData will extract actual data from http response (Transfer-encoding:  chunked).
 #For unchunked response it will not do anything.
 def ExtractXMLData(data):
+    if data == '404 Not Found\r\n':
+        return data
     if data[0:1] != b'<':
         size = -1
         temp = to_bytes_utf8("")
@@ -1566,6 +1576,316 @@ def StatusType10(func): # Low End Data Model
     status_block.update(temp_status_block)
 
     return status_block
+
+def StatusTypeCDMFetchUrl_USB(func, url, footer=""):
+    data = BytesIO()
+    data = func(url,"/cdm/supply/v1/suppliesPublic")
+    return data
+
+def StatusTypeCDMFetchUrl_Net(url):
+    response = urlopen(url, context=ssl._create_unverified_context())
+    data = response.read()
+    return data
+
+def StatusTypeCDMStatus(): # CDM
+    status_block = {}
+    # Get the product status
+    status_block['status-code'] = STATUS_PRINTER_IDLE
+    return status_block
+
+def StatusTypeCDM_USB(func): # CDM
+    status_block = { 'revision' :    STATUS_REV_UNKNOWN,
+                     'agents' :      [],
+                     'top-door' :    TOP_DOOR_NOT_PRESENT,
+                     'supply-door' : TOP_DOOR_NOT_PRESENT,
+                     'duplexer' :    DUPLEXER_NOT_PRESENT,
+                     'photo-tray' :  PHOTO_TRAY_NOT_PRESENT,
+                     'in-tray1' :    IN_TRAY_NOT_PRESENT,
+                     'in-tray2' :    IN_TRAY_NOT_PRESENT,
+                     'media-path' :  MEDIA_PATH_NOT_PRESENT,
+                     'status-code' : STATUS_PRINTER_IDLE,
+                   }
+                 
+    status_block = StatusTypeCDMAgents(func)
+    
+    temp_status_block = {}
+    temp_status_block = StatusTypeCDMStatus()
+    
+    status_block.update(temp_status_block)
+    return status_block
+
+def  StatusTypeCDM_Net(url): # CDM
+    status_block = { 'revision' :    STATUS_REV_UNKNOWN,
+                     'agents' :      [],
+                     'top-door' :    TOP_DOOR_NOT_PRESENT,
+                     'supply-door' : TOP_DOOR_NOT_PRESENT,
+                     'duplexer' :    DUPLEXER_NOT_PRESENT,
+                     'photo-tray' :  PHOTO_TRAY_NOT_PRESENT,
+                     'in-tray1' :    IN_TRAY_NOT_PRESENT,
+                     'in-tray2' :    IN_TRAY_NOT_PRESENT,
+                     'media-path' :  MEDIA_PATH_NOT_PRESENT,
+                     'status-code' : STATUS_PRINTER_IDLE,
+                   }
+    status_block = StatusTypeCDMAgents_Net(url)
+    
+    temp_status_block = {}
+    temp_status_block = StatusTypeCDMStatus()
+    status_block.update(temp_status_block)
+    
+    return status_block
+
+def StatusTypeCDMAgents_Net(url): # CDM
+    status_block = {}
+    data = StatusTypeCDMFetchUrl_Net(url)
+
+    data = json.loads(data)
+    data = ast.literal_eval(json.dumps(data))
+    agents = []
+    for each in data['suppliesList']:
+
+        health = AGENT_HEALTH_OK
+        ink_level = 0
+        agent_sku = ''
+        
+        type = each['supplyType']
+        state = each['supplyState']
+
+        if type == "ink" or type == "inkCartridge" or type == "toner" or type == "tonerCartridge" or type == "rechargeableToner" or type == "inkTank":
+            ink_type = each['supplyColorCode']
+            if state != "missing":
+                try:
+                    ink_level = each['percentLifeDisplay']
+                    if ink_level == 0:
+                        state = "unknown"
+                    elif ink_level <=10:
+                        state = "low"
+
+                    agent_sku = 'Unknown' #Initialize to unknown. IN some old devices, ConsumableSelectibilityNumber is not returned by device.
+                except:
+                    ink_level = 0
+            elif type == "printhead" or type == 'imageDrum':
+                 continue; #No need of adding this agent.
+            else:
+                ink_type = ''
+                if state == "ok":
+                    ink_level = 100
+
+        try:
+            agent_sku = each['productNumber']
+        except:
+            try :
+                agent_sku = each['selectabilityNumber']
+            except :
+                pass
+
+        entry = { 'kind' : element_type10_xlate.get(type, AGENT_KIND_NONE),
+                          'type' : pen_type10_xlate.get(ink_type, AGENT_TYPE_NONE),
+                          'health' : pen_health10_xlate.get(state, AGENT_HEALTH_OK),
+                          'level' : int(ink_level),
+                          'level-trigger' : pen_level10_xlate.get(state, AGENT_LEVEL_TRIGGER_SUFFICIENT_0),
+                          'agent-sku' : agent_sku
+                        }
+        agents.append(entry)
+    status_block['agents'] = agents
+
+    return status_block
+
+def StatusTypeCDMAgents(func): # CDM
+    status_block = {}
+    data = BytesIO()
+    data = StatusTypeCDMFetchUrl_USB(func,"/cdm/supply/v1/suppliesPublic")
+    
+    data = json.loads(data.strip())
+    data = ast.literal_eval(json.dumps(data))
+    
+    agents = []
+
+    for each in data['suppliesList']:
+
+        health = AGENT_HEALTH_OK
+        ink_level = 0
+        agent_sku = ''
+        
+        type = each['supplyType']
+        state = each['supplyState']
+
+        if type == "ink" or type == "inkCartridge" or type == "toner" or type == "tonerCartridge" or type == "rechargeableToner" or type == "inkTank":
+            ink_type = each['supplyColorCode']
+            if state != "missing":
+                try:
+                    ink_level = each['percentLifeDisplay']
+                    if ink_level == 0:
+                        state = "unknown"
+                    elif ink_level <=10:
+                        state = "low"
+
+                    agent_sku = 'Unknown' #Initialize to unknown. IN some old devices, ConsumableSelectibilityNumber is not returned by device.
+                except:
+                    ink_level = 0
+            elif type == "printhead" or type == 'imageDrum':
+                 continue; #No need of adding this agent.
+            else:
+                ink_type = ''
+                if state == "ok":
+                    ink_level = 100
+
+        try:
+            agent_sku = each['productNumber']
+        except:
+            try :
+                agent_sku = each['selectabilityNumber']
+            except :
+                pass
+
+        entry = { 'kind' : element_type10_xlate.get(type, AGENT_KIND_NONE),
+                          'type' : pen_type10_xlate.get(ink_type, AGENT_TYPE_NONE),
+                          'health' : pen_health10_xlate.get(state, AGENT_HEALTH_OK),
+                          'level' : int(ink_level),
+                          'level-trigger' : pen_level10_xlate.get(state, AGENT_LEVEL_TRIGGER_SUFFICIENT_0),
+                          'agent-sku' : agent_sku
+                        }
+                        
+        agents.append(entry)
+    status_block['agents'] = agents
+
+    return status_block
+
+def StatusType13Status(func): # CDM
+    status_block = {}
+    # Get the product status
+    data = StatusType10FetchUrl(func, "/DevMgmt/ProductStatusDyn.xml")
+    if not data:
+        return status_block
+    data = data.replace(to_bytes_utf8("psdyn:"), to_bytes_utf8("")).replace(to_bytes_utf8("locid:"), to_bytes_utf8(""))
+    data = data.replace(to_bytes_utf8("pscat:"), to_bytes_utf8("")).replace(to_bytes_utf8("dd:"), to_bytes_utf8("")).replace(to_bytes_utf8("ad:"), to_bytes_utf8(""))
+
+    # Parse the product status XML
+    try:
+        if etree_loaded:
+            tree = ElementTree.XML(data)
+        if not etree_loaded and elementtree_loaded:
+            tree = XML(data)
+        elements = tree.findall("Status/StatusCategory")
+    except (expat.ExpatError, UnboundLocalError):
+        elements = []
+
+    for e in elements:
+
+        if e.text == "processing":
+            status_block['status-code'] = STATUS_PRINTER_PRINTING
+        elif e.text == "ready":
+            status_block['status-code'] = STATUS_PRINTER_IDLE
+        elif e.text == "closeDoorOrCover":
+            status_block['status-code'] = STATUS_PRINTER_DOOR_OPEN
+        elif e.text == "shuttingDown":
+            status_block['status-code'] = STATUS_PRINTER_TURNING_OFF
+        elif e.text == "cancelJob":
+            status_block['status-code'] = STATUS_PRINTER_CANCELING
+        elif e.text == "trayEmptyOrOpen":
+            status_block['status-code'] = STATUS_PRINTER_OUT_OF_PAPER
+        elif e.text == "jamInPrinter":
+            status_block['status-code'] = STATUS_PRINTER_MEDIA_JAM
+        elif e.text == "hardError":
+            status_block['status-code'] = STATUS_PRINTER_HARD_ERROR
+        elif e.text == "outputBinFull":
+            status_block['status-code'] = STATUS_PRINTER_OUTPUT_BIN_FULL
+        elif e.text == "unexpectedSizeInTray" or e.text == "sizeMismatchInTray":
+            status_block['status-code'] = STATUS_PRINTER_MEDIA_SIZE_MISMATCH
+        elif e.text == "insertOrCloseTray2":
+            status_block['status-code'] = STATUS_PRINTER_TRAY_2_MISSING
+        elif e.text == "scannerError":
+            status_block['status-code'] = EVENT_SCANNER_FAIL
+        elif e.text == "scanProcessing":
+            status_block['status-code'] = EVENT_START_SCAN_JOB
+        elif e.text == "scannerAdfLoaded":
+            status_block['status-code'] = EVENT_SCAN_ADF_LOADED
+        elif e.text == "scanToDestinationNotSet":
+            status_block['status-code'] = EVENT_SCAN_TO_DESTINATION_NOTSET
+        elif e.text == "scanWaitingForPC":
+            status_block['status-code'] = EVENT_SCAN_WAITING_FOR_PC
+        elif e.text == "scannerAdfJam":
+            status_block['status-code'] = EVENT_SCAN_ADF_JAM
+        elif e.text == "scannerAdfDoorOpen":
+            status_block['status-code'] = EVENT_SCAN_ADF_DOOR_OPEN
+        elif e.text == "faxProcessing":
+            status_block['status-code'] = EVENT_START_FAX_JOB
+        elif e.text == "faxSending":
+            status_block['status-code'] = STATUS_FAX_TX_ACTIVE
+        elif e.text == "faxReceiving":
+            status_block['status-code'] = STATUS_FAX_RX_ACTIVE
+        elif e.text == "faxDialing":
+            status_block['status-code'] = EVENT_FAX_DIALING
+        elif e.text == "faxConnecting":
+            status_block['status-code'] = EVENT_FAX_CONNECTING
+        elif e.text == "faxSendError":
+            status_block['status-code'] = EVENT_FAX_SEND_ERROR
+        elif e.text == "faxErrorStorageFull":
+            status_block['status-code'] = EVENT_FAX_ERROR_STORAGE_FULL
+        elif e.text == "faxReceiveError":
+            status_block['status-code'] = EVENT_FAX_RECV_ERROR
+        elif e.text == "faxBlocking":
+            status_block['status-code'] = EVENT_FAX_BLOCKING
+        elif e.text == "inPowerSave":
+            status_block['status-code'] = STATUS_PRINTER_POWER_SAVE
+        elif e.text == "incorrectCartridge":
+            status_block['status-code'] = STATUS_PRINTER_CARTRIDGE_WRONG
+        elif e.text == "cartridgeMissing":
+            status_block['status-code'] = STATUS_PRINTER_CARTRIDGE_MISSING
+        elif e.text == "missingPrintHead":
+            status_block['status-code'] = STATUS_PRINTER_PRINTHEAD_MISSING
+
+
+        #Alert messages for Pentane products RQ 8888
+        elif e.text == "scannerADFMispick":
+            status_block['status-code'] = STATUS_SCANNER_ADF_MISPICK
+
+        elif e.text == "mediaTooShortToAutoDuplex":
+            status_block['status-code'] = STATUS_PRINTER_PAPER_TOO_SHORT_TO_AUTODUPLEX
+
+        elif e.text == "insertOrCloseTray":
+            status_block['status-code'] = STATUS_PRINTER_TRAY_2_3_DOOR_OPEN
+
+        elif e.text == "inkTooLowToPrime":
+            status_block['status-code'] = STATUS_PRINTER_INK_TOO_LOW_TO_PRIME
+
+        elif e.text == "cartridgeVeryLow":
+            status_block['status-code'] = STATUS_PRINTER_VERY_LOW_ON_INK
+
+        elif e.text == "wasteMarkerCollectorAlmostFull":
+            status_block['status-code'] = STATUS_PRINTER_SERVICE_INK_CONTAINER_ALMOST_FULL
+
+        elif e.text == "wasteMarkerCollectorFull":
+            status_block['status-code'] = STATUS_PRINTER_SERVICE_INK_CONTAINER_FULL
+
+        elif e.text == "wasteMarkerCollectorFullPrompt":
+            status_block['status-code'] = STATUS_PRINTER_SERVICE_INK_CONTAINER_FULL_PROMPT
+
+        elif e.text == "missingDuplexer":
+            status_block['status-code'] = STATUS_PRINTER_DUPLEX_MODULE_MISSING
+
+        elif e.text == "printBarStall":
+            status_block['status-code'] = STATUS_PRINTER_PRINTHEAD_JAM
+
+        elif e.text == "outputBinClosed":
+            status_block['status-code'] = STATUS_PRINTER_CLEAR_OUTPUT_AREA
+
+        elif e.text == "outputBinOpened":
+            status_block['status-code'] = STATUS_PRINTER_CLEAR_OUTPUT_AREA
+
+        elif e.text == "reseatDuplexer":
+            status_block['status-code'] = STATUS_PRINTER_RESEAT_DUPLEXER
+
+        elif e.text == "unexpectedTypeInTray":
+            status_block['status-code'] = STATUS_PRINTER_MEDIA_TYPE_MISMATCH
+
+        elif e.text == "manuallyFeed":
+            status_block['status-code'] = STATUS_MANUALLY_FEED
+
+        else:
+            status_block['status-code'] = STATUS_UNKNOWN_CODE
+
+    return status_block
+
 
 
 def StatusType10Agents(func): # Low End Data Model
@@ -1971,3 +2291,10 @@ def StatusTypeIPP(device_uri,printer_name):
     return status_block
 
 
+def StatusTypeCDMFetchUrl(host):
+    header = "http://"
+    path = "/cdm/supply/v1/suppliesPublic"
+    url = header + host +  path
+    response = urlopen(url, context=ssl._create_unverified_context())
+    data = response.read()
+    return data

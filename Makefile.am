@@ -191,7 +191,7 @@ dist_home_DATA +=  hplip_clean.sh
 basedir = $(hplipdir)/base
 
 dist_base_DATA = base/maint.py base/codes.py base/g.py base/pml.py base/status.py base/local.py \
-	base/__init__.py base/mfpdtf.py base/utils.py base/wifi.py base/LedmWifi.py \
+	base/__init__.py base/mfpdtf.py base/utils.py base/wifi.py base/LedmWifi.py base/CdmWifi.py \
 	base/device.py base/logger.py base/slp.py base/exif.py base/strings.py base/magic.py \
 	base/imagesize.py base/models.py base/validation.py base/sixext.py base/avahi.py \
 	base/mdns.py base/tui.py base/dime.py base/ldif.py base/vcard.py base/module.py \
@@ -216,7 +216,7 @@ endif #HPLIP_CLASS_DRIVER
 if FAX_BUILD
 if !HPLIP_CLASS_DRIVER
 faxdir = $(hplipdir)/fax
-dist_fax_DATA = fax/fax.py fax/__init__.py fax/coverpages.py fax/pmlfax.py fax/ledmfax.py fax/soapfax.py fax/ledmsoapfax.py fax/marvellfax.py \
+dist_fax_DATA = fax/fax.py fax/__init__.py fax/coverpages.py fax/pmlfax.py fax/ledmfax.py fax/cdmfax.py fax/soapfax.py fax/ledmsoapfax.py fax/marvellfax.py \
 	fax/faxdevice.py fax/filters/pstotiff fax/filters/pstotiff.convs fax/filters/pstotiff.types
 fax_filtersdir = $(mimedir)
 dist_fax_filters_DATA = fax/filters/pstotiff.convs fax/filters/pstotiff.types
@@ -228,7 +228,7 @@ if HPIJS_INSTALL
 dist_hpijsfaxppd_DATA = fax/ppd/HP-Fax-hpijs.ppd.gz fax/ppd/HP-Fax2-hpijs.ppd.gz fax/ppd/HP-Fax3-hpijs.ppd.gz fax/ppd/HP-Fax4-hpijs.ppd.gz
 endif # HPIJS_INSTALL
 if HPCUPS_INSTALL
-dist_hpcupsfaxppd_DATA = fax/ppd/HP-Fax-hpcups.ppd.gz fax/ppd/HP-Fax2-hpcups.ppd.gz fax/ppd/HP-Fax3-hpcups.ppd.gz fax/ppd/HP-Fax4-hpcups.ppd.gz
+dist_hpcupsfaxppd_DATA = fax/ppd/HP-Fax-hpcups.ppd.gz fax/ppd/HP-Fax2-hpcups.ppd.gz fax/ppd/HP-Fax3-hpcups.ppd.gz fax/ppd/HP-Fax4-hpcups.ppd.gz fax/ppd/HP-Fax-CDM-hpcups.ppd.gz
 endif # HPCUPS_INSTALL
 endif # HPLIP_CLASS_DRIVER
 endif # FAX_BUILD
@@ -613,11 +613,19 @@ hpcups_LDADD = -L./prnt/hpcups/ -ljpeg -ldl -lImageProcessor -lcups -lcupsimage 
 if !HPCUPS_ONLY_BUILD
 if FAX_BUILD
 if !HPLIP_CLASS_DRIVER
+
 # hpcupsfax
 hpcupsfaxdir = $(cupsfilterdir)
 hpcupsfax_PROGRAMS = hpcupsfax
 hpcupsfax_SOURCES = prnt/hpijs/hpcupsfax.cpp prnt/hpijs/hpcupsfax.h common/utils.h common/utils.c
 hpcupsfax_LDADD = libhpip.la -lcups -lcupsimage -ldl
+
+# hpcdmfax
+hpcdmfaxdir = $(cupsfilterdir)
+hpcdmfax_PROGRAMS = hpcdmfax
+hpcdmfax_SOURCES = fax/filters/cdmfax/hpcupscdmfax.cpp fax/filters/cdmfax/hpcupscdmfax.h fax/filters/cdmfax/jetlib.cpp fax/filters/cdmfax/jetlib.h
+hpcdmfax_LDADD = libhpip.la -lcups -lcupsimage -ldl -ljpeg
+
 endif # HPLIP_CLASS_DRIVER
 endif # FAX_BUILD
 endif # HPCUPS ONLY

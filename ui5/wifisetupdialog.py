@@ -25,10 +25,11 @@ import signal
 
 # Local
 from base.g import *
-from base import device, models, wifi, LedmWifi
+from base import device, models, wifi, LedmWifi, CdmWifi
 from base.codes import *
 from base.sixext import  to_unicode
 from .ui_utils import *
+from base.sixext import PY3, to_bytes_utf8, to_unicode, to_string_latin, to_string_utf8, xStringIO
 
 # Qt
 from PyQt5.QtCore import *
@@ -56,6 +57,86 @@ SUCCESS_CONNECTED = 2
 
 ASSOCIATE_DELAY = 30
 REFRESH_INTERVAL = 20
+
+
+class PasswordDialog(QDialog):
+    def __init__(self, prompt, parent=None, name=None, modal=0, fl=0):
+        QDialog.__init__(self, parent)
+        # Application icon
+        self.setWindowIcon(QIcon(load_pixmap('hp_logo', '128x128')))
+        self.prompt = prompt
+
+        Layout= QGridLayout(self)
+        Layout.setContentsMargins(10,10,10,10)
+        Layout.setSpacing(6)
+
+        self.PromptTextLabel = QLabel(self)
+        Layout.addWidget(self.PromptTextLabel,0,0,1,3)
+
+        self.UsernameTextLabel = QLabel(self)
+        Layout.addWidget(self.UsernameTextLabel,1,0)
+
+        self.UsernameLineEdit = QLineEdit(self)
+        self.UsernameLineEdit.setEchoMode(QLineEdit.Normal)
+        Layout.addWidget(self.UsernameLineEdit,1,1,1,2)
+
+        self.PasswordTextLabel = QLabel(self)
+        Layout.addWidget(self.PasswordTextLabel,2,0)
+
+        self.PasswordLineEdit = QLineEdit(self)
+        self.PasswordLineEdit.setEchoMode(QLineEdit.Password)
+        Layout.addWidget(self.PasswordLineEdit,2,1,1,2)
+
+        self.OkPushButton = QPushButton(self)
+        Layout.addWidget(self.OkPushButton,3,2)
+
+        self.languageChange()
+
+        self.resize(QSize(420,163).expandedTo(self.minimumSizeHint()))
+
+        self.OkPushButton.clicked.connect(self.accept)
+        self.PasswordLineEdit.returnPressed.connect(self.accept)
+
+    def setDefaultUsername(self, defUser, allowUsernameEdit = True):
+        self.UsernameLineEdit.setText(defUser)
+        if not allowUsernameEdit:
+            self.UsernameLineEdit.setReadOnly(True)
+            self.UsernameLineEdit.setStyleSheet("QLineEdit {background-color: lightgray}")
+    
+    def getUsername(self):
+        return to_unicode(self.UsernameLineEdit.text())
+
+
+    def getPassword(self):
+        return to_unicode(self.PasswordLineEdit.text())
+
+
+    def languageChange(self):
+        self.setWindowTitle(self.__tr("HP Device Manager - Enter Username/Password"))
+        self.PromptTextLabel.setText(self.__tr(self.prompt))
+        self.UsernameTextLabel.setText(self.__tr("Username:"))
+        self.PasswordTextLabel.setText(self.__tr("Password:"))
+        self.OkPushButton.setText(self.__tr("OK"))
+
+
+    def __tr(self,s,c = None):
+        return qApp.translate("SetupDialog",s,c)
+
+def showPasswordUI(prompt, userName=None, allowUsernameEdit=True):
+    try:
+        dlg = PasswordDialog(prompt, None)
+
+        if userName != None:
+            dlg.setDefaultUsername(userName, allowUsernameEdit)
+
+        if dlg.exec_() == QDialog.Accepted:
+            return (1,dlg.getUsername(), dlg.getPassword())
+        else:
+            return (0,"", "")
+    finally:
+        pass
+
+    return (0,"", "")
 
 
 class DeviceTableWidgetItem(QTableWidgetItem):
@@ -263,6 +344,22 @@ class WifiSetupDialog(QDialog, Ui_Dialog):
 
         self.networks.clear()
         self.num_networks = 0
+
+        #Get authentication token
+        if self.wifiObj == CdmWifi:
+            if self.wifiObj.checkAuthrequired(self.dev):
+                prompt = "Enter printer's username and password"
+                while True:
+                    rtnvalue,uname, password = showPasswordUI(prompt)
+                    if rtnvalue == 0:
+                        return
+                    ret = self.wifiObj.getCDMToken(self.dev, uname, password)
+                    if ret == True:
+                        break
+                    prompt =  "Invalid Username/Password\n.Please reenter printer's username and password" 
+        
+        
+        #Get adaptor_id
 
         try:
             adaptor_list = self.wifiObj.getWifiAdaptorID(self.dev)           
@@ -520,10 +617,11 @@ class WifiSetupDialog(QDialog, Ui_Dialog):
 
         if 'wpa' in self.security.lower():
             self.WPARadioButton.setChecked(True)
-
         elif 'wep' in self.security.lower():
             self.WEPRadioButton.setChecked(True)
-
+        else:     
+            self.WEPRadioButton.setChecked(True)
+            
         self.KeyLineEdit.setFocus()
         self.KeyLineEdit.setEchoMode(QLineEdit.Password)
         self.displayPage(PAGE_CONFIGURE_WIFI)
@@ -557,6 +655,8 @@ class WifiSetupDialog(QDialog, Ui_Dialog):
         self.SSIDLabel_2.setText(str(self.network))
         self.ip = '0.0.0.0'
         self.hn = ''
+        ss_max, ss_min, ss_val, ss_dbm = 5, 0, 0, -200
+        vsa_codes = []
         self.success = SUCCESS_NOT_CONNECTED
 
         beginWaitCursor()
@@ -564,7 +664,8 @@ class WifiSetupDialog(QDialog, Ui_Dialog):
             try:                
                 self.ip,_,addressmode, subnetmask, gateway, pridns, sec_dns= self.wifiObj.getIPConfiguration(self.dev, self.adapterName)
                 if self.ip == "0.0.0.0":
-                    self.ip, subnetmask, gateway, pri_dns, sec_dns, addressmode = self.wifiObj.getwifiotherdetails(self.dev,self.adapterName)
+                    if not self.wifiObj == CdmWifi:
+                        self.ip, subnetmask, gateway, pri_dns, sec_dns, addressmode = self.wifiObj.getwifiotherdetails(self.dev,self.adapterName)
                 vsa_codes = self.wifiObj.getVSACodes(self.dev, self.adapterName)
                 ss_max, ss_min, ss_val, ss_dbm = self.wifiObj.getSignalStrength(self.dev, self.adapterName,self.network, self.adaptor_id)                 
                 self.hn = self.wifiObj.getHostname(self.dev) 
@@ -683,7 +784,11 @@ class WifiSetupDialog(QDialog, Ui_Dialog):
         beginWaitCursor()
         try:
             try:
-                self.wifiObj.associate(self.dev, self.adapterName, self.network, self.mode, self.security, key) 
+                if self.wifiObj == CdmWifi:
+
+                    self.wifiObj.associate(self.dev, self.wpaVersionPreference, self.network, self.authenticationMode, self.security, key)
+                else:
+                    self.wifiObj.associate(self.dev, self.adapterName, self.network, self.mode, self.security, key)
             except Error as e:
                 self.showIOError(e)
                 return
@@ -724,14 +829,17 @@ class WifiSetupDialog(QDialog, Ui_Dialog):
                     log.debug("Selected network SSID: %s" % self.network)
                     self.n, ok = value_int(i.data(Qt.UserRole))
                     if ok:
-                        self.security = self.networks['encryptiontype-%d' % self.n]
+                        self.security = self.networks.get('encryptiontype-{}'.format(self.n))
                         log.debug("Security: %s" % self.security)
 
-                        self.mode = self.networks['communicationmode-%d' % self.n]
+                        self.mode = self.networks.get('communicationmode-{}'.format(self.n))
                         log.debug("Mode: %s" % self.mode)
 
-                        self.ss = self.networks['signalstrength-%d' % self.n]
+                        self.ss = self.networks.get('signalstrength-{}'.format(self.n))
                         log.debug("Signal strength: %s" % self.ss)
+
+                        self.wpaVersionPreference = self.networks.get('wpaVersionPreference-{}'.format(self.n))
+                        self.authenticationMode = self.networks.get('authenticationMode-{}'.format(self.n))
 
             if self.security.lower() != 'none':
                 self.showConfigWifiPage()
@@ -850,6 +958,8 @@ class WifiSetupDialog(QDialog, Ui_Dialog):
     def getWifiObject(self,wifiConfVal):
         if wifiConfVal == WIFI_CONFIG_LEDM:                    
             self.wifiObj = LedmWifi
+        elif wifiConfVal == WIFI_CONFIG_CDM:
+            self.wifiObj = CdmWifi
         else:                    
             self.wifiObj = wifi
         

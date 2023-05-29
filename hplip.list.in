@@ -94,6 +94,7 @@ f 0755 root root $cupsfilter/pstotiff fax/filters/pstotiff
 
 %if !print_only_exclude
 f 0755 root root $cupsfilter/hpcupsfax .libs/hpcupsfax
+f 0755 root root $cupsfilter/hpcdmfax .libs/hpcdmfax
 %endif
 
 %if foomatic-drv-install
@@ -212,6 +213,7 @@ f 0644 root root $ppd/HP prnt/pdf/*.ppd.gz
 @epm_full@f 644 root root $home/fax/faxdevice.py fax/faxdevice.py
 @epm_full@f 644 root root $home/fax/ledmfax.py fax/ledmfax.py
 @epm_full@f 644 root root $home/fax/ledmsoapfax.py fax/ledmsoapfax.py
+@epm_full@f 644 root root $home/fax/cdmfax.py fax/cdmfax.py
 @epm_full@f 755 root root $home/fab.py fab.py
 @epm_full@f 755 root root $home/pkservice.py pkservice.py
 @epm_full@f 755 root root $home/hpssd.py hpssd.py

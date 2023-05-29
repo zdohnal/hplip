@@ -52,6 +52,9 @@ class LEDMSOAPFaxDevice(SOAPFaxDevice):
                            callback, fax_type,
                            disable_dbus)
 
+    def isAuthRequired(self):
+        return False;                             
+
     #LEDM Specific functions
     def put(self, url, post):
         data = """PUT %s HTTP/1.1\r

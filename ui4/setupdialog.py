@@ -106,12 +106,15 @@ class PasswordDialog(QDialog):
 
         self.OkPushButton = QPushButton(self)
         Layout.addWidget(self.OkPushButton,3,2)
+        self.CancelPushButton = QPushButton(self)
+        Layout.addWidget(self.CancelPushButton, 3, 1)        
 
         self.languageChange()
 
         self.resize(QSize(420,163).expandedTo(self.minimumSizeHint()))
 
         self.connect(self.OkPushButton, SIGNAL("clicked()"), self.accept)
+        self.connect(self.CancelPushButton, SIGNAL("clicked()"), self.reject)
         self.connect(self.PasswordLineEdit, SIGNAL("returnPressed()"), self.accept)
 
     def setDefaultUsername(self, defUser, allowUsernameEdit = True):
@@ -134,7 +137,7 @@ class PasswordDialog(QDialog):
         self.UsernameTextLabel.setText(self.__tr("Username:"))
         self.PasswordTextLabel.setText(self.__tr("Password:"))
         self.OkPushButton.setText(self.__tr("OK"))
-
+        self.CancelPushButton.setText(self.__tr("Cancel"))
 
     def __tr(self,s,c = None):
         return qApp.translate("SetupDialog",s,c)
@@ -212,7 +215,8 @@ class SetupDialog(QDialog, Ui_Dialog):
         self.connect(self.NextButton, SIGNAL("clicked()"), self.NextButton_clicked)
         self.connect(self.ManualGroupBox,  SIGNAL("clicked(bool)"),  self.ManualGroupBox_clicked)
         signal.signal(signal.SIGINT, signal.SIG_DFL)
-
+        self.faxnumberChanged = False
+        self.faxCompanyNameChanged = False
         if self.remove:
             self.initRemovePage()
             self.max_page = 1
@@ -1029,7 +1033,16 @@ class SetupDialog(QDialog, Ui_Dialog):
                 
         if self.fax_setup:
             if self.setupFax() == cups.IPP_OK:
-                self.readwriteFaxInformation(False)
+                if self.FaxNumberLineEdit.text() != self.fax_number:
+                    self.faxnumberChanged = True
+                if self.NameCompanyLineEdit.text() != self.fax_name_company:
+                    self.faxCompanyNameChanged = True
+
+                if self.faxnumberChanged or self.faxCompanyNameChanged:
+                    self.fax_name_company = to_unicode(
+                        self.NameCompanyLineEdit.text())
+                    self.fax_number = to_unicode(self.FaxNumberLineEdit.text())
+                    self.readwriteFaxInformation(False)
 
         self.close()
 
@@ -1134,26 +1147,47 @@ class SetupDialog(QDialog, Ui_Dialog):
 
                             try:
                                 if read:
-                                    #self.fax_number = str(d.getPhoneNum()) 
-                                    #self.fax_name_company = str(d.getStationName())
-                                    self.fax_number = to_unicode(d.getPhoneNum())
-                                    self.fax_name_company = to_unicode(d.getStationName())
+                                    # self.fax_number = str(d.getPhoneNum())
+                                    # self.fax_name_company = str(d.getStationName())
+                                    try:
+                                        self.fax_number = to_unicode(d.getPhoneNum())
+                                        self.fax_name_company = to_unicode(d.getStationName())
+                                    except:
+                                        log.debug("IO Error")
+                                        self.fax_number = ""
+                                        self.fax_name_company = ""    
                                 else:
-                                    d.setStationName(self.fax_name_company)
-                                    d.setPhoneNum(self.fax_number)
+                                    if d.isAuthRequired() == True:
+                                        promptText = "Enter the printer's username password password\n"
+                                        while(True):
+
+                                            username, password = showPasswordUI(
+                                                promptText)
+                                            if username == '' or password == '':
+                                                return
+                                            respCode = d.getCDMToken(
+                                                username, password)
+                                            if respCode != 200:
+                                                promptText = "Invalid Username or Password!.\nRernter the printer's username password password\n"
+                                                continue
+                                            break
+                                    if self.faxCompanyNameChanged:
+                                        d.setStationName(self.fax_name_company)
+                                    if self.faxnumberChanged:
+                                        d.setPhoneNum(self.fax_number)
 
                             except Error:
-                                error_text = self.__tr("<b>Device I/O Error</b><p>Could not communicate with device. Device may be busy.")
+                                error_text = self.__tr(
+                                    "<b>Device I/O Error</b><p>Could not communicate with device. Device may be busy.")
                                 log.error(to_unicode(error_text))
 
                                 if QMessageBox.critical(self,
-                                                       self.windowTitle(),
-                                                       error_text,
-                                                       QMessageBox.Retry | QMessageBox.Default,
-                                                       QMessageBox.Cancel | QMessageBox.Escape,
-                                                       QMessageBox.NoButton) == QMessageBox.Cancel:
+                                                        self.windowTitle(),
+                                                        error_text,
+                                                        QMessageBox.Retry | QMessageBox.Default,
+                                                        QMessageBox.Cancel | QMessageBox.Escape,
+                                                        QMessageBox.NoButton) == QMessageBox.Cancel:
                                     break
-
 
                                 time.sleep(5)
                                 ok = False
@@ -1164,7 +1198,6 @@ class SetupDialog(QDialog, Ui_Dialog):
                             else:
                                 ok = True
                                 break
-
                     finally:
                         d.close()
 
@@ -1323,8 +1356,8 @@ class SetupDialog(QDialog, Ui_Dialog):
             self.print_desc = from_unicode_to_str(to_unicode(self.PrinterDescriptionLineEdit.text()))
             self.fax_desc = from_unicode_to_str(to_unicode(self.FaxDescriptionLineEdit.text()))
             self.fax_location = from_unicode_to_str(to_unicode(self.FaxLocationLineEdit.text()))
-            self.fax_name_company = to_unicode(self.NameCompanyLineEdit.text())
-            self.fax_number = to_unicode(self.FaxNumberLineEdit.text())
+            #self.fax_name_company = to_unicode(self.NameCompanyLineEdit.text())
+            #self.fax_number = to_unicode(self.FaxNumberLineEdit.text())
             self.addPrinter()
 
         elif p == PAGE_REMOVE:

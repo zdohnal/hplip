@@ -51,7 +51,7 @@ TYPE_DATE = 8  # format: mm/dd/yyyy
 
 FAMILY_CLASSES = ["PCL3-Class3A","PCL3-Class3B","PCL3-Class3","PCLM-COLOR","PCLM-MONO","PCL4-Class1","LJ-Class1","LJ-Class2","LJ-Class3","LJ-Class4","LJ-Class4A","LJ-Class5","LJ-Class6","DJGenericVIP","DJ9xxVIP","DJ55xx","Stabler","StingrayOJ","Copperhead","CopperheadXLP","Copperhead12","CopperheadIPH","CopperheadIPH15","CopperheadIPH17","CLE","CLE17","PyramidRefresh17",
 "Saipan","Saipan15B","Kapan","ViperPlusVIP","ViperMinusVIP","Corbett","Ampere","Python","Python10","Python11","Mimas","Mimas15","Mimas17","MimasTDR","PyramidRefresh15","P15_CISS","Pyramid",
-"Pyramid15","PyramidPlus","Gemstone","SPDOfficejetProAsize","SPDOfficejetProBsize","OJ7000","OJProKx50","PSP100","PSP470","Peaks_mod-mech"] 
+"Pyramid15","PyramidPlus","Gemstone","SPDOfficejetProAsize","SPDOfficejetProBsize","OJ7000","OJProKx50","PSP100","PSP470","Peaks_mod-mech","Athena-L"] 
 
 TECH_CLASSES = [
     "Undefined", # This will show an error (and its the default)
@@ -131,7 +131,8 @@ TECH_CLASSES = [
         "CLE17",
     "Mimas17",
     "P15_CISS",
-    "Peaks_mod-mech"
+    "Peaks_mod-mech",
+    "Athena-L"
     
 ]
 

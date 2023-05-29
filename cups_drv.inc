@@ -818,10 +818,14 @@ cups_ppd_printers = \
    ppd/hpcups/hp-psc_950.ppd.gz \
    ppd/hpcups/hp-psc_950vr.ppd.gz \
    ppd/hpcups/hp-psc_950xi.ppd.gz \
+   ppd/hpcups/hp-smart_tank_210-220_series.ppd.gz \
    ppd/hpcups/hp-smart_tank_350_series.ppd.gz \
    ppd/hpcups/hp-smart_tank_500_series.ppd.gz \
+   ppd/hpcups/hp-smart_tank_5100_series.ppd.gz \
    ppd/hpcups/hp-smart_tank_510_series.ppd.gz \
+   ppd/hpcups/hp-smart_tank_520_540_series.ppd.gz \
    ppd/hpcups/hp-smart_tank_530_series.ppd.gz \
+   ppd/hpcups/hp-smart_tank_580-590_series.ppd.gz \
    ppd/hpcups/hp-smart_tank_6000_series.ppd.gz \
    ppd/hpcups/hp-smart_tank_610_series.ppd.gz \
    ppd/hpcups/hp-smart_tank_660-670_series.ppd.gz \

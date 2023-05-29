@@ -89,6 +89,8 @@ class LEDMFaxDevice(FaxDevice):
         else:
             self.http_host = 'localhost'  
 
+    def isAuthRequired(self):
+        return False;  
        
     def put(self, url, post):
         data = """PUT %s HTTP/1.1\r

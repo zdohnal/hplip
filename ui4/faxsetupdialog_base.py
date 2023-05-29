@@ -83,6 +83,9 @@ class Ui_Dialog(object):
         self.CancelButton = QtGui.QPushButton(Dialog)
         self.CancelButton.setObjectName("CancelButton")
         self.gridlayout.addWidget(self.CancelButton, 4, 2, 1, 1)
+        self.SaveBtn = QtGui.QPushButton(Dialog)
+        self.SaveBtn.setObjectName("SaveBtn")
+        self.gridlayout.addWidget(self.SaveBtn, 4, 1, 1, 1)        
 
         self.retranslateUi(Dialog)
         self.tabWidget.setCurrentIndex(1)

@@ -418,7 +418,7 @@ class LDIFParser:
                     if changetype is not None:
                         raise ValueError('Two lines starting with changetype: in one record.')
                     
-                    if not attr_value in valid_changetype_dict:
+                    if not attr_value.lower() in valid_changetype_dict:
                         raise ValueError('changetype value %s is invalid.' % (repr(attr_value)))
                     
                     changetype = attr_value

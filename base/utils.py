@@ -2531,15 +2531,15 @@ def get_distro_name(passwordObj = None):
             log.debug("Able to detect distro")
     except ImportError:
         found = False
-        log.debug("Not able to detect distro in exception")
+        log.debug("Not able to detect distro using python")
 
     # Getting distro information using lsb_release command
-    # platform retrurn 'redhat' even for 'RHEL' or 'arch' for ManjaroLinux so re-reading using
+    # platform return 'redhat' even for 'RHEL' or 'arch' for ManjaroLinux so re-reading using
     # lsb_release.
     if not found or name == 'redhat' or name == 'arch':
         lsb_rel = which("lsb_release", True)
         if lsb_rel:
-            log.debug("Using 'lsb_release -is/-rs'")
+            log.debug("Using 'lsb_release -is/-rs' to determine distro")
             status, name = run(lsb_rel + ' -is', passwordObj)
             if not status and name:
                 status, ver = run(lsb_rel + ' -rs', passwordObj)
@@ -2609,4 +2609,24 @@ def get_distro_name(passwordObj = None):
     log.debug("distro=%s, distro_version=%s" %(str(name),str(ver)))
     return (name,ver)
                 
-
+def readAuthType():
+    try:
+        import os
+        from grp import getgrnam
+        authType = 'su'
+        user = os.getenv('USER')
+        try:
+            members = getgrnam('wheel').gr_mem
+        except KeyError:
+            try:
+                members = getgrnam('sudo').gr_mem
+            except:
+                log.warn(" can not get user group " )
+                return authType     
+        if user in members:
+            authType = 'sudo'
+        else:
+            authType = 'su'
+    except :
+        log.warn("unable to determine auth_type ")
+    return authType

@@ -1230,9 +1230,7 @@ class Device(object):
         except:
             log.error("unable to open channel")
             return -1
-
-        #if not self.mq['io-mode'] == IO_MODE_UNI:
-        if 1:
+        if not self.mq['io-mode'] == IO_MODE_UNI:
             service_name = service_name.upper()
 
             if service_name not in self.channels:
@@ -1692,6 +1690,18 @@ class Device(object):
             elif status_type == STATUS_TYPE_IPP:
                 log.debug("Type 12: IPP")
                 status_block = status.StatusTypeIPP(self.device_uri,self.printer_name)
+
+            elif status_type == STATUS_TYPE_CDM:
+                log.debug("Type 13: CDM")
+                if self.is_local:
+                    status_block = status.StatusTypeCDM_USB(self.getUrl_CDM)
+                else:
+                    resource_url = "http://%s/cdm/supply/v1/suppliesPublic" % (self.host)
+                    if self.zc:
+                        retn, ip = hpmudext.get_zc_ip_address(self.zc)
+                        if retn == hpmudext.HPMUD_R_OK:
+                           resource_url = "http://%s/cdm/supply/v1/suppliesPublic" % (ip)
+                    status_block = status.StatusTypeCDM_Net(resource_url)
 
             else:
                 log.error("Unimplemented status type: %d" % status_type)
@@ -2560,6 +2570,22 @@ Content-length: %d\r
         finally:
             self.closeLEDM()
 
+    def getUrl_CDM(self, url, stream, footer=""):
+        try:
+            url="/cdm/supply/v1/suppliesPublic"
+            url2 = "%s&loc=%s" % (self.device_uri.replace('hpfax:', 'hp:'), url)
+            data = self
+            opener = LocalOpener_CDM({})
+            try:
+                if footer:
+                    return opener.open_hp(url2, data, footer)
+                else:
+                    return opener.open_hp(url2, data)
+            except Error:
+                log.debug("Status read failed: %s" % url2)
+        finally:
+            self.closeLEDM()
+            
     def FetchLEDMUrl(self, url, footer=""):
         data_fp = BytesIO()
         if footer:
@@ -2737,3 +2763,21 @@ class LocalOpener_LEDM(urllib_request.URLopener):
 
         reply.seek(0)
         return reply.getvalue()
+
+
+# URLs: hp:/usb/HP_OfficeJet_7500?serial=00XXXXXXXXXX&loc=/hp/device/info_device_status.xml
+class LocalOpener_CDM(urllib_request.URLopener):
+    def open_hp(self, url, dev, foot=""):
+        log.debug("open_hp(%s)" % url)
+        match_obj = http_pat_url.search(url)
+        loc = url.split("=")[url.count("=")]
+        dev.openEWS_LEDM()
+        dev.writeEWS_LEDM("""GET %s HTTP/1.1\r\nContent-Type: application/json\r\nUser-Agent: hplip\r\nAccept: */*\r\nCache-Control: no-cache\r\nHost:localhost\r\nConnection: keep-alive\r\nContent-Length: %s\r\n\r\n"""%(loc,len(loc)))
+        reply = xStringIO()
+        dev.readLEDMData(dev.readEWS_LEDM,reply)        
+        reply.seek(0)
+        response = http_client.HTTPResponse(reply)
+        response.begin()
+        respcode = response.getcode()
+        data = response.read()
+        return data

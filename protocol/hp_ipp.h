@@ -31,9 +31,9 @@ Boston, MA 02110-1301, USA.
 #define HP_DEV_NAME_LEN 128
 
 #define MAX_ATTR_VALUES 8  
-#define MAX_IPP_DATA_LENGTH 20000 
+#define MAX_IPP_DATA_LENGTH 2000000
 
-#define USB_BULK_TRANSFER_LENGTH 512
+#define USB_BULK_TRANSFER_LENGTH 4096
 
 #define CRLF "\r\n"
 #define CRLF_LENGTH 2
@@ -158,13 +158,25 @@ static ssize_t raw_ipp_request_callback(volatile raw_ipp  *raw_buffer, ipp_uchar
 void initializeIPPRequest(ipp_t *request);
 int parsePrinterAttributes(ipp_t *response, printer_t * printer_list, int size);
 ipp_t * createDeviceStatusRequest(const char* printer_name);
-ipp_t * usbDoRequest(ipp_t *request, char* device_uri);
-ipp_t * networkDoRequest(ipp_t *request, char* device_uri);
+ipp_t * usbDoRequest(ipp_t *request, char* device_uri, const char *resource);
+ipp_t *usbDoFileRequest(ipp_t *request, int iFileHandle,char *device_uri, const char *resource);
+ipp_t * networkDoRequest(ipp_t *request, char* device_uri,const char *resource);
 ipp_t * getDeviceStatusAttributes(char* device_uri,char* printer_name, int *count);
 int     getCupsPrinters(printer_t **printer_list);
 
 HPIPP_RESULT parseResponseHeader(char* header, int *content_length, int *chunked, int* header_size);
-HPIPP_RESULT prepend_http_header(raw_ipp *raw_request);
+HPIPP_RESULT prepend_http_header(raw_ipp *raw_request,const char *resource);
 enum HPMUD_RESULT sendUSBRequest(char *buf, int size, raw_ipp *responseptr, char * device_uri);
+enum HPMUD_RESULT sendUSBFileRequest(char *buf, int size, int fileHandle,raw_ipp *responseptr, char *device_uri);
 
+ipp_t * createFaxDetailRequest(const char *printer_name);
+ipp_t * getDeviceFaxModemAttributes(char* device_uri,char* printer_name, int *count);
+ipp_t * networkDoRequestFax(ipp_t *request, char* device_uri);
+ipp_t *networkDoFileRequest(ipp_t *request, char *device_uri, const char *resource,const char *iFilename);
+ipp_t *createFaxJobRequest(const char *iPrinterName);
+ipp_t *createSendFaxJobRequest(const char *iPrinterName, int iJobID, const char *iFilename, const char *iFaxNumber);
+HPIPP_RESULT sendFaxJob(const char *iDeviceUri, const char *iPrinterName, const char *iFilename, const char *iFaxNumber);
+int createFaxJob(const char *iDeviceUri, const char *iPrinterName, const char *iFileName);
+ipp_t *networkDoFileRequest(ipp_t *request, char *device_uri, const char *resource,const char *iFilename);
+int getJobStatus(int iJobID, const char *iPrinterName, const char *iDeviceUri);
 # endif //_IPP_H

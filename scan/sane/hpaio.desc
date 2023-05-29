@@ -4390,7 +4390,16 @@
 :model "HP Smart Tank 510"
 :status :good
 
+:model "HP Smart Tank 5100 Series"
+:status :good
+
+:model "HP Smart Tank 520 540 Series"
+:status :good
+
 :model "HP Smart Tank 530 Series"
+:status :good
+
+:model "HP Smart Tank 580 590 Series"
 :status :good
 
 :model "HP Smart Tank 610"

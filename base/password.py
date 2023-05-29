@@ -32,38 +32,6 @@ from . import pexpect
 
 PASSWORD_RETRY_COUNT = 3
 
-AUTH_TYPES = {'mepis': 'su',
-              'debian': 'su',
-              'suse': 'su',
-              'mandriva': 'su',
-              'fedora': 'su',
-              'fedora28': 'sudo',
-              'redhat': 'su',
-              'rhel': 'su',
-              'slackware': 'su',
-              'gentoo': 'su',
-              'redflag': 'su',
-              'ubuntu': 'sudo',
-              'xandros': 'su',
-              'freebsd': 'su',
-              'linspire': 'su',
-              'ark': 'su',
-              'pclinuxos': 'su',
-              'centos': 'su',
-              'igos': 'su',
-              'linuxmint': 'sudo',
-              'linpus': 'sudo',
-              'gos': 'sudo',
-              'boss': 'su',
-              'lfs': 'su',
-              'manjarolinux': 'sudo',
-              'uos': 'sudo',
-              'zorinos': 'sudo',
-              'zorin' : 'sudo',
-              'debiangnu/linux' : 'su',
-              'mxlinux' : 'su',
-              'elementaryos' : 'sudo',
-              }
 
 
 # This function promts for the username and password and returns
@@ -103,7 +71,7 @@ class Password(object):
         self.__password_prompt_str = ""
         self.__passwordValidated = False
         self.__mode = Mode
-        self.__readAuthType()  # self.__authType
+        self.__authType = utils.readAuthType()
         self.__expectList = []
 
         if not utils.to_bool(sys_conf.get('configure', 'qt5', '0')) and not not utils.to_bool(sys_conf.get('configure', 'qt4', '0')) and utils.to_bool(sys_conf.get('configure', 'qt3', '0')):
@@ -122,29 +90,11 @@ class Password(object):
                 self.__expectList.append(p)
 
     ##################### Private functions ######################
+    
+    # check if caller is in wheel group - use 'su' if he isnt -
+    # or if the caller is root (just for showing 'root' username)
+    # in the prompt
 
-    def __readAuthType(self):
-        # TBD: Getting distro name should get distro class
-        # added replace() to remove the spaces in distro_name
-        (os_name,_ver) = utils.get_distro_name() #.lower().replace(" ","")
-        os_name = os_name.lower().replace(" ","")
-        distro_name = get_distro_std_name(os_name)
-        self.__authType = user_conf.get('authentication', 'su_sudo', '')
-        if self.__authType != "su" and self.__authType != "sudo":
-            try:
-                self.__authType = AUTH_TYPES[distro_name]
-                if distro_name == 'fedora':
-                    import platform
-                    try:
-                       ver = int(platform.dist()[1])
-                    except AttributeError:
-                       import distro
-                       ver = int(distro.linux_distribution()[1])
-                    if ver >= 28:
-                       self.__authType = AUTH_TYPES['fedora28']
-            except KeyError:
-                log.warn("%s distro is not found in AUTH_TYPES" % distro_name)
-                self.__authType = 'su'
 
     def __getPasswordDisplayString(self):
         if self.__authType == "su":

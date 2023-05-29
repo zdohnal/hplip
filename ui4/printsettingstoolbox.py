@@ -481,9 +481,9 @@ class PrintSettingsToolbox(QToolBox):
                 #print groups
 
                 for g in groups:
-                    if 'jobretention' in g.lower():
-                        log.debug("HPJobRetention skipped.")
-                        continue
+                    #if 'jobretention' in g.lower():
+                    #    log.debug("HPJobRetention skipped.")
+                    #    continue
 
                     try:
                         text, num_subgroups = cups.getGroup(g)

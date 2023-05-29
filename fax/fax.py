@@ -152,14 +152,17 @@ class FaxLDIFParser(LDIFParser):
                 firstname = entry['givenName'][0]
             except KeyError:
                 try:
-                    firstname = entry['givenname'][0]
+                    firstname = entry['firstname'][0]
                 except KeyError:
                     firstname = ''
 
             try:
                 lastname = entry['sn'][0]
             except KeyError:
-                lastname = ''
+                try:
+                    lastname = entry['lastname'][0]
+                except KeyError:
+                    lastname = ''
 
             try:
                 nickname = entry['cn'][0]
@@ -172,7 +175,17 @@ class FaxLDIFParser(LDIFParser):
                 try:
                     fax = entry['fax'][0]
                 except KeyError:
-                    fax  = ''
+                    try:
+                        fax = entry['workphone'][0]
+                    except KeyError:
+                        fax  = ''
+            try:
+                title = entry['title'][0]
+            except KeyError:
+                try:
+                    title = entry['department'][0]
+                except KeyError:
+                    title = ''
 
             grps = []
             try:
@@ -536,6 +549,10 @@ def getFaxDevice(device_uri=None, printer_name=None,
     elif fax_type == FAX_TYPE_LEDM:
         from .ledmfax import LEDMFaxDevice
         return LEDMFaxDevice(device_uri, printer_name, callback, fax_type, disable_dbus)
+        
+    elif fax_type == FAX_TYPE_CDM:
+        from .cdmfax import CDMFaxDevice
+        return CDMFaxDevice(device_uri, printer_name, callback, fax_type, disable_dbus)        
 
     else:
         raise Error(ERROR_DEVICE_DOES_NOT_SUPPORT_OPERATION)
@@ -600,6 +617,10 @@ class FaxSendThread(threading.Thread):
         # except for the cover page
         self.cover_page_present = False
         log.debug(self.fax_file_list)
+        
+        # sample fax_file_list
+        #[(dbus.String('/tmp/hpfax-xw43tq9v'), 'application/hplip-fax', 'HPLIP Fax', dbus.String('test.pdf'), 4169580547)]
+        #[('basic', 'application/hplip-fax-coverpage', 'HP Fax Coverpage: "basic"', 'Cover Page', 1)]
 
         for fax_file in self.fax_file_list: # (file, type, desc, title)
             fax_file_name, fax_file_type, fax_file_desc, \
@@ -768,6 +789,39 @@ class FaxSendThread(threading.Thread):
 
         return state
 
+    def merge_cdm_fax_files(self,state):
+        log.debug("%s State: Merge multiple CDM files" % ("*"*20))
+        log.debug(self.recipient_file_list)
+        self.remove_temp_file = True
+        HeaderSrtSessionAndOpenDataSrc = b'\xD1\xC8\x00\xC8\x00\xF8\x89\xC0\x00\xF8\x86\xC0\x03\xF8\x8F\xC0\x03\xF8\xB2\x41'
+        FooterEndSessionAndCloseDataSrc = b'\x49\x42'
+        job_page_num = 1
+        if self.job_total_pages:
+            try:
+                f_fd, self.f = utils.make_temp_file()
+                os.write(f_fd, bytearray(HeaderSrtSessionAndOpenDataSrc))
+                for fax_file in self.recipient_file_list:
+                    fax_file_name = fax_file[0]
+                    log.debug("Processing file: %s..." % fax_file_name)
+                    self.job_total_pages = self.job_total_pages + 1
+                    with open(fax_file_name,'rb') as infile:
+                        try:
+                            os.write(f_fd,infile.read())
+                        except Exception as inst:
+                            log.debug(inst)
+                    if self.check_for_cancel():
+                        state = STATE_ABORTED
+                        break
+                    log.debug("Writting to queues...")
+                    self.write_queue((STATUS_PROCESSING_FILES, job_page_num, ''))
+                    job_page_num = job_page_num + 1
+                log.debug("adding footer...")        
+                os.write(f_fd, bytearray(FooterEndSessionAndCloseDataSrc))                
+                os.close(f_fd)
+                log.debug("Total pages=%d" % self.job_total_pages)
+            except:
+                state = STATE_ERROR  
+        return state
 
     def merge_files(self, state):
         log.debug("%s State: Merge multiple files" % ("*"*20))
@@ -778,6 +832,7 @@ class FaxSendThread(threading.Thread):
         if self.job_total_pages:
             f_fd, self.f = utils.make_temp_file()
             log.debug("Temp file=%s" % self.f)
+            fax_file_fd = open(fax_file_name, 'rb')
 
             data = struct.pack(">8sBIHHBBBII", b"hplip_g3", to_long(1), self.job_total_pages,
                 self.job_hort_dpi, self.job_vert_dpi, self.job_page_size,

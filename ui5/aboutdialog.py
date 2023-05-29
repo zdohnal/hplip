@@ -45,8 +45,8 @@ class AboutDialog(QDialog, Ui_AboutDlg_base):
 
         self.HPLIPVersionText.setText(hplip_version)
         self.ToolboxVersionText.setText(toolbox_version)
-        self.PythonPixmap.setPixmap(load_pixmap('powered_by_python.png'))
-        self.OsiPixmap.setPixmap(load_pixmap('opensource-75x65.png'))
+        #self.PythonPixmap.setPixmap(load_pixmap('powered_by_python.png'))
+        #self.OsiPixmap.setPixmap(load_pixmap('opensource-75x65.png'))
         self.HPLIPLogo.setPixmap(load_pixmap('hp-tux-printer.png'))
 
 

@@ -115,7 +115,9 @@ class MarvellFaxDevice(FaxDevice):
             log.error("Loading fax_marvell failed (%s)\n" % e.msg);
             sys.exit(1)
 
-
+    def isAuthRequired(self):
+        return False; 
+        
     # Creates a message packet for message type given in argument, and sends it to device
     #
     # 1. Gets the message packet using fax_marvell.so

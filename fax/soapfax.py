@@ -82,6 +82,8 @@ class SOAPFaxDevice(FaxDevice):
         else:
             self.http_host = 'localhost'
 
+    def isAuthRequired(self):
+        return False; 
 
     def post(self, url, post):
         s = []

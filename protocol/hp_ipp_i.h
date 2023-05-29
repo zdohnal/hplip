@@ -24,7 +24,7 @@ Boston, MA 02110-1301, USA.
 #include "utils.h"
 
 HPIPP_RESULT removeChunkInfo(char* data, int *length);
-HPIPP_RESULT prepend_http_header(raw_ipp *raw_request);
+HPIPP_RESULT prepend_http_header(raw_ipp *raw_request,const char *resource);
 static ssize_t                                                  /* O - Number of bytes written */
 raw_ipp_request_callback(volatile raw_ipp  *raw_buffer,         /* O - RAW IPP buffer*/
                                        ipp_uchar_t *buffer,     /* I - Data to write */
@@ -36,8 +36,8 @@ raw_ipp_response_read_callback(raw_ipp      *src,           /* I - Source raw ip
 enum HPMUD_RESULT writeChannel(char *buf, int size, HPMUD_DEVICE hd, HPMUD_CHANNEL cd);
 enum HPMUD_RESULT readChannel(raw_ipp *responseptr, HPMUD_DEVICE hd, HPMUD_CHANNEL cd);
 enum HPMUD_RESULT sendUSBRequest(char *buf, int size, raw_ipp *responseptr, char * device_uri);
-ipp_t * networkDoRequest(ipp_t *request, char* device_uri);
-ipp_t * usbDoRequest(ipp_t *request, char* device_uri);
+ipp_t * networkDoRequest(ipp_t *request, char* device_uri,const char *resource);
+ipp_t * usbDoRequest(ipp_t *request, char* device_uri,const char *resource);
 
 
 #endif

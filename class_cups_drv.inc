@@ -1,5 +1,6 @@
 class_cups_ppd_printers = \
    ppd/classppd/hpcups/hp-Ampere-Normal.ppd.gz \
+   ppd/classppd/hpcups/hp-Athena-L-Normal.ppd.gz \
    ppd/classppd/hpcups/hp-CLE-Normal.ppd.gz \
    ppd/classppd/hpcups/hp-CLE17-Normal.ppd.gz \
    ppd/classppd/hpcups/hp-Copperhead-AutoDuplex.ppd.gz \

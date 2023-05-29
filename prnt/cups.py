@@ -653,15 +653,19 @@ def getFaxPPDFile(mq, model):
         expected_fax_ppd_name = "HP-Fax-hpcups"
         log.debug("Searching for fax PPD for model %s  hpcups_build =%d" % (model,prop.hpcups_build))
         if prop.hpcups_build:
-            if mq.get('fax-type', FAX_TYPE_NONE) == FAX_TYPE_MARVELL:
+            faxType = mq.get('fax-type', FAX_TYPE_NONE)
+            if faxType == FAX_TYPE_MARVELL:
                 expected_fax_ppd_name = "HP-Fax3-hpcups" # Fixed width (2528 pixels) and 300dpi rendering
                 nick = "HP Fax3 hpcups"
-            elif mq.get('fax-type', FAX_TYPE_NONE) == FAX_TYPE_SOAP or mq.get('fax-type', FAX_TYPE_NONE) == FAX_TYPE_LEDMSOAP:
+            elif faxType == FAX_TYPE_SOAP or faxType == FAX_TYPE_LEDMSOAP:
                 expected_fax_ppd_name = "HP-Fax2-hpcups" # Fixed width (2528 pixels) and 300dpi rendering
                 nick = "HP Fax2 hpcups"
-            elif mq.get('fax-type', FAX_TYPE_NONE) == FAX_TYPE_LEDM:
+            elif faxType == FAX_TYPE_LEDM:
                 expected_fax_ppd_name = "HP-Fax4-hpcups"# Fixed width (2528 pixels) and 300dpi rendering
                 nick = "HP Fax4 hpcups"
+            elif faxType == FAX_TYPE_CDM:
+                expected_fax_ppd_name = "HP-Fax-CDM-hpcups"# Fixed width (2528 pixels) and 300dpi rendering
+                nick = "HP Fax CDM hpcups"                    
             else:
                 expected_fax_ppd_name = "HP-Fax-hpcups" # Standard
                 nick = "HP Fax hpcups"
