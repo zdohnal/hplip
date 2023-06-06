@@ -832,7 +832,6 @@ class FaxSendThread(threading.Thread):
         if self.job_total_pages:
             f_fd, self.f = utils.make_temp_file()
             log.debug("Temp file=%s" % self.f)
-            fax_file_fd = open(fax_file_name, 'rb')
 
             data = struct.pack(">8sBIHHBBBII", b"hplip_g3", to_long(1), self.job_total_pages,
                 self.job_hort_dpi, self.job_vert_dpi, self.job_page_size,

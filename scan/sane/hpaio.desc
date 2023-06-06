@@ -79,13 +79,73 @@
 :model "HP Color LaserJet cm4730fsk Multifunction Printer"
 :status :good
 
+:model "HP Color LaserJet Enterprise 6800dn"
+:status :good
+
+:model "HP Color LaserJet Enterprise Flow MFP 5800zf"
+:status :good
+
+:model "HP Color LaserJet Enterprise Flow MFP 6800zf"
+:status :good
+
+:model "HP Color LaserJet Enterprise Flow MFP 6800zfsw"
+:status :good
+
+:model "HP Color LaserJet Enterprise Flow MFP 6800zfw+"
+:status :good
+
+:model "HP Color LaserJet Enterprise Flow MFP 6801 Zfsw"
+:status :good
+
+:model "HP Color LaserJet Enterprise Flow MFP 6801zfw+"
+:status :good
+
 :model "HP Color LaserJet Enterprise Flow MFP m776z"
 :status :good
 
 :model "HP Color LaserJet Enterprise Flow MFP m776zs"
 :status :good
 
+:model "HP Color LaserJet Enterprise Flow MFP x57945zs"
+:status :good
+
+:model "HP Color LaserJet Enterprise Flow MFP x677z"
+:status :good
+
+:model "HP Color LaserJet Enterprise Flow MFP x677z+"
+:status :good
+
+:model "HP Color LaserJet Enterprise Flow MFP x677zs"
+:status :good
+
+:model "HP Color LaserJet Enterprise MFP 5800dn"
+:status :good
+
+:model "HP Color LaserJet Enterprise MFP 5800f"
+:status :good
+
+:model "HP Color LaserJet Enterprise MFP 6800"
+:status :good
+
 :model "HP Color LaserJet Enterprise MFP m776dn"
+:status :good
+
+:model "HP Color LaserJet Enterprise MFP x57945"
+:status :good
+
+:model "HP Color LaserJet Enterprise MFP x57945dn"
+:status :good
+
+:model "HP Color LaserJet Enterprise MFP x677"
+:status :good
+
+:model "HP Color LaserJet Enterprise MFP x677s"
+:status :good
+
+:model "HP Color LaserJet Enterprise x67755dn"
+:status :good
+
+:model "HP Color LaserJet Enterprise x67765"
 :status :good
 
 :model "HP Color LaserJet Managed Flow MFP e67560z"

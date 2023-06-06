@@ -99,7 +99,10 @@ class CDMFaxDevice(FaxDevice):
             self.http_host = 'localhost'
 
     def isAuthRequired(self):
-        return True
+        if self.mq['wifi-config'] == WIFI_CONFIG_CDM_AUTH:
+            return True
+        else:
+            return False
 
     def __flushThePort(self):
         response = io.BytesIO()

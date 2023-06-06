@@ -521,10 +521,14 @@ def probeDevices(bus=DEFAULT_PROBE_BUS, timeout=10,
                             device_id = parseDeviceID(dev)
                             model = models.normalizeModelName(device_id.get('MDL', '?UNKNOWN?'))
 
-                            if num_ports_on_jd == 1:
-                                device_uri = 'hp:/net/%s?ip=%s' % (model, ip)
+                            result_code, uri = hpmudext.make_net_uri(ip,num_ports_on_jd)
+                            if result_code == hpmudext.HPMUD_R_OK and uri:
+                                device_uri = to_string_utf8(uri)
                             else:
-                                device_uri = 'hp:/net/%s?ip=%s&port=%d' % (model, ip, (port + 1))
+                                if num_ports_on_jd == 1:
+                                    device_uri = 'hp:/net/%s?ip=%s' % (model, ip)
+                                else:
+                                    device_uri = 'hp:/net/%s?ip=%s&port=%d' % (model, ip, (port + 1))
 
                             include = True
                             mq = queryModelByModel(model)
