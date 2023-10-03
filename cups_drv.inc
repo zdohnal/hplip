@@ -11,6 +11,9 @@ cups_ppd_printers = \
    ppd/hpcups/hp-2500c.ppd.gz \
    ppd/hpcups/hp-910.ppd.gz \
    ppd/hpcups/hp-915.ppd.gz \
+   ppd/hpcups/hp-Deskjet_2800_series.ppd.gz \
+   ppd/hpcups/hp-Deskjet_4200_series.ppd.gz \
+   ppd/hpcups/hp-Deskjet_4900_series.ppd.gz \
    ppd/hpcups/hp-amp.ppd.gz \
    ppd/hpcups/hp-business_inkjet_1000.ppd.gz \
    ppd/hpcups/hp-business_inkjet_1100.ppd.gz \

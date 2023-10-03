@@ -1,52 +1,22 @@
- /**************************************************************************
- *
- *   (c) Copyright Hewlett-Packard Company, 1994, 1995.  All rights are
- *   reserved.  Copying or other reproduction of this program except
- *   for archival purposes is prohibited without the prior written
- *   consent of Hewlett-Packard Company.
- *
- *                   RESTRICTED RIGHTS LEGEND
- *
- *   Use, duplication, or disclosure by the Government is subject to
- *   restrictions as set forth in paragraph (b) (3) (B) of the Rights
- *   in Technical Data and Computer Software clause in DAR 7-104.9(a).
- *
- *   HEWLETT-PACKARD COMPANY
- *   Boise, Idaho, USA
- ***************************************************************************/
+ /*****************************************************************************\
+  
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public License as
+   published by the Free Software Foundation; either version 2 of the
+   License, or (at your option) any later version.
 
-/*
-******************************* NOTICE ***************************************
+   This program is distributed in the hope that it will be useful, but
+   WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   General Public License for more details.
 
-HEWLETT-PACKARD COMPANY MAKES NO WARRANTIES, EXPRESS OR IMPLIED,  
-INCLUDING WITHOUT LIMITATION THE IMPLIED WARRANTIES OF 
-MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, REGARDING THE
-SOFTWARE OR TECHNICAL INFORMATION.   HEWLETT-PACKARD COMPANY DOES
-NOT WARRANT, GUARANTEE OR MAKE ANY REPRESENTATIONS REGARDING THE 
-USE OR THE RESULTS OF THE USE OF THE SOFTWARE OR TECHNICAL
-INFORMATION IN TERMS OF ITS CORRECTNESS, ACCURACY, RELIABILITY, 
-CURRENTNESS, OR OTHERWISE.   THE ENTIRE RISK AS TO THE RESULTS AND 
-PERFORMANCE OF THE SOFTWARE OR TECHNICAL INFORMATION IS ASSUMED
-BY YOU.  The exclusion of implied warranties is not permitted by some
-jurisdictions.  The above exclusion may not apply to you.
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+   MA 02111-1307, USA.
 
-IN NO EVENT WILL HEWLETT-PACKARD COMPANY BE LIABLE TO YOU FOR ANY 
-CONSEQUENTIAL, INCIDENTAL OR INDIRECT DAMAGES (INCLUDING DAMAGES 
-FOR LOSS OF BUSINESS PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS 
-INFORMATION AND THE LIKE)  ARISING OUT OF THE USE OR INABILITY TO USE 
-THE SOFTWARE OR TECHNICAL INFORMATION EVEN IF HEWLETT-PACKARD HAS 
-BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.  Because some jurisdictions 
-do not allow the exclusion or limitation of liability for consequential
-or incidental damages, the above limitations may not apply to you.  
-Hewlett-Packard liability to you for actual damages from any cause whatsoever,
- and regardless of the form of the action (whether in contract, tort 
-including negligence, product liability or otherwise), will be limited 
-to US $50.
-
-Copyright (c) 1995 Hewlett-Packard Company.  All rights reserved.
-
-******************************************************************************
-*/
+\
+\*****************************************************************************/
 
 
 static char *LibRev = "PCL XL Stream Creator Library.  Revision p$Revision: 4.0 $";

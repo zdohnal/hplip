@@ -114,7 +114,7 @@ supported=0
 
 [suse]
 index=3
-versions=12.2,12.3,13.1,13.2,42.1,42.2,42.3,15.0,15.1,15.2,15.3,15.4
+versions=12.2,12.3,13.1,13.2,42.1,42.2,42.3,15.0,15.1,15.2,15.3,15.4,15.5
 display_name=SUSE Linux
 alt_names=
 display=1
@@ -1694,6 +1694,15 @@ packages=libavahi-devel
 
 # ****************************************
 
+[suse:15.5]
+code_name=
+supported=1
+packaged_version=3.23.6
+release_date=07/06/2023
+same_as_version=15.4
+
+# ****************************************
+
 [redhat]
 index=6
 versions=8.0,9.0
@@ -1894,7 +1903,7 @@ ui_toolkit=qt3
 # ****************************************
 [fedora]
 index=5
-versions=17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37
+versions=17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38
 display_name=Fedora
 alt_names=Fedora Core
 display=1
@@ -4011,6 +4020,15 @@ packages=avahi-devel
 
 # ****************************************
 
+[fedora:38]
+code_name=Thirty Eight
+supported=1
+packaged_version=3.23.6
+release_date=2023/04/18
+same_as_version=37
+
+# ****************************************
+
 [linspire]
 index=15
 versions=5.0
@@ -5804,7 +5822,7 @@ packages=epm
 # ****************************************
 [ubuntu]
 index=12
-versions=10.04,11.10,12.04,12.10,13.04,13.10,14.04,14.10,15.04,15.10,16.04,16.10,17.04,17.10,18.04,18.10,19.04,19.10,20.04,20.10,21.04,21.10,22.04,22.10
+versions=10.04,11.10,12.04,12.10,13.04,13.10,14.04,14.10,15.04,15.10,16.04,16.10,17.04,17.10,18.04,18.10,19.04,19.10,20.04,20.10,21.04,21.10,22.04,22.10,23.04
 display_name=Ubuntu
 alt_names=kubuntu,edubuntu,xubuntu
 display=1
@@ -9217,6 +9235,15 @@ packages=automake1.11
 
 [ubuntu:22.10:epm]
 packages=epm
+# ****************************************
+[ubuntu:23.04]
+
+code_name= Lunar Lobster
+supported=1
+packaged_version=3.23.6
+scanjet_py3_depend_cmd=sudo apt install python3-numpy,sudo apt install python3-scipy,sudo apt install python3-pypdf2,sudo apt install python3-opencv,sudo apt install ocrmypdf,sudo apt install python3-skimage,sudo apt-get install --assume-yes libleptonica-dev,sudo apt-get install --assume-yes tesseract-ocr,sudo apt-get install --assume-yes libtesseract-dev,sudo apt-get install --assume-yes qpdf
+release_date=20/04/2023
+same_as_version=22.10
 # ****************************************
 
 [debian]
@@ -17346,7 +17373,7 @@ packages=epm
 
 [manjarolinux]
 index=26
-versions=17.1.4,18.0,18.0.4,18.1.0,18.1.2,19.0,20.0.1,20.1.1,20.2,21.0,21.2,21.3
+versions=17.1.4,18.0,18.0.4,18.1.0,18.1.2,19.0,20.0.1,20.1.1,20.2,21.0,21.2,21.3,22.1
 display_name=Manjaro Linux
 alt_names=ManjaroLinux,manjaro
 display=1
@@ -19277,6 +19304,14 @@ packages=avahi
 
 packadged_version=3.22.8
 release_date=24/06/2022
+same_as_version=21.2
+
+# ****************************************
+
+[manjarolinux:22.1]
+
+packadged_version=3.23.6
+release_date=21/04/2023
 same_as_version=21.2
 
 # ****************************************

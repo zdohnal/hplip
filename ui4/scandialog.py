@@ -98,6 +98,8 @@ class Ui_HpScan(object):
     bg_color_removal = False
     punchhole_removal = False
     color_dropout = False
+    edge_erase_bool = False
+    edge_erase_value = 0
     searchablePDF = False
     mixed_feed =False
     blank_page = False
@@ -399,7 +401,22 @@ class Ui_HpScan(object):
         self.comboBox_path.setGeometry(QtCore.QRect(85,390, 171, 41))
         self.comboBox_path.setObjectName(_fromUtf8("comboBox_path"))
         self.comboBox_path.currentIndexChanged.connect(self.comboBox_Path)
-        
+        #edge erase
+        self.edge_erase = QtGui.QCheckBox(self.dockWidgetContents)
+        self.edge_erase.setGeometry(QtCore.QRect(550,420, 250, 22))
+        self.edge_erase.setObjectName("edge_erase")
+        self.edge_erase.stateChanged.connect(self.Edge_erase)
+        self.edge_erase.setEnabled(True)
+
+        self.edge_erase_spin_box = QtGui.QDoubleSpinBox(self.dockWidgetContents)
+        self.edge_erase_spin_box.setGeometry(QtCore.QRect(700,420,100,20))
+        self.edge_erase_spin_box.setObjectName("edge_erase_spin_box")
+        self.edge_erase_spin_box.setEnabled(False)
+        self.edge_erase_spin_box.setSuffix("inch")
+        self.edge_erase_spin_box.setMinimum(0.0)
+        self.edge_erase_spin_box.setMaximum(1.0)
+        self.edge_erase_spin_box.setSingleStep(0.1)
+        self.edge_erase_spin_box.valueChanged.connect(self.edge_erase_spin_box_value_changed)        
         #self.layout = QtGui.QVBoxLayout(self.dockWidgetContents)
 
         
@@ -530,6 +547,9 @@ class Ui_HpScan(object):
         #global sizel5
         self.color_range = True
         self.sizel5 = self.s5.value()
+    def edge_erase_spin_box_value_changed(self):
+        self.edge_erase_value = round(self.edge_erase_spin_box.value(),2)
+        #print("self.edge_erase_value = ", self.edge_erase_value)
     def comboBox_Path(self, new_path = None):
         path = new_path
         
@@ -567,6 +587,8 @@ class Ui_HpScan(object):
             cmd = cmd + ' --' + 'color_dropout_blue_value'+ '=' + str(self.dropout_color_blue_value)
         if self.color_dropout.isChecked() == True and self.color_range == True:
             cmd = cmd + ' --' + 'color_range'+ '=' + str(self.sizel5)
+        if self.edge_erase.isChecked() == True:
+            cmd = cmd + ' --' + 'edge_erase_value'+ '=' + (str(self.edge_erase_value))
         if self.mixed_feed.isChecked() == True:
             cmd = re.sub(r'\--size=.+\ ', '', cmd)
             cmd = cmd + ' --' + 'mixedfeed'
@@ -1259,7 +1281,13 @@ class Ui_HpScan(object):
             if self.bg_color_removal_pri == True:
                 self.bg_color_removal.setEnabled(True)
             #self.comboBox_Papersize.setEnabled(True)'''
-   
+    def Edge_erase(self):
+        if self.edge_erase.isChecked() == True:
+            self.edge_erase.setEnabled(True)
+            self.edge_erase_spin_box.setEnabled(True)
+            self.edge_erase_bool = True
+        else:
+            self.edge_erase_spin_box.setEnabled(False)
     def Document_merge(self):
         if self.document_merge.isChecked() == True:
             if self.document_merge_pri == True:
@@ -1345,15 +1373,22 @@ class Ui_HpScan(object):
             if self.document_merge_adf_flatbed_pri == True:
                 self.document_merge_adf_flatbed.setEnabled(True)
             self.comboBox_Type.setCurrentIndex(2)
-            self.comboBox_Type.setEnabled(False) 
-            self.pushButton_Merge.setEnabled(True)
+            self.comboBox_Type.setEnabled(False)
+            self.check_flatbed_present()
+            self.comboBox_Device_URI.currentIndexChanged.connect(lambda: self.check_flatbed_present())
+            
         else:
             self.CheckEnable()
             self.pushButton_Merge.setEnabled(False)
             self.comboBox_Type.setCurrentIndex(0)
             self.comboBox_Type.setEnabled(True)
  
- 
+    def check_flatbed_present(self):
+        #only enable adf flatbed merge button if device has flatbed
+        if self.comboBox_Flatbed.count() == 4:
+            self.pushButton_Merge.setEnabled(True)
+        else:
+            self.pushButton_Merge.setEnabled(False)
             
     def Image_enhancement(self):
         if self.image_enhancement.isChecked() == True:
@@ -1373,7 +1408,13 @@ class Ui_HpScan(object):
             self.s4.setEnabled(False)
 
     def mergeButton_clicked(self):
-        from PyPDF2 import PdfFileReader, PdfFileMerger
+        try:
+            from PyPDF2 import PdfFileMerger, PdfFileReader
+            merger = PdfFileMerger()
+        except:
+            from PyPDF2 import PdfMerger as PdfFileMerger
+            from PyPDF2 import PdfReader as PdfFileReader
+            merger = PdfFileMerger()
         path1 = str(path)
         #print path1
         output_pdf = utils.createSequencedFilename("Merged", ".pdf",path1)
@@ -1524,6 +1565,7 @@ class Ui_HpScan(object):
         self.searchablePDF.setText(_translate("HpScan", "Searchable PDF ", None))
         self.punchhole_removal.setText(_translate("HpScan", "Punch Hole Removal ", None))
         self.color_dropout.setText(_translate("HpScan", "Color Removal/Dropout ", None))
+        self.edge_erase.setText(_translate("HpScan", "Edge Erase", None))
         self.bg_color_removal.setText(_translate("HpScan", "Background Color Removal", None))
         self.auto_crop.setText(_translate("HpScan", "Crop to content on page ", None))
         self.deskew_image.setText(_translate("HpScan", "Straighten page content ", None))
@@ -1617,6 +1659,7 @@ class SetupDialog():
             ui.bg_color_removal.setEnabled(False)
             ui.punchhole_removal.setEnabled(False)
             ui.color_dropout.setEnabled(False)
+            ui.edge_erase.setEnabled(False)
             ui.mixed_feed.setEnabled(False)
             ui.document_merge.setEnabled(False)        
 

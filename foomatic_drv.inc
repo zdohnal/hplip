@@ -32,6 +32,7 @@ foomatic_ppd_printers = \
     ppd/hpijs/hp-color_laserjet_5550-pcl3-hpijs.ppd.gz \
     ppd/hpijs/hp-photosmart_3100_series-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_professional_m1216nfh_mfp-hpijs.ppd.gz \
+    ppd/hpijs/hp-Deskjet_4200_series-hpijs.ppd.gz \
     ppd/hpijs/hp-deskjet_3600-hpijs.ppd.gz \
     ppd/hpijs/hp-photosmart_7600_series-hpijs.ppd.gz \
     ppd/hpijs/hp-color_laserjet_cp2025-pcl3-hpijs.ppd.gz \
@@ -43,6 +44,7 @@ foomatic_ppd_printers = \
     ppd/hpijs/hp-deskjet_540-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_1010-hpijs.ppd.gz \
     ppd/hpijs/hp-officejet_pro_l7300-hpijs.ppd.gz \
+    ppd/hpijs/hp-Deskjet_2800_series-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_professional_p1107w-hpijs.ppd.gz \
     ppd/hpijs/hp-photosmart_c6300_series-hpijs.ppd.gz \
     ppd/hpijs/hp-envy_5540_series-hpijs.ppd.gz \
@@ -265,6 +267,7 @@ foomatic_ppd_printers = \
     ppd/hpijs/hp-deskjet_2520_series-hpijs.ppd.gz \
     ppd/hpijs/hp-deskjet_2020_series-hpijs.ppd.gz \
     ppd/hpijs/hp-deskjet_ink_adv_2060_k110-hpijs.ppd.gz \
+    ppd/hpijs/hp-Deskjet_4900_series-hpijs.ppd.gz \
     ppd/hpijs/hp-photosmart_a310_series-hpijs.ppd.gz \
     ppd/hpijs/hp-smart_tank_plus_650_series-hpijs.ppd.gz \
     ppd/hpijs/hp-officejet_series_720-hpijs.ppd.gz \

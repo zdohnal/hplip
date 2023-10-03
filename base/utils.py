@@ -2580,7 +2580,6 @@ def get_distro_name(passwordObj = None):
                 if line.lower().startswith('version='):
                     ver = line.split('"')[1]
                 found = True
-                print(name + ver)
         except:
             found = False          
     # Updating the distro name and version.

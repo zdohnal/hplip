@@ -6862,6 +6862,34 @@ Manufacturer "HP"
  		 
           // <%PyramidRefresh17:Normal%>
           {
+            ModelName "HP Deskjet 2800 Series"
+            Attribute "NickName" "" "HP Deskjet 2800 Series, hpcups $Version, requires proprietary plugin"
+            Attribute "ShortNickName" "" "HP Deskjet 2800 Series hpijs"
+            Attribute "1284DeviceID" "" "MFG:HP;MDL:Deskjet 2800 series;DES:Deskjet 2800 series;"
+            PCFileName "hp-Deskjet_2800_series.ppd"
+            Attribute "Product" "" "(HP Deskjet 2800 All-in-one Printer Series)"
+            Attribute "Product" "" "(HP Deskjet Ink Advantage 2800 All-in-one Printer Series)"
+            Attribute "Product" "" "(HP Deskjet 2800e All-in-one Printer Series)"
+          }
+          {
+            ModelName "HP Deskjet 4200 Series"
+            Attribute "NickName" "" "HP Deskjet 4200 Series, hpcups $Version, requires proprietary plugin"
+            Attribute "ShortNickName" "" "HP Deskjet 4200 Series hpijs"
+            Attribute "1284DeviceID" "" "MFG:HP;MDL:Deskjet 4200 series;DES:Deskjet 4200 series;"
+            PCFileName "hp-Deskjet_4200_series.ppd"
+            Attribute "Product" "" "(HP Deskjet 4200 All-in-one Printer Series)"
+            Attribute "Product" "" "(HP Deskjet Ink Advantage 4200 All-in-one Printer Series)"
+            Attribute "Product" "" "(HP Deskjet 4200e All-in-one Printer Series)"
+          }
+          {
+            ModelName "HP Deskjet 4900 Series"
+            Attribute "NickName" "" "HP Deskjet 4900 Series, hpcups $Version, requires proprietary plugin"
+            Attribute "ShortNickName" "" "HP Deskjet 4900 Series hpijs"
+            Attribute "1284DeviceID" "" "MFG:HP;MDL:Deskjet 4900 series;DES:Deskjet 4900 series;"
+            PCFileName "hp-Deskjet_4900_series.ppd"
+            Attribute "Product" "" "(HP Deskjet Ink Advantage 4900 All-in-one Printer Series)"
+          }
+          {
             ModelName "HP Deskjet 2600 Series"
             Attribute "NickName" "" "HP Deskjet 2600 Series, hpcups $Version"
             Attribute "ShortNickName" "" "HP Deskjet 2600 Series hpijs"

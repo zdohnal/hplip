@@ -269,7 +269,7 @@ def deskew(im):
     angle1 = Deskew_angle1(im)
     angle2 = Deskew_angle2(im)
     #angle = max([Deskew_angle1(img),Deskew_angle2(img)])
-    if angle1 < 0 and angle2 < 0:
+    if angle1 <= 0 and angle2 <= 0:
         angle = min([angle1,angle2])
     else:
         angle = max([angle1,angle2])
@@ -455,11 +455,17 @@ def mixedfeed(im):
     return Image.fromarray(cropped)
     
 def generatePdfFile(adf_page_files,outputfile):
-    from PyPDF2 import PdfFileMerger, PdfFileReader
+    try:
+        from PyPDF2 import PdfFileMerger, PdfFileReader
+        merger = PdfFileMerger()
+    except:
+        from PyPDF2 import PdfMerger as PdfFileMerger
+        from PyPDF2 import PdfReader as PdfFileReader
+        merger = PdfFileMerger()
     #temp = utils.createSequencedFilename("hpscanAuto1", ".pdf")
     #temp = 'temp.pdf'
     #output_file1 = utils.createSequencedFilename("hpscanmultifeed", ".pdf")
-    merger = PdfFileMerger()
+    
     for p in adf_page_files:
         '''image = Image.open(p)
         image = image.convert("RGB")
@@ -542,13 +548,19 @@ def generatePdfFile_canvas(adf_page_files,outputfile,orient_list,brx,bry,tlx,tly
 def documentmerge(adf_page_files,ext,output_path):
     import numpy as np
     from PIL import Image
-    from PyPDF2 import PdfFileMerger
+    try:
+        from PyPDF2 import PdfFileMerger
+        if ext == ".pdf":
+            merger = PdfFileMerger()
+    except:
+        from PyPDF2 import PdfMerger as PdfFileMerger
+        if ext == ".pdf":
+            merger = PdfFileMerger()
     #print(output_type)
     #adf_page_files2 = []
     list_im = []
     i = 0
-    if ext == ".pdf":
-        merger = PdfFileMerger()
+    
     '''if ext == ".pdf":
         merger = PdfFileMerger()
         for p in adf_page_files:
@@ -695,28 +707,33 @@ def merge_PDF_viewer(output,ocr):
         if vv:
             pdf_viewer = os.path.join(vv, v)
             break
-            #cmd = "%s %s &" % (pdf_viewer, output_pdf)
     if ocr == True:
-        g = output.split(".pdf")
-        output_ocr = g[0] +"_ocr.pdf"
+        #g = output.split(".pdf")
+        #output_ocr = g[0] +"_ocr.pdf"
+        #do not create ocr file based on the output file name, 
+        # create unique sequenced file for OCR 
+        # because original output file should be deleted if OCR was successful
+        output_ocr = utils.createSequencedFilename("hpscan_ocr_", ".pdf")
         if sys.version_info[0] == 3:
             out = subprocess.Popen(['ocrmypdf',output,output_ocr],stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
             stdout,stderr =out.communicate()
         else:
-            #cmd = "pypdfocr" + "  " + output
             out = subprocess.Popen(['pypdfocr',output],stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
             stdout,stderr =out.communicate()
-        #g = output.split(".")
-        #output_ocr = g[0] +"_ocr.pdf"
+
         if os.path.isfile(output_ocr):
-            #print("File Exists")
+            log.debug("OCR was successful")
             cmd = pdf_viewer + "  " + output_ocr + " " + "&"
+            #OCR was success so delete the non-ocr original output
+            os.unlink(output)
         else:
+            log.debug("OCR failed to generate, returning original file")
             cmd = pdf_viewer + "  " + output + " " + "&"
+        
         os_utils.execute(cmd)
     else:
-        cmd = pdf_viewer + "  " + output + " " + "&"
-        #print(cmd)               
+        log.debug("OCR was not called, returning original file")
+        cmd = pdf_viewer + "  " + output + " " + "&"           
         os_utils.execute(cmd)
 
 def check_pil():
@@ -1036,7 +1053,28 @@ def color_dropout(im,color,color_range):
 
     finalimage = Image.fromarray(npimg)
     return finalimage
+# Crop out edges from the scan area:", "--edge_erase_value=<border crop value in pixel> 
+# where <edge_erase_value> is number of pixels to be removed from corners 
+#       <im> is PIL image type
+def edge_erase(im,edge_erase_value):
+    log.debug("edge_erase called with value=%d px" %edge_erase_value)
 
+    # Importing ImageOps class from PIL module
+    from PIL import ImageOps 
+    width, height= im.size
+    
+    left = edge_erase_value
+    top = edge_erase_value
+    right = height-edge_erase_value
+    bottom = width-edge_erase_value
+ 
+    # Cropped image of above dimension
+    # (It will not change original image)
+    im1 = im.crop((left, top, bottom, right))
+    #fill the cropped part with white color
+    #to do - implement fill color based on user input
+    im = ImageOps.expand(im1,border=edge_erase_value,fill='white')
+    return im
 
 def rgb2hsv(r, g, b):
     r, g, b = r/255.0, g/255.0, b/255.0

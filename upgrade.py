@@ -62,7 +62,7 @@ FORCE_INSTALL=False
 CHECKING_ONLY=False
 NOTIFY=False
 HPLIP_VERSION_INFO_SOURCEFORGE_SITE ="http://hplip.sourceforge.net/hplip_web.conf"
-HPLIP_WEB_SITE ="http://hplipopensource.com/hplip-web/index.html"
+HPLIP_WEB_SITE ="https://developers.hp.com/hp-linux-imaging-and-printing/gethplip"
 HPLIP_PACKAGE_SITE = "http://sourceforge.net/projects/hplip/files/hplip"
 IS_QUIET_MODE = False
 DONOT_CLOSE_TERMINAL = False
@@ -108,8 +108,9 @@ def parse_HPLIP_version(hplip_version_file, pat):
         return ver
     data = fp.read()
     for line in data.splitlines():
-        if pat.search(line):
-            ver = pat.search(line).group(1)
+        if "<title>HP Developers Portal" in line:
+            if pat.search(line):
+                ver = pat.search(line).group(0)
             break
 
     log.debug("Latest HPLIP version = %s." % ver)
@@ -131,7 +132,7 @@ def get_hplip_version_from_sourceforge():
 
 def get_hplip_version_from_hplipopensource():
     HPLIP_latest_ver="0.0.0"
-    pat = re.compile(r"""The current version of the HPLIP solution is version (\d{1,}\.\d{1,}\.\d{1,}[a-z]{0,})\. \(.*""")
+    pat = re.compile(r'\d\.\d\d\.\d|\d\d')
     sts, HPLIP_Ver_file = utils.download_from_network(HPLIP_WEB_SITE)
     if sts == 0:
         HPLIP_latest_ver = parse_HPLIP_version(HPLIP_Ver_file, pat)
@@ -141,10 +142,10 @@ def get_hplip_version_from_hplipopensource():
 
 
 def get_latest_hplip_version():
-    HPLIP_latest_ver = get_hplip_version_from_sourceforge()
+    HPLIP_latest_ver = get_hplip_version_from_hplipopensource()
 
     if HPLIP_latest_ver == "0.0.0":     ## if failed to connect the sourceforge site, then check HPLIP site.
-        HPLIP_latest_ver = get_hplip_version_from_hplipopensource()
+        HPLIP_latest_ver = get_hplip_version_from_sourceforge()
                            
     return HPLIP_latest_ver
 

@@ -84,6 +84,8 @@ class Ui_HpScan(object):
     bg_color_removal = False
     punchhole_removal = False
     color_dropout = False
+    edge_erase_bool = False
+    edge_erase_value = 0
     searchablePDF = False
     mixed_feed =False
     blank_page = False
@@ -258,10 +260,6 @@ class Ui_HpScan(object):
         self.auto_orient.setGeometry(QtCore.QRect(300,70,117, 22))
         self.auto_orient.setObjectName("auto_orient")
         self.auto_orient.stateChanged.connect(self.Auto_orient)
-        self.crushed = QtWidgets.QCheckBox(self.dockWidgetContents)
-        self.crushed.setGeometry(QtCore.QRect(550,30,240, 22))
-        self.crushed.setObjectName("crushed")
-        self.crushed.stateChanged.connect(self.Crushed)
         self.searchablePDF = QtWidgets.QCheckBox(self.dockWidgetContents)
         self.searchablePDF.setGeometry(QtCore.QRect(300,350,200, 22))
         self.searchablePDF.setObjectName("searchablePDF")
@@ -271,14 +269,6 @@ class Ui_HpScan(object):
         self.punchhole_removal.setObjectName("punchhole_removal")
         self.punchhole_removal.stateChanged.connect(self.Punchhole_removal)
         #self.punchhole_removal.stateChanged.connect(self.SearchablePDF)
-        self.color_dropout = QtWidgets.QCheckBox(self.dockWidgetContents)
-        self.color_dropout.setGeometry(QtCore.QRect(550,360,240, 22))
-        self.color_dropout.setObjectName("color_dropout")
-        self.color_dropout.stateChanged.connect(self.Color_dropout)
-        self.label_CR = QtWidgets.QLabel(self.dockWidgetContents)
-        self.label_CR.setGeometry(QtCore.QRect(560,390, 250, 22))
-        self.label_CR.setMouseTracking(True)
-        self.label_CR.setObjectName("label_CR")
         self.bg_color_removal = QtWidgets.QCheckBox(self.dockWidgetContents)
         self.bg_color_removal.setGeometry(QtCore.QRect(300,430,240, 22))
         self.bg_color_removal.setObjectName("bg_color_removal")
@@ -297,6 +287,66 @@ class Ui_HpScan(object):
         self.blank_page.setGeometry(QtCore.QRect(300, 190, 241, 22))
         self.blank_page.setObjectName("blank_page")
         self.blank_page.stateChanged.connect(self.Blank_page)
+
+        #self.comboBox_Barcode_Type.currentIndexChanged.connect(self.comboBox_ResIndexChanged)
+        self.document_merge = QtWidgets.QCheckBox(self.dockWidgetContents)
+        self.document_merge.setGeometry(QtCore.QRect(300, 230, 161, 22))
+        self.document_merge.setObjectName("document_merge")
+        self.document_merge.stateChanged.connect(self.Document_merge)
+        self.mixed_feed = QtWidgets.QCheckBox(self.dockWidgetContents)
+        self.mixed_feed.setGeometry(QtCore.QRect(300, 270, 200, 22))
+        self.mixed_feed.setObjectName("mixed_feed")
+        self.mixed_feed.stateChanged.connect(self.Mixed_feed)
+        self.deskew_image = QtWidgets.QCheckBox(self.dockWidgetContents)
+        self.document_merge_adf_flatbed = QtWidgets.QCheckBox(self.dockWidgetContents)
+        self.document_merge_adf_flatbed.setGeometry(QtCore.QRect(300, 310, 150, 22))
+        self.document_merge_adf_flatbed.setObjectName("document_merge_adf_flatbed")
+        self.document_merge_adf_flatbed.stateChanged.connect(self.Document_merge_adf_flatbed)
+        
+
+
+        self.deskew_image.setGeometry(QtCore.QRect(300,30, 241, 20))
+        self.deskew_image.setObjectName("deskew_image")
+        self.deskew_image.stateChanged.connect(self.Deskew_image)
+        self.comboBox_Device_URI = QtWidgets.QComboBox(self.dockWidgetContents)
+        self.comboBox_Device_URI.setGeometry(QtCore.QRect(85, 30, 171, 41))
+        self.comboBox_Device_URI.setObjectName("comboBox_Device_URI")
+        self.comboBox_Device_URI.currentIndexChanged.connect(self.comboBox_device_URI)
+        
+        self.comboBox_path = QtWidgets.QComboBox(self.dockWidgetContents)
+        self.comboBox_path.setEditable(False)
+        self.comboBox_path.setGeometry(QtCore.QRect(85,390, 171, 41))
+        self.comboBox_path.setObjectName("comboBox_path")
+        self.comboBox_path.currentIndexChanged.connect(self.comboBox_Path)
+        
+        #column 3
+        #background noise removal
+        self.crushed = QtWidgets.QCheckBox(self.dockWidgetContents)
+        self.crushed.setGeometry(QtCore.QRect(550,30,240, 22))
+        self.crushed.setObjectName("crushed")
+        self.crushed.stateChanged.connect(self.Crushed)
+        #image enhancement
+        self.image_enhancement = QtWidgets.QCheckBox(self.dockWidgetContents)
+        self.image_enhancement.setGeometry(QtCore.QRect(550, 70, 250, 22))
+        self.image_enhancement.setObjectName("image_enhancement")
+        self.image_enhancement.stateChanged.connect(self.Image_enhancement)
+        self.label_Brightness = QtWidgets.QLabel(self.dockWidgetContents)
+        self.label_Brightness.setGeometry(QtCore.QRect(560,100, 250, 22))
+        self.label_Brightness.setMouseTracking(True)
+        self.label_Brightness.setObjectName("label_Brightness")
+        self.label_Contrast = QtWidgets.QLabel(self.dockWidgetContents)
+        self.label_Contrast.setGeometry(QtCore.QRect(560,130, 250, 22))
+        self.label_Contrast.setMouseTracking(True)
+        self.label_Contrast.setObjectName("label_Contrast")
+        self.label_Sharpness = QtWidgets.QLabel(self.dockWidgetContents)
+        self.label_Sharpness.setGeometry(QtCore.QRect(560,160, 250, 22))
+        self.label_Sharpness.setMouseTracking(True)
+        self.label_Sharpness.setObjectName("label_Sharpness")
+        self.label_Color_value = QtWidgets.QLabel(self.dockWidgetContents)
+        self.label_Color_value.setGeometry(QtCore.QRect(560,190, 250, 22))
+        self.label_Color_value.setMouseTracking(True)
+        self.label_Color_value.setObjectName("label_Color_value")
+        #batch seperation
         self.batch_seperation = QtWidgets.QCheckBox(self.dockWidgetContents)
         self.batch_seperation.setGeometry(QtCore.QRect(550, 230, 201, 22))
         self.batch_seperation.setObjectName("batch_seperation")
@@ -322,70 +372,32 @@ class Ui_HpScan(object):
         self.comboBox_Barcode_Type.addItem("")
         self.comboBox_Barcode_Type.addItem("")
         self.comboBox_Barcode_Type.setEnabled(False)
-        #self.comboBox_Barcode_Type.currentIndexChanged.connect(self.comboBox_ResIndexChanged)
-        self.document_merge = QtWidgets.QCheckBox(self.dockWidgetContents)
-        self.document_merge.setGeometry(QtCore.QRect(300, 230, 161, 22))
-        self.document_merge.setObjectName("document_merge")
-        self.document_merge.stateChanged.connect(self.Document_merge)
-        self.mixed_feed = QtWidgets.QCheckBox(self.dockWidgetContents)
-        self.mixed_feed.setGeometry(QtCore.QRect(300, 270, 200, 22))
-        self.mixed_feed.setObjectName("mixed_feed")
-        self.mixed_feed.stateChanged.connect(self.Mixed_feed)
-        self.deskew_image = QtWidgets.QCheckBox(self.dockWidgetContents)
-        self.document_merge_adf_flatbed = QtWidgets.QCheckBox(self.dockWidgetContents)
-        self.document_merge_adf_flatbed.setGeometry(QtCore.QRect(300, 310, 150, 22))
-        self.document_merge_adf_flatbed.setObjectName("document_merge_adf_flatbed")
-        self.document_merge_adf_flatbed.stateChanged.connect(self.Document_merge_adf_flatbed)
-        self.label_Brightness = QtWidgets.QLabel(self.dockWidgetContents)
-        self.label_Brightness.setGeometry(QtCore.QRect(560,100, 250, 22))
-        #font = QtGui.QFont()
-        #font.setBold(True)
-        #font.setWeight(75)
-        #self.label_Brightness.setFont(font)
-        self.label_Brightness.setMouseTracking(True)
-        self.label_Brightness.setObjectName("label_Brightness")
-        self.label_Contrast = QtWidgets.QLabel(self.dockWidgetContents)
-        self.label_Contrast.setGeometry(QtCore.QRect(560,130, 250, 22))
-        #font = QtGui.QFont()
-        #font.setBold(True)
-        #font.setWeight(75)
-        #self.label_Contrast.setFont(font)
-        self.label_Contrast.setMouseTracking(True)
-        self.label_Contrast.setObjectName("label_Contrast")
-        self.label_Sharpness = QtWidgets.QLabel(self.dockWidgetContents)
-        self.label_Sharpness.setGeometry(QtCore.QRect(560,160, 250, 22))
-        #font = QtGui.QFont()
-        #font.setBold(True)
-        #font.setWeight(75)
-        #self.label_Sharpness.setFont(font)
-        self.label_Sharpness.setMouseTracking(True)
-        self.label_Sharpness.setObjectName("label_Sharpness")
-        self.label_Color_value = QtWidgets.QLabel(self.dockWidgetContents)
-        self.label_Color_value.setGeometry(QtCore.QRect(560,190, 250, 22))
-        #font = QtGui.QFont()
-        #font.setBold(True)
-        #font.setWeight(75)
-        #self.label_Color_value.setFont(font)
-        self.label_Color_value.setMouseTracking(True)
-        self.label_Color_value.setObjectName("label_Color_value")
-        self.image_enhancement = QtWidgets.QCheckBox(self.dockWidgetContents)
-        self.image_enhancement.setGeometry(QtCore.QRect(550, 70, 250, 22))
-        self.image_enhancement.setObjectName("image_enhancement")
-        self.image_enhancement.stateChanged.connect(self.Image_enhancement)
-        self.deskew_image.setGeometry(QtCore.QRect(300,30, 241, 20))
-        self.deskew_image.setObjectName("deskew_image")
-        self.deskew_image.stateChanged.connect(self.Deskew_image)
-        self.comboBox_Device_URI = QtWidgets.QComboBox(self.dockWidgetContents)
-        self.comboBox_Device_URI.setGeometry(QtCore.QRect(85, 30, 171, 41))
-        self.comboBox_Device_URI.setObjectName("comboBox_Device_URI")
-        self.comboBox_Device_URI.currentIndexChanged.connect(self.comboBox_device_URI)
-        
-        self.comboBox_path = QtWidgets.QComboBox(self.dockWidgetContents)
-        self.comboBox_path.setEditable(False)
-        self.comboBox_path.setGeometry(QtCore.QRect(85,390, 171, 41))
-        self.comboBox_path.setObjectName("comboBox_path")
-        self.comboBox_path.currentIndexChanged.connect(self.comboBox_Path)
-        
+        #color dropout
+        self.color_dropout = QtWidgets.QCheckBox(self.dockWidgetContents)
+        self.color_dropout.setGeometry(QtCore.QRect(550,360,240, 22))
+        self.color_dropout.setObjectName("color_dropout")
+        self.color_dropout.stateChanged.connect(self.Color_dropout)
+        self.label_CR = QtWidgets.QLabel(self.dockWidgetContents)
+        self.label_CR.setGeometry(QtCore.QRect(560,390, 250, 22))
+        self.label_CR.setMouseTracking(True)
+        self.label_CR.setObjectName("label_CR")
+        #edge erase
+        self.edge_erase = QtWidgets.QCheckBox(self.dockWidgetContents)
+        self.edge_erase.setGeometry(QtCore.QRect(550,420, 250, 22))
+        self.edge_erase.setObjectName("edge_erase")
+        self.edge_erase.stateChanged.connect(self.Edge_erase)
+        self.edge_erase.setEnabled(True)
+
+        self.edge_erase_spin_box = QtWidgets.QDoubleSpinBox(self.dockWidgetContents)
+        self.edge_erase_spin_box.setGeometry(QtCore.QRect(700,420,100,20))
+        self.edge_erase_spin_box.setObjectName("edge_erase_spin_box")
+        self.edge_erase_spin_box.setEnabled(False)
+        self.edge_erase_spin_box.setSuffix("inch")
+        self.edge_erase_spin_box.setMinimum(0.0)
+        self.edge_erase_spin_box.setMaximum(1.0)
+        self.edge_erase_spin_box.setSingleStep(0.1)
+        self.edge_erase_spin_box.valueChanged.connect(self.edge_erase_spin_box_value_changed)
+
         #self.layout = QtGui.QVBoxLayout(self.dockWidgetContents)
 
         
@@ -516,6 +528,9 @@ class Ui_HpScan(object):
         #global sizel5
         self.color_range = True
         self.sizel5 = self.s5.value()
+    def edge_erase_spin_box_value_changed(self):
+        self.edge_erase_value = round(self.edge_erase_spin_box.value(),2)
+        #print("self.edge_erase_value = ", self.edge_erase_value)
     def comboBox_Path(self, new_path = None):
         path = new_path
         
@@ -553,6 +568,8 @@ class Ui_HpScan(object):
 	        cmd = cmd + ' --' + 'color_dropout_blue_value'+ '=' + str(self.dropout_color_blue_value)
         if self.color_dropout.isChecked() == True and self.color_range == True:
 	        cmd = cmd + ' --' + 'color_range'+ '=' + str(self.sizel5)
+        if self.edge_erase.isChecked() == True:
+            cmd = cmd + ' --' + 'edge_erase_value'+ '=' + (str(self.edge_erase_value))
         if self.mixed_feed.isChecked() == True:
             cmd = re.sub(r'\--size=.+\ ', '', cmd)
             cmd = cmd + ' --' + 'mixedfeed'
@@ -1243,7 +1260,13 @@ class Ui_HpScan(object):
             if self.bg_color_removal_pri == True:
                 self.bg_color_removal.setEnabled(True)
             #self.comboBox_Papersize.setEnabled(True)'''
-   
+    def Edge_erase(self):
+        if self.edge_erase.isChecked() == True:
+            self.edge_erase.setEnabled(True)
+            self.edge_erase_spin_box.setEnabled(True)
+            self.edge_erase_bool = True
+        else:
+            self.edge_erase_spin_box.setEnabled(False)
     def Document_merge(self):
         if self.document_merge.isChecked() == True:
             if self.document_merge_pri == True:
@@ -1329,15 +1352,22 @@ class Ui_HpScan(object):
             if self.document_merge_adf_flatbed_pri == True:
                 self.document_merge_adf_flatbed.setEnabled(True)
             self.comboBox_Type.setCurrentIndex(2)
-            self.comboBox_Type.setEnabled(False) 
-            self.pushButton_Merge.setEnabled(True)
+            self.comboBox_Type.setEnabled(False)
+            self.check_flatbed_present()
+            self.comboBox_Device_URI.currentTextChanged.connect(lambda: self.check_flatbed_present())
+            
         else:
             self.CheckEnable()
             self.pushButton_Merge.setEnabled(False)
             self.comboBox_Type.setCurrentIndex(0)
             self.comboBox_Type.setEnabled(True)
  
- 
+    def check_flatbed_present(self):
+        #only enable adf flatbed merge button if device has flatbed
+        if self.comboBox_Flatbed.count() == 4:
+            self.pushButton_Merge.setEnabled(True)
+        else:
+            self.pushButton_Merge.setEnabled(False)
             
     def Image_enhancement(self):
         if self.image_enhancement.isChecked() == True:
@@ -1357,7 +1387,13 @@ class Ui_HpScan(object):
             self.s4.setEnabled(False)
 
     def mergeButton_clicked(self):
-        from PyPDF2 import PdfFileReader, PdfFileMerger
+        try:
+            from PyPDF2 import PdfFileMerger, PdfFileReader
+            merger = PdfFileMerger()
+        except:
+            from PyPDF2 import PdfMerger as PdfFileMerger
+            from PyPDF2 import PdfReader as PdfFileReader
+            merger = PdfFileMerger()
         path1 = str(path)
         #print path1
         output_pdf = utils.createSequencedFilename("Merged", ".pdf",path1)
@@ -1508,6 +1544,7 @@ class Ui_HpScan(object):
         self.searchablePDF.setText(_translate("HpScan", "Searchable PDF ", None))
         self.punchhole_removal.setText(_translate("HpScan", "Punch Hole Removal ", None))
         self.color_dropout.setText(_translate("HpScan", "Color Removal/Dropout ", None))
+        self.edge_erase.setText(_translate("HpScan", "Edge Erase", None))
         self.bg_color_removal.setText(_translate("HpScan", "Background Color Removal", None))
         self.auto_crop.setText(_translate("HpScan", "Crop to content on page ", None))
         self.deskew_image.setText(_translate("HpScan", "Straighten page content ", None))
@@ -1600,6 +1637,7 @@ class SetupDialog():
             ui.bg_color_removal.setEnabled(False)
             ui.punchhole_removal.setEnabled(False)
             ui.color_dropout.setEnabled(False)
+            ui.edge_erase.setEnabled(False)
             ui.mixed_feed.setEnabled(False)
             ui.document_merge.setEnabled(False)        
 

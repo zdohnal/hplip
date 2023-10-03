@@ -78,6 +78,8 @@ set_color_dropout = False
 color_dropout_green = 0
 color_dropout_blue = 0
 color_range_value = 0
+edge_erase = False
+edge_erase_value = 0
 contrast = 0
 set_contrast = False
 
@@ -134,6 +136,7 @@ orient_list = []
 multipick_error_message = "The scan operation has been cancelled or a multipick or paper is jammed in the ADF.\nIf you cancelled the scan,click OK.\nIf the scan was terminated due to a multi-feed or paper jam in the ADF,\ndo the following:\n\n1)Clear the ADF path. For instructions see your product documentation.\n2)Check the sheets are not stuck together. Remove any staples, sticky notes,tape or other objects.\n3)Restart the scan\n\nNote:If necessary, turn off automatic detection of multi-pick before starting a new scan\n"
 SANE_STATUS_MULTIPICK=12
 SANE_STATUS_JAMMED=6
+MAX_EDGE_ERASE_VALUE_INCH=1
 
 PAGE_SIZES = { # in mm
     '5x7' : (127, 178, "5x7 photo", 'in'),
@@ -291,6 +294,8 @@ try:
         ("", "Units are specified by -t/--units (default is 'mm').", "option", False),
         ("Specify the scan area based on a paper size:", "--size=<paper size name>", "option", False),
         ("", "where <paper size name> is one of: %s" % ', '.join(list(PAGE_SIZES.keys())), "option", False),
+        ("Crop out edges from the scan area:", "--edge_erase_value=<border crop value in inch>", "option", False),
+        ("", "where <border crop value in inch> is in range of: [0-1]inch", "option", False),
         utils.USAGE_SPACE,
         ("[OPTIONS] ('file' dest)", "", "header", False),
         ("Filename for 'file' destination:", "-o<file> or -f<file> or --file=<file> or --output=<file>", "option", False),
@@ -335,7 +340,13 @@ try:
                           'subject=', 'to=', 'from=', 'jpg',
                           'grey-scale', 'gray-scale', 'about=',
                           'editor=', 'dp=', 'dest-printer=', 'dd=',
-                          'dest-device=', 'brightness=', 'contrast=','filetype=', 'path=', 'uiscan', 'sharpness=','color_dropout_red_value=','color_dropout_green_value=','color_dropout_blue_value=','color_range=', 'color_value=','multipick','autoorient','blankpage','batchsepBP','mixedfeed', 'crushed', 'bg_color_removal','punchhole_removal','docmerge','adf_flatbed_merge','batchsepBC','deskew','autocrop','backside']
+                          'dest-device=', 'brightness=', 'contrast=','filetype=',
+                            'path=', 'uiscan', 'sharpness=',
+                            'color_dropout_red_value=','color_dropout_green_value=','color_dropout_blue_value=','color_range=',
+                              'color_value=','multipick','autoorient','blankpage',
+                              'batchsepBP','mixedfeed', 'crushed', 'bg_color_removal',
+                              'punchhole_removal','docmerge','adf_flatbed_merge',
+                              'batchsepBC','deskew','autocrop','backside','edge_erase_value=']
 
     mod.setUsage(module.USAGE_FLAG_DEVICE_ARGS, extra_options, see_also_list=[])
 
@@ -714,7 +725,19 @@ try:
             except ValueError:
                 log.error("Invalid color dropout value. Using default of [0:0:0] .")
                 color_range_value = 49
-
+        elif o in ('-edge_erase_value', '--edge_erase_value'):
+            try:
+                edge_erase = True
+                edge_erase_value = float(a)
+                if edge_erase_value > MAX_EDGE_ERASE_VALUE_INCH:
+                    log.error("Invalid edge erase value. Setting Max Value of  %f" %MAX_EDGE_ERASE_VALUE_INCH)
+                    edge_erase_value = MAX_EDGE_ERASE_VALUE_INCH 
+                if edge_erase_value < 0:
+                    log.error("Invalid edge erase value. Setting Max Value of  %d" %0)
+                    edge_erase_value = 0
+            except ValueError:
+                log.error("Invalid edge erase value. Using default of 0.")
+                edge_erase_value = 0
         elif o in ('-b', '--brightness'):
             try:
                 set_brightness = True
@@ -1519,6 +1542,9 @@ try:
                         if crushed:
                             im = imageprocessing.crushed(im)
 
+                        if edge_erase:
+                            edge_erase_value_px = int(res*edge_erase_value)
+                            im = imageprocessing.edge_erase(im,edge_erase_value_px)
                         if uiscan == True:
                             if adf:
                                 if (save_file == 'pdf'):
