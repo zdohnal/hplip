@@ -170,7 +170,7 @@ class WifiSetupDialog(QDialog, Ui_Dialog):
         self.initUi()
         self.adapterName = 'Wifi0'
         self.wifiObj = wifi
-
+        self.wifiConfVal = WIFI_CONFIG_LEDM
         #if self.device_uri is None:
         #    QTimer.singleShot(0, self.showIntroPage)
         #else:
@@ -346,20 +346,19 @@ class WifiSetupDialog(QDialog, Ui_Dialog):
         self.num_networks = 0
 
         #Get authentication token
-        if self.wifiObj == CdmWifi:
-            if self.wifiObj.checkAuthrequired(self.dev):
+        if self.wifiObj == CdmWifi and self.wifiConfVal == WIFI_CONFIG_CDM_AUTH:
+            if 1:#self.wifiObj.checkAuthrequired(self.dev):
                 prompt = "Enter printer's username and password"
                 while True:
                     rtnvalue,uname, password = showPasswordUI(prompt)
                     if rtnvalue == 0:
                         return
+                    beginWaitCursor()
                     ret = self.wifiObj.getCDMToken(self.dev, uname, password)
                     if ret == True:
                         break
                     prompt =  "Invalid Username/Password\n.Please reenter printer's username and password" 
-        
-        
-        #Get adaptor_id
+                    endWaitCursor()
 
         try:
             adaptor_list = self.wifiObj.getWifiAdaptorID(self.dev)           
@@ -956,10 +955,11 @@ class WifiSetupDialog(QDialog, Ui_Dialog):
     # The Wifi object here is not actual object, Dynamically relevant modules are selected based on 
     # wifi-config value in the models file.
     def getWifiObject(self,wifiConfVal):
-        if wifiConfVal == WIFI_CONFIG_LEDM:                    
+        self.wifiConfVal = wifiConfVal
+        if wifiConfVal == WIFI_CONFIG_LEDM:
             self.wifiObj = LedmWifi
-        elif wifiConfVal == WIFI_CONFIG_CDM:
+        elif wifiConfVal == WIFI_CONFIG_CDM or wifiConfVal == WIFI_CONFIG_CDM_AUTH:
             self.wifiObj = CdmWifi
-        else:                    
+        else:
             self.wifiObj = wifi
         

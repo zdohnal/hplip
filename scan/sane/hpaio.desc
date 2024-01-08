@@ -109,6 +109,12 @@
 :model "HP Color LaserJet Enterprise Flow MFP x57945zs"
 :status :good
 
+:model "HP Color LaserJet Enterprise Flow MFP x58045z"
+:status :good
+
+:model "HP Color LaserJet Enterprise Flow MFP x58045zs"
+:status :good
+
 :model "HP Color LaserJet Enterprise Flow MFP x677z"
 :status :good
 
@@ -134,6 +140,12 @@
 :status :good
 
 :model "HP Color LaserJet Enterprise MFP x57945dn"
+:status :good
+
+:model "HP Color LaserJet Enterprise MFP x58045"
+:status :good
+
+:model "HP Color LaserJet Enterprise MFP x58045dn"
 :status :good
 
 :model "HP Color LaserJet Enterprise MFP x677"
@@ -3260,6 +3272,12 @@
 :status :good
 
 :model "HP Officejet Pro 8740 All-in-one Printer"
+:status :good
+
+:model "HP Officejet Pro 9120b Series"
+:status :good
+
+:model "HP Officejet Pro 9130b Series"
 :status :good
 
 :model "HP Officejet Pro All-in-one 9010"

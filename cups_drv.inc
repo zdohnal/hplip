@@ -498,6 +498,7 @@ cups_ppd_printers = \
    ppd/hpcups/hp-laserjet_pro_mfp_m26nw.ppd.gz \
    ppd/hpcups/hp-laserjet_pro_mfp_m27c.ppd.gz \
    ppd/hpcups/hp-laserjet_pro_mfp_m27cnw.ppd.gz \
+   ppd/hpcups/hp-laserjet_pro_p1100_plus_series.ppd.gz \
    ppd/hpcups/hp-laserjet_professional_m1132_mfp.ppd.gz \
    ppd/hpcups/hp-laserjet_professional_m1136_mfp.ppd.gz \
    ppd/hpcups/hp-laserjet_professional_m1137_mfp.ppd.gz \
@@ -650,6 +651,9 @@ cups_ppd_printers = \
    ppd/hpcups/hp-officejet_pro_8720.ppd.gz \
    ppd/hpcups/hp-officejet_pro_9010_series.ppd.gz \
    ppd/hpcups/hp-officejet_pro_9020_series.ppd.gz \
+   ppd/hpcups/hp-officejet_pro_9110b_series.ppd.gz \
+   ppd/hpcups/hp-officejet_pro_9120b_series.ppd.gz \
+   ppd/hpcups/hp-officejet_pro_9130b_series.ppd.gz \
    ppd/hpcups/hp-officejet_pro_k5300.ppd.gz \
    ppd/hpcups/hp-officejet_pro_k5400.ppd.gz \
    ppd/hpcups/hp-officejet_pro_k550.ppd.gz \

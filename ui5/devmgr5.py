@@ -1521,6 +1521,11 @@ class DevMgr5(Ui_MainWindow_Derived, Ui_MainWindow, QMainWindow):
         self.supplies_headers = [self.__tr(""), self.__tr("Description"),
                                  self.__tr("HP Part No."), self.__tr("Approx. Level"),
                                  self.__tr("Status")]
+        if self.cur_device != None:
+            try:
+                self.cur_device.dq["agent1-type"]
+            except KeyError:
+                self.cur_device.queryDevice()
 
 
     def updateSuppliesTab(self):
@@ -1544,7 +1549,10 @@ class DevMgr5(Ui_MainWindow_Derived, Ui_MainWindow, QMainWindow):
                         agent_kind = int(self.cur_device.dq['agent%d-kind' % a])
                         agent_sku = self.cur_device.dq['agent%d-sku' % a]
                     except KeyError:
-                        break
+                        if a == 1:
+                            self.cur_device.queryDevice()
+                        else:    
+                            break
                     else:
                         self.cur_device.sorted_supplies.append((a, agent_kind, agent_type, agent_sku))
 

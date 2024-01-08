@@ -38,6 +38,11 @@ Boston, MA 02110-1301, USA.
 #define O_BINARY 0
 #define _STRINGIZE(x) #x
 #define STRINGIZE(x) _STRINGIZE(x)
+#define hplip_strlcpy(dst, src, size) \
+    do { \
+        if (!memccpy(dst, src, '\0', size)) \
+		dst[size - 1] = '\0'; \
+    } while (0)
 
 http_t *acquireCupsInstance()
 {
@@ -109,7 +114,7 @@ int addCupsPrinter(char *name, char *device_uri, char *location, char *ppd_file,
     }
 
      if ( info == NULL )
-        snprintf( info,sizeof(info), name );
+        hplip_strlcpy( info, name, sizeof(info));
 
     sprintf(printer_uri, "ipp://localhost/printers/%s", name);
 
@@ -514,27 +519,27 @@ int __parsePrinterAttributes(ipp_t *response, printer_t **printer_list)
 
              if ( strcmp(attr_name, "printer-name") == 0 &&
                                         val_tag == IPP_TAG_NAME ) {
-                  snprintf(t_printer->name, sizeof(t_printer->name),ippGetString(attr, 0, NULL) );
+                  hplip_strlcpy(t_printer->name, ippGetString(attr, 0, NULL), sizeof(t_printer->name) );
              }
              else if ( strcmp(attr_name, "device-uri") == 0 &&
                                          val_tag == IPP_TAG_URI ) {
-                  snprintf(t_printer->device_uri,sizeof(t_printer->device_uri), ippGetString(attr, 0, NULL) );
+                  hplip_strlcpy(t_printer->device_uri, ippGetString(attr, 0, NULL), sizeof(t_printer->device_uri) );
              }
              else if ( strcmp(attr_name, "printer-uri-supported") == 0 &&
                                                  val_tag == IPP_TAG_URI ) {
-                  snprintf(t_printer->printer_uri,sizeof(t_printer->printer_uri), ippGetString(attr, 0, NULL) );
+                  hplip_strlcpy(t_printer->printer_uri, ippGetString(attr, 0, NULL), sizeof(t_printer->printer_uri) );
              }
              else if ( strcmp(attr_name, "printer-info") == 0 &&
                                         val_tag == IPP_TAG_TEXT ) {
-                  snprintf(t_printer->info,sizeof(t_printer->info), ippGetString(attr, 0, NULL) );
+                  hplip_strlcpy(t_printer->info, ippGetString(attr, 0, NULL), sizeof(t_printer->info) );
              }
              else if ( strcmp(attr_name, "printer-location") == 0 &&
                                            val_tag == IPP_TAG_TEXT ) {
-                  snprintf(t_printer->location,sizeof(t_printer->location),ippGetString(attr, 0, NULL) );
+                  hplip_strlcpy(t_printer->location, ippGetString(attr, 0, NULL), sizeof(t_printer->location) );
              }
              else if ( strcmp(attr_name, "printer-make-and-model") == 0 &&
                                                   val_tag == IPP_TAG_TEXT ) {
-                  snprintf(t_printer->make_model,sizeof(t_printer->make_model),ippGetString(attr, 0, NULL) );
+                  hplip_strlcpy(t_printer->make_model, ippGetString(attr, 0, NULL), sizeof(t_printer->make_model));
              } 
              else if ( strcmp(attr_name, "printer-state") == 0 &&
                                              val_tag == IPP_TAG_ENUM ) {

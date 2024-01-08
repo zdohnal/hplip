@@ -6778,32 +6778,24 @@ Manufacturer "HP"
 	"<</cupsInteger0 126/PageSize[360 504]/ImagingBBox null>>setpagedevice"
 	CustomMedia "LSIZ/CardL 3.5x5 in." 252 360 8.4 8.4 8.4 36 "<</cupsInteger0 121/PageSize[252 360]/ImagingBBox null>>setpagedevice"
 	"<</cupsInteger0 121/PageSize[252 360]/ImagingBBox null>>setpagedevice"
-	CustomMedia "Card3x5/Index Card 3x5in" 216 360 8.4 8.4 8.4 36 "<</cupsInteger0 78/PageSize [216 360]/ImagingBBox null>>setpagedevice"
-	"<</cupsInteger0 78/PageSize[216 360]/ImagingBBox null>>setpagedevice"
-	CustomMedia "Photo4x5/Photo 4x5in" 288 360 8.4 8.4 8.4 36 "<</cupsInteger0 30002/PageSize[288 360]/ImagingBBox null>>setpagedevice"
-	"<</cupsInteger0 30002/PageSize[288 360]/ImagingBBox null>>setpagedevice"
+	
 	CustomMedia "Card4x6/IndexCard 4x6in" 288 432 8.4 8.4 8.4 36 "<</cupsInteger0 74/PageSize[288 432]/ImagingBBox null>>setpagedevice"
 	"<</cupsInteger0 74/PageSize[288 432]/ImagingBBox null>>setpagedevice"
 	CustomMedia "Card10x15/IndexCard 10x15 cm in" 288 432 8.4 8.4 36 36 "<</cupsInteger0 74/PageSize[288 432]/ImagingBBox null>>setpagedevice"
 	"<</cupsInteger0 74/PageSize[288 432]/ImagingBBox null>>setpagedevice"
-    CustomMedia "Photo_4x12/Photo 4x12in" 288 864 8.4 8.4 8.4 36 "<</cupsInteger0 30000/PageSize[288 864]/ImagingBBox null>>setpagedevice"
-	"<</cupsInteger0 30000/PageSize[288 864]/ImagingBBox null>>setpagedevice"
+    
 	CustomMedia "Card5x7/Card 5x7in" 360 504 8.4 8.4 8.4 36 "<</cupsInteger0 122/PageSize[360 504]/ImagingBBox null>>setpagedevice"
 	"<</cupsInteger0 122/PageSize[360 504]/ImagingBBox null>>setpagedevice"
-	CustomMedia "FLSA/Foolscap 8.5x13in" 612 936 8.4 8.4 8.4 36 "<</cupsInteger0 10/PageSize[612 936]/ImagingBBox null>>setpagedevice"
-    "<</cupsInteger0 10/PageSize[612 936]/ImagingBBox null>>setpagedevice"
+	
 	CustomMedia "Letter/Letter 8x10" 576 720 8.4 8.4 8.4 36 "<</cupsInteger0 7/PageSize[576 720]/ImagingBBox null>>setpagedevice"
 	"<</cupsInteger0 7/PageSize[576 720]/ImagingBBox null>>setpagedevice"
-	CustomMedia "Oufuku/Oufuku-Hagaki 200x148mm" 566.64 419.52 8.4 8.4 8.4 36 "<</cupsInteger0 72/PageSize[566 419.52]/ImagingBBox null>>setpagedevice"
-	"<</cupsInteger0 72/PageSize[566 419.52]/ImagingBBox null>>setpagedevice"
+	
 	// Custom page sizes from 1x4in to legal
 	
 
 	 //Envelope
-    CustomMedia "ENVELOPE_NO_6_75/Envelope_6" 260.88 468 8.4 8.4 8.4 36 "<</cupsInteger0 83/PageSize[260.68 468]/ImagingBBox null>>setpagedevice"
-	"<</cupsInteger0 83/PageSize[260.68 468]/ImagingBBox null>>setpagedevice"	
-	CustomMedia "Env/#6 Envelope 6.63x6.5 in" 260.68 468 8.4 8.4 8.4 36 "<</cupsInteger0 83/PageSize[260.68 468]/ImagingBBox null>>setpagedevice"
-	"<</cupsInteger0 121/PageSize[260.68 468]/ImagingBBox null>>setpagedevice"	
+    
+		
 	CustomMedia "A4/A4 210x297" 595.44 841.68 8.4 8.4 8.4 36 "<</cupsInteger0 26/PageSize[595.44 841.68]/ImagingBBox null>>setpagedevice"
 	"<</cupsInteger0 26/PageSize[595.44 841.68]/ImagingBBox null>>setpagedevice"	
 	CustomMedia "A5/A5 148x210" 612 792 8.4 8.4 8.4 36 "<</cupsInteger0 25/PageSize[612 792]/ImagingBBox null>>setpagedevice"
@@ -6816,16 +6808,13 @@ Manufacturer "HP"
 	"<</cupsInteger0 45/PageSize[515.76 728.4]/ImagingBBox null>>setpagedevice"
 	CustomMedia "Env10/#10 Envelope 4.1x9.5in" 296.88 684 8.4 8.4 8.4 36 "<</cupsInteger0 81/PageSize[296.88 684]/ImagingBBox null>>setpagedevice"
 	"<</cupsInteger0 81/PageSize[296.88 684]/ImagingBBox null>>setpagedevice"
-	CustomMedia "EnvA2/A2 Envelope 111x146in" 314.88 414 8.4 8.4 8.4 36 "<</cupsInteger0 109/PageSize[314.88 414]/ImagingBBox null>>setpagedevice"
-	"<</cupsInteger0 109/PageSize[314.88 414]/ImagingBBox null>>setpagedevice"
-	CustomMedia "EnvC5/C5 Envelope 162x229mm in" 459.12 648.96 8.4 8.4 8.4 36 "<</cupsInteger0 91/PageSize[459.12 648.96]/ImagingBBox null>>setpagedevice"
-	"<</cupsInteger0 91/PageSize[459.12 648.96]/ImagingBBox null>>setpagedevice"
+	
+	
 	CustomMedia "EnvC6/C6 Envelope 114x162mm in" 323.04 459.12 8.4 8.4 8.4 36 "<</cupsInteger0 92/PageSize[323.04 459.12]/ImagingBBox null>>setpagedevice"
 	"<</cupsInteger0 92/PageSize[323.04 459.12]/ImagingBBox null>>setpagedevice"
 	CustomMedia "EnvDL/DL Envelope 110x220mm" 311.76 623.52 8.4 8.4 8.4 36 "<</cupsInteger0 90/PageSize[311.76 623.52]/ImagingBBox null>>setpagedevice"
 	"<</cupsInteger0 90/PageSize[311.76 623.52]/ImagingBBox null>>setpagedevice"
-	CustomMedia "EnvMonarch/Monarch Envelope 3.88x7.5in" 278.88 540 8.4 8.4 8.4 36 "<</cupsInteger0 80/PageSize[278.88 540]/ImagingBBox null>>setpagedevice"
-	"<</cupsInteger0 80/PageSize[278.88 540]/ImagingBBox null>>setpagedevice"
+	
 	CustomMedia "EnvChou3/#3 Japanese Envelope" 339.84 666 8.4 8.4 8.4 36 "<</cupsInteger0 110/PageSize[339.84 666]/ImagingBBox null>>setpagedCard3x5evice"
 	"<</cupsInteger0 110/PageSize[339.84 666]/ImagingBBox null>>setpagedevice"
 	CustomMedia "EnvChou4/#4 Japanese Envelope" 254.88 581.04 8.4 8.4 8.4 36 "<</cupsInteger0 111/PageSize[254.88 581.04]/ImagingBBox null>>setpagedevice"
@@ -6833,8 +6822,7 @@ Manufacturer "HP"
 	CustomMedia "PostCard/ Japanese Hagaki 100x148 mm" 284.16 419.52 8.4 8.4 8.4 36 "<</cupsInteger0 71/PageSize[284.16 419.52]/ImagingBBox null>>setpagedevice"
 	"<</cupsInteger0 71/PageSize[284.16 419.52]/ImagingBBox null>>setpagedevice"	
 		 //4x6
-	CustomMedia "3x5in/3x5 in" 216 360 8.4 8.4 8.4 36 "<</cupsInteger0 78/PageSize[216 360]/ImagingBBox null>>setpagedevice"
-	"<</cupsInteger0 78/PageSize[216 360]/ImagingBBox null>>setpagedevice"
+	
 	CustomMedia "Card4x6in/Card 4x6in" 288 432 8.4 8.4 8.4 36 "<</cupsInteger0 74/PageSize[288 432]/ImagingBBox null>>setpagedevice"
 	"<</cupsInteger0 74/PageSize[288 432]/ImagingBBox null>>setpagedevice"
 	CustomMedia "Card5x8in/Index Card 5x8in" 360 576 8.4 8.4 8.4 36 "<</cupsInteger0 75/PageSize[360 576]/ImagingBBox null>>setpagedevice"
@@ -6848,8 +6836,7 @@ Manufacturer "HP"
 	"<</cupsInteger0 3/PageSize[612 1008]/ImagingBBox null>>setpagedevice"
         CustomMedia "USLETTER/Letter 8.5X11in" 612 792 8.4 8.4 8.4 36 "<</cupsInteger0 2/PageSize[612 792]/ImagingBBox null>>setpagedevice"
 	"<</cupsInteger0 2/PageSize[612 792]/ImagingBBox null>>setpagedevice"
-	CustomMedia "Statement/Statement 5.5x8.5in" 396 612 8.4 8.4 8.4 36 "<</cupsInteger0 15/PageSize[396 612]/ImagingBBox null>>setpagedevice"
-	"<</cupsInteger0 15/PageSize[396 612]/ImagingBBox null>>setpagedevice"
+	
     {
       // Custom page sizes from 1x4in to legal
       HWMargins 8.4 8.4 8.4 36
@@ -16293,6 +16280,30 @@ Manufacturer "HP"
             Attribute "Product" "" "(HP Officejet Pro All-in-one 9020)"
           }
           {
+            ModelName "HP Officejet Pro 9110b Series"
+            Attribute "NickName" "" "HP Officejet Pro 9110b Series, hpcups $Version"
+            Attribute "ShortNickName" "" "HP OJ Pro 9110b Series hpijs"
+            Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 9110b series;DES:hp officejet pro 9110b series;"
+            PCFileName "hp-officejet_pro_9110b_series.ppd"
+            Attribute "Product" "" "(HP Officejet Pro 9110b Series)"
+          }
+          {
+            ModelName "HP Officejet Pro 9120b Series"
+            Attribute "NickName" "" "HP Officejet Pro 9120b Series, hpcups $Version"
+            Attribute "ShortNickName" "" "HP OJ Pro 9120b Series hpijs"
+            Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 9120b series;DES:hp officejet pro 9120b series;"
+            PCFileName "hp-officejet_pro_9120b_series.ppd"
+            Attribute "Product" "" "(HP Officejet Pro 9120b Series)"
+          }
+          {
+            ModelName "HP Officejet Pro 9130b Series"
+            Attribute "NickName" "" "HP Officejet Pro 9130b Series, hpcups $Version"
+            Attribute "ShortNickName" "" "HP OJ Pro 9130b Series hpijs"
+            Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 9130b series;DES:hp officejet pro 9130b series;"
+            PCFileName "hp-officejet_pro_9130b_series.ppd"
+            Attribute "Product" "" "(HP Officejet Pro 9130b Series)"
+          }
+          {
             ModelName "HP Officejet Pro 8020 Series"
             Attribute "NickName" "" "HP Officejet Pro 8020 Series, hpcups $Version"
             Attribute "ShortNickName" "" "HP OJ Pro 8020 Series hpijs"
@@ -23925,6 +23936,15 @@ Group "RLT/HP Real Life Technologies"
      Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet pro mfp m27cnw;DES:hp laserjet pro mfp m27cnw;"
      PCFileName "hp-laserjet_pro_mfp_m27cnw.ppd"
      Attribute "Product" "" "(HP LaserJet Pro MFP m27cnw)"
+   }
+   {
+     ModelName "HP LaserJet Pro p1100 Plus Series"
+     Attribute "NickName" "" "HP LaserJet Pro p1100 Plus Series, hpcups $Version"
+     Attribute "ShortNickName" "" "HP LJ Pro p1100 Ps Series hpijs"
+     Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet pro p1100 plus series;DES:hp laserjet pro p1100 plus series;"
+     PCFileName "hp-laserjet_pro_p1100_plus_series.ppd"
+     Attribute "Product" "" "(HP LaserJet Pro p1106 Plus)"
+     Attribute "Product" "" "(HP LaserJet Pro p1108 Plus)"
    }
    {
      ModelName "HP LaserJet Tank 1020"

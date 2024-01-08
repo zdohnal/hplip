@@ -45,8 +45,10 @@ hostname=''
 CDM_AUTH_REQ = "/cdm/oauth2/v1/token"
 CDM_ADP_CONF = "/cdm/ioConfig/v2/adapterConfigs"
 CDM_WIFI_SCAN = "/cdm/ioConfig/v2/wifiScan"
-CDM_WLAN_PROFILE = "/cdm/ioConfig/v2/wlanProfiles"
+#CDM_WLAN_PROFILE = "/cdm/ioConfig/v2/wlanProfiles" #Old and deprecated replaced by wirelessConfig service
+CDM_WIRELESS_CONFIG = "/cdm/ioConfig/v2/wirelessConfig"
 CDM_WIFI_DIAG = "/ioConfig/v2/wifiDiagnostics"
+CDM_SERVICE_DISCOVERY = "/cdm/servicesDiscovery" #this can be used to query device CDM services tree
 
 HTTP_OK = 200
 HTTP_CREATED = 201
@@ -229,26 +231,44 @@ def setAdaptorPower(dev, adaptor_list):
 
 def performScan(dev, adaptor_id):
     ret ={}
+    '''
+    #use this block to enable CDM service discovery
+    data, respcode = http_get_req(dev, CDM_SERVICE_DISCOVERY)
+    if respcode not in [HTTP_ACCEPTED,HTTP_NOCONTENT,HTTP_OK]:
+        log.debug("CDM service discovery Failed With Response Code %d" % respcode)
+    else:
+        data = json.loads(data.strip())
+        data = ast.literal_eval(json.dumps(data))
+        log.debug("CDM service discovery tree: /n%s" %data)
+    '''
+
     data, respcode = http_get_req(dev, CDM_WIFI_SCAN)
     if respcode not in [HTTP_ACCEPTED,HTTP_NOCONTENT,HTTP_OK]:
-        log.debug("Request Failed With Response Code %d" % respcode)
+        log.debug("get cdm wifiscan Request Failed With Response Code %d" % respcode)
         return
 
     data = {'state' : 'scanProcessing', 'scanType'  : 'undirected'}
     rdata,respcode = http_patch_req(dev, CDM_WIFI_SCAN, data)
     if respcode not in [HTTP_ACCEPTED,HTTP_NOCONTENT,HTTP_OK]:
-        log.debug("patch CDM_WIFI_SCAN Request Failed With Response Code %d" % respcode)
+        log.debug("patch cdm wifiscan Request Failed With Response Code %d" % respcode)
         return
 
-    data, respcode = http_get_req(dev, CDM_WIFI_SCAN)
-    if respcode not in [HTTP_ACCEPTED,HTTP_NOCONTENT,HTTP_OK]:
-        log.debug("get CDM_WIFI_SCAN Request Failed With Response Code %d" % respcode)
-        return
+    scan_state = "scanProcessing"
+    while(scan_state != "readyToScan"):
+        data, respcode = http_get_req(dev, CDM_WIFI_SCAN)
+        if respcode not in [HTTP_ACCEPTED,HTTP_NOCONTENT,HTTP_OK]:
+            log.debug("get cdm wifiscan Request Failed With Response Code %d" % respcode)
+            return
+        else:
+            data = json.loads(data.strip())
+            data = ast.literal_eval(json.dumps(data))
+            scan_state = data["state"]
+
 
     URI = "%s/%s" % (CDM_WIFI_SCAN, "wifiNetworks")
     data, respcode = http_get_req(dev, URI)
     if not(respcode == HTTP_OK):
-        log.debug("get URI Request Failed With Response Code %d" % respcode)
+        log.debug("get cdm wifiNetworks list Request Failed With Response Code %d" % respcode)
         return
     data = json.loads(data.strip())
     data = ast.literal_eval(json.dumps(data))
@@ -308,49 +328,28 @@ def getIPConfiguration(dev, adapterName):
 def associate(dev, wpaVersionPreference, ssid, authenticationMode, security, key):
     if authenticationMode == 'wpaOrWpa2':
         authenticationMode = 'auto'
-    flag = 0
-    URI = ''
-    ret,code = {},HTTP_ERROR
+    ret= {}
 
-    data, respcode = http_get_req(dev, CDM_WLAN_PROFILE)
+    data, respcode = http_get_req(dev, CDM_WIRELESS_CONFIG)
     if not(respcode == HTTP_OK):
-        log.debug("get CDM_WLAN_PROFILES Request Failed With Response Code %d" % respcode)
+        log.error("get CDM_WIRELESS_CONFIG Request Failed With Response Code %d" % respcode)
         return
     data = json.loads(data.strip())
     data = ast.literal_eval(json.dumps(data))
 
-    if 'wlanProfileList' in data:
-        for each in data['wlanProfileList']:
-            if each['ssid'] == ssid:
-                flag = 1
-                
-    if flag:
-        for each in data['links']:
-            if each['rel'] == 'activeProfile':
-                URI = each['href']
-        data = {}
-        data['ssid'] = ssid
-        data['wpaVersionPreference'] = wpaVersionPreference
-        data['encryptionType'] = security
-        data['authenticationMode'] = authenticationMode
-        data['passPhrase'] = key
+    del data['version']
 
-        data, respcode = http_patch_req(dev, URI, data)
-        if not(respcode == HTTP_NOCONTENT):
-            log.debug("patch URI Request Failed With Response Code %d" % respcode)
-            return
-    else:
-        data = {}
-        data['ssid'] = ssid
-        data['wpaVersionPreference'] = wpaVersionPreference
-        data['encryptionType'] = security
-        data['authenticationMode'] = authenticationMode
-        data['passPhrase'] = key
-        data = json.dumps(data)
-        data, respcode = http_post_req(dev, CDM_WLAN_PROFILE, data)
-        if not(respcode == HTTP_CREATED):
-            log.debug("Request Failed With Response Code %d" % respcode)
-            return
+    preferredProfile=data['preferredProfile']
+    data[preferredProfile]['authenticationMode'] = authenticationMode
+    data[preferredProfile]['encryptionType'] = security
+    data[preferredProfile]['ssid'] = ssid
+    data[preferredProfile]['wpaVersionPreference'] = wpaVersionPreference
+    data[preferredProfile]['passPhrase'] = key
+        
+    data, respcode = http_patch_req(dev, CDM_WIRELESS_CONFIG, data)
+    if not(respcode == HTTP_NOCONTENT):
+        log.debug("patch CDM_WIRELESS_CONFIG Request Failed With Response Code %d" % respcode)
+        return
 
     if not(eth_connect_check(dev)):
         log.debug("wifi not connected, remove ethernet and try")

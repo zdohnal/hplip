@@ -158,7 +158,15 @@ int __attribute__ ((visibility ("hidden"))) generalize_serial(const char *sz, ch
    for (i--; buf[i] == ' ' && i > 0; i--);  /* eat trailing white space */
 
    buf[++i] = 0;
-
+   /*sanitize the serial number. RFC-3986 Valid Serial number character set: [A-Za-z0-9_-]*/
+   for (i=0; i < bufSize && buf[i]; i++) 
+   {
+      if ( !(isalnum(buf[i]) || buf[i] == '-' || buf[i] == '_' ) ) 
+      {
+         DBG("Found invalid character %s in device serial number \n",buf[i]);
+         buf[i] = '\0';
+      }
+   }
    return i;   /* length does not include zero termination */
 }
 

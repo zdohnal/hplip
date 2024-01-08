@@ -12,7 +12,7 @@ class Ui_MainWindow_Derived(object):
 
         self.latest_available_version = latest_available_version
         self.Is_autoInstaller_distro = Is_autoInstaller_distro
-        if self.latest_available_version is not "":
+        if self.latest_available_version != "":
             self.tab_3 = QWidget()
             self.tab_3.setObjectName("tab_3")
             self.label = QLabel(self.tab_3)
@@ -34,7 +34,7 @@ class Ui_MainWindow_Derived(object):
 
     def retranslateUi(self, MainWindow):
         super(Ui_MainWindow_Derived, self).retranslateUi(MainWindow)
-        if self.latest_available_version is not "":
+        if self.latest_available_version != "":
             self.label.setText(QApplication.translate("MainWindow", "New version of HPLIP-%s is available"%self.latest_available_version, None))
             self.Tabs.setTabText(self.Tabs.indexOf(self.tab_3), QApplication.translate("MainWindow", "Upgrade", None))
             if self.Is_autoInstaller_distro:

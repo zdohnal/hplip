@@ -1647,10 +1647,10 @@ def StatusTypeCDMAgents_Net(url): # CDM
         ink_level = 0
         agent_sku = ''
         
-        type = each['supplyType']
+        agent_type = each['supplyType']
         state = each['supplyState']
 
-        if type == "ink" or type == "inkCartridge" or type == "toner" or type == "tonerCartridge" or type == "rechargeableToner" or type == "inkTank":
+        if agent_type == "ink" or agent_type == "inkCartridge" or agent_type == "toner" or agent_type == "tonerCartridge" or agent_type == "rechargeableToner" or agent_type == "inkTank":
             ink_type = each['supplyColorCode']
             if state != "missing":
                 try:
@@ -1663,12 +1663,12 @@ def StatusTypeCDMAgents_Net(url): # CDM
                     agent_sku = 'Unknown' #Initialize to unknown. IN some old devices, ConsumableSelectibilityNumber is not returned by device.
                 except:
                     ink_level = 0
-            elif type == "printhead" or type == 'imageDrum':
-                 continue; #No need of adding this agent.
-            else:
-                ink_type = ''
-                if state == "ok":
-                    ink_level = 100
+        elif agent_type == "printHead" or agent_type == 'imageDrum':
+            continue; #No need of adding this agent.
+        else:
+            ink_type = ''
+            if state == "ok":
+                ink_level = 100
 
         try:
             agent_sku = each['productNumber']
@@ -1678,7 +1678,7 @@ def StatusTypeCDMAgents_Net(url): # CDM
             except :
                 pass
 
-        entry = { 'kind' : element_type10_xlate.get(type, AGENT_KIND_NONE),
+        entry = { 'kind' : element_type10_xlate.get(agent_type, AGENT_KIND_NONE),
                           'type' : pen_type10_xlate.get(ink_type, AGENT_TYPE_NONE),
                           'health' : pen_health10_xlate.get(state, AGENT_HEALTH_OK),
                           'level' : int(ink_level),
@@ -1706,10 +1706,10 @@ def StatusTypeCDMAgents(func): # CDM
         ink_level = 0
         agent_sku = ''
         
-        type = each['supplyType']
+        agent_type = each['supplyType']
         state = each['supplyState']
 
-        if type == "ink" or type == "inkCartridge" or type == "toner" or type == "tonerCartridge" or type == "rechargeableToner" or type == "inkTank":
+        if agent_type == "ink" or agent_type == "inkCartridge" or agent_type == "toner" or agent_type == "tonerCartridge" or agent_type == "rechargeableToner" or agent_type == "inkTank":
             ink_type = each['supplyColorCode']
             if state != "missing":
                 try:
@@ -1722,12 +1722,12 @@ def StatusTypeCDMAgents(func): # CDM
                     agent_sku = 'Unknown' #Initialize to unknown. IN some old devices, ConsumableSelectibilityNumber is not returned by device.
                 except:
                     ink_level = 0
-            elif type == "printhead" or type == 'imageDrum':
-                 continue; #No need of adding this agent.
-            else:
-                ink_type = ''
-                if state == "ok":
-                    ink_level = 100
+        elif agent_type == "printhead" or agent_type == 'imageDrum':
+            continue; #No need of adding this agent.
+        else:
+            ink_type = ''
+            if state == "ok":
+                ink_level = 100
 
         try:
             agent_sku = each['productNumber']
@@ -1737,7 +1737,7 @@ def StatusTypeCDMAgents(func): # CDM
             except :
                 pass
 
-        entry = { 'kind' : element_type10_xlate.get(type, AGENT_KIND_NONE),
+        entry = { 'kind' : element_type10_xlate.get(agent_type, AGENT_KIND_NONE),
                           'type' : pen_type10_xlate.get(ink_type, AGENT_TYPE_NONE),
                           'health' : pen_health10_xlate.get(state, AGENT_HEALTH_OK),
                           'level' : int(ink_level),
