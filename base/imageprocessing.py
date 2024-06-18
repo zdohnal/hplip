@@ -713,7 +713,9 @@ def merge_PDF_viewer(output,ocr):
         #do not create ocr file based on the output file name, 
         # create unique sequenced file for OCR 
         # because original output file should be deleted if OCR was successful
-        output_ocr = utils.createSequencedFilename("hpscan_ocr_", ".pdf")
+        output_ocr_dir = os.path.dirname(output)
+        output_ocr = utils.createSequencedFilename("hpscan_ocr_", ".pdf",output_ocr_dir)
+
         if sys.version_info[0] == 3:
             out = subprocess.Popen(['ocrmypdf',output,output_ocr],stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
             stdout,stderr =out.communicate()
@@ -722,9 +724,9 @@ def merge_PDF_viewer(output,ocr):
             stdout,stderr =out.communicate()
 
         if os.path.isfile(output_ocr):
-            log.debug("OCR was successful")
+            log.debug("OCR successful")
             cmd = pdf_viewer + "  " + output_ocr + " " + "&"
-            #OCR was success so delete the non-ocr original output
+            #OCR was successful so delete the non-ocr original output
             os.unlink(output)
         else:
             log.debug("OCR failed to generate, returning original file")

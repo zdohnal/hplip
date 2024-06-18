@@ -1074,7 +1074,7 @@ class DevMgr5(Ui_MainWindow_Derived, Ui_MainWindow, QMainWindow):
 
                 hplip_conf = configparser.ConfigParser()
                 fp = open("/etc/hp/hplip.conf", "r")
-                hplip_conf.readfp(fp)
+                hplip_conf.read_file(fp)
                 fp.close()
 
                 try:

@@ -1087,13 +1087,27 @@ class CoreInstall(object):
 
     def check_dbus(self):
         log.debug("Checking for dbus running and header files present (dbus-devel)...")
+        dbus_found = False
         if (self.distro_name.lower()=='fedora') and (self.distro_version>='30'):
             return True
+        if ("manjaro" in self.distro_name.lower()):
+            try:
+                import dbus
+                _dbus = dbus.SystemBus()
+                dbus_found = True
+            except:
+                dbus_found = False
         else:
-            return check_ps(['dbus-daemon'])  and \
-                len(locate_file_contains("dbus-message.h",
-                                         '/usr/include', 'dbus_message_new_signal'))
+            if(check_ps(['dbus-daemon'])):
+                dbus_found = True
 
+        if dbus_found:
+            #check for dbus header        
+            return len(locate_file_contains("dbus-message.h",
+                                         '/usr/include', 'dbus_message_new_signal'))
+        else:
+            log.debug("Dbus support not found")
+            return False
     def check_cups_devel(self):
         return check_file('cups.h') and bool(utils.which('lpr'))
 

@@ -128,7 +128,14 @@ class ConfigBase(object):
             try:
                 fp = open(self.filename, "r")
                 try:
-                    self.conf.readfp(fp)
+                    self.conf.read_file(fp)
+                except AttributeError as e:
+                    log.error(f"Error: {e}. Retrying with read_file")
+                    try:
+                        # Attempting to use read_file as a fallback
+                        self.conf.read_file(fp)
+                    except Exception as e:
+                        log.error(f"Reading file with read_file also failed. Error: {e}")
                 except configparser.MissingSectionHeaderError:
                     print("")
                     log.error("Found No Section in %s. Please set the http proxy for root and try again." % self.filename)

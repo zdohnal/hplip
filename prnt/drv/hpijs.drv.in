@@ -16173,6 +16173,38 @@ lity:PenSet=2,Quality:FullBleed=1"
     Attribute "Product" "" "(HP Officejet 8020 All-in-one Printer Series)"
   }
   {
+    ModelName "HP Officejet 8120 Series hpijs"
+    Attribute "NickName" "" "HP Officejet 8120 Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP Officejet 8120 Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet 8120 series;DES:hp officejet 8120 series;"
+    PCFileName "hp-officejet_8120_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Officejet 8120 All-in-one Series)"
+  }
+  {
+    ModelName "HP Officejet 8120e Series hpijs"
+    Attribute "NickName" "" "HP Officejet 8120e Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP Officejet 8120e Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet 8120e series;DES:hp officejet 8120e series;"
+    PCFileName "hp-officejet_8120e_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Officejet 8120 All-in-one Series)"
+  }
+  {
+    ModelName "HP Officejet 8130 Series hpijs"
+    Attribute "NickName" "" "HP Officejet 8130 Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP Officejet 8130 Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet 8130 series;DES:hp officejet 8130 series;"
+    PCFileName "hp-officejet_8130_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Officejet 8130 All-in-one Series)"
+  }
+  {
+    ModelName "HP Officejet 8130e Series hpijs"
+    Attribute "NickName" "" "HP Officejet 8130e Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP Officejet 8130e Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet 8130e series;DES:hp officejet 8130e series;"
+    PCFileName "hp-officejet_8130e_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Officejet 8130 All-in-one Series)"
+  }
+  {
     ModelName "HP Officejet 8700 hpijs"
     Attribute "NickName" "" "HP Officejet 8700 hpijs, $Version"
     Attribute "ShortNickName" "" "HP Officejet 8700 hpijs"
@@ -16203,6 +16235,38 @@ lity:PenSet=2,Quality:FullBleed=1"
     Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 8030 series;DES:hp officejet pro 8030 series;"
     PCFileName "hp-officejet_pro_8030_series-hpijs.ppd"
     Attribute "Product" "" "(HP Officejet Pro 8030 All-in-one Printer Series)"
+  }
+  {
+    ModelName "HP Officejet Pro 8120 Series hpijs"
+    Attribute "NickName" "" "HP Officejet Pro 8120 Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP OJ Pro 8120 Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 8120 series;DES:hp officejet pro 8120 series;"
+    PCFileName "hp-officejet_pro_8120_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Officejet Pro 8120 All-in-one Series)"
+  }
+  {
+    ModelName "HP Officejet Pro 8120e Series hpijs"
+    Attribute "NickName" "" "HP Officejet Pro 8120e Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP OJ Pro 8120e Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 8120e series;DES:hp officejet pro 8120e series;"
+    PCFileName "hp-officejet_pro_8120e_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Officejet Pro 8120 All-in-one Series)"
+  }
+  {
+    ModelName "HP Officejet Pro 8130 Series hpijs"
+    Attribute "NickName" "" "HP Officejet Pro 8130 Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP OJ Pro 8130 Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 8130 series;DES:hp officejet pro 8130 series;"
+    PCFileName "hp-officejet_pro_8130_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Officejet Pro 8130 All-in-one Series)"
+  }
+  {
+    ModelName "HP Officejet Pro 8130e Series hpijs"
+    Attribute "NickName" "" "HP Officejet Pro 8130e Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP OJ Pro 8130e Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 8130e series;DES:hp officejet pro 8130e series;"
+    PCFileName "hp-officejet_pro_8130e_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Officejet Pro 8130 All-in-one Series)"
   }
   {
     ModelName "HP Officejet Pro 8710 hpijs"
@@ -16261,6 +16325,38 @@ lity:PenSet=2,Quality:FullBleed=1"
     Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 9130b series;DES:hp officejet pro 9130b series;"
     PCFileName "hp-officejet_pro_9130b_series-hpijs.ppd"
     Attribute "Product" "" "(HP Officejet Pro 9130b Series)"
+  }
+  {
+    ModelName "HP Officejet Pro 9720 Series hpijs"
+    Attribute "NickName" "" "HP Officejet Pro 9720 Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP OJ Pro 9720 Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 9720 series;DES:hp officejet pro 9720 series;"
+    PCFileName "hp-officejet_pro_9720_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Officejet Pro 9720 Series)"
+  }
+  {
+    ModelName "HP Officejet Pro 9720e Series hpijs"
+    Attribute "NickName" "" "HP Officejet Pro 9720e Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP OJ Pro 9720e Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 9720e series;DES:hp officejet pro 9720e series;"
+    PCFileName "hp-officejet_pro_9720e_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Officejet Pro 9720 Series)"
+  }
+  {
+    ModelName "HP Officejet Pro 9730 Series hpijs"
+    Attribute "NickName" "" "HP Officejet Pro 9730 Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP OJ Pro 9730 Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 9730 series;DES:hp officejet pro 9730 series;"
+    PCFileName "hp-officejet_pro_9730_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Officejet Pro 9730 Series)"
+  }
+  {
+    ModelName "HP Officejet Pro 9730e Series hpijs"
+    Attribute "NickName" "" "HP Officejet Pro 9730e Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP OJ Pro 9730e Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 9730e series;DES:hp officejet pro 9730e series;"
+    PCFileName "hp-officejet_pro_9730e_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Officejet Pro 9730 Series)"
   }
   {
     ModelName "HP Officejet Pro 8020 Series hpijs"

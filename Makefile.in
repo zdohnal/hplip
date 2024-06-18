@@ -1909,6 +1909,10 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-laserjet_flow_e73140-ps.ppd.gz \
 	ppd/hpcups/hp-officejet_8010_series.ppd.gz \
 	ppd/hpcups/hp-officejet_8020_series.ppd.gz \
 	ppd/hpcups/hp-officejet_8040_series.ppd.gz \
+	ppd/hpcups/hp-officejet_8120_series.ppd.gz \
+	ppd/hpcups/hp-officejet_8120e_series.ppd.gz \
+	ppd/hpcups/hp-officejet_8130_series.ppd.gz \
+	ppd/hpcups/hp-officejet_8130e_series.ppd.gz \
 	ppd/hpcups/hp-officejet_8700.ppd.gz \
 	ppd/hpcups/hp-officejet_9010_series.ppd.gz \
 	ppd/hpcups/hp-officejet_9100_series-pcl3.ppd.gz \
@@ -1948,6 +1952,10 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-laserjet_flow_e73140-ps.ppd.gz \
 	ppd/hpcups/hp-officejet_pro_8020_series.ppd.gz \
 	ppd/hpcups/hp-officejet_pro_8030_series.ppd.gz \
 	ppd/hpcups/hp-officejet_pro_8100.ppd.gz \
+	ppd/hpcups/hp-officejet_pro_8120_series.ppd.gz \
+	ppd/hpcups/hp-officejet_pro_8120e_series.ppd.gz \
+	ppd/hpcups/hp-officejet_pro_8130_series.ppd.gz \
+	ppd/hpcups/hp-officejet_pro_8130e_series.ppd.gz \
 	ppd/hpcups/hp-officejet_pro_8500_a909a.ppd.gz \
 	ppd/hpcups/hp-officejet_pro_8500_a909g.ppd.gz \
 	ppd/hpcups/hp-officejet_pro_8500_a909n.ppd.gz \
@@ -1965,6 +1973,10 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-laserjet_flow_e73140-ps.ppd.gz \
 	ppd/hpcups/hp-officejet_pro_9110b_series.ppd.gz \
 	ppd/hpcups/hp-officejet_pro_9120b_series.ppd.gz \
 	ppd/hpcups/hp-officejet_pro_9130b_series.ppd.gz \
+	ppd/hpcups/hp-officejet_pro_9720_series.ppd.gz \
+	ppd/hpcups/hp-officejet_pro_9720e_series.ppd.gz \
+	ppd/hpcups/hp-officejet_pro_9730_series.ppd.gz \
+	ppd/hpcups/hp-officejet_pro_9730e_series.ppd.gz \
 	ppd/hpcups/hp-officejet_pro_k5300.ppd.gz \
 	ppd/hpcups/hp-officejet_pro_k5400.ppd.gz \
 	ppd/hpcups/hp-officejet_pro_k550.ppd.gz \
@@ -4478,6 +4490,10 @@ dist_unrel_DATA =
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_8010_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_8020_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_8040_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_8120_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_8120e_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_8130_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_8130e_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_8700.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_9010_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_9100_series-pcl3.ppd.gz \
@@ -4517,6 +4533,10 @@ dist_unrel_DATA =
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_pro_8020_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_pro_8030_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_pro_8100.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_pro_8120_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_pro_8120e_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_pro_8130_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_pro_8130e_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_pro_8500_a909a.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_pro_8500_a909g.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_pro_8500_a909n.ppd.gz \
@@ -4534,6 +4554,10 @@ dist_unrel_DATA =
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_pro_9110b_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_pro_9120b_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_pro_9130b_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_pro_9720_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_pro_9720e_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_pro_9730_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_pro_9730e_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_pro_k5300.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_pro_k5400.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-officejet_pro_k550.ppd.gz \

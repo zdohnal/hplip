@@ -2938,6 +2938,12 @@
 :model "HP Officejet 8040 E-all-in-one"
 :status :good
 
+:model "HP Officejet 8120 All-in-one Series"
+:status :good
+
+:model "HP Officejet 8130 All-in-one Series"
+:status :good
+
 :model "HP Officejet 8702 All-in-one"
 :status :good
 
@@ -3202,6 +3208,12 @@
 :model "HP Officejet Pro 8030 All-in-one Printer Series"
 :status :good
 
+:model "HP Officejet Pro 8120 All-in-one Series"
+:status :good
+
+:model "HP Officejet Pro 8130 All-in-one Series"
+:status :good
+
 :model "HP Officejet Pro 8500 All-in-one Printer - a909a"
 :status :good
 
@@ -3278,6 +3290,12 @@
 :status :good
 
 :model "HP Officejet Pro 9130b Series"
+:status :good
+
+:model "HP Officejet Pro 9720 Series"
+:status :good
+
+:model "HP Officejet Pro 9730 Series"
 :status :good
 
 :model "HP Officejet Pro All-in-one 9010"

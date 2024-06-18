@@ -1227,7 +1227,7 @@ class DevMgr4(DevMgr4_base):
 
             hplip_conf = ConfigParser.ConfigParser()
             fp = open("/etc/hp/hplip.conf", "r")
-            hplip_conf.readfp(fp)
+            hplip_conf.read_file(fp)
             fp.close()
 
             try:
