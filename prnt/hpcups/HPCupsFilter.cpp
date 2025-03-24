@@ -432,6 +432,13 @@ DRIVER_ERROR HPCupsFilter::startPage (cups_page_header2_t *cups_header)
         strncpy(m_JA.media_attributes.MediaTypeName, cups_header->MediaType, sizeof(m_JA.media_attributes.MediaTypeName));
         strncpy(m_JA.quality_attributes.hbpl1_print_quality, cups_header->OutputType, sizeof(m_JA.quality_attributes.hbpl1_print_quality));
         m_JA.color_mode = cups_header->cupsRowStep;
+
+        if (m_JA.media_attributes.PageSizeName[0] == '\0') {
+            // Copy the value of cups_header->cupsPageSizeName if it isnot null
+            if (cups_header->cupsPageSizeName != nullptr) {
+                strncpy(m_JA.media_attributes.PageSizeName, cups_header->cupsPageSizeName, sizeof(m_JA.media_attributes.PageSizeName));
+            }
+        }   
     }
     else {
         m_JA.media_attributes.physical_width   = (cups_header->PageSize[0] * horz_res) / 72;
@@ -536,11 +543,17 @@ int HPCupsFilter::StartPrintJob(int  argc, char *argv[])
     snprintf(m_JA.job_start_time, sizeof(m_JA.job_start_time),"Mon Dec  9 17:48:58:586 2013" );
 #endif
    
-    if((strstr(argv[5],"Duplex=DuplexTumble")) || (strstr(argv[5],"Duplex=DuplexNoTumble")) || (strstr(argv[5],"sides=two-sided-short-edge")) || (strstr(argv[5],"sides=two-sided-long-edge")) )
+    if((strstr(argv[5],"Duplex=DuplexTumble")) || (strstr(argv[5],"sides=two-sided-short-edge"))  )
 
     {
-        m_JA.args_duplex_mode = 2; // short edge duplex always
+        m_JA.args_duplex_mode = 2; // short edge duplex 
     }
+
+    else if ((strstr(argv[5],"Duplex=DuplexNoTumble")) || (strstr(argv[5],"sides=two-sided-long-edge")) )
+    {
+        m_JA.args_duplex_mode = 1; // long edge duplex
+    }
+    
     else
     {
         m_JA.args_duplex_mode = 0; // simplex

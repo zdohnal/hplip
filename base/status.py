@@ -1341,7 +1341,7 @@ def MapPJLErrorCode(error_code, str_code=None):
     return status_code
 
 
-pjl_code_pat = re.compile("""^CODE\s*=\s*(\d.*)$""", re.IGNORECASE)
+pjl_code_pat = re.compile(r"""^CODE\s*=\s*(\d.*)$""", re.IGNORECASE)
 
 
 

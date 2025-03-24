@@ -435,10 +435,10 @@ class Logger(object):
                 start = start + " "
                 number_chars = number_chars + 1
             try:
-                elem_start = re.findall("(\<\W{0,1}\w+) ?", line)[0]
-                elem_finished = re.findall("([?|\]\]]*\>)", line)[0]
+                elem_start = re.findall(r"(\<\W{0,1}\w+) ?", line)[0]
+                elem_finished = re.findall(r"([?|\]\]]*\>)", line)[0]
                 #should not have *
-                attrs = re.findall("(\S*?\=\".*?\")", line)
+                attrs = re.findall(r"(\S*?\=\".*?\")", line)
                 #output.write(start + elem_start)
                 self.log(start+elem_start, level, False)
                 number_chars = len(start + elem_start)

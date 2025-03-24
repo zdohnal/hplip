@@ -26,7 +26,7 @@
 #   104 = no libdl
 
 #AC_PREREQ(2.59)
-AC_INIT([HP Linux Imaging and Printing], [3.24.4], [3.24.4], [hplip])
+AC_INIT([HP Linux Imaging and Printing], [3.25.2], [3.25.2], [hplip])
 #AM_INIT_AUTOMAKE([1.9 foreign])
 AM_INIT_AUTOMAKE
 AC_DISABLE_STATIC
@@ -647,9 +647,26 @@ if test "$class_driver" = "no" && test "$hpijs_only_build" = "no" && test "$lite
    AC_CHECK_PROGS(PYTHON,[python python3 python2])
    AM_PATH_PYTHON([2.2])
    AC_MSG_CHECKING([for path to Python.h])
-   PYTHONINCLUDEDIR=`$PYTHON -c "from distutils.sysconfig import get_python_inc; print (get_python_inc());"`
-   AC_MSG_RESULT("using $PYTHONINCLUDEDIR ....  python${PYTHON_VERSION}/Python.h")
+   PYTHONINCLUDEDIR=`$PYTHON -c "from distutils.sysconfig import get_python_inc; print (get_python_inc());" 2>/dev/null || echo "not found"`
+   if test "$PYTHONINCLUDEDIR" = "not found"; then
+      AC_MSG_WARN([Failed to determine the Python include directory. Retry using sysconfig module.])
+      PYTHONINCLUDEDIR=`$PYTHON -c "import sysconfig; print(sysconfig.get_path('include'))" 2>/dev/null || echo "not found"`
+      if test "$PYTHONINCLUDEDIR" = "not found"; then
+         AC_MSG_ERROR([Failed to determine the Python include directory. Please check your Python installation.], 6)
+      fi
+   fi
+   PYTHONEXECDIR=`$PYTHON -c "from distutils.sysconfig import get_python_lib; print (get_python_lib(1));" 2>/dev/null || echo "not found"`
+   if test "$PYTHONEXECDIR" = "not found"; then
+      AC_MSG_WARN([Failed to determine the Python executable directory. Retry using sysconfig module.])
+      PYTHONEXECDIR=`$PYTHON -c "import sysconfig; print(sysconfig.get_path('platlib'))" 2>/dev/null || echo "not found"`
+      if test "$PYTHONEXECDIR" = "not found"; then
+         AC_MSG_ERROR([Failed to determine the Python executable directory. Please check your Python installation.], 6)
+      fi
+   fi
+   AC_MSG_RESULT("using python executable directory $PYTHONEXECDIR ....  python${PYTHON_VERSION}/Python.h")
+   AC_MSG_RESULT("using python include directory $PYTHONINCLUDEDIR ....  python${PYTHON_VERSION}/Python.h")
    AC_ARG_VAR(PYTHONINCLUDEDIR, [path to Python.h C header file])
+   AC_ARG_VAR(PYTHONEXECDIR, [path to Python executable directory])
    AC_CHECK_HEADERS([python${PYTHON_VERSION}/Python.h python${PYTHON_VERSION}mu/Python.h python${PYTHON_VERSION}m/Python.h ],
           [FOUND_HEADER=yes; break;])
 

@@ -782,7 +782,6 @@ class SetupDialog(QDialog, Ui_Dialog):
         """
         QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
         try:
-
             self.ppds = cups.getSystemPPDs()
             self.ppd_name = ""
             # if ppd list from cups server is empty searching for hplip ppds.
@@ -794,9 +793,15 @@ class SetupDialog(QDialog, Ui_Dialog):
                 self.print_ppd = (self.ppd_name, '')
 
             else:
-
-                self.print_ppd = cups.getPPDFile2(
-                    self.mq, self.model, self.ppds)
+                ppd_name = self.mq.get('ppd-name',0)
+                log.debug("ppd_name = %s"%ppd_name)
+                if(ppd_name):
+                    for ppd,desc in self.ppds.items():
+                        if ppd_name in ppd:
+                            self.print_ppd = (ppd,desc)
+                            print(self.print_ppd)
+                else:
+                    self.print_ppd = cups.getPPDFile2(self.mq, self.model, self.ppds)
 
             if "scanjet" in self.model or "digital_sender" in self.model:
                 self.print_ppd = None

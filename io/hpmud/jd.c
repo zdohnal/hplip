@@ -734,6 +734,7 @@ enum HPMUD_RESULT hpmud_make_net_uri(const char *ip, int port, char *uri, int ur
 
    if (device_id(ip, port, id, sizeof(id)) > 0 && is_hp(id))
    {
+      DBG("[%d] device id -%s \n", getpid(), id);	   
       hpmud_get_model(id, model, sizeof(model));
       if (port == PORT_PUBLIC)
          *bytes_read = snprintf(uri, uri_size, "hp:/net/%s?ip=%s", model, ip); 

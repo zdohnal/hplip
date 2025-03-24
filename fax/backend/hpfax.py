@@ -242,7 +242,7 @@ else:
     send_message(device_uri, printer_name, EVENT_START_FAX_PRINT_JOB, username, job_id, title)
 
     try:
-        input_fd = open(args[5], 'r')
+        input_fd = open(utils.sanitize_filename(args[5]), 'r')
     except IndexError:
         input_fd = 0
 

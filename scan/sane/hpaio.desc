@@ -274,6 +274,48 @@
 :model "HP Color LaserJet MFP m377 Fnw"
 :status :good
 
+:model "HP Color LaserJet Pro 3288dn"
+:status :good
+
+:model "HP Color LaserJet Pro 3288dw"
+:status :good
+
+:model "HP Color LaserJet Pro MFP 3302fdn"
+:status :good
+
+:model "HP Color LaserJet Pro MFP 3302fdne"
+:status :good
+
+:model "HP Color LaserJet Pro MFP 3302fdw"
+:status :good
+
+:model "HP Color LaserJet Pro MFP 3302fdwe"
+:status :good
+
+:model "HP Color LaserJet Pro MFP 3302sdw"
+:status :good
+
+:model "HP Color LaserJet Pro MFP 3302sdwe"
+:status :good
+
+:model "HP Color LaserJet Pro MFP 3303fdn"
+:status :good
+
+:model "HP Color LaserJet Pro MFP 3303fdw"
+:status :good
+
+:model "HP Color LaserJet Pro MFP 3303sdw"
+:status :good
+
+:model "HP Color LaserJet Pro MFP 3388fdn"
+:status :good
+
+:model "HP Color LaserJet Pro MFP 3388fdw"
+:status :good
+
+:model "HP Color LaserJet Pro MFP 3388sdw"
+:status :good
+
 :model "HP Color LaserJet Pro MFP 4301cdw"
 :status :good
 
@@ -1219,6 +1261,81 @@
 :model "HP Deskjet Plus 6400 Series"
 :status :good
 
+:model "HP Deskjet Plus Ink Advantage 6100 Series"
+:status :good
+
+:model "HP Deskjet Plus Ink Advantage 6500 Series"
+:status :good
+
+:model "HP Dex Color MFP d57945"
+:status :good
+
+:model "HP Dex Color MFP d677"
+:status :good
+
+:model "HP Dex Color MFP d67755"
+:status :good
+
+:model "HP Dex Color MFP d67765"
+:status :good
+
+:model "HP Dex Color MFP d786"
+:status :good
+
+:model "HP Dex Color MFP d78625"
+:status :good
+
+:model "HP Dex Color MFP d78630"
+:status :good
+
+:model "HP Dex Color MFP d78635"
+:status :good
+
+:model "HP Dex Color MFP d877"
+:status :good
+
+:model "HP Dex Color MFP d87740"
+:status :good
+
+:model "HP Dex Color MFP d87750"
+:status :good
+
+:model "HP Dex Color MFP d87760"
+:status :good
+
+:model "HP Dex Color MFP d87770"
+:status :good
+
+:model "HP Dex MFP d42540"
+:status :good
+
+:model "HP Dex MFP d52645"
+:status :good
+
+:model "HP Dex MFP d731"
+:status :good
+
+:model "HP Dex MFP d73130"
+:status :good
+
+:model "HP Dex MFP d73135"
+:status :good
+
+:model "HP Dex MFP d73140"
+:status :good
+
+:model "HP Dex MFP d826"
+:status :good
+
+:model "HP Dex MFP d82640"
+:status :good
+
+:model "HP Dex MFP d82650"
+:status :good
+
+:model "HP Dex MFP d82660"
+:status :good
+
 :model "HP Digital Sender Flow 8500 fn2 Document Capture Workstation"
 :status :good
 
@@ -1363,7 +1480,13 @@
 :model "HP Envy 6000 Series"
 :status :good
 
+:model "HP Envy 6100 Series"
+:status :good
+
 :model "HP Envy 6400 Series"
+:status :good
+
+:model "HP Envy 6500 Series"
 :status :good
 
 :model "HP Envy 7640 E-all-in-one"

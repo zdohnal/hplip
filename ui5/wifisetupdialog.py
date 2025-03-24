@@ -350,7 +350,7 @@ class WifiSetupDialog(QDialog, Ui_Dialog):
             if 1:#self.wifiObj.checkAuthrequired(self.dev):
                 prompt = "Enter printer's username and password"
                 while True:
-                    rtnvalue,uname, password = showPasswordUI(prompt)
+                    rtnvalue,uname, password = showPasswordUI(prompt,userName="administrator")
                     if rtnvalue == 0:
                         return
                     beginWaitCursor()

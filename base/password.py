@@ -167,8 +167,8 @@ class Password(object):
 
                     elif i == 1:  # TIMEOUT
                         if('true' in cmd and self.__password_prompt_str == ""):  # sudo true or su -c "true"
-                            cb = cb.replace("[", "\[")
-                            cb = cb.replace("]", "\]")
+                            cb = cb.replace(r"[", r"\[")
+                            cb = cb.replace(r"]", r"\]")
 
                             self.__password_prompt_str = cb
                             try:

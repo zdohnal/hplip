@@ -69,6 +69,8 @@ except AttributeError:
 # To do:
 # * Better printing of ratios
 
+from base import utils
+
 # field type descriptions as (length, abbreviation, full name) tuples
 FIELD_TYPES=(
     (0, 'X',  'Proprietary'), # no such type
@@ -1055,7 +1057,9 @@ if __name__ == '__main__':
 
     for filename in sys.argv[1:]:
         try:
-            file=open(filename, 'rb')
+            # Sanitize the filename
+            safe_filename = utils.sanitize_filename(filename)
+            file=open(safe_filename, 'rb')
         except:
             print(filename, 'unreadable')
             print()
@@ -1080,3 +1084,4 @@ if __name__ == '__main__':
         if 'JPEGThumbnail' in data:
             print('File has JPEG thumbnail')
         print()
+

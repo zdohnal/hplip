@@ -47,7 +47,7 @@ from . import models, mdns, slp, avahi
 from .strings import *
 from .sixext import PY3, to_bytes_utf8, to_unicode, to_string_latin, to_string_utf8, xStringIO
 
-http_result_pat = re.compile("""HTTP/\d.\d\s(\d+)""", re.I)
+http_result_pat = re.compile(r"""HTTP/\d.\d\s(\d+)""", re.I)
 
 HTTP_OK = 200
 HTTP_ERROR = 500
@@ -1179,7 +1179,7 @@ class Device(object):
                 if result_code == hpmudext.HPMUD_R_DEVICE_BUSY:
                     log.error("Device busy: %s" % self.device_uri)
                 else:
-                    log.error("Unable to communicate with device (code=%d): %s" % (result_code, self.device_uri))
+                    log.debug("Unable to communicate with device (code=%d): %s" % (result_code, self.device_uri))
 
                 self.last_event = Event(self.device_uri, '', EVENT_ERROR_DEVICE_NOT_FOUND,
                         prop.username, 0, '', time.time())

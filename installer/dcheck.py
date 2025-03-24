@@ -33,8 +33,8 @@ from base.g import *
 from base import utils, services
 from base.sixext import to_bytes_utf8
 
-ver1_pat = re.compile("""(\d+\.\d+\.\d+)""", re.IGNORECASE)
-ver_pat = re.compile("""(\d+.\d+)""", re.IGNORECASE)
+ver1_pat = re.compile(r"(\d+\.\d+\.\d+)", re.IGNORECASE)
+ver_pat = re.compile(r"(\d+.\d+)", re.IGNORECASE)
 PID = 0
 CMDLINE = 1
 
@@ -358,7 +358,7 @@ def get_xsane_version():
         
 
     if output:
-        xsane_ver_pat =re.compile('''xsane-(\d{1,}\.\d{1,}).*''')
+        xsane_ver_pat =re.compile(r'xsane-(\d{1,}\.\d{1,}).*')
         xsane_ver_info = output.splitlines()[0]
         if xsane_ver_pat.search(xsane_ver_info):
             installed_ver = xsane_ver_pat.search(xsane_ver_info).group(1)

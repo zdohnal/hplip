@@ -12458,8 +12458,6 @@ Manufacturer "HP"
 
 
       // Standard
-      CustomMedia "8.5x13/8.5x13in" 612 936 8.4 8.4 8.4 8.4 "<</cupsInteger0 10/PageSize[612 936]/ImagingBBox null>>setpagedevice"
-         "<</cupsInteger0 10/PageSize[612 936]/ImagingBBox null>>setpagedevice"
       CustomMedia "B5/B5 176x250mm" 498.96 708.48 8.4 8.4 8.4 8.4 "<</cupsInteger0 101/PageSize[498.96 708.48]/ImagingBBox null>>setpagedevice"
          "<</cupsInteger0 101/PageSize[498.96 708.48]/ImagingBBox null>>setpagedevice"
       CustomMedia "JB5/JB5 182x257mm" 516.24 728.64 8.4 8.4 8.4 8.4 "<</cupsInteger0 45/PageSize[516.24 728.64]/ImagingBBox null>>setpagedevice"
@@ -12499,7 +12497,22 @@ Manufacturer "HP"
          "<</cupsInteger0 7/PageSize[576 720]/ImagingBBox null>>setpagedevice"
       CustomMedia "8x10.FB/Borderless 8x10in" 576 720 0 0 0 0 "<</cupsInteger0 7/PageSize[576 720]/ImagingBBox null>>setpagedevice"
          "<</cupsInteger0 7/cupsReal0 0/cupsReal1 0/PageSize[576 720]/ImagingBBox null>>setpagedevice"
-
+      CustomMedia "5x5in/5x5in (13x13cm) " 360 360 8.4 8.4 8.4 8.4 "<</cupsInteger0 30003/PageSize[360 360]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 30003/PageSize[360 360]/ImagingBBox null>>setpagedevice"
+      CustomMedia "5x5in.FB/5x5in (13x13cm) borderless " 360 360 0 0 0 0 "<</cupsInteger0 30003/PageSize[360 360]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 30003/PageSize[360 360]/ImagingBBox null>>setpagedevice"
+      CustomMedia "Custom1/Custom 1" 612 1008 8.4 8.4 8.4 8.4 "<</cupsInteger0 101/PageSize [612 1008]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 101/PageSize[612 1008]/ImagingBBox null>>setpagedevice"
+      CustomMedia "4x12in/4x12in (10x30cm) " 288 864 8.4 8.4 8.4 8.4 "<</cupsInteger0 30000/PageSize[288 864]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 30000/PageSize[288 864]/ImagingBBox null>>setpagedevice"
+      CustomMedia "4x12in.FB/4x12in (10x30cm) borderless" 288 864 0 0 0 0 "<</cupsInteger0 30000/PageSize[288 864]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 30000/PageSize[288 864]/ImagingBBox null>>setpagedevice"
+      CustomMedia "8.5x13/Oficio 8.5x13in" 612 936 8.4 8.4 8.4 8.4 "<</cupsInteger0 10/PageSize[612 936]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 10/PageSize[612 936]/ImagingBBox null>>setpagedevice"
+      CustomMedia "16k/16k 7.75x10.75in" 558 774 8.4 8.4 8.4 8.4 "<</cupsInteger0 101/PageSize[558 774]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 101/PageSize[558 774]/ImagingBBox null>>setpagedevice"   // custom
+      CustomMedia "EnvB5/B5 Envelope 176x250mm" 499 709 8.4 8.4 8.4 8.4 "<</cupsInteger0 357/PageSize[499 709]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 357/PageSize[499 709]/ImagingBBox null>>setpagedevice" 
 
     {
       // Custom page sizes from 1x4in to legal
@@ -12578,8 +12591,10 @@ Manufacturer "HP"
 
 
      Option "InputSlot/Media Source" PickOne AnySetup 10.0
-      *Choice "Upper/Tray 1" "<</MediaPosition 1>>setpagedevice"
+      *Choice "Auto/Auto-Select" "<</MediaPosition 7>>setpagedevice"
+       Choice "Upper/Tray 1" "<</MediaPosition 1>>setpagedevice"
        Choice "Lower/Tray 2" "<</MediaPosition 4>>setpagedevice"
+       
 
 
 
@@ -12817,8 +12832,10 @@ Manufacturer "HP"
          "<</cupsInteger0 10/PageSize[612 936]/ImagingBBox null>>setpagedevice"         
       CustomMedia "8.5x13in.FB/8.5x13in Borderless " 612 936 0 0 0 0 "<</cupsInteger0 10/PageSize[612 936]/ImagingBBox null>>setpagedevice"
          "<</cupsInteger0 10/PageSize[612 936]/ImagingBBox null>>setpagedevice"         
-
-      
+      CustomMedia "5x5in/5x5in (13x13cm) " 360 360 8.4 8.4 8.4 8.4 "<</cupsInteger0 30003/PageSize[360 360]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 30003/PageSize[360 360]/ImagingBBox null>>setpagedevice"
+      CustomMedia "5x5in.FB/5x5in (13x13cm) borderless " 360 360 0 0 0 0 "<</cupsInteger0 30003/PageSize[360 360]/ImagingBBox null>>setpagedevice"
+         "<</cupsInteger0 30003/PageSize[360 360]/ImagingBBox null>>setpagedevice"
     {
       // Custom page sizes from 1x4in to legal
       HWMargins 8.4 8.4 8.4 8.4

@@ -31,18 +31,10 @@ import pwd
 import tarfile
 import stat
 import glob
+import hashlib
 
-try:
-    import hashlib  # new in 2.5
-
-    def get_checksum(s):
-        return hashlib.sha1(s).hexdigest()
-
-except ImportError:
-    import sha  # deprecated in 2.6/3.0
-
-    def get_checksum(s):
-        return sha.new(s).hexdigest()
+def get_checksum(s):
+    return hashlib.sha256(s).hexdigest()
 
 
 # Local

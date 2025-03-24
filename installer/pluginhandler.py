@@ -21,6 +21,7 @@
 
 import os
 import shutil
+import hashlib
 
 from base import utils, tui, os_utils, validation, password
 from base.g import *
@@ -29,17 +30,9 @@ from base.strings import *
 from base.sixext.moves import configparser
 from installer import core_install
 
-try:
-    import hashlib # new in 2.5
 
-    def get_checksum(s):
-        return hashlib.sha1(s).hexdigest()
-
-except ImportError:
-    import sha # deprecated in 2.6/3.0
-
-    def get_checksum(s):
-        return sha.new(s).hexdigest()
+def get_checksum(s):
+    return hashlib.sha256(s).hexdigest()
 
 
 PLUGIN_STATE_FILE = '/var/lib/hp/hplip.state'

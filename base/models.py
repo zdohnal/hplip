@@ -35,7 +35,7 @@ except ImportError:
     datetime = None
 
 
-pat_prod_num = re.compile("""(\d+)""", re.I)
+pat_prod_num = re.compile(r"""(\d+)""", re.I)
 
 TYPE_UNKNOWN = 0
 TYPE_STRING = 1
@@ -427,25 +427,25 @@ class ModelData:
             }
 
         self.RE_FIELD_TYPES = {
-            re.compile('^r(\d+)-agent(\d+)-kind', re.IGNORECASE) : TYPE_INT,
-            re.compile('^r(\d+)-agent(\d+)-type', re.IGNORECASE) : TYPE_INT,
-            re.compile('^r(\d+)-agent(\d+)-sku', re.IGNORECASE) : TYPE_STR,
-            re.compile('^agent(\d+)-desc', re.IGNORECASE) : TYPE_STR,
-            re.compile('^agent(\d+)-virgin', re.IGNORECASE) : TYPE_BOOL,
-            re.compile('^agent(\d+)-dvc', re.IGNORECASE) : TYPE_INT,
-            re.compile('^agent(\d+)-kind', re.IGNORECASE) : TYPE_INT,
-            re.compile('^agent(\d+)-type', re.IGNORECASE) : TYPE_INT,
-            re.compile('^agent(\d+)-id', re.IGNORECASE) : TYPE_INT,
-            re.compile('^agent(\d+)-hp-ink', re.IGNORECASE) : TYPE_BOOL,
-            re.compile('^agent(\d+)-health-desc', re.IGNORECASE) : TYPE_STR,
-            re.compile('^agent(\d+)-health$', re.IGNORECASE) : TYPE_INT,
-            re.compile('^agent(\d+)-known', re.IGNORECASE) : TYPE_BOOL,
-            re.compile('^agent(\d+)-level', re.IGNORECASE) : TYPE_INT,
-            re.compile('^agent(\d+)-ack', re.IGNORECASE) : TYPE_BOOL,
-            re.compile('^agent(\d+)-sku', re.IGNORECASE) : TYPE_STR,
-            re.compile('^in-tray(\d+)', re.IGNORECASE) : TYPE_BOOL,
-            re.compile('^out-tray(\d+)', re.IGNORECASE) : TYPE_BOOL,
-            re.compile('^model(\d+)', re.IGNORECASE) : TYPE_STR,
+            re.compile(r'^r(\d+)-agent(\d+)-kind', re.IGNORECASE) : TYPE_INT,
+            re.compile(r'^r(\d+)-agent(\d+)-type', re.IGNORECASE) : TYPE_INT,
+            re.compile(r'^r(\d+)-agent(\d+)-sku', re.IGNORECASE) : TYPE_STR,
+            re.compile(r'^agent(\d+)-desc', re.IGNORECASE) : TYPE_STR,
+            re.compile(r'^agent(\d+)-virgin', re.IGNORECASE) : TYPE_BOOL,
+            re.compile(r'^agent(\d+)-dvc', re.IGNORECASE) : TYPE_INT,
+            re.compile(r'^agent(\d+)-kind', re.IGNORECASE) : TYPE_INT,
+            re.compile(r'^agent(\d+)-type', re.IGNORECASE) : TYPE_INT,
+            re.compile(r'^agent(\d+)-id', re.IGNORECASE) : TYPE_INT,
+            re.compile(r'^agent(\d+)-hp-ink', re.IGNORECASE) : TYPE_BOOL,
+            re.compile(r'^agent(\d+)-health-desc', re.IGNORECASE) : TYPE_STR,
+            re.compile(r'^agent(\d+)-health$', re.IGNORECASE) : TYPE_INT,
+            re.compile(r'^agent(\d+)-known', re.IGNORECASE) : TYPE_BOOL,
+            re.compile(r'^agent(\d+)-level', re.IGNORECASE) : TYPE_INT,
+            re.compile(r'^agent(\d+)-ack', re.IGNORECASE) : TYPE_BOOL,
+            re.compile(r'^agent(\d+)-sku', re.IGNORECASE) : TYPE_STR,
+            re.compile(r'^in-tray(\d+)', re.IGNORECASE) : TYPE_BOOL,
+            re.compile(r'^out-tray(\d+)', re.IGNORECASE) : TYPE_BOOL,
+            re.compile(r'^model(\d+)', re.IGNORECASE) : TYPE_STR,
             }
 
         self.TYPE_CACHE = {}

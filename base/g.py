@@ -309,7 +309,7 @@ prop.hpcups_build = to_bool(sys_conf.get('configure', 'hpcups-install', '0'))
 prop.hpijs_build = to_bool(sys_conf.get('configure', 'hpijs-install', '0'))
 
 # Spinner, ala Gentoo Portage
-spinner = "\|/-\|/-"
+spinner = r"\|/-\|/-"
 spinpos = 0
 enable_spinner = True
 
@@ -359,7 +359,7 @@ def check_extension_module_env(ext_mod):
         log.error('%s not present in the system. Please re-install HPLIP.' %ext_mod)
         sys.exit(1)
 
-    m = re.search('python(\d(\.\d){0,2})', ext_path)            #get the python version where the .so file is found
+    m = re.search(r'python(\d(\.\d){0,2})', ext_path)            #get the python version where the .so file is found
     ext_ver = xint(m.group(1))
 
     if ext_ver[0] == 3:

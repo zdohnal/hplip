@@ -168,7 +168,7 @@ CUPS_ERROR_BAD_NAME = 0x0f00
 CUPS_ERROR_BAD_PARAMETERS = 0x0f01
 
 nickname_pat = re.compile(r'''\*NickName:\s*\"(.*)"''', re.MULTILINE)
-pat_cups_error_log = re.compile("""^loglevel\s?(debug|debug2|warn|info|error|none)""", re.I)
+pat_cups_error_log = re.compile(r"""^loglevel\s?(debug|debug2|warn|info|error|none)""", re.I)
 ppd_pat = re.compile(r'''.*hp-(.*?)(-.*)*\.ppd.*''', re.I)
 ppd_pat1 = re.compile(r'''.*hp-(.*?)(_.*)*\.ppd.*''', re.I)
 

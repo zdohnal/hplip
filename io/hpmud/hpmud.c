@@ -97,7 +97,9 @@ int __attribute__ ((visibility ("hidden"))) is_hp(const char *id)
       return 0;
 
    if ((strncasecmp(pMf, "HEWLETT-PACKARD", 15) == 0) ||
-      (strncasecmp(pMf, "APOLLO", 6) == 0) || (strncasecmp(pMf, "HP", 2) == 0))
+      (strncasecmp(pMf, "APOLLO", 6) == 0) || 
+      (strncasecmp(pMf, "HP", 2) == 0) ||
+      (strncasecmp(pMf, "DEX", 3) == 0))
    {
       return 1;  /* found HP product */
    }

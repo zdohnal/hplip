@@ -932,6 +932,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-laserjet_flow_e73140-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_mfp_e87750-ps.ppd.gz \
 	prnt/ps/hp-laserjet_1320nw-ps.ppd.gz \
 	prnt/ps/hp-laserjet_5mp-ps.ppd.gz \
+	prnt/ps/hp-color_laserjet_mfp_8801-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_mfp_e78635-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_5550-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_flow_e87770-ps.ppd.gz \
@@ -961,6 +962,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-laserjet_flow_e73140-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_mfp_e78228-ps.ppd.gz \
 	prnt/ps/hp-laserjet_3390-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_pro_mfp_m377-ps.ppd.gz \
+	prnt/ps/hp-laserjet_mfp_8601-ps.ppd.gz \
 	prnt/ps/hp-laserjet_pro_mfp_4104-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_cm2320fxi_mfp-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_8500-ps.ppd.gz \
@@ -1280,6 +1282,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-laserjet_flow_e73140-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_pro_m453-4-ps.ppd.gz \
 	prnt/ps/hp-designjet_t1708dr_postscript-ps.ppd.gz \
 	prnt/ps/hp-laserjet_mfp_m631_m632_m633-ps.ppd.gz \
+	prnt/ps/hp-laserjet_8501-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_m554-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_cp4020_series-ps.ppd.gz \
 	prnt/ps/hp-laserjet_9000_mfp-ps.ppd.gz \
@@ -2424,6 +2427,7 @@ PKG_CONFIG = @PKG_CONFIG@
 PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
 PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
 PYTHON = @PYTHON@
+PYTHONEXECDIR = @PYTHONEXECDIR@
 PYTHONINCLUDEDIR = @PYTHONINCLUDEDIR@
 PYTHONVERSION = @PYTHONVERSION@
 PYTHON_EXEC_PREFIX = @PYTHON_EXEC_PREFIX@
@@ -3503,6 +3507,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-color_laserjet_mfp_e87750-ps.ppd.gz \
     prnt/ps/hp-laserjet_1320nw-ps.ppd.gz \
     prnt/ps/hp-laserjet_5mp-ps.ppd.gz \
+    prnt/ps/hp-color_laserjet_mfp_8801-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_mfp_e78635-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_5550-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_flow_e87770-ps.ppd.gz \
@@ -3532,6 +3537,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-color_laserjet_mfp_e78228-ps.ppd.gz \
     prnt/ps/hp-laserjet_3390-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_pro_mfp_m377-ps.ppd.gz \
+    prnt/ps/hp-laserjet_mfp_8601-ps.ppd.gz \
     prnt/ps/hp-laserjet_pro_mfp_4104-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_cm2320fxi_mfp-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_8500-ps.ppd.gz \
@@ -3851,6 +3857,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-color_laserjet_pro_m453-4-ps.ppd.gz \
     prnt/ps/hp-designjet_t1708dr_postscript-ps.ppd.gz \
     prnt/ps/hp-laserjet_mfp_m631_m632_m633-ps.ppd.gz \
+    prnt/ps/hp-laserjet_8501-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_m554-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_cp4020_series-ps.ppd.gz \
     prnt/ps/hp-laserjet_9000_mfp-ps.ppd.gz \
@@ -5050,7 +5057,7 @@ dist_unrel_DATA =
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@dist_pcard_DATA = pcard/__init__.py pcard/photocard.py
 
 # pcardext
-@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@pcardextdir = $(pyexecdir)
+@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@pcardextdir = $(PYTHONEXECDIR)
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@pcardext_LTLIBRARIES = pcardext.la
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@pcardext_la_LDFLAGS = -module -avoid-version
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@pcardext_la_SOURCES = pcard/pcardext/pcardext.c pcard/fat.c
@@ -5067,7 +5074,7 @@ dist_unrel_DATA =
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@libhpipp_la_LIBADD = libhpmud.la
 
 # cupsext
-@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@cupsextdir = $(pyexecdir)
+@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@cupsextdir = $(PYTHONEXECDIR)
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@cupsext_LTLIBRARIES = cupsext.la
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@cupsext_la_LDFLAGS = -module -avoid-version
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@cupsext_la_SOURCES = prnt/cupsext/cupsext.c prnt/cupsext/cupsext.h
@@ -5079,14 +5086,14 @@ dist_unrel_DATA =
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@dist_scan_DATA = scan/__init__.py scan/sane.py
 
 # scanext
-@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@scanextdir = $(pyexecdir)
+@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@scanextdir = $(PYTHONEXECDIR)
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@scanext_LTLIBRARIES = scanext.la
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@scanext_la_LDFLAGS = -module -avoid-version -lsane
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@scanext_la_SOURCES = scan/scanext/scanext.c
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@@SCAN_BUILD_TRUE@scanext_la_CFLAGS = -I$(PYTHONINCLUDEDIR)
 
 # hpmudext
-@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@hpmudextdir = $(pyexecdir)
+@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@hpmudextdir = $(PYTHONEXECDIR)
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@hpmudext_LTLIBRARIES = hpmudext.la
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@hpmudext_la_LDFLAGS = -module -avoid-version
 @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@hpmudext_la_SOURCES = io/mudext/hpmudext.c

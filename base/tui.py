@@ -217,7 +217,7 @@ class ProgressMeter(object):
         self.progress = 0
         self.prompt = prompt
         self.prev_length = 0
-        self.spinner = "\|/-\|/-*"
+        self.spinner = r"\|/-\|/-*"
         self.spinner_pos = 0
         self.max_size = ttysize()[1] - len(prompt) - 25
         self.update(0)

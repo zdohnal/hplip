@@ -307,7 +307,7 @@ pcarddir = $(hplipdir)/pcard
 dist_pcard_DATA = pcard/__init__.py pcard/photocard.py
 
 # pcardext
-pcardextdir = $(pyexecdir)
+pcardextdir = $(PYTHONEXECDIR)
 pcardext_LTLIBRARIES = pcardext.la
 pcardext_la_LDFLAGS = -module -avoid-version
 pcardext_la_SOURCES = pcard/pcardext/pcardext.c pcard/fat.c
@@ -327,7 +327,7 @@ libhpipp_la_LDFLAGS = -version-info 0:1:0
 libhpipp_la_LIBADD = libhpmud.la
 
 # cupsext
-cupsextdir = $(pyexecdir)
+cupsextdir = $(PYTHONEXECDIR)
 cupsext_LTLIBRARIES = cupsext.la
 cupsext_la_LDFLAGS = -module -avoid-version
 cupsext_la_SOURCES =  prnt/cupsext/cupsext.c prnt/cupsext/cupsext.h
@@ -342,7 +342,7 @@ scandir = $(hplipdir)/scan
 dist_scan_DATA = scan/__init__.py scan/sane.py
 
 # scanext
-scanextdir = $(pyexecdir)
+scanextdir = $(PYTHONEXECDIR)
 scanext_LTLIBRARIES = scanext.la
 scanext_la_LDFLAGS = -module -avoid-version -lsane
 scanext_la_SOURCES =  scan/scanext/scanext.c
@@ -352,7 +352,7 @@ endif #!HPLIP_CLASS_DRIVER
 
 # hpmudext
 if !HPLIP_CLASS_DRIVER
-hpmudextdir = $(pyexecdir)
+hpmudextdir = $(PYTHONEXECDIR)
 hpmudext_LTLIBRARIES = hpmudext.la
 hpmudext_la_LDFLAGS = -module -avoid-version
 hpmudext_la_SOURCES = io/mudext/hpmudext.c

@@ -1138,3 +1138,31 @@ def get_tesseract_version():
         #log.debug('Failed to extract tesseract version from executable: {}'.format(e))
         return 0
 
+#convert grayscale images to 1bit black and white
+def convert_to_BW(im,threshold=200):
+    print("Converting to BW")
+    #Apply threshold to create a monochrome image 
+    fn = lambda x:255 if x > threshold else 0
+    monochrome_image = im.point(fn, mode='1')
+    return monochrome_image
+
+#resize the image to the scan area
+def resize_to_scan_area(im,size,res):
+    from PIL import Image
+    #print("Resizing to scan area")
+    brx,bry,_desc,unit = size
+    #print("brx , bry = ", brx,bry)
+    if unit == 'mm':
+        brx = int(brx * 0.03937*int(res))
+        bry = int(bry * 0.03937*int(res))
+    if unit == 'in':
+        brx = int(brx*int(res))
+        bry = int(bry*int(res))
+    #print("brx, bry in px = ",brx,bry)
+    #resize the image to the scan area
+    try:
+        im = im.resize((brx,bry), Image.ANTIALIAS)
+    except AttributeError:
+        im = im.resize((brx, bry), Image.Resampling.LANCZOS)
+
+    return im

@@ -67,17 +67,10 @@ try:
 except ImportError:
     dbus_avail=False
 
-try:
-    import hashlib # new in 2.5
+import hashlib
 
-    def get_checksum(s):
-        return hashlib.sha1(s).hexdigest()
-
-except ImportError:
-    import sha # deprecated in 2.6/3.0
-
-    def get_checksum(s):
-        return sha.new(s).hexdigest()
+def get_checksum(s):
+    return hashlib.sha256(s).hexdigest()
 
 
 
@@ -125,6 +118,44 @@ EXPECT_WORD_LIST = [
     u"Lösenord", #sv
 ]
 
+# Define the dictionary to map various distro names to standard names
+distro_name_dict = {
+    "unknown": "unknown",
+    "mepis": "mepis",
+    "debian": "debian",
+    "suse": "suse",
+    "opensuse": "suse",
+    "mandriva": "mandriva",
+    "fedora": "fedora",
+    "redhat": "rhel",
+    "rhel": "rhel",
+    "redhatenterprise" : "rhel",
+    "red hat enterprise linux": "rhel",
+    "slackware": "slackware",
+    "gentoo": "gentoo",
+    "redflag": "redflag",
+    "ubuntu": "ubuntu",
+    "xandros": "xandros",
+    "freebsd": "freebsd",
+    "linspire": "linspire",
+    "ark": "ark",
+    "pclinuxos": "pclinuxos",
+    "centos": "centos",
+    "igos": "igos",
+    "linuxmint": "linuxmint",
+    "mint": "linuxmint",
+    "linpus": "linpus",
+    "gos": "gos",
+    "boss": "boss",
+    "lfs": "lfs",
+    "manjarolinux": "manjarolinux",
+    "manjaro": "manjarolinux",
+    "zorin": "zorin",
+    "mxlinux": "mxlinux",
+    "mx": "mxlinux",
+    "elementary": "elementary",
+    "elementaryos": "elementary"
+}
 
 EXPECT_LIST = []
 for s in EXPECT_WORD_LIST:
@@ -148,7 +179,7 @@ def get_cups_systemgroup_list():
             return lis
 
     try:
-        lis = ((re.findall('SystemGroup [\w* ]*',fp.read()))[0].replace('SystemGroup ','')).split(' ')
+        lis = ((re.findall(r'SystemGroup [\w* ]*',fp.read()))[0].replace('SystemGroup ','')).split(' ')
     except IndexError:
         return lis
 
@@ -1582,7 +1613,7 @@ def mixin(cls):
  # ------------------------- Usage Help
 USAGE_OPTIONS = ("[OPTIONS]", "", "heading", False)
 USAGE_LOGGING1 = ("Set the logging level:", "-l<level> or --logging=<level>", 'option', False)
-USAGE_LOGGING2 = ("", "<level>: none, info\*, error, warn, debug (\*default)", "option", False)
+USAGE_LOGGING2 = ("", r"<level>: none, info\*, error, warn, debug (\*default)", "option", False)
 USAGE_LOGGING3 = ("Run in debug mode:", "-g (same as option: -ldebug)", "option", False)
 USAGE_LOGGING_PLAIN = ("Output plain text only:", "-t", "option", False)
 USAGE_ARGS = ("[PRINTER|DEVICE-URI]", "", "heading", False)
@@ -1590,13 +1621,13 @@ USAGE_ARGS2 = ("[PRINTER]", "", "heading", False)
 USAGE_DEVICE = ("To specify a device-URI:", "-d<device-uri> or --device=<device-uri>", "option", False)
 USAGE_PRINTER = ("To specify a CUPS printer:", "-p<printer> or --printer=<printer>", "option", False)
 USAGE_BUS1 = ("Bus to probe (if device not specified):", "-b<bus> or --bus=<bus>", "option", False)
-USAGE_BUS2 = ("", "<bus>: cups\*, usb\*, net, bt, fw, par\* (\*defaults) (Note: bt and fw not supported in this release.)", 'option', False)
+USAGE_BUS2 = ("", r"<bus>: cups\*, usb\*, net, bt, fw, par\* (\*defaults) (Note: bt and fw not supported in this release.)", 'option', False)
 USAGE_HELP = ("This help information:", "-h or --help", "option", True)
 USAGE_SPACE = ("", "", "space", False)
 USAGE_EXAMPLES = ("Examples:", "", "heading", False)
 USAGE_NOTES = ("Notes:", "", "heading", False)
 USAGE_STD_NOTES1 = ("If device or printer is not specified, the local device bus is probed and the program enters interactive mode.", "", "note", False)
-USAGE_STD_NOTES2 = ("If -p\* is specified, the default CUPS printer will be used.", "", "note", False)
+USAGE_STD_NOTES2 = (r"If -p\* is specified, the default CUPS printer will be used.", "", "note", False)
 USAGE_SEEALSO = ("See Also:", "", "heading", False)
 USAGE_LANGUAGE = ("Set the language:", "--loc=<lang> or --lang=<lang>. Use --loc=? or --lang=? to see a list of available language codes.", "option", False)
 USAGE_LANGUAGE2 = ("Set the language:", "--lang=<lang>. Use --lang=? to see a list of available language codes.", "option", False)
@@ -1824,7 +1855,7 @@ encoding: utf8
 
     elif typ == 'man':
         log.info('.TH "%s" 1 "%s" Linux "User Manuals"' % (crumb, version))
-        log.info(".SH NAME\n%s \- %s" % (crumb, title))
+        log.info(r".SH NAME\n%s \- %s" % (crumb, title))
 
         for line in text_list:
             text1, text2, format, trailing_space = line
@@ -1923,7 +1954,7 @@ def unescape(text):
             except KeyError:
                 pass
         return text # leave as is
-    return re.sub("&#?\w+;", fixup, text)
+    return re.sub(r"&#?\w+;", fixup, text)
 
 
 # Adds HTML or XML character references and entities from a text string
@@ -1976,7 +2007,7 @@ def Is_HPLIP_older_version(installed_version, available_version):
     log.debug("HPLIP Installed_version=%s  Available_version=%s"%(installed_version,available_version))
     cnt = 0
     Is_older = False
-    pat=re.compile('''(\d{1,})([a-z]{1,})''')
+    pat=re.compile(r'''(\d{1,})([a-z]{1,})''')
     try:
         while cnt <len(installed_array) and cnt <len(available_array):
 
@@ -2585,9 +2616,16 @@ def get_distro_name(passwordObj = None):
     # Updating the distro name and version.
     if found:
         name = name.lower().strip()
+        #convert the name to a standard name based on distro name dictionary
+        #for example "welcome to MX Linux" gets converted to "mxlinux"
+        # Check if any value from the distro_name_dict is a substring of name
+        for key, standard_name in distro_name_dict.items():
+            if key in name:
+                name = standard_name
+                break
+
         log.debug("Distro name=%s" % name)
-        if name.find("redhatenterprise") > -1 or name.find("redhat") > -1:
-            name = "rhel"
+
 
         log.debug("Distro version=%s" % ver)
         if name == "rhel" and ver[0] == "5" and ver[1] == ".":
@@ -2629,3 +2667,11 @@ def readAuthType():
     except :
         log.warn("unable to determine auth_type ")
     return authType
+
+def sanitize_filename(filename):
+    # Remove any path traversal sequences
+    filename = os.path.basename(filename)
+    # Ensure the filename only contains safe characters
+    if not re.match(r'^[\w\-. ]+$', filename):
+        raise ValueError("Invalid filename")
+    return filename

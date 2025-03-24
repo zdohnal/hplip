@@ -16327,6 +16327,27 @@ lity:PenSet=2,Quality:FullBleed=1"
     Attribute "Product" "" "(HP Officejet Pro 9130b Series)"
   }
   {
+    ModelName "HP Officejet Pro 8020 Series hpijs"
+    Attribute "NickName" "" "HP Officejet Pro 8020 Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP OJ Pro 8020 Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet pro 8020 series;DES:officejet pro 8020 series;"
+    PCFileName "hp-officejet_pro_8020_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Officejet Pro 8020 All-in-one Printer Series)"
+  }
+  {
+    ModelName "HP Officejet Pro 9010 Series hpijs"
+    Attribute "NickName" "" "HP Officejet Pro 9010 Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP OJ Pro 9010 Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet pro 9010 series;DES:officejet pro 9010 series;"
+    PCFileName "hp-officejet_pro_9010_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Officejet Pro All-in-one 9010)"
+  }
+
+}
+{
+
+  // <%SPDOfficejetProBsize:Normal%>
+  {
     ModelName "HP Officejet Pro 9720 Series hpijs"
     Attribute "NickName" "" "HP Officejet Pro 9720 Series hpijs, $Version"
     Attribute "ShortNickName" "" "HP OJ Pro 9720 Series hpijs"
@@ -16358,27 +16379,6 @@ lity:PenSet=2,Quality:FullBleed=1"
     PCFileName "hp-officejet_pro_9730e_series-hpijs.ppd"
     Attribute "Product" "" "(HP Officejet Pro 9730 Series)"
   }
-  {
-    ModelName "HP Officejet Pro 8020 Series hpijs"
-    Attribute "NickName" "" "HP Officejet Pro 8020 Series hpijs, $Version"
-    Attribute "ShortNickName" "" "HP OJ Pro 8020 Series hpijs"
-    Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet pro 8020 series;DES:officejet pro 8020 series;"
-    PCFileName "hp-officejet_pro_8020_series-hpijs.ppd"
-    Attribute "Product" "" "(HP Officejet Pro 8020 All-in-one Printer Series)"
-  }
-  {
-    ModelName "HP Officejet Pro 9010 Series hpijs"
-    Attribute "NickName" "" "HP Officejet Pro 9010 Series hpijs, $Version"
-    Attribute "ShortNickName" "" "HP OJ Pro 9010 Series hpijs"
-    Attribute "1284DeviceID" "" "MFG:HP;MDL:officejet pro 9010 series;DES:officejet pro 9010 series;"
-    PCFileName "hp-officejet_pro_9010_series-hpijs.ppd"
-    Attribute "Product" "" "(HP Officejet Pro All-in-one 9010)"
-  }
-
-}
-{
-
-  // <%SPDOfficejetProBsize:Normal%>
   {
     ModelName "HP Officejet Pro 7720 Series hpijs"
     Attribute "NickName" "" "HP Officejet Pro 7720 Series hpijs, $Version"
