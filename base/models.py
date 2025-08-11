@@ -570,6 +570,24 @@ class ModelData:
 
             if self.read_section(self.released_dat, model):
                 return self.__cache[model]
+            else:
+                hp_model = "hp_"+model
+                if self.read_section(self.released_dat, hp_model):
+                    return self.__cache[hp_model]
+                else:
+                    log.debug("%s model not found"%hp_model)
+
+            if self.unreleased_dat is not None and os.path.exists(self.unreleased_dat):
+                log.debug("Reading file: %s" % self.unreleased_dat)
+
+                if self.read_section(self.unreleased_dat, model):
+                    return self.__cache[model]
+                else:
+                    hp_model = "hp_"+model
+                    if self.read_section(self.released_dat, hp_model):
+                        return self.__cache[hp_model]
+                    else:
+                        log.debug("%s model not found"%hp_model)
 
             if self.unreleased_dat is not None and os.path.exists(self.unreleased_dat):
                 log.debug("Reading file: %s" % self.unreleased_dat)

@@ -342,15 +342,19 @@ class WifiSetupDialog(QDialog, Ui_Dialog):
 
         #Get authentication token
         if self.wifiObj == CdmWifi:
-            prompt = "Enter printer's username and password"
-            while True:
-                rtnvalue,uname, password = showPasswordUI(prompt)
-                if rtnvalue == 0:
-                   return
-                ret = self.wifiObj.getCDMToken(self.dev, uname, password)
-                if ret == True:
-                    break
-                prompt =  "Invalid Username/Password\n.Please renter printer's username and password" 
+            if self.wifiObj.getCDMToken_pushbutton(self.dev):
+                log.debug("authenticated via getCDMToken_pushbutton")
+            else:
+                prompt = "Enter printer's username and password"
+                while True:
+                    rtnvalue,uname, password = showPasswordUI(prompt,userName="administrator")
+                    if rtnvalue == 0:
+                        return
+                    ret = self.wifiObj.getCDMToken(self.dev, uname, password)
+                    if ret == True:
+                        break
+                    prompt =  "Invalid Username/Password\n.Please renter printer's username and password" 
+    
         #Get adaptor_id
 
         try:

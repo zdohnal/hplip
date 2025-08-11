@@ -1793,7 +1793,7 @@ class DevMgr5(QMainWindow,  Ui_MainWindow):
             self.InstallLatestButton.setEnabled(True)
         else:
             self.InstallLatestButton_lock = True
-            utils.openURL("http://hplipopensource.com/hplip-web/install/manual/index.html")
+            utils.openURL("https://developers.hp.com/hp-linux-imaging-and-printing/install/manual/index.html")
             QTimer.singleShot(1000, self.InstallLatestButton_unlock)
 
 

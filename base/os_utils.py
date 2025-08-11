@@ -37,7 +37,7 @@ def execute(cmd):
         try:
             # Use shlex.split to safely split the command into arguments
             args = shlex.split(cmd)
-            result = subprocess.run(args, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            result = subprocess.run(args, check=True)
             return result.returncode
         except subprocess.CalledProcessError as e:
             error_message = "Command failed with return code %d: %s\n%s" % (e.returncode, cmd, e.stderr.decode())

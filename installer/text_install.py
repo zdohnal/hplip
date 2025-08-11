@@ -105,7 +105,7 @@ def start(language, auto=True, test_depends=False,
             Is_Manual_Distro = True
 
         if Is_Manual_Distro:
-            log.error("Auto installation is not supported for '%s' distro so all dependencies may not be installed. \nPlease install manually as mentioned in 'http://hplipopensource.com/hplip-web/install/manual/index.html' web-site" % core.distro_name)
+            log.error("Auto installation is not supported for '%s' distro so all dependencies may not be installed. \nPlease install manually as mentioned at 'https://developers.hp.com/hp-linux-imaging-and-printing/install/manual/index.html' web-site" % core.distro_name)
             ok, choice = tui.enter_choice(
                 "\nPress 'y' to continue auto installation. Press 'n' to quit auto instalation(y=yes, n=no*): ", ['y', 'n'], 'n')
             if not ok or choice == 'n':

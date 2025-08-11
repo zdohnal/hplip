@@ -1537,6 +1537,9 @@
 :model "HP Envy Photo 7164 All-in-one"
 :status :good
 
+:model "HP Envy Photo 7200 Series"
+:status :good
+
 :model "HP Envy Photo 7800 All-in-one"
 :status :good
 
@@ -1547,6 +1550,9 @@
 :status :good
 
 :model "HP Envy Photo 7855 All-in-one"
+:status :good
+
+:model "HP Envy Photo 7900 Series"
 :status :good
 
 :model "HP Envy Pro 6400 Series"
@@ -2188,7 +2194,16 @@
 :model "HP LaserJet Pro MFP m126a"
 :status :good
 
+:model "HP LaserJet Pro MFP m126a Plus"
+:status :good
+
 :model "HP LaserJet Pro MFP m126nw"
+:status :good
+
+:model "HP LaserJet Pro MFP m126nw Plus"
+:status :good
+
+:model "HP LaserJet Pro MFP m126snw Plus"
 :status :good
 
 :model "HP LaserJet Pro MFP m127fn"
@@ -3076,6 +3091,9 @@
 :model "HP Officejet 9120 All-in-one Printer"
 :status :good
 
+:model "HP Officejet 9120 Series"
+:status :good
+
 :model "HP Officejet 9130 All-in-one Printer"
 :status :good
 
@@ -3409,10 +3427,19 @@
 :model "HP Officejet Pro 8740 All-in-one Printer"
 :status :good
 
+:model "HP Officejet Pro 9120 Series"
+:status :good
+
 :model "HP Officejet Pro 9120b Series"
 :status :good
 
+:model "HP Officejet Pro 9130 Series"
+:status :good
+
 :model "HP Officejet Pro 9130b Series"
+:status :good
+
+:model "HP Officejet Pro 9130e Series"
 :status :good
 
 :model "HP Officejet Pro 9720 Series"

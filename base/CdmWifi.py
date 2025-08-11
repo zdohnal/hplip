@@ -26,6 +26,8 @@ import binascii
 import xml.parsers.expat
 from string import *
 import json, ast
+import random #for generating random session ID
+import string #for generating random session ID
 
 # Local
 from .g import *
@@ -42,7 +44,10 @@ token = ''
 adaptorId = ''
 hostname=''
 
-CDM_AUTH_REQ = "/cdm/oauth2/v1/token"
+CDM_AUTH_REQ_OAUTH2 = "/cdm/oauth2/v1/token"
+CDM_AUTH_REQ_REMOTE = "/cdm/remoteAuthentication/v1/tokens"
+CDM_AUTH_REQ_REMOTE_CONFIG = "/cdm/remoteAuthentication/v1/config"
+CDM_AUTH_REQ_PUSHBUTTONS = "/cdm/remoteAuthentication/v1/pushbuttons"
 CDM_ADP_CONF = "/cdm/ioConfig/v2/adapterConfigs"
 CDM_WIFI_SCAN = "/cdm/ioConfig/v2/wifiScan"
 #CDM_WLAN_PROFILE = "/cdm/ioConfig/v2/wlanProfiles" #Old and deprecated replaced by wirelessConfig service
@@ -56,6 +61,8 @@ HTTP_ACCEPTED = 202
 HTTP_NOCONTENT = 204
 HTTP_ERROR = 500
 HTTP_UNAUTHORIZED = 401
+HTTP_BAD_REQUEST = 400
+HTTP_INVALID_GRANT = 409
 
 def flushThePort(dev):
     response = io.BytesIO()
@@ -67,27 +74,164 @@ def flushThePort(dev):
         log.debug("Unable to read LEDM Channel")
     finally:
         dev.closeLEDM()
+def getCDMToken_pushbutton(dev):
+    flushThePort(dev)
+    global token
+    #check if pushbutton is enabled
+    data = {}
+    data, respcode = http_get_req(dev, CDM_AUTH_REQ_REMOTE_CONFIG)
+    if respcode not in [HTTP_ACCEPTED,HTTP_NOCONTENT,HTTP_OK]:
+        log.debug("CDM  CDM_AUTH_REQ_REMOTE_CONFIG Failed With Response Code %d" % respcode)
+    data = json.loads(data.strip())
+    data = ast.literal_eval(json.dumps(data))
+    log.debug("CDM CDM_AUTH_REQ_PUSHBUTTONS:  %s" %data)
+    if data["pushbuttonEnabled"] == "true":
+        log.debug("Pushbutton is Enabled")
+        
+        #generate unique session ID in the format 12345678-1234-1234-1234-1234567890ab
+        part1 = ''.join(random.choices(string.digits, k=8))
+        part2 = ''.join(random.choices(string.digits, k=4))
+        part3 = ''.join(random.choices(string.digits, k=4))
+        part4 = ''.join(random.choices(string.digits, k=4))
+        part5 = ''.join(random.choices(string.digits, k=10))
+        last_two_letters = ''.join(random.choices(string.ascii_lowercase, k=2))
+        random_session_id = f"{part1}-{part2}-{part3}-{part4}-{part5}{last_two_letters}"
+        log.debug("Generated random session ID: %s" % random_session_id)
+
+        # Prepare and send the pushbutton request
+        data = {}
+        data["version"] =  "1.0.0"
+        data["pushbuttonTimeout"] = "30"
+        data["pushbuttonSessionId"] = random_session_id
+        data = json.dumps(data)
+        data, respcode = http_post_req(dev, CDM_AUTH_REQ_PUSHBUTTONS, data)
+        if respcode not in [HTTP_ACCEPTED,HTTP_NOCONTENT,HTTP_OK,HTTP_CREATED]:
+            log.debug("CDM CDM_AUTH_REQ_PUSHBUTTONS Failed With Response Code %d" % respcode)
+        else:
+            data = json.loads(data.strip())
+            data = ast.literal_eval(json.dumps(data))
+            log.debug("CDM CDM_AUTH_REQ_PUSHBUTTONS %s" %data)
+            pushbuttonSessionId = data["pushbuttonSessionId"]
+            data = {}
+            data["version"]="1.0.0"
+            data['grantType'] = "pushbuttonSessionId"
+            data['code'] = pushbuttonSessionId
+            data = json.dumps(data)
+            data, respcode = http_post_req(dev, CDM_AUTH_REQ_REMOTE, data)
+            if not(respcode == HTTP_OK,HTTP_CREATED ):
+                log.debug("CDM_AUTH_REQ_REMOTE Request Failed With Response Code %d" % respcode)
+                return False
+            else:
+                data = json.loads(data.strip())
+                data = ast.literal_eval(json.dumps(data))
+                token = data['token']
+                return True
+    else:
+        log.debug("Pushbutton is disabled. trying with pin authentication")
+        return False
+        
 
 def getCDMToken(dev, uname, password):
     flushThePort(dev)
+    '''
+    #use this block to see CDM remoteAuthentication capabilities
+    data = {}
+    data, respcode = http_get_req(dev, "/cdm/remoteAuthentication/v1/capabilities")
+    if respcode not in [HTTP_ACCEPTED,HTTP_NOCONTENT,HTTP_OK]:
+        log.debug("CDM  /cdm/remoteAuthentication/v1/capabilities Failed With Response Code %d" % respcode)
+    else:
+        data = json.loads(data.strip())
+        data = ast.literal_eval(json.dumps(data))
+        log.debug("CDM /cdm/remoteAuthentication/v1/capabilities: /n%s" %data)
+    '''
     global token
+    # send the request using CDM_AUTH_REQ_OAUTH2 endpoint to get the token
     data = {}
     data['grant_type'] = "password"
     data['username'] = uname
     data['password'] = password
     data = json.dumps(data)
-
     auth = 'token'
-    data, respcode = http_post_req(dev, CDM_AUTH_REQ, data, auth)
+    data, respcode = http_post_req(dev, CDM_AUTH_REQ_OAUTH2, data, auth)
     if not(respcode == HTTP_OK):
-        log.debug("Request Failed With Response Code %d, enter correct credentials" % respcode)
-        return False
+        log.debug("CDM_AUTH_REQ_OAUTH2 Request Failed With Response Code %d" % respcode)
+        if respcode == HTTP_BAD_REQUEST:
+            data = json.loads(data.strip())
+            data = ast.literal_eval(json.dumps(data))
+            data["error"] = "invalid_grant"
+            log.error ("Invalid printer pin please try again with correct printer pin ")
+            return False
+        else:
+            # check CDM_AUTH_REQ_REMOTE_CONFIG endpoint if pin label is enabled
+            log.debug("retrying with CDM_AUTH_REQ_REMOTE %d" % respcode)
+            data = {}
+            data, respcode = http_get_req(dev, CDM_AUTH_REQ_REMOTE_CONFIG)
+            if respcode not in [HTTP_ACCEPTED,HTTP_NOCONTENT,HTTP_OK]:
+                log.debug("CDM  CDM_AUTH_REQ_REMOTE_CONFIG Failed With Response Code %d" % respcode)
+            else:
+                # send the request using CDM_AUTH_REQ_REMOTE_CONFIG endpoint to get the token
+                data = json.loads(data.strip())
+                data = ast.literal_eval(json.dumps(data))
+                log.debug("CDM CDM_AUTH_REQ_REMOTE_CONFIG:  %s" %data)
+                if data["pinLabelEnabled"] == 'true':
+                    log.debug("Pin Label is Enabled")
+                    data = {}
+                    data["version"]="1.0.0"
+                    data['grantType'] = "pin"
+                    data['code'] = password
+                    data = json.dumps(data)
+                    data, respcode = http_post_req(dev, CDM_AUTH_REQ_REMOTE, data)
+                    if respcode not in (HTTP_OK,HTTP_CREATED):
+                        log.debug("CDM_AUTH_REQ_REMOTE Request Failed With Response Code %d" % respcode)
+                        if respcode == HTTP_INVALID_GRANT:
+                            log.error ("Invalid printer pin please try again with correct printer pin ")
+                        return False
+                    else:
+                        data = json.loads(data.strip())
+                        data = ast.literal_eval(json.dumps(data))
+                        token = data['token']
+                        return True
+                else:
+                    log.error("Pushbutton and Pin Label are disabled. Please enable Pushbutton or PIN authentication ")
     else:
         data = json.loads(data.strip())
         data = ast.literal_eval(json.dumps(data))
         token = data['access_token']
         return True
 
+def http_put_req(dev, URI, data):
+    global token
+    data_json = json.dumps(data)
+
+    dev.openEWS_LEDM()
+    if token:
+        dev.writeEWS_LEDM("""PUT %s HTTP/1.1\r\nContent-Type: application/json\r\nUser-Agent: hplip\r\nAccept: */*\r\nHost:localhost\r\nConnection: keep-alive\r\nContent-Length: %s\r\nAuthorization: Bearer %s\r\n\r\n"""%(URI,len(data_json), token))
+    else:
+        dev.writeEWS_LEDM("""PUT %s HTTP/1.1\r\nContent-Type: application/json\r\nUser-Agent: hplip\r\nAccept: */*\r\nHost:localhost\r\nConnection: keep-alive\r\nContent-Length: %s\r\n\r\n"""%(URI,len(data_json)))
+    dev.writeEWS_LEDM(data_json)
+    reply = xStringIO()
+    try:
+        dev.readLEDMData(dev.readEWS_LEDM,reply)
+        reply.seek(0)  
+        response = http_client.HTTPResponse(reply)
+        result = 10
+        while result:
+            try:
+                response.begin()
+                result = 0
+            except:
+                log.debug("Unable to begin response, retrying ...")
+                time.sleep(5)
+                result -= 1
+                pass
+        respcode = response.getcode()
+        data = response.read()
+        return data,respcode
+    except Error:
+        dev.closeEWS_LEDM()
+        log.debug("Unable to read EWS_LEDM Channel")
+        
+        
 #Post Request
 def http_post_req(dev, URI, data_json ,auth = None):
     global token
@@ -265,6 +409,7 @@ def performScan(dev, adaptor_id):
             scan_state = data["state"]
 
 
+
     URI = "%s/%s" % (CDM_WIFI_SCAN, "wifiNetworks")
     data, respcode = http_get_req(dev, URI)
     if not(respcode == HTTP_OK):
@@ -314,16 +459,30 @@ def getIPConfiguration(dev, adapterName):
         return
     data = json.loads(data.strip())
     data = ast.literal_eval(json.dumps(data))
-    for each in data:
-        if each == 'wifi0' or each == 'wifi1':
-            ip = data[each]['ipv4']['address']['ip']
-            subnetmask = data[each]['ipv4']['address']['subnet']
-            gateway = data[each]['ipv4']['address']['gateway']
-            pridns = data[each]['ipv4']['dnsServer']['primary']['address']
-            sec_dns = data[each]['ipv4']['dnsServer']['secondary']['address']
-            hostname = data[each]['identity']['hostname']['name']
-            addressmode = data[each]['ipv4']['address']['requestedConfigMethod']
-            return ip, hostname, addressmode, subnetmask, gateway, pridns, sec_dns
+    log.debug("get CDM_ADP_CONF returned %s "%data)
+    try:
+        if data["wifi0"]["ipv4"]["enabled"] == "true":
+            log.debug("wifi0 is enabled")
+            adapter = "wifi0"
+        else:
+            if data["wifi1"]["ipv4"]["enabled"] == "true":
+                log.debug("Wifi1 is enabled")
+                adapter = "wifi1"
+            else:
+                log.debug("No wifi adapter found")
+                return
+    except KeyError:
+        log.debug("No wifi adapter found")
+        return
+    ip = data[adapter]['ipv4']['address']['ip']
+    subnetmask = data[adapter]['ipv4']['address']['subnet']
+    gateway = data[adapter]['ipv4']['address']['gateway']
+    pridns = data[adapter]['ipv4']['dnsServer']['primary']['address']
+    sec_dns = data[adapter]['ipv4']['dnsServer']['secondary']['address']
+    hostname = data[adapter]['identity']['hostname']['name']
+    addressmode = data[adapter]['ipv4']['address']['requestedConfigMethod']
+    return ip, hostname, addressmode, subnetmask, gateway, pridns, sec_dns
+
 
 def associate(dev, wpaVersionPreference, ssid, authenticationMode, security, key):
     if authenticationMode == 'wpaOrWpa2':
@@ -336,10 +495,13 @@ def associate(dev, wpaVersionPreference, ssid, authenticationMode, security, key
         return
     data = json.loads(data.strip())
     data = ast.literal_eval(json.dumps(data))
-
+    log.debug("get CDM_WIRELESS_CONFIG returned . %s"%data)
     del data['version']
+    
 
     preferredProfile=data['preferredProfile']
+    if preferredProfile not in data:
+        data[preferredProfile] = {}
     data[preferredProfile]['authenticationMode'] = authenticationMode
     data[preferredProfile]['encryptionType'] = security
     data[preferredProfile]['ssid'] = ssid

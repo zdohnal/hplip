@@ -1092,6 +1092,8 @@ class CoreInstall(object):
         else:
             if(check_ps(['dbus-daemon'])):
                 dbus_found = True
+            elif(check_ps(["dbus-broker"])):
+                dbus_found = True
 
         if dbus_found:
             #check for dbus header        

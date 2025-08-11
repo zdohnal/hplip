@@ -374,7 +374,7 @@ try:
 
         # check distro information.
         if not core.is_auto_installer_support():
-            log.info("Please install HPLIP manually as mentioned in 'http://hplipopensource.com/hplip-web/install/manual/index.html' site")
+            log.info("Please install HPLIP manually as mentioned in 'https://developers.hp.com/hp-linux-imaging-and-printing/install/manual/index.html' site")
             clean_exit(0)
 
         if not services.close_running_hp_processes():

@@ -34,7 +34,7 @@ from .ui_utils import load_pixmap
 from qt import *
 from .upgradeform_base import UpgradeForm_base
 
-MANUAL_INSTALL_LINK = "http://hplipopensource.com/hplip-web/install/manual/index.html"
+MANUAL_INSTALL_LINK = "https://developers.hp.com/hp-linux-imaging-and-printing/install/manual/index.html"
 
 class UpgradeForm(UpgradeForm_base):
     def __init__(self, parent=None, name="",modal=0, fl=0,distro_type= 1,msg=""):

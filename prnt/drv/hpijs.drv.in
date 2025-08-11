@@ -12351,6 +12351,16 @@ Transparency"
     Attribute "Product" "" "(HP LaserJet Pro MFP m125s)"
   }
   {
+    ModelName "HP LaserJet Pro MFP m126 Plus Series hpijs"
+    Attribute "NickName" "" "HP LaserJet Pro MFP m126 Plus Series hpijs, $Version"
+    Attribute "ShortNickName" "" "hp_laserjet_pro_mfp_m126_plus_s"
+    Attribute "1284DeviceID" "" "MFG:Hewlett-Packard;MDL:hp laserjet pro mfp m126 plus series;DES:hp laserjet pro mfp m126 plus series;"
+    PCFileName "hp-laserjet_pro_mfp_m126_plus_series-hpijs.ppd"
+    Attribute "Product" "" "(HP LaserJet Pro MFP m126a Plus)"
+    Attribute "Product" "" "(HP LaserJet Pro MFP m126nw Plus)"
+    Attribute "Product" "" "(HP LaserJet Pro MFP m126snw Plus)"
+  }
+  {
     ModelName "HP LaserJet Pro MFP m126a hpijs"
     Attribute "NickName" "" "HP LaserJet Pro MFP m126a hpijs, $Version"
     Attribute "ShortNickName" "" "HP LaserJet Pro MFP m126a hpijs"
@@ -15059,6 +15069,22 @@ lity:PenSet=2,Quality:FullBleed=1"
     Attribute "Product" "" "(HP Envy Inspire 7900e Series)"
   }
   {
+    ModelName "HP Envy Photo 7200 Series hpijs"
+    Attribute "NickName" "" "HP Envy Photo 7200 Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP Envy Photo 7200 Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:envy photo 7200 series;DES:envy photo 7200 series;"
+    PCFileName "hp-envy_photo_7200_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Envy Photo 7200 Series)"
+  }
+  {
+    ModelName "HP Envy Photo 7900 Series hpijs"
+    Attribute "NickName" "" "HP Envy Photo 7900 Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP Envy Photo 7900 Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:envy photo 7900 series;DES:envy photo 7900 series;"
+    PCFileName "hp-envy_photo_7900_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Envy Photo 7900 Series)"
+  }
+  {
     ModelName "HP Officejet 5740 Series hpijs"
     Attribute "NickName" "" "HP Officejet 5740 Series hpijs, $Version"
     Attribute "ShortNickName" "" "HP Officejet 5740 Series hpijs"
@@ -16221,6 +16247,22 @@ lity:PenSet=2,Quality:FullBleed=1"
     Attribute "Product" "" "(HP Officejet All-in-one 9010)"
   }
   {
+    ModelName "HP Officejet 9120 Series hpijs"
+    Attribute "NickName" "" "HP Officejet 9120 Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP Officejet 9120 Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet 9120 series;DES:hp officejet 9120 series;"
+    PCFileName "hp-officejet_9120_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Officejet 9120 Series)"
+  }
+  {
+    ModelName "HP Officejet 9120e Series hpijs"
+    Attribute "NickName" "" "HP Officejet 9120e Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP Officejet 9120e Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet 9120e series;DES:hp officejet 9120e series;"
+    PCFileName "hp-officejet_9120e_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Officejet 9120 Series)"
+  }
+  {
     ModelName "HP Officejet Pro 8020 Series hpijs"
     Attribute "NickName" "" "HP Officejet Pro 8020 Series hpijs, $Version"
     Attribute "ShortNickName" "" "HP OJ Pro 8020 Series hpijs"
@@ -16303,12 +16345,36 @@ lity:PenSet=2,Quality:FullBleed=1"
     Attribute "Product" "" "(HP Officejet Pro All-in-one 9020)"
   }
   {
+    ModelName "HP Officejet Pro 9110 Series hpijs"
+    Attribute "NickName" "" "HP Officejet Pro 9110 Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP OJ Pro 9110 Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 9110 series;DES:hp officejet pro 9110 series;"
+    PCFileName "hp-officejet_pro_9110_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Officejet Pro 9110 Series)"
+  }
+  {
     ModelName "HP Officejet Pro 9110b Series hpijs"
     Attribute "NickName" "" "HP Officejet Pro 9110b Series hpijs, $Version"
     Attribute "ShortNickName" "" "HP OJ Pro 9110b Series hpijs"
     Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 9110b series;DES:hp officejet pro 9110b series;"
     PCFileName "hp-officejet_pro_9110b_series-hpijs.ppd"
     Attribute "Product" "" "(HP Officejet Pro 9110b Series)"
+  }
+  {
+    ModelName "HP Officejet Pro 9110e Series hpijs"
+    Attribute "NickName" "" "HP Officejet Pro 9110e Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP OJ Pro 9110e Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 9110e series;DES:hp officejet pro 9110e series;"
+    PCFileName "hp-officejet_pro_9110e_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Officejet Pro 9110 Series)"
+  }
+  {
+    ModelName "HP Officejet Pro 9120 Series hpijs"
+    Attribute "NickName" "" "HP Officejet Pro 9120 Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP OJ Pro 9120 Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 9120 series;DES:hp officejet pro 9120 series;"
+    PCFileName "hp-officejet_pro_9120_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Officejet 9120 Series)"
   }
   {
     ModelName "HP Officejet Pro 9120b Series hpijs"
@@ -16319,12 +16385,34 @@ lity:PenSet=2,Quality:FullBleed=1"
     Attribute "Product" "" "(HP Officejet Pro 9120b Series)"
   }
   {
+    ModelName "HP Officejet Pro 9120e Series hpijs"
+    Attribute "NickName" "" "HP Officejet Pro 9120e Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP OJ Pro 9120e Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 9120e series;DES:hp officejet pro 9120e series;"
+    PCFileName "hp-officejet_pro_9120e_series-hpijs.ppd"
+    Attribute "Product" "" "(HP Officejet Pro 9120 Series)"
+  }
+  {
+    ModelName "HP Officejet Pro 9130 Series hpijs"
+    Attribute "NickName" "" "HP Officejet Pro 9130 Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP OJ Pro 9130 Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 9130 series;DES:hp officejet pro 9130 series;"
+    PCFileName "hp-officejet_pro_9130_series-hpijs.ppd"
+  }
+  {
     ModelName "HP Officejet Pro 9130b Series hpijs"
     Attribute "NickName" "" "HP Officejet Pro 9130b Series hpijs, $Version"
     Attribute "ShortNickName" "" "HP OJ Pro 9130b Series hpijs"
     Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 9130b series;DES:hp officejet pro 9130b series;"
     PCFileName "hp-officejet_pro_9130b_series-hpijs.ppd"
     Attribute "Product" "" "(HP Officejet Pro 9130b Series)"
+  }
+  {
+    ModelName "HP Officejet Pro 9130e Series hpijs"
+    Attribute "NickName" "" "HP Officejet Pro 9130e Series hpijs, $Version"
+    Attribute "ShortNickName" "" "HP OJ Pro 9130e Series hpijs"
+    Attribute "1284DeviceID" "" "MFG:HP;MDL:hp officejet pro 9130e series;DES:hp officejet pro 9130e series;"
+    PCFileName "hp-officejet_pro_9130e_series-hpijs.ppd"
   }
   {
     ModelName "HP Officejet Pro 8020 Series hpijs"

@@ -36,7 +36,7 @@ from PyQt4.QtGui import *
 # Ui
 from .upgradedialog_base import Ui_Dialog
 
-MANUAL_INSTALL_LINK = "http://hplipopensource.com/hplip-web/install/manual/index.html"
+MANUAL_INSTALL_LINK = "https://developers.hp.com/hp-linux-imaging-and-printing/install/manual/index.html"
 
 
 class UpgradeDialog(QDialog, Ui_Dialog):

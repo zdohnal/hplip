@@ -12,7 +12,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 #
 # ****************************************
 #
@@ -94,7 +93,7 @@
 # ****************************************
 
 [distros]
-distros=unknown,mepis,debian,suse,mandriva,fedora,redhat,rhel,slackware,gentoo,redflag,ubuntu,xandros,freebsd,linspire,ark,pclinuxos,centos,igos,linuxmint,linpus,gos,boss,lfs,manjarolinux,zorin,mxlinux,elementary
+distros=unknown,mepis,debian,suse,mandriva,fedora,redhat,rhel,slackware,gentoo,redflag,ubuntu,xandros,freebsd,linspire,ark,pclinuxos,centos,igos,linuxmint,linpus,gos,boss,lfs,manjarolinux,zorin,mxlinux,elementary,almalinux
 
 # ****************************************
 
@@ -8435,7 +8434,6 @@ packages=automake1.11
 [ubuntu:20.04:epm]
 packages=epm
 
-
 # ****************************************
 
 [ubuntu:20.10]
@@ -11625,6 +11623,7 @@ packages=automake1.11
 packages=epm
 [debian:10.6:libavahi-dev]
 packages=libavahi-client-dev,libavahi-core-dev,libavahi-common-dev
+
 
 # ****************************************
 
@@ -20289,3 +20288,122 @@ release_date=31.01.2023
 same_as_version=6.1
 
 # ****************************************
+[almalinux]
+index=30
+versions=9.5,9.6
+display_name=AlmaLinux
+alt_names=
+display=1
+#notes=SELinux must run in permissive mode or be disabled for HPLIP to function properly. Please set SELinux to permissive mode or disable it before proceeding.
+package_mgrs=dnf
+package_mgr_cmd=su -c "dnf -y -d 10 -e 1 install $packages_to_install"
+pre_depend_cmd=su -c "dnf clean all",su -c "dnf check-update",su -c "dnf config-manager --set-enabled crb"
+post_depend_cmd=
+hp_libs_remove_cmd=su -c "dnf -y -d 10 -e 1 remove hplip-libs libsane-hpaio"
+scanjet_depend_cmd=su -c "dnf -y -d 10 -e 1 install python-pip",su -c "pip install opencv-python",su -c "pip install pypdf2",su -c "pip install imutils",su -c "dnf -y -d 10 -e 1 install zbar-devel",su -c "dnf update gcc",su -c "dnf -y -d 10 -e 1 install zbar-*",su -c "dnf -y -d 10 -e 1 install ImageMagick*",su -c "dnf -y -d 10 -e 1 install leptonica",su -c "dnf -y -d 10 -e 1 install leptonica-devel",su -c "dnf -y -d 10 -e 1 install tesseract",su -c "dnf -y -d 10 -e 1 install tesseract-devel",su -c "pip install tesserocr",su -c "dnf -y -d 10 -e 1 install tesseract-langpack-*",su -c "dnf -y -d 10 -e 1 install tesseract-osd",su -c "pip install pypdfocr",su -c "pip install scikit-image",su -c "pip install scipy"
+scanjet_py3_depend_cmd=su -c "dnf -y -d 10 -e 1 install python3-pip",su -c "pip3 install opencv-python",su -c "pip3 install pypdf2",su -c "pip3 install imutils",su -c "dnf -y -d 10 -e 1 install ImageMagick*",su -c "dnf -y -d 10 -e 1 install leptonica",su -c "dnf -y -d 10 -e 1 install leptonica-devel",su -c "dnf -y -d 10 -e 1 install tesseract",su -c "dnf -y -d 10 -e 1 install tesseract-devel",su -c "pip3 install tesserocr",su -c "dnf -y -d 10 -e 1 install tesseract-langpack-*",su -c "dnf -y -d 10 -e 1 install tesseract-osd",su -c "pip3 install ocrmypdf",su -c "pip3 install scikit-image",su -c "pip3 install scipy"
+hplip_remove_cmd=su -c "dnf -y -d 10 -e 1 remove hplip"
+su_sudo=su
+ppd_install=ppd
+udev_mode_fix=1
+ppd_dir=/usr/share/cups/model/HP
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+
+# ****************************************
+[almalinux:9.5]
+code_name=
+supported=1
+scan_supported=1
+fax_supported=1
+pcard_supported=0
+network_supported=1
+parallel_supported=1
+usb_supported=1
+libusb01=0
+packaged_version=3.25.2
+release_date=18/11/2024
+notes=
+ppd_install=drv
+udev_mode_fix=1
+ppd_dir=/usr/share/cups/model/HP
+fix_ppd_symlink=0
+drv_dir=/usr/share/cups/drv/HP
+ui_toolkit=qt5
+policykit=0
+native_cups=1
+open_mdns_port=/bin/bash ./init-iptables-firewall
+package_mgr_cmd= su -c "dnf -y -d 10 -e 1 install $packages_to_install"
+pre_depend_cmd=su -c "dnf check-update",su -c "dnf config-manager --set-enabled crb"
+
+
+[almalinux:9.5:libjpeg]
+packages=epel-release-9-9.el9.noarch,libjpeg-turbo.x86_64
+ 
+[almalinux:9.5:libtool]
+packages=libtool.x86_64
+ 
+[almalinux:9.5:cups-devel]
+packages=cups-devel.x86_64
+ 
+[almalinux:9.5:cups-image]
+packages=cups-libs.x86_64
+ 
+[almalinux:9.5:gcc]
+packages=gcc-c++.x86_64
+ 
+[almalinux:9.5:make]
+packages=make
+ 
+[almalinux:9.5:libpthread]
+packages=glibc-headers.x86_64
+ 
+[almalinux:9.5:libusb]
+packages=libusb.x86_64
+ 
+[almalinux:9.5:sane-devel]
+packages=sane-backends-devel.x86_64
+ 
+[almalinux:9.5:libavahi-dev]
+packages=avahi-devel.x86_64
+ 
+[almalinux:9.5:xsane]
+packages=xsane.x86_64
+ 
+[almalinux:9.5:dbus]
+packages=dbus-devel.x86_64
+ 
+[almalinux:9.5:libnetsnmp-devel]
+packages=net-snmp-devel.x86_64
+ 
+[almalinux:9.5:libcrypto]
+packages=openssl-devel.x86_64
+ 
+[almalinux:9.5:python3-notfiy2]
+packages=python3-inotify.noarch
+ 
+[almalinux:9.5:python3-pyqt5-dbus]
+packages=dbus-python-devel.x86_64,python3-dbus.x86_64
+ 
+[almalinux:9.5:python3-pyqt5]
+packages=python3-qt5.x86_64
+ 
+[almalinux:9.5:python3-devel]
+packages=python3-devel.x86_64
+ 
+[almalinux:9.5:python3-pil]
+packages=python3-pillow.x86_64
+
+# ****************************************
+
+[almalinux:9.6]
+code_name=
+supported=1
+packaged_version=3.26.6.1
+release_date=20.06.25
+same_as_version=9.5
+ 
+
+
+# ****************************************
+

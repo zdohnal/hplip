@@ -71,6 +71,8 @@ except AttributeError:
 
 from base import utils
 
+from base import utils
+
 # field type descriptions as (length, abbreviation, full name) tuples
 FIELD_TYPES=(
     (0, 'X',  'Proprietary'), # no such type

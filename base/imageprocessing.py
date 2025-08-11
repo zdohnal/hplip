@@ -741,7 +741,7 @@ def merge_PDF_viewer(output,ocr):
 def check_pil():
     scanjet_flag = None
     try:
-        import PIL	
+        import PIL
     except ImportError as error:
         scanjet_flag=str(error)
 		#.split(' ')[-1]
@@ -752,7 +752,7 @@ def check_pil():
 def check_numpy():
     scanjet_flag = None
     try:
-        import numpy as np	
+        import numpy as np
     except ImportError as error:
         scanjet_flag=str(error)
 		#.split(' ')[-1]
@@ -763,7 +763,7 @@ def check_numpy():
 def check_opencv():
     scanjet_flag = None
     try:
-        import cv2	
+        import cv2
     except ImportError as error:
         scanjet_flag=str(error)
 		#.split(' ')[-1]
@@ -774,10 +774,10 @@ def check_opencv():
 def check_pypdfocr():
     scanjet_flag = None
     try:
-        import pypdfocr	
+        import pypdfocr
     except:
         try:
-            import ocrmypdf	
+            import ocrmypdf
         except:
             scanjet_flag=str("Error occurred")
     return scanjet_flag
@@ -785,7 +785,7 @@ def check_pypdfocr():
 def check_skimage():
     scanjet_flag = None
     try:
-        import skimage	
+        import skimage
     except ImportError as error:
         scanjet_flag=str(error)
 		
@@ -815,7 +815,7 @@ def check_tesserocr_imutils():
 def check_pypdf2():
     scanjet_flag = None
     try:
-        import PyPDF2	
+        import PyPDF2
     except ImportError as error:
         scanjet_flag=str(error)
 		#.split(' ')[-1]
@@ -829,7 +829,7 @@ def check_zbar():
     num = pyPlatform.split('.')   
     if num[0] < '3':
         try:
-            import zbar	
+            import zbar
         except ImportError as error:
             scanjet_flag=str(error)
 			#.split(' ')[-1]

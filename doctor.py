@@ -352,7 +352,7 @@ try:
     log.info(log.bold("\nDiagnose completed...\n"))
     log.info("")
     log.info("")
-    log.info("More information on Troubleshooting,How-To's and Support is available on http://hplipopensource.com/hplip-web/index.html")
+    log.info("More information on Troubleshooting,How-To's and Support is available on https://developers.hp.com/hp-linux-imaging-and-printing/index.html")
         
     clean_exit(0)
 

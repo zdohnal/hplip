@@ -308,6 +308,7 @@ dist_pcard_DATA = pcard/__init__.py pcard/photocard.py
 
 # pcardext
 pcardextdir = $(PYTHONEXECDIR)
+pcardextdir = $(PYTHONEXECDIR)
 pcardext_LTLIBRARIES = pcardext.la
 pcardext_la_LDFLAGS = -module -avoid-version
 pcardext_la_SOURCES = pcard/pcardext/pcardext.c pcard/fat.c

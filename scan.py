@@ -138,6 +138,7 @@ SANE_STATUS_MULTIPICK=12
 SANE_STATUS_JAMMED=6
 MAX_EDGE_ERASE_VALUE_INCH=1
 ProcessBW = False
+manual_duplex = False
 
 PAGE_SIZES = { # in mm
     '5x7' : (127, 178, "5x7 photo", 'mm'),
@@ -219,6 +220,31 @@ def createPagesFile(adf_page_files,pages_file,file_type='.png'):
                 im = im.convert("RGB")
                 im.save(output,compress_level=1,quality=55)
             os.unlink(p)
+            
+def start_scan(device, update_queue, event_queue, adf, multipick, multipick_error_message):
+    try:
+        ok, expected_bytes, status = device.startScan("RGBA", update_queue, event_queue)
+        log.debug("expected_bytes = %d" % expected_bytes)
+    except scanext.error as e:
+        handle_scan_error(e, adf, multipick, multipick_error_message)
+    except KeyboardInterrupt:
+        handle_keyboard_interrupt(device)
+    return ok, expected_bytes, status
+
+def handle_scan_error(e, adf, multipick, multipick_error_message):
+    if adf and e.args[0] == SANE_STATUS_MULTIPICK and multipick:
+        log.error(multipick_error_message)
+        sys.exit(2)
+    if adf and e.args[0] == SANE_STATUS_JAMMED:
+        log.error(multipick_error_message)
+        sys.exit(7)
+    sane.reportError(e.args[0])
+    sys.exit(1)
+
+def handle_keyboard_interrupt(device):
+    log.error("Aborted.")
+    device.cancelScan()
+    sys.exit(1)
 
 try:
     viewer = ''
@@ -347,7 +373,7 @@ try:
                               'color_value=','multipick','autoorient','blankpage',
                               'batchsepBP','mixedfeed', 'crushed', 'bg_color_removal',
                               'punchhole_removal','docmerge','adf_flatbed_merge',
-                              'batchsepBC','deskew','autocrop','backside','edge_erase_value=']
+                              'batchsepBC','deskew','autocrop','backside','edge_erase_value=','manual_duplex']
 
     mod.setUsage(module.USAGE_FLAG_DEVICE_ARGS, extra_options, see_also_list=[])
     opts, device_uri, printer_name, mode, ui_toolkit, lang = \
@@ -890,6 +916,12 @@ try:
             except ValueError:
                 log.error("Invalid Option.Using default of False")
                 uiscan = False
+        elif o == '--manual_duplex':
+            try:
+                manual_duplex = True	
+            except ValueError:
+                log.error("Invalid Option.Using default of False")
+                Manual_duplex = False
 
     if not dest:
         if uiscan == False:
@@ -1007,12 +1039,12 @@ try:
         elif len(source_option) == 3 and ('ADF-SinglePage' in source_option) and ('ADF-MultiPage-Simplex' in source_option) and ('ADF-MultiPage-Duplex' in source_option):
              log.debug("Device has only ADF support")
              adf = True
-        elif len(source_option) == 2 and ('ADF' in source_option) and ('Duplex' in source_option):
+        elif len(source_option) == 2 and (('ADF' in source_option) and ('Duplex' in source_option)) or ("Automatic Ducument Feeder" in source_option) :
              log.debug("Device has only ADF support")
              adf = True
         if adf:
             try:
-                if ('ADF' not in source_option) and ('ADF-SinglePage' not in source_option) and ('ADF-MultiPage-Simplex' not in source_option) and ('ADF-MultiPage-Duplex' not in source_option) and ('ADF Simplex' not in source_option) and ('ADF Duplex' not in source_option):
+                if ('ADF' not in source_option) and ('ADF-SinglePage' not in source_option) and ('ADF-MultiPage-Simplex' not in source_option) and ('ADF-MultiPage-Duplex' not in source_option) and ('ADF Simplex' not in source_option) and ('ADF Duplex' not in source_option) and ("Automatic Document Feeder" not in source_option):
                         log.error("Failed to set ADF mode. This device doesn't support ADF.")
                         sys.exit(1)               
                 else:
@@ -1038,6 +1070,8 @@ try:
                             device.setOption("source", "ADF-MultiPage-Simplex")
                         elif 'ADF Simplex' in source_option:
                             device.setOption("source", "ADF Simplex")
+                        elif ("Automatic Document Feeder" in source_option):
+                            device.setOption("source", "Automatic Document Feeder")
                         else:
                             device.setOption("source", "ADF")
                     device.setOption("batch-scan", True)
@@ -1303,22 +1337,9 @@ try:
 
                 try:
                     try:
-                        ok, expected_bytes, status = device.startScan("RGBA", update_queue, event_queue)
-                        # Note: On some scanners (Marvell) expected_bytes will be < 0 (if lines == -1)
-                        log.debug("expected_bytes = %d" % expected_bytes)
-                    except scanext.error as e:
-                        if adf and e.args[0] == SANE_STATUS_MULTIPICK and multipick:
-                            log.error(multipick_error_message)
-                            sys.exit(2)
-                        if adf and (e.args[0] == SANE_STATUS_JAMMED) :
-                            log.error(multipick_error_message)
-                            sys.exit(7)
-                        sane.reportError(e.args[0])
-                        sys.exit(1)
+                        ok, expected_bytes, status = start_scan(device, update_queue, event_queue, adf, multipick, multipick_error_message)
                     except KeyboardInterrupt:
-                        log.error("Aborted.")
-                        device.cancelScan()
-                        sys.exit(1)
+                        log.error("User exit")
                     if adf and status == scanext.SANE_STATUS_NO_DOCS:
                         if page-1 == 0:
                             if uiscan == False:
@@ -1326,7 +1347,32 @@ try:
                             sys.exit(3)
                         else:
                             if uiscan == False:
-                                log.info("Out of documents. Scanned %d pages total." % (page-1))
+                                if adf and manual_duplex == True:
+                                    user_input = input("After flipping the pages enter 'y' to continue").strip()
+                                    if user_input.lower() == 'y':
+                                        manual_duplex = False
+                                        try:
+                                            ok, expected_bytes, status = start_scan(device, update_queue, event_queue, adf, multipick, multipick_error_message)
+                                        except KeyboardInterrupt:
+                                            log.error("User exit")
+                                    else:
+                                        log.error("Aborted by user.")
+                                        sys.exit(1)
+                                if adf and status == scanext.SANE_STATUS_NO_DOCS:
+                                    if page-1 == 0:
+                                        if uiscan == False:
+                                            log.error("No document(s). Please load documents and try again.")
+                                            sys.exit(3)
+                                    else:
+                                        log.info("Out of documents. Scanned %d pages total." % (page-1))
+                                        no_docs = True
+                                        break
+                            else:
+                                if adf and manual_duplex == True:
+                                    log.info("scanned all pages from one side for manual duplex")
+                                    sys.exit(8)
+                                elif adf:
+                                    log.debug("Out of documents. Scanned %d pages total." % (page-1))
                             no_docs = True
                             break
                     if adf and status == SANE_STATUS_MULTIPICK:
@@ -1539,7 +1585,7 @@ try:
                                     barcode_index=barcode_index+1
                                     if page == 1:
                                         barcode_first_page = True
-                                    break;
+                                    break
                                 else:
                                     barcode_found=0
 
@@ -1567,7 +1613,8 @@ try:
                                             im = imageprocessing.convert_to_BW(im)
                                         else:
                                             im = im.convert("RGB")
-                                        im = imageprocessing.resize_to_scan_area(im,PAGE_SIZES[size],res)
+                                            
+                                        #im = imageprocessing.resize_to_scan_area(im,PAGE_SIZES[size],res)
                                 if barcode_count>0:
                                     if barcode_first_occurence == True:
                                         if barcode_first_page == False:
@@ -1671,12 +1718,13 @@ try:
         #for Flatbad 
         if im:    
             im = imageprocessing.resize_to_scan_area(im,PAGE_SIZES[size],res)
+        """
         #for ADF
         for Image_file in adf_page_files:
             image = Image.open(Image_file)
             resized_image = imageprocessing.resize_to_scan_area(image,PAGE_SIZES[size],res)
             resized_image.save(Image_file)
-
+        """
         if adf and (save_file =='jpg' or save_file == 'png' or save_file == 'tiff' or save_file == 'pdf' or save_file == 'bmp'):
             #print save_file
             #start = datetime.now()
@@ -2114,6 +2162,7 @@ try:
 except KeyboardInterrupt:
     log.error("User exit")
 
+
+
 log.info("")
 log.info("Done.")
-

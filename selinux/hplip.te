@@ -41,6 +41,7 @@ require {
 	class dbus { send_msg };
 	class unix_stream_socket { connectto };
 	class sock_file { write };
+	class process { execmem };
 }
 
 type_transition cupsd_t usr_t:file bin_t;
@@ -60,3 +61,6 @@ allow cupsd_t chkpwd_t:process { rlimitinh siginh noatsecure };
 allow cupsd_t snmpd_var_lib_t:dir { write };
 allow hplip_t home_root_t:dir { search };
 allow hplip_t unconfined_t:dbus { send_msg };
+
+# Required for almalinux
+allow cupsd_t cupsd_t:process execmem; 

@@ -158,7 +158,7 @@ try:
         if start_systray():
             send_message( device_uri, printer_name, EVENT_DIAGNOSE_PRINTQUEUE, username, job_id,'')
         else:
-            log.error("SMART INSTALL (CD/DVD-ROM) is enabled in the system. Refer http://hplipopensource.com/hplip-web/index.html for more information.")
+            log.error("SMART INSTALL (CD/DVD-ROM) is enabled in the system. Refer https://developers.hp.com/hp-linux-imaging-and-printing/index.html for more information.")
 
     # ******************************* TRIGGERING PLUGIN POP-UP FOR PLUGING SUPPORTED PRINTER'S
     plugin = mq.get('plugin', PLUGIN_NONE)

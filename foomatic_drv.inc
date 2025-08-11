@@ -47,6 +47,7 @@ foomatic_ppd_printers = \
     ppd/hpijs/hp-Deskjet_2800_series-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_professional_p1107w-hpijs.ppd.gz \
     ppd/hpijs/hp-photosmart_c6300_series-hpijs.ppd.gz \
+    ppd/hpijs/hp-envy_photo_7900_series-hpijs.ppd.gz \
     ppd/hpijs/hp-envy_5540_series-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_4300-pcl3-hpijs.ppd.gz \
     ppd/hpijs/hp-deskjet_895c-hpijs.ppd.gz \
@@ -221,6 +222,7 @@ foomatic_ppd_printers = \
     ppd/hpijs/hp-smart_tank_610_series-hpijs.ppd.gz \
     ppd/hpijs/hp-deskjet_3740-hpijs.ppd.gz \
     ppd/hpijs/hp-psc_1100_series-hpijs.ppd.gz \
+    ppd/hpijs/hp-envy_photo_7200_series-hpijs.ppd.gz \
     ppd/hpijs/hp-officejet_4500_k710-hpijs.ppd.gz \
     ppd/hpijs/hp-officejet_series_590-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_3392-hpijs.ppd.gz \
@@ -695,6 +697,7 @@ foomatic_ppd_printers = \
     ppd/hpijs/hp-deskjet_610c-hpijs.ppd.gz \
     ppd/hpijs/hp-officejet_7000_e809a_series-hpijs.ppd.gz \
     ppd/hpijs/hp-officejet_4105-hpijs.ppd.gz \
+    ppd/hpijs/hp-laserjet_pro_mfp_m126_plus_series-hpijs.ppd.gz \
     ppd/hpijs/hp-color_laserjet_cm2320n_mfp-pcl3-hpijs.ppd.gz \
     ppd/hpijs/hp-photosmart_b109a_series-hpijs.ppd.gz \
     ppd/hpijs/hp-deskjet_f4400_series-hpijs.ppd.gz \
@@ -877,6 +880,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-designjet_4000ps.ppd.gz \
     prnt/ps/hp-color_laserjet_pro_mfp_m476-ps.ppd.gz \
     prnt/ps/hp-pagewide_P77440_P77940-60-ps.ppd.gz \
+    prnt/ps/hp-designjet_xl_3800_mfp-ps.ppd.gz \
     prnt/ps/hp-designjet_z6200_60in_photo-ps.ppd.gz \
     prnt/ps/hp-laserjet_flow_e82650-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_pro_mfp_m477-ps.ppd.gz \

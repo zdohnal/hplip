@@ -89,7 +89,7 @@ RM="rm -f"
 
 DBUS_SERVICE='com.hplip.StatusService'
 
-HPLIP_WEB_SITE ="http://hplipopensource.com/hplip-web/index.html"
+HPLIP_WEB_SITE ="https://developers.hp.com/hp-linux-imaging-and-printing/index.html"
 HTTP_CHECK_TARGET = "http://www.hp.com"
 PING_CHECK_TARGET = "www.hp.com"
 
@@ -2316,13 +2316,14 @@ def check_network_via_ping(target):
         log.debug("ping not found")
     return status
 
-def check_network_connection(url=HTTP_CHECK_TARGET, ping_server=PING_CHECK_TARGET):
-    status = download_via_wget(url)
-    if (status != 0):
-        status = download_via_curl(url)
-        if (status != 0):
-            status = check_network_via_ping(ping_server)
-    return (status == 0)
+def check_network_connection(host = "www.hp.com", port=80):
+    import socket
+    try:
+        socket.setdefaulttimeout(10)
+        socket.create_connection((host, port))
+        return True
+    except OSError:
+        return False
 
 #Expands '*' in File/Dir names.
 def expandList(Files_List, prefix_dir=None):
