@@ -1312,6 +1312,9 @@
 :model "HP Dex MFP d52645"
 :status :good
 
+:model "HP Dex MFP d53052dn"
+:status :good
+
 :model "HP Dex MFP d731"
 :status :good
 
@@ -1795,6 +1798,12 @@
 :model "HP LaserJet 9065 Multifunction Printer"
 :status :good
 
+:model "HP LaserJet Enterprise Flow MFP 5602"
+:status :good
+
+:model "HP LaserJet Enterprise Flow MFP 6600zfw"
+:status :good
+
 :model "HP LaserJet Enterprise Flow MFP m528c"
 :status :good
 
@@ -1805,6 +1814,30 @@
 :status :good
 
 :model "HP LaserJet Enterprise Flow MFP m630z"
+:status :good
+
+:model "HP LaserJet Enterprise Flow MFP x53052"
+:status :good
+
+:model "HP LaserJet Enterprise Flow MFP x62757zs"
+:status :good
+
+:model "HP LaserJet Enterprise MFP 5601"
+:status :good
+
+:model "HP LaserJet Enterprise MFP 5601dn"
+:status :good
+
+:model "HP LaserJet Enterprise MFP 5602dn"
+:status :good
+
+:model "HP LaserJet Enterprise MFP 5602f"
+:status :good
+
+:model "HP LaserJet Enterprise MFP 6600"
+:status :good
+
+:model "HP LaserJet Enterprise MFP 6600dn"
 :status :good
 
 :model "HP LaserJet Enterprise MFP m430f"
@@ -1826,6 +1859,24 @@
 :status :good
 
 :model "HP LaserJet Enterprise MFP m630h"
+:status :good
+
+:model "HP LaserJet Enterprise MFP x52952"
+:status :good
+
+:model "HP LaserJet Enterprise MFP x52952dn"
+:status :good
+
+:model "HP LaserJet Enterprise MFP x53052"
+:status :good
+
+:model "HP LaserJet Enterprise MFP x53052dn"
+:status :good
+
+:model "HP LaserJet Enterprise MFP x62757"
+:status :good
+
+:model "HP LaserJet Enterprise MFP x62757dn"
 :status :good
 
 :model "HP LaserJet m1005 Multifunction Printer"

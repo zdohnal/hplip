@@ -185,6 +185,7 @@ def getFamilyClassName(model):
         if f in family_type:
            return f
 
+#************************************************************
 def getPpdName(model):
     """
     get ppds from models.dat for postscript printers
@@ -197,7 +198,7 @@ def getPpdName(model):
     
     for m in dict:
         if model in m:
-          print('dict[m]',dict[m])
+          #print('dict[m]',dict[m])
           key = 'ppd-name'
           
           if key in dict[m].keys():
@@ -218,6 +219,7 @@ def getPpdName(model):
           pass
     return ppd_name
            
+#************************************************
 def isfamilydrv(ppds):
     family_check=0
     #for f in ppds:
@@ -247,6 +249,7 @@ def getPPDPath(addtional_paths=None):
     for path in search_paths:
         ppd_path = os.path.join(path, 'cups/model')
         if os.path.exists(ppd_path):
+            
             return ppd_path
 
 def getPPDPath1(addtional_paths=None):
@@ -264,6 +267,7 @@ def getPPDPath1(addtional_paths=None):
             
             
     return ppd_path
+#****************************************
 
 def getAllowableMIMETypes():
     """
@@ -318,74 +322,76 @@ def getPPDDescription(f):
 
 def getSystemPPDs():
     major, minor, patch = getVersionTuple()
-    ppds = {} # {'ppd name' : 'desc', ...}
-
+    ppds = {}  # {'ppd path': 'desc', ...}
+ 
     if major == 1 and minor < 2:
         ppd_dir = sys_conf.get('dirs', 'ppd')
         log.debug("(CUPS 1.1.x) Searching for PPDs in: %s" % ppd_dir)
-
+ 
         for f in utils.walkFiles(ppd_dir, pattern="HP*ppd*;hp*ppd*", abs_paths=True):
             desc = getPPDDescription(f)
-
-            if not ('foo2' in desc or
-                    'gutenprint' in desc.lower() or
-                    'gutenprint' in f):
-
+            if not ('foo2' in desc or 'gutenprint' in desc.lower() or 'gutenprint' in f):
                 ppds[f] = desc
                 log.debug("%s: %s" % (f, desc))
-
-    else: # 1.2.x
+ 
+    else:  # CUPS 1.2.x or later
         log.debug("(CUPS 1.2.x) Getting list of PPDs using CUPS_GET_PPDS...")
         ppd_dict = cupsext.getPPDList()
-        cups_ppd_path = getPPDPath() # usually /usr/share/cups/model
+        cups_ppd_path = getPPDPath()  # usually /usr/share/cups/model
         foomatic_ppd_path = sys_conf.get('dirs', 'ppdbase', '/usr/share/ppd')
-
+ 
         if not foomatic_ppd_path or not os.path.exists(foomatic_ppd_path):
             foomatic_ppd_path = '/usr/share/ppd'
-
+ 
         log.debug("CUPS PPD base path = %s" % cups_ppd_path)
         log.debug("Foomatic PPD base path = %s" % foomatic_ppd_path)
-
+ 
+        model_ppds = []
+        drv_ppds = []
+ 
         for ppd in ppd_dict:
             if not ppd:
                 continue
-
-            if 'hp-' in ppd.lower() or 'hp_' in ppd.lower() and \
-                ppd_dict[ppd]['ppd-make'] == 'HP':
-
-                desc = ppd_dict[ppd]['ppd-make-and-model']
-
-                if not ('foo2' in desc.lower() or
-                        'gutenprint' in desc.lower() or
-                        'gutenprint' in ppd):
-
-                    # PPD files returned by CUPS_GET_PPDS (and by lpinfo -m)
-                    # can be relative to /usr/share/ppd/ or to
-                    # /usr/share/cups/model/. Not sure why this is.
-                    # Here we will try both and see which one it is...
-
-                    if os.path.exists(ppd):
+ 
+            if ('hp-' in ppd.lower() or 'hp_' in ppd.lower()) and ppd_dict[ppd].get('ppd-make') == 'HP':
+                desc = ppd_dict[ppd].get('ppd-make-and-model', '')
+ 
+                if 'foo2' in desc.lower() or 'gutenprint' in desc.lower() or 'gutenprint' in ppd.lower():
+                    continue
+ 
+                # Determine full path
+                if os.path.exists(ppd):
+                    path = ppd
+                else:
+                    try:
+                        path = os.path.join(foomatic_ppd_path, ppd)
+                    except AttributeError:
                         path = ppd
                     else:
-                        try:
-                            path = os.path.join(foomatic_ppd_path, ppd)
-                        except AttributeError: # happens on some boxes with provider: style ppds (foomatic: etc)
-                            path = ppd
-                        else:
-                            if not os.path.exists(path):
-                                try:
-                                    path = os.path.join(cups_ppd_path, ppd)
-                                except AttributeError:
+                        if not os.path.exists(path):
+                            try:
+                                path = os.path.join(cups_ppd_path, ppd)
+                            except AttributeError:
+                                path = ppd
+                            else:
+                                if not os.path.exists(path):
                                     path = ppd
-                                else:
-                                    if not os.path.exists(path):
-                                        path = ppd # foomatic: or some other driver
-
-                    ppds[path] = desc
-                    #log.debug("%s: %s" % (path, desc))
-
+ 
+                # Separate drv and model ppds
+                if path.startswith("/usr/share/cups/model/hp/"):
+                    model_ppds.append((path, desc))
+                elif path.startswith("drv:///"):
+                    drv_ppds.append((path, desc))
+                else:
+                    model_ppds.append((path, desc))  # include other non-drv entries
+ 
+        selected_ppds = model_ppds if model_ppds else drv_ppds
+ 
+        for path, desc in selected_ppds:
+            ppds[path] = desc
+            log.debug("%s: %s" % (path, desc))
+ 
     return ppds
-
 
 ## TODO: Move this to CUPSEXT for better performance
 def levenshtein_distance(a,b):

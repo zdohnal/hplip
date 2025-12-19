@@ -37,18 +37,23 @@ def execute(cmd):
         try:
             # Use shlex.split to safely split the command into arguments
             args = shlex.split(cmd)
-            result = subprocess.run(args, check=True)
-            return result.returncode
+            process = subprocess.Popen(args,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            process.wait()
+            stdout, stderr = process.communicate()
+            log.debug(f"Command executed: {cmd}\n{stdout.decode()}") 
+            if process.returncode != 0:
+                error_message = f"Command failed with return code {process.returncode}: {cmd}\n{stderr.decode()}"
+                log.error(error_message)
+            return process.returncode
         except subprocess.CalledProcessError as e:
-            error_message = "Command failed with return code %d: %s\n%s" % (e.returncode, cmd, e.stderr.decode())
+            error_message = f"Command failed with return code {e.returncode}: {cmd}\n{e.stderr.decode()}"
             log.error(error_message)
             return e.returncode
         except Exception as e:
-            error_message = "Error executing command: %s\n%s" % (cmd, str(e))
-            log.error(error_message)
+            log.error(f"Error executing command: {cmd}\n{str(e)}")
             return 127
     else:
-        log.error("Command not found: %s\n" % cmd)
+        log.error(f"Command not found: {cmd}\n")
         return 127
 
 

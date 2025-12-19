@@ -552,7 +552,7 @@ else: # INTERACTIVE_MODE
                         if os.path.exists(file_path) and os.path.isfile(file_path):
 
                             if file_path.endswith('.gz'):
-                                nickname = gzip.GzipFile(file_path, 'r').read(4096)
+                                nickname = gzip.GzipFile(file_path, 'r').read(4096).decode("utf-8")
                             else:
                                 nickname = open(file_path, 'r').read(4096)
 

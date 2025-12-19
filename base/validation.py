@@ -42,7 +42,7 @@ class DigiSign_Verification(object):
 
 
 class GPG_Verification(DigiSign_Verification):
-    def __init__(self, pgp_site = 'pgp.mit.edu', key = 0x4ABA2F66DBD5A95894910E0673D770CDA59047B9):
+    def __init__(self, pgp_site = 'hkp://keyserver.ubuntu.com:80', key = 0x82FFA7C6AA7411D934BDE173AC69536A2CF3A243):
         self.__pgp_site = pgp_site
         self.__key = key
         self.__gpg = utils.which('gpg',True)

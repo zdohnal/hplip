@@ -725,17 +725,17 @@ def merge_PDF_viewer(output,ocr):
 
         if os.path.isfile(output_ocr):
             log.debug("OCR successful")
-            cmd = pdf_viewer + "  " + output_ocr + " " + "&"
+            cmd = pdf_viewer + "  " + output_ocr 
             #OCR was successful so delete the non-ocr original output
             os.unlink(output)
         else:
             log.debug("OCR failed to generate, returning original file")
-            cmd = pdf_viewer + "  " + output + " " + "&"
+            cmd = pdf_viewer + "  " + output
         
         os_utils.execute(cmd)
     else:
         log.debug("OCR was not called, returning original file")
-        cmd = pdf_viewer + "  " + output + " " + "&"           
+        cmd = pdf_viewer + "  " + output           
         os_utils.execute(cmd)
 
 def check_pil():

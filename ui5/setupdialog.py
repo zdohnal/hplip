@@ -25,7 +25,7 @@ import socket
 import operator
 import subprocess
 import signal
-
+import configparser
 # Local
 from base.g import *
 from base import device, utils, models, pkit
@@ -77,6 +77,7 @@ DEVICE_DESC_ALL = 0
 DEVICE_DESC_SINGLE_FUNC = 1
 DEVICE_DESC_MULTI_FUNC = 2
 
+CONFIG_FILE="/etc/hp/hplip.conf"
 
 class PasswordDialog(QDialog):
     def __init__(self, prompt, parent=None, name=None, modal=0, fl=0):
@@ -776,38 +777,54 @@ class SetupDialog(QDialog, Ui_Dialog):
             self.setAddPrinterButton()
 
     def findPrinterPPD(self):
-        """
-        for ubuntu 20.10 not able get ppd list from cups server.
-        so fetching ppds hplip ppds directly
-        """
         QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
+        """
+        Postscript devices specify the ppd file directly in models.dat key ppd_name
+        There is no need to search for it.
+        """
+        found_ps_ppd = False
+        config = configparser.ConfigParser()
+        # parse the system PPD path from hplip.config file 
         try:
-            self.ppds = cups.getSystemPPDs()
-            self.ppd_name = ""
-            # if ppd list from cups server is empty searching for hplip ppds.
-            if not self.ppds:
-                ppdName = cups.getPpdName(self.model)
-                self.path = cups.getPPDPath1()
-                # path for hplip ppds in local system
-                self.ppd_name = str(self.path + '/' + ppdName)
-                self.print_ppd = (self.ppd_name, '')
+            config.read(CONFIG_FILE)
+            sys_ppd_path = config.get("dirs", "ppd")
+        except Exception as e:
+            log.error("Error reading config file: %s" % e)
+            sys_ppd_path = "/usr/share/ppd/HP"
+        
+        try:
+            ppdName = cups.getPpdName(self.model).strip()
+            if (os.path.exists(sys_ppd_path + ppdName)):
+                self.print_ppd = (sys_ppd_path + ppdName, '')
+                found_ps_ppd = True
+        except Exception as e:
+            log.error("Error finding postscript printer PPD. trying system PPD: %s" % e)  
 
-            else:
-                ppd_name = self.mq.get('ppd-name',0)
-                log.debug("ppd_name = %s"%ppd_name)
-                if(ppd_name):
-                    for ppd,desc in self.ppds.items():
-                        if ppd_name in ppd:
-                            self.print_ppd = (ppd,desc)
-                            print(self.print_ppd)
-                else:
-                    self.print_ppd = cups.getPPDFile2(self.mq, self.model, self.ppds)
-
-            if "scanjet" in self.model or "digital_sender" in self.model:
+        if not found_ps_ppd:
+            try:
                 self.print_ppd = None
+                self.ppds = cups.getSystemPPDs()
+                self.ppd_name = ""
+                # if ppd list from cups server is empty searching for hplip ppds.
+                if not self.ppds:
+                    ppdName = cups.getPpdName(self.model)
+                    self.path = cups.getPPDPath1()
+                    # path for hplip ppds in local system
+                    self.ppd_name = str(self.path + '/' + ppdName)
+                    self.print_ppd = (self.ppd_name, '')
 
-        finally:
-            QApplication.restoreOverrideCursor()
+           
+                else:
+
+                    self.print_ppd = cups.getPPDFile2(
+                        self.mq, self.model, self.ppds)
+
+                if "scanjet" in self.model or "digital_sender" in self.model:
+                    self.print_ppd = None
+
+            finally:
+                QApplication.restoreOverrideCursor()
+        QApplication.restoreOverrideCursor()
 
     def findFaxPPD(self):
         QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
