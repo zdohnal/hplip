@@ -31,7 +31,7 @@ from .g import *
 from . import device, utils
 from .sixext import to_bytes_utf8
 
-http_result_pat = re.compile("""HTTP/\d.\d\s(\d+)""", re.I)
+http_result_pat = re.compile(r"""HTTP/\d.\d\s(\d+)""", re.I)
 HTTP_OK = 200
 HTTP_ACCEPTED = 202
 HTTP_NOCONTENT = 204

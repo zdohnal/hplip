@@ -81,19 +81,31 @@ void Hbpl1Wrapper::FreeStripBuffer(void)
 
 DRIVER_ERROR Hbpl1Wrapper::StartJob(void **pOutBuffer, int *pOutBufferSize)
 {
-    DRIVER_ERROR    err = NO_ERROR;
-
-    m_pPCLmGenerator->StartJob(pOutBuffer,pOutBufferSize,false);
-    return err;
+    int ret = m_pPCLmGenerator->StartJob(pOutBuffer,pOutBufferSize,false);
+    if (ret != success)
+    {
+        if (pOutBuffer)
+            *pOutBuffer = NULL;
+        if (pOutBufferSize)
+            *pOutBufferSize = 0;
+        return SYSTEM_ERROR;
+    }
+    return NO_ERROR;
 }
 
 
 DRIVER_ERROR Hbpl1Wrapper::EndJob(void **pOutBuffer, int *pOutBufferSize)
 {
-    DRIVER_ERROR    err = NO_ERROR;
-
-    m_pPCLmGenerator->EndJob(pOutBuffer,pOutBufferSize);
-    return err;
+    int ret = m_pPCLmGenerator->EndJob(pOutBuffer,pOutBufferSize);
+    if (ret != success)
+    {
+        if (pOutBuffer)
+            *pOutBuffer = NULL;
+        if (pOutBufferSize)
+            *pOutBufferSize = 0;
+        return SYSTEM_ERROR;
+    }
+    return NO_ERROR;
 }
 
 
@@ -177,8 +189,15 @@ DRIVER_ERROR Hbpl1Wrapper::StartPage(void **pOutBuffer, int *pOutBufferSize)
 
 	PCLmPageContent.duplexDisposition = (duplexDispositionEnum)o_Hbpl1->m_JA.args_duplex_mode;
 
-	m_pPCLmGenerator->StartPage(&PCLmSContent,true,pOutBuffer,pOutBufferSize);
-
+    int ret = m_pPCLmGenerator->StartPage(&PCLmSContent,true,pOutBuffer,pOutBufferSize);
+    if (ret != success)
+    {
+        if (pOutBuffer)
+            *pOutBuffer = NULL;
+        if (pOutBufferSize)
+            *pOutBufferSize = 0;
+        return SYSTEM_ERROR;
+    }
 
     return err;
 }
@@ -186,9 +205,16 @@ DRIVER_ERROR Hbpl1Wrapper::StartPage(void **pOutBuffer, int *pOutBufferSize)
 
 DRIVER_ERROR Hbpl1Wrapper::EndPage(void **pOutBuffer, int *pOutBufferSize)
 {
-    DRIVER_ERROR    err = NO_ERROR;
-    m_pPCLmGenerator->EndPage(pOutBuffer, pOutBufferSize);
-    return err;
+    int ret = m_pPCLmGenerator->EndPage(pOutBuffer, pOutBufferSize);
+    if (ret != success)
+    {
+        if (pOutBuffer)
+            *pOutBuffer = NULL;
+        if (pOutBufferSize)
+            *pOutBufferSize = 0;
+        return SYSTEM_ERROR;
+    }
+    return NO_ERROR;
 }
 
 
@@ -199,9 +225,16 @@ DRIVER_ERROR Hbpl1Wrapper::FormFeed()
 
 DRIVER_ERROR Hbpl1Wrapper::Encapsulate (void *pInBuffer, int inBufferSize, int numLines, void **pOutBuffer, int *pOutBufferSize)
 {
-    DRIVER_ERROR    err = NO_ERROR;
-    m_pPCLmGenerator->Encapsulate(pInBuffer, inBufferSize, numLines, pOutBuffer, pOutBufferSize);
-    return err;
+    int ret = m_pPCLmGenerator->Encapsulate(pInBuffer, inBufferSize, numLines, pOutBuffer, pOutBufferSize);
+    if (ret != success)
+    {
+        if (pOutBuffer)
+            *pOutBuffer = NULL;
+        if (pOutBufferSize)
+            *pOutBufferSize = 0;
+        return SYSTEM_ERROR;
+    }
+    return NO_ERROR;
 }
 
 DRIVER_ERROR Hbpl1Wrapper::SkipLines   (int iSkipLines)

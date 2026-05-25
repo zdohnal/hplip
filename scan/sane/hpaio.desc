@@ -655,6 +655,12 @@
 :model "HP Deskjet 2800e All-in-one Printer Series"
 :status :good
 
+:model "HP Deskjet 2900 All-in-one Printer Series"
+:status :good
+
+:model "HP Deskjet 2900e All-in-one Printer Series"
+:status :good
+
 :model "HP Deskjet 3050 j610 Series"
 :status :good
 
@@ -743,6 +749,12 @@
 :status :good
 
 :model "HP Deskjet 4200e All-in-one Printer Series"
+:status :good
+
+:model "HP Deskjet 4300 All-in-one Printer Series"
+:status :good
+
+:model "HP Deskjet 4300e All-in-one Printer Series"
 :status :good
 
 :model "HP Deskjet f2110 All-in-one Printer"
@@ -1102,6 +1114,9 @@
 :model "HP Deskjet Ink Advantage 2800 All-in-one Printer Series"
 :status :good
 
+:model "HP Deskjet Ink Advantage 2900 All-in-one Printer Series"
+:status :good
+
 :model "HP Deskjet Ink Advantage 3515 E-all-in-one"
 :status :good
 
@@ -1154,6 +1169,9 @@
 :status :good
 
 :model "HP Deskjet Ink Advantage 4200 All-in-one Printer Series"
+:status :good
+
+:model "HP Deskjet Ink Advantage 4300 All-in-one Printer Series"
 :status :good
 
 :model "HP Deskjet Ink Advantage 4515 E-all-in-one Printer"
@@ -1246,10 +1264,16 @@
 :model "HP Deskjet Ink Advantage Ultra 4800 All-in-one Printer Series"
 :status :good
 
+:model "HP Deskjet Ink Advantage Ultra 5100 All-in-one Printer Series"
+:status :good
+
 :model "HP Deskjet Ink Advantage Ultra 5738 All-in-one Printer"
 :status :good
 
 :model "HP Deskjet Ink Advantage Ultra 5739 All-in-one Printer"
+:status :good
+
+:model "HP Deskjet Ink Advantage Ultra 5800 All-in-one Printer Series"
 :status :good
 
 :model "HP Deskjet Plus 4100 All-in-one Printer Series"

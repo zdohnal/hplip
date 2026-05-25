@@ -258,6 +258,7 @@ def http_post_req(dev, URI, data_json ,auth = None):
 
 #Patch Request
 def http_patch_req(dev, URI, data):
+    readtimeout = 15
     global token
     data_json = json.dumps(data)
 
@@ -269,7 +270,7 @@ def http_patch_req(dev, URI, data):
     dev.writeEWS_LEDM(data_json)
     reply = xStringIO()
     try:
-        dev.readLEDMData(dev.readEWS_LEDM,reply)
+        dev.readLEDMData(dev.readEWS_LEDM,reply,readtimeout)
         reply.seek(0)  
         response = http_client.HTTPResponse(reply)
         result = 10
@@ -314,28 +315,35 @@ def http_get_req(dev, URI):
 
 def eth_connect_check(dev):
     global adaptorId
-    data, respcode = http_get_req(dev, adaptorId)
+    rdata, respcode = http_get_req(dev, adaptorId)
     if not(respcode == HTTP_OK):
         log.debug("Request Failed With Response Code %d" % respcode)
-        return
-    data = json.loads(data.strip())
+        return False
+    try:
+        data = json.loads(rdata.strip())
+    except json.JSONDecodeError:
+        log.debug("JSON Decode Error, response was: %s" % rdata)
+    except Exception as e:
+        log.debug("Unexpected error while decoding JSON: %s" % str(e))
+        return False
     #data = ast.literal_eval(json.dumps(data))
 
     rdata=""
     max_tries = 0
-    while max_tries < MAX_RETRIES:
+    while max_tries < MAX_RETRIES and data.get('connectionState') != 'connected':
         max_tries += 1
-        if data['connectionState'] == 'connected':
-            break
         time.sleep(5)
         rdata, respcode = http_get_req(dev, adaptorId)
-        if not(respcode == HTTP_OK):
-            log.debug("Request Failed With Response Code %d" % respcode)
-            return
+        if respcode != HTTP_OK or not rdata:
+            log.debug("Request Failed With Response Code %s" % respcode)
+            return False
+        try:
+            data = json.loads(rdata.strip())
+        except Exception:
+            log.debug("Invalid/empty JSON in eth_connect_check retry response")
+            return False
 
-    data = json.loads(rdata.strip())
-    data = ast.literal_eval(json.dumps(data))
-    return (data['connectionState'] == 'connected')
+    return data.get('connectionState') == 'connected'
 
 def getHostname(dev):
     global hostname

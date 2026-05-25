@@ -543,17 +543,11 @@ int HPCupsFilter::StartPrintJob(int  argc, char *argv[])
     snprintf(m_JA.job_start_time, sizeof(m_JA.job_start_time),"Mon Dec  9 17:48:58:586 2013" );
 #endif
    
-    if((strstr(argv[5],"Duplex=DuplexTumble")) || (strstr(argv[5],"sides=two-sided-short-edge"))  )
+    if((strstr(argv[5],"Duplex=DuplexTumble")) || (strstr(argv[5],"Duplex=DuplexNoTumble")) || (strstr(argv[5],"sides=two-sided-short-edge")) || (strstr(argv[5],"sides=two-sided-long-edge")) )
 
     {
-        m_JA.args_duplex_mode = 2; // short edge duplex 
+        m_JA.args_duplex_mode = 2; // short edge duplex always
     }
-
-    else if ((strstr(argv[5],"Duplex=DuplexNoTumble")) || (strstr(argv[5],"sides=two-sided-long-edge")) )
-    {
-        m_JA.args_duplex_mode = 1; // long edge duplex
-    }
-    
     else
     {
         m_JA.args_duplex_mode = 0; // simplex

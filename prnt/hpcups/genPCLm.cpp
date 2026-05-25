@@ -131,6 +131,7 @@
 #include <fcntl.h>
 #include <assert.h>
 #include <math.h>
+#include <limits.h>
 #include <zlib.h>
 //#include <unistd.h>
 
@@ -1670,7 +1671,12 @@ int  PCLmGenerator::StartPage(PCLmPageSetup *PCLmPageContent, void **pOutBuffer,
 	destColorSpace=PCLmPageContent->dstColorSpaceSpefication;
 
 	// Calculate how large the output buffer needs to be based upon the page specifications
-	int tmp_outBuffSize=mediaWidthInPixels*currStripHeight*dstNumComponents;
+	int tmp_outBuffSize=0;
+	if(!safe_mul_int_positive(mediaWidthInPixels,currStripHeight,&tmp_outBuffSize) ||
+	   !safe_mul_int_positive(tmp_outBuffSize,dstNumComponents,&tmp_outBuffSize))
+	{
+		return(errorOutAndCleanUp());
+	}
 
 	if(tmp_outBuffSize>currOutBuffSize)
 	{
@@ -1738,7 +1744,14 @@ int  PCLmGenerator::StartPage(PCLmPageSetup *PCLmPageContent, void **pOutBuffer,
 	{
 		// We need to pad the scratchBuffer size to allow for compression expansion (RLE can create
 		// compressed segments that are slightly larger than the source.
-		scratchBuffer=(ubyte*)malloc(currStripHeight*mediaWidthInPixels*srcNumComponents*2);
+		size_t scratchSize=0;
+		if(currStripHeight<=0 || mediaWidthInPixels<=0 || srcNumComponents<=0 ||
+		   !safe_mul_size_t((size_t)currStripHeight, (size_t)mediaWidthInPixels, &scratchSize) ||
+		   !safe_mul_size_t(scratchSize, (size_t)srcNumComponents, &scratchSize) ||
+		   !safe_mul_size_t(scratchSize, 2u, &scratchSize))
+			return(errorOutAndCleanUp());
+
+		scratchBuffer=(ubyte*)malloc(scratchSize);
 		if(!scratchBuffer)
 			return(errorOutAndCleanUp());
 		/*if(DebugIt2)
@@ -1794,7 +1807,9 @@ int  PCLmGenerator::SkipLines(int iSkipLines)
 int  PCLmGenerator::Encapsulate(void *pInBuffer, int inBufferSize, int thisHeight, void **pOutBuffer, int *iOutBufferSize)
 {
 	int result=0, numCompBytes;
-	int scanlineWidth=mediaWidthInPixels*srcNumComponents;
+	int scanlineWidth=0;
+	if(!safe_mul_int_positive(mediaWidthInPixels, srcNumComponents, &scanlineWidth))
+		return(errorOutAndCleanUp());
 	int compSize;
 	// int numLinesThisCall=inBufferSize/(currSourceWidth*srcNumComponents);
 	int numLinesThisCall=thisHeight;
@@ -1884,7 +1899,8 @@ int  PCLmGenerator::Encapsulate(void *pInBuffer, int inBufferSize, int thisHeigh
 	{
 		colorConvertSource(sourceColorSpace, grayScale, (ubyte*)localInBuffer, currSourceWidth, numLinesThisCall);
 		// Adjust the scanline width accordingly
-		scanlineWidth = mediaWidthInPixels * dstNumComponents;
+		if(!safe_mul_int_positive(mediaWidthInPixels, dstNumComponents, &scanlineWidth))
+			return(errorOutAndCleanUp());
 	}
 
 	if(leftMarginInPix)
@@ -1899,7 +1915,11 @@ int  PCLmGenerator::Encapsulate(void *pInBuffer, int inBufferSize, int thisHeigh
 	}
 
 #ifdef SUPPORT_WHITE_STRIPS
-	bool whiteStrip=isWhiteStrip(pInBuffer, thisHeight*currSourceWidth*srcNumComponents);
+	int whiteStripLen=0;
+	if(!safe_mul_int_positive(thisHeight, currSourceWidth, &whiteStripLen) ||
+	   !safe_mul_int_positive(whiteStripLen, srcNumComponents, &whiteStripLen))
+		return(errorOutAndCleanUp());
+	bool whiteStrip=isWhiteStrip(pInBuffer, whiteStripLen);
 	if(DebugIt2)
 	{
 		if(whiteStrip){
@@ -1918,9 +1938,14 @@ int  PCLmGenerator::Encapsulate(void *pInBuffer, int inBufferSize, int thisHeigh
 		if(firstStrip && topMarginInPix)
 		{
 			ubyte whitePt=0xff;
+			size_t tmpStripSize=0;
+			if(!safe_mul_size_t((size_t)scanlineWidth, (size_t)topMarginInPix, &tmpStripSize))
+				return(errorOutAndCleanUp());
 
-			ubyte *tmpStrip=(ubyte*)malloc(scanlineWidth*topMarginInPix);
-			memset(tmpStrip,whitePt,scanlineWidth*topMarginInPix);
+			ubyte *tmpStrip=(ubyte*)malloc(tmpStripSize);
+			if(!tmpStrip)
+				return(errorOutAndCleanUp());
+			memset(tmpStrip,whitePt,tmpStripSize);
 
 
 			for(sint32 stripCntr=0; stripCntr<numFullInjectedStrips;stripCntr++)
@@ -1985,17 +2010,25 @@ int  PCLmGenerator::Encapsulate(void *pInBuffer, int inBufferSize, int thisHeigh
 	}
 	else if(currCompressionDisposition==compressFlate)
 	{
-		uint32 len=numLinesThisCall*scanlineWidth;
+		int sourceLen=0;
+		if(!safe_mul_int_positive(numLinesThisCall, scanlineWidth, &sourceLen))
+			return(errorOutAndCleanUp());
+		uint32 len=(uint32)sourceLen;
 		uLongf destSize=len;
 
 		if(firstStrip && topMarginInPix)
 		{
 			ubyte whitePt=0xff;
+			size_t tmpStripSize=0;
+			if(!safe_mul_size_t((size_t)scanlineWidth, (size_t)topMarginInPix, &tmpStripSize))
+				return(errorOutAndCleanUp());
 
 			// We need to inject a blank image-strip with a height==topMarginInPix
-			ubyte *tmpStrip=(ubyte*)malloc(scanlineWidth*topMarginInPix);
+			ubyte *tmpStrip=(ubyte*)malloc(tmpStripSize);
+			if(!tmpStrip)
+				return(errorOutAndCleanUp());
 			uLongf tmpDestSize=destSize;
-			memset(tmpStrip,whitePt,scanlineWidth*topMarginInPix);
+			memset(tmpStrip,whitePt,tmpStripSize);
 
 			for(sint32 stripCntr=0; stripCntr<numFullInjectedStrips;stripCntr++)
 			{
@@ -2013,12 +2046,12 @@ int  PCLmGenerator::Encapsulate(void *pInBuffer, int inBufferSize, int thisHeigh
 
 		if(newStripPtr)
 		{
-        result=compress((Bytef*)scratchBuffer,&destSize,(const Bytef*)newStripPtr,scanlineWidth*numLinesThisCall);
+			result=compress((Bytef*)scratchBuffer,&destSize,(const Bytef*)newStripPtr,(uLong)sourceLen);
         if(DebugIt2)
           writeOutputFile(destSize, scratchBuffer, m_pPCLmSSettings->user_name);
         if(DebugIt2)
         {
-          dbglog("Allocated zlib dest buffer of size %d\n",numLinesThisCall*scanlineWidth);
+		  dbglog("Allocated zlib dest buffer of size %d\n",sourceLen);
           dbglog("zlib compression return result=%d, compSize=%d\n",result,(int)destSize);
         }
 			free(newStripPtr);
@@ -2026,12 +2059,12 @@ int  PCLmGenerator::Encapsulate(void *pInBuffer, int inBufferSize, int thisHeigh
 		}
 		else
       {
-        result=compress((Bytef*)scratchBuffer, &destSize, (const Bytef*)localInBuffer, scanlineWidth*numLinesThisCall);
+		result=compress((Bytef*)scratchBuffer, &destSize, (const Bytef*)localInBuffer, (uLong)sourceLen);
         if(DebugIt2)
           writeOutputFile(destSize, scratchBuffer, m_pPCLmSSettings->user_name);
         if(DebugIt2)
         {
-          dbglog("Allocated zlib dest buffer of size %d\n",numLinesThisCall*scanlineWidth);
+		  dbglog("Allocated zlib dest buffer of size %d\n",sourceLen);
           dbglog("zlib compression return result=%d, compSize=%d\n",result,(int)destSize);
         }
 		}
@@ -2040,14 +2073,23 @@ int  PCLmGenerator::Encapsulate(void *pInBuffer, int inBufferSize, int thisHeigh
 
 	else if(currCompressionDisposition==compressRLE)
 	{
+		int sourceLen=0;
+		if(!safe_mul_int_positive(numLinesThisCall, scanlineWidth, &sourceLen))
+			return(errorOutAndCleanUp());
+
 		if(firstStrip && topMarginInPix)
 		{
 			ubyte whitePt=0xff;
+			size_t tmpStripSize=0;
+			if(!safe_mul_size_t((size_t)scanlineWidth, (size_t)topMarginInPix, &tmpStripSize))
+				return(errorOutAndCleanUp());
 
 			// We need to inject a blank image-strip with a height==topMarginInPix
 
-			ubyte *tmpStrip=(ubyte*)malloc(scanlineWidth*topMarginInPix);
-			memset(tmpStrip,whitePt,scanlineWidth*topMarginInPix);
+			ubyte *tmpStrip=(ubyte*)malloc(tmpStripSize);
+			if(!tmpStrip)
+				return(errorOutAndCleanUp());
+			memset(tmpStrip,whitePt,tmpStripSize);
 
 			for(sint32 stripCntr=0; stripCntr<numFullInjectedStrips;stripCntr++)
 			{
@@ -2067,16 +2109,16 @@ int  PCLmGenerator::Encapsulate(void *pInBuffer, int inBufferSize, int thisHeigh
 
 		if(newStripPtr)
 		{
-			compSize=HPRunLen_Encode((ubyte*)newStripPtr, scratchBuffer, scanlineWidth*numLinesThisCall);
+			compSize=HPRunLen_Encode((ubyte*)newStripPtr, scratchBuffer, sourceLen);
 			free(newStripPtr);
 			newStripPtr = NULL;
 		}
 		else
-			compSize=HPRunLen_Encode((ubyte*)localInBuffer, scratchBuffer, scanlineWidth*numLinesThisCall);
+			compSize=HPRunLen_Encode((ubyte*)localInBuffer, scratchBuffer, sourceLen);
 
 		if(DebugIt2)
 		{
-			dbglog("Allocated rle dest buffer of size %d\n",numLinesThisCall*scanlineWidth);
+			dbglog("Allocated rle dest buffer of size %d\n",sourceLen);
 			dbglog("rle compression return size=%d=%d\n",result,(int)compSize);
 		}
 		injectRLEStrip(scratchBuffer, compSize, mediaWidthInPixels, numLinesThisCall, destColorSpace, whiteStrip);

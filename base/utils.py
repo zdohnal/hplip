@@ -505,7 +505,7 @@ def sort_dict_by_value(d):
 
 
 def commafy(val):
-    return locale.format("%s", val, grouping=True)
+    return locale.format_string("%s", val, grouping=True)
 
 
 def format_bytes(s, show_bytes=False):
@@ -2359,11 +2359,10 @@ def check_pkg_mgr( package_mgrs = None):
     log.debug("Not found")
     return (0, '')
 
-# checks if given process is running.
-#return value:
-#    True or False
-#    None - if process is not running
-#    grep output - if process is running
+# Check whether any running process command line contains the requested name.
+# Return value:
+#    (True, {pid: cmdline, ...}) when one or more matching processes are found
+#    (False, {}) when no matching process is found or enumeration fails
 
 def Is_Process_Running(process_name):
     if not process_name:
@@ -2371,28 +2370,27 @@ def Is_Process_Running(process_name):
 
     try:
         process = {}
-        p1 = Popen(["ps", "-w", "-w", "aux"], stdout=PIPE)
-        p2 = Popen(["grep", process_name], stdin=p1.stdout, stdout=PIPE)
-        p3 = Popen(["grep", "-v", "grep"], stdin=p2.stdout, stdout=PIPE)
-        output = p3.communicate()[0]
-        log.debug("Is_Process_Running output = %s " %output)
-
-        if output:
-            for p in output.splitlines():
-                cmd = "echo '%s' | awk {'print $2'}" %p
-                status,pid = subprocess.getstatusoutput(cmd)
-                cmd = "echo '%s' | awk {'print $11,$12'}" %p
-                status,cmdline = subprocess.getstatusoutput(cmd)
-                if pid :
+        for entry in os.listdir('/proc'):
+            if not entry.isdigit():
+                continue
+            pid = entry
+            try:
+                with open('/proc/%s/cmdline' % pid, 'rb') as f:
+                    raw = f.read()
+                cmdline = raw.replace(b'\x00', b' ').decode('utf-8', 'replace').strip()
+                if process_name in cmdline:
                     process[pid] = cmdline
+            except (IOError, OSError):
+                continue
 
+        log.debug("Is_Process_Running matches = %s " % process)
+        if process:
             return True, process
         else:
             return False, {}
 
     except Exception as e:
-        log.error("Execution failed: process Name[%s]" %process_name)
-        print >>sys.stderr, "Execution failed:", e
+        log.error("Execution failed: process Name[%s] - error - %s" % (process_name, str(e)))
         return False, {}
 
 

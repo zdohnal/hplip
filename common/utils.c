@@ -9,9 +9,11 @@ extern int errno;
 
 unsigned char IsChromeOs(void)
 {
-  int file_size=0,i=0;
+    long file_size=0;
+    int i=0;
   unsigned char ret_stat = 0;
-  char *buf;
+    size_t bytes_read = 0;
+    char *buf = NULL;
   char *ptr;
   char os_name[30]={0,};
 
@@ -19,22 +21,44 @@ unsigned char IsChromeOs(void)
   FILE *fptr = fopen("/etc/os-release","r");
   if(fptr == NULL)
     return ret_stat;
-  fseek(fptr,0,SEEK_END);
-  file_size = ftell(fptr);
-  fseek(fptr,0,SEEK_SET);
 
-  buf = (char *)malloc(file_size);
-  fread(buf,file_size,1,fptr);
+    if (fseek(fptr,0,SEEK_END) != 0)
+    {
+        fclose(fptr);
+        return ret_stat;
+    }
+  file_size = ftell(fptr);
+    if (file_size <= 0)
+    {
+        fclose(fptr);
+        return ret_stat;
+    }
+    if (fseek(fptr,0,SEEK_SET) != 0)
+    {
+        fclose(fptr);
+        return ret_stat;
+    }
+
+    buf = (char *)malloc((size_t)file_size + 1);
+    if (buf == NULL)
+    {
+        fclose(fptr);
+        return ret_stat;
+    }
+
+    bytes_read = fread(buf, 1, (size_t)file_size, fptr);
+    buf[bytes_read] = '\0';
 
   ptr=strstr(buf,"NAME");
   if(ptr != NULL)
   {
     ptr = ptr + 5;
-    while(*ptr!='\n'&&*ptr!='\0')
+        while(*ptr!='\n'&&*ptr!='\0' && i < (int)(sizeof(os_name) - 1))
     {
       os_name[i]=*ptr;
       ptr++;i++;
     }
+        os_name[i] = '\0';
     if(strcasestr(os_name,"chrome os")!=NULL)
       ret_stat = 1;
     else

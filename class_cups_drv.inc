@@ -37,6 +37,7 @@ class_cups_ppd_printers = \
    ppd/classppd/hpcups/hp-Mimas15-Normal.ppd.gz \
    ppd/classppd/hpcups/hp-Mimas17-Normal.ppd.gz \
    ppd/classppd/hpcups/hp-MimasTDR-Normal.ppd.gz \
+   ppd/classppd/hpcups/hp-MimasVictoria-Normal.ppd.gz \
    ppd/classppd/hpcups/hp-OJ7000-LargeFormatA3-SmallMargins.ppd.gz \
    ppd/classppd/hpcups/hp-OJ7000-LargeFormatA3.ppd.gz \
    ppd/classppd/hpcups/hp-OJProKx50-LargeFormatSuperB-NoFullBleed.ppd.gz \

@@ -928,6 +928,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-laserjet_flow_e73140-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_4550-ps.ppd.gz \
 	prnt/ps/hp-laserjet_d50452-ps.ppd.gz \
 	prnt/ps/hp-postscript-laserjet-pro.ppd.gz \
+	prnt/ps/hp-color_laserjet_mfp_x778-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_2830-ps.ppd.gz \
 	prnt/ps/hp-laserjet_m9050_mfp-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_cm6030_mfp-ps.ppd.gz \
@@ -973,7 +974,6 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-laserjet_flow_e73140-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_cm2320fxi_mfp-ps.ppd.gz \
 	prnt/ps/hp-color_laserjet_8500-ps.ppd.gz \
 	prnt/ps/hp-pagewide_color_e55650-ps.ppd.gz \
-	prnt/ps/hp-color_laserjet_X557-ps.ppd.gz \
 	prnt/ps/hp-designjet_Z9dr_44in-ps.ppd.gz \
 	prnt/ps/hp-laserjet_4-ps.ppd.gz \
 	prnt/ps/hp-designjet_t770ps_24in-ps.ppd.gz \
@@ -1134,6 +1134,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-laserjet_flow_e73140-ps.ppd.gz \
 	prnt/ps/hp-laserjet_m4349_mfp-ps.ppd.gz \
 	prnt/ps/hp-officejet_pro_276dw_mfp-ps.ppd.gz \
 	prnt/ps/hp-designjet_4520ps-ps.ppd.gz \
+	prnt/ps/hp-laserjet_mfp_x728.ppd.gz \
 	prnt/ps/hp-color_laserjet_m282-m285-ps.ppd.gz \
 	prnt/ps/hp-laserjet_flow_mfp_5602-ps.ppd.gz \
 	prnt/ps/hp-laserjet_m406-ps.ppd.gz \
@@ -1449,6 +1450,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-laserjet_flow_e73140-ps.ppd.gz \
 	ppd/hpcups/hp-deskjet_2600_series.ppd.gz \
 	ppd/hpcups/hp-deskjet_2640_series.ppd.gz \
 	ppd/hpcups/hp-deskjet_2700_series.ppd.gz \
+	ppd/hpcups/hp-deskjet_2900_series.ppd.gz \
 	ppd/hpcups/hp-deskjet_3000_j310_series.ppd.gz \
 	ppd/hpcups/hp-deskjet_3050_j610_series.ppd.gz \
 	ppd/hpcups/hp-deskjet_3050a_j611_series.ppd.gz \
@@ -1484,6 +1486,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-laserjet_flow_e73140-ps.ppd.gz \
 	ppd/hpcups/hp-deskjet_400.ppd.gz \
 	ppd/hpcups/hp-deskjet_400l.ppd.gz \
 	ppd/hpcups/hp-deskjet_4100_series.ppd.gz \
+	ppd/hpcups/hp-deskjet_4300_series.ppd.gz \
 	ppd/hpcups/hp-deskjet_450.ppd.gz \
 	ppd/hpcups/hp-deskjet_4510_series.ppd.gz \
 	ppd/hpcups/hp-deskjet_4530_series.ppd.gz \
@@ -1500,6 +1503,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-laserjet_flow_e73140-ps.ppd.gz \
 	ppd/hpcups/hp-deskjet_505j.ppd.gz \
 	ppd/hpcups/hp-deskjet_510.ppd.gz \
 	ppd/hpcups/hp-deskjet_5100.ppd.gz \
+	ppd/hpcups/hp-deskjet_5100_series.ppd.gz \
 	ppd/hpcups/hp-deskjet_520.ppd.gz \
 	ppd/hpcups/hp-deskjet_5200_series.ppd.gz \
 	ppd/hpcups/hp-deskjet_540.ppd.gz \
@@ -1517,6 +1521,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-laserjet_flow_e73140-ps.ppd.gz \
 	ppd/hpcups/hp-deskjet_5700.ppd.gz \
 	ppd/hpcups/hp-deskjet_5730_series.ppd.gz \
 	ppd/hpcups/hp-deskjet_5800.ppd.gz \
+	ppd/hpcups/hp-deskjet_5800_series.ppd.gz \
 	ppd/hpcups/hp-deskjet_5810_series.ppd.gz \
 	ppd/hpcups/hp-deskjet_5820_series.ppd.gz \
 	ppd/hpcups/hp-deskjet_5850.ppd.gz \
@@ -1623,6 +1628,8 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-laserjet_flow_e73140-ps.ppd.gz \
 	ppd/hpcups/hp-deskjet_plus_4100_series.ppd.gz \
 	ppd/hpcups/hp-deskjet_plus_6000_series.ppd.gz \
 	ppd/hpcups/hp-deskjet_plus_6400_series.ppd.gz \
+	ppd/hpcups/hp-deskjet_plus_ink_advantage_6100_series.ppd.gz \
+	ppd/hpcups/hp-deskjet_plus_ink_advantage_6500_series.ppd.gz \
 	ppd/hpcups/hp-envy_100_d410_series.ppd.gz \
 	ppd/hpcups/hp-envy_110_series.ppd.gz \
 	ppd/hpcups/hp-envy_120_series.ppd.gz \
@@ -1635,7 +1642,11 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-laserjet_flow_e73140-ps.ppd.gz \
 	ppd/hpcups/hp-envy_5640_series.ppd.gz \
 	ppd/hpcups/hp-envy_5660_series.ppd.gz \
 	ppd/hpcups/hp-envy_6000_series.ppd.gz \
+	ppd/hpcups/hp-envy_6100_series.ppd.gz \
+	ppd/hpcups/hp-envy_6100e_series.ppd.gz \
 	ppd/hpcups/hp-envy_6400_series.ppd.gz \
+	ppd/hpcups/hp-envy_6500_series.ppd.gz \
+	ppd/hpcups/hp-envy_6500e_series.ppd.gz \
 	ppd/hpcups/hp-envy_7640_series.ppd.gz \
 	ppd/hpcups/hp-envy_8000_series.ppd.gz \
 	ppd/hpcups/hp-envy_inspire_7200_series.ppd.gz \
@@ -2238,6 +2249,7 @@ am__dist_ppd_DATA_DIST = prnt/ps/hp-laserjet_flow_e73140-ps.ppd.gz \
 	ppd/classppd/hpcups/hp-Mimas15-Normal.ppd.gz \
 	ppd/classppd/hpcups/hp-Mimas17-Normal.ppd.gz \
 	ppd/classppd/hpcups/hp-MimasTDR-Normal.ppd.gz \
+	ppd/classppd/hpcups/hp-MimasVictoria-Normal.ppd.gz \
 	ppd/classppd/hpcups/hp-OJ7000-LargeFormatA3-SmallMargins.ppd.gz \
 	ppd/classppd/hpcups/hp-OJ7000-LargeFormatA3.ppd.gz \
 	ppd/classppd/hpcups/hp-OJProKx50-LargeFormatSuperB-NoFullBleed.ppd.gz \
@@ -2913,6 +2925,7 @@ foomatic_ppd_printers = \
     ppd/hpijs/hp-laserjet_1320-hpijs.ppd.gz \
     ppd/hpijs/hp-deskjet_6500-hpijs.ppd.gz \
     ppd/hpijs/hp-photosmart_1115-hpijs.ppd.gz \
+    ppd/hpijs/hp-deskjet_4300_series-hpijs.ppd.gz \
     ppd/hpijs/hp-photosmart_a630_series-hpijs.ppd.gz \
     ppd/hpijs/hp-deskjet_505j-hpijs.ppd.gz \
     ppd/hpijs/hp-color_laserjet_cp6015-pcl3-hpijs.ppd.gz \
@@ -3171,6 +3184,7 @@ foomatic_ppd_printers = \
     ppd/hpijs/hp-color_laserjet_cp2025n-pcl3-hpijs.ppd.gz \
     ppd/hpijs/hp-officejet_6000_e609a-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_p4515xm-hpijs.ppd.gz \
+    ppd/hpijs/hp-deskjet_5800_series-hpijs.ppd.gz \
     ppd/hpijs/hp-officejet_g85-hpijs.ppd.gz \
     ppd/hpijs/hp-photosmart_ink_adv_k510-hpijs.ppd.gz \
     ppd/hpijs/hp-psc_500-hpijs.ppd.gz \
@@ -3212,6 +3226,7 @@ foomatic_ppd_printers = \
     ppd/hpijs/hp-officejet_r45-hpijs.ppd.gz \
     ppd/hpijs/hp-ink_tank_wireless_410_series-hpijs.ppd.gz \
     ppd/hpijs/hp-deskjet_812c-hpijs.ppd.gz \
+    ppd/hpijs/hp-deskjet_5100_series-hpijs.ppd.gz \
     ppd/hpijs/hp-psc_2200_series-hpijs.ppd.gz \
     ppd/hpijs/hp-photosmart_8700_series-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_p2055-pcl3-hpijs.ppd.gz \
@@ -3344,6 +3359,7 @@ foomatic_ppd_printers = \
     ppd/hpijs/hp-laserjet_professional_p1102-hpijs.ppd.gz \
     ppd/hpijs/hp-officejet_pro_k5300-hpijs.ppd.gz \
     ppd/hpijs/hp-laserjet_9065mfp-pcl3-hpijs.ppd.gz \
+    ppd/hpijs/hp-deskjet_2900_series-hpijs.ppd.gz \
     ppd/hpijs/hp-deskjet_5850-hpijs.ppd.gz \
     ppd/hpijs/hp-deskjet_3540_series-hpijs.ppd.gz \
     ppd/hpijs/hp-deskjet_6120-hpijs.ppd.gz \
@@ -3538,6 +3554,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-color_laserjet_4550-ps.ppd.gz \
     prnt/ps/hp-laserjet_d50452-ps.ppd.gz \
     prnt/ps/hp-postscript-laserjet-pro.ppd.gz \
+    prnt/ps/hp-color_laserjet_mfp_x778-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_2830-ps.ppd.gz \
     prnt/ps/hp-laserjet_m9050_mfp-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_cm6030_mfp-ps.ppd.gz \
@@ -3583,7 +3600,6 @@ foomatic_ps_printers = \
     prnt/ps/hp-color_laserjet_cm2320fxi_mfp-ps.ppd.gz \
     prnt/ps/hp-color_laserjet_8500-ps.ppd.gz \
     prnt/ps/hp-pagewide_color_e55650-ps.ppd.gz \
-    prnt/ps/hp-color_laserjet_X557-ps.ppd.gz \
     prnt/ps/hp-designjet_Z9dr_44in-ps.ppd.gz \
     prnt/ps/hp-laserjet_4-ps.ppd.gz \
     prnt/ps/hp-designjet_t770ps_24in-ps.ppd.gz \
@@ -3744,6 +3760,7 @@ foomatic_ps_printers = \
     prnt/ps/hp-laserjet_m4349_mfp-ps.ppd.gz \
     prnt/ps/hp-officejet_pro_276dw_mfp-ps.ppd.gz \
     prnt/ps/hp-designjet_4520ps-ps.ppd.gz \
+    prnt/ps/hp-laserjet_mfp_x728.ppd.gz \
     prnt/ps/hp-color_laserjet_m282-m285-ps.ppd.gz \
     prnt/ps/hp-laserjet_flow_mfp_5602-ps.ppd.gz \
     prnt/ps/hp-laserjet_m406-ps.ppd.gz \
@@ -4069,6 +4086,7 @@ dist_unrel_DATA =
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_2600_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_2640_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_2700_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_2900_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_3000_j310_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_3050_j610_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_3050a_j611_series.ppd.gz \
@@ -4104,6 +4122,7 @@ dist_unrel_DATA =
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_400.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_400l.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_4100_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_4300_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_450.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_4510_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_4530_series.ppd.gz \
@@ -4120,6 +4139,7 @@ dist_unrel_DATA =
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_505j.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_510.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_5100.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_5100_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_520.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_5200_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_540.ppd.gz \
@@ -4137,6 +4157,7 @@ dist_unrel_DATA =
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_5700.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_5730_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_5800.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_5800_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_5810_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_5820_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_5850.ppd.gz \
@@ -4243,6 +4264,8 @@ dist_unrel_DATA =
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_plus_4100_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_plus_6000_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_plus_6400_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_plus_ink_advantage_6100_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-deskjet_plus_ink_advantage_6500_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_100_d410_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_110_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_120_series.ppd.gz \
@@ -4255,7 +4278,11 @@ dist_unrel_DATA =
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_5640_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_5660_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_6000_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_6100_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_6100e_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_6400_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_6500_series.ppd.gz \
+@HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_6500e_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_7640_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_8000_series.ppd.gz \
 @HPLIP_CLASS_DRIVER_FALSE@   ppd/hpcups/hp-envy_inspire_7200_series.ppd.gz \
@@ -4867,6 +4894,7 @@ dist_unrel_DATA =
 @HPLIP_CLASS_DRIVER_TRUE@   ppd/classppd/hpcups/hp-Mimas15-Normal.ppd.gz \
 @HPLIP_CLASS_DRIVER_TRUE@   ppd/classppd/hpcups/hp-Mimas17-Normal.ppd.gz \
 @HPLIP_CLASS_DRIVER_TRUE@   ppd/classppd/hpcups/hp-MimasTDR-Normal.ppd.gz \
+@HPLIP_CLASS_DRIVER_TRUE@   ppd/classppd/hpcups/hp-MimasVictoria-Normal.ppd.gz \
 @HPLIP_CLASS_DRIVER_TRUE@   ppd/classppd/hpcups/hp-OJ7000-LargeFormatA3-SmallMargins.ppd.gz \
 @HPLIP_CLASS_DRIVER_TRUE@   ppd/classppd/hpcups/hp-OJ7000-LargeFormatA3.ppd.gz \
 @HPLIP_CLASS_DRIVER_TRUE@   ppd/classppd/hpcups/hp-OJProKx50-LargeFormatSuperB-NoFullBleed.ppd.gz \

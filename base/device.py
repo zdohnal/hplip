@@ -508,6 +508,8 @@ def probeDevices(bus=DEFAULT_PROBE_BUS, timeout=10,
                     raise ERROR_INTERNAL
 
             for ip in detected_devices:
+                if not ip:
+                    continue
                 update_spinner()
                 hn = detected_devices[ip].get('hn', '?UNKNOWN?')
                 num_devices_on_jd = detected_devices[ip].get('num_devices', 0)

@@ -184,7 +184,7 @@ char finalstr[32]={0};
 
 static char * GetPPDValues()
 {
-    static char ppd_values[14] = {0},
+  static char ppd_values[15] = {0},
                 *bytes         = NULL;
     unsigned int count         = 0;
     char *newstring = NULL;
@@ -209,7 +209,7 @@ static char * GetPPDValues()
       else
       {
         /* Intializing variables                 */
-        for(count = 0; count < 13; count ++)
+        for(count = 0; count < 14; count ++)
            ppd_values[count] = -1;
         count = 0;
         fseek(file_pointer, 0L, SEEK_END );
@@ -259,6 +259,9 @@ static char * GetPPDValues()
           /* Checking HPPJLTRUEBLACK in PPD    */
           if((strstr(bytes, HPPJLTRUEBLACK)) != NULL)
             ppd_values[11] = 1;
+          /* Checking AlternativeLetterheadMode in PPD */
+          if((strstr(bytes, "AlternativeLetterheadMode")) != NULL)
+            ppd_values[13] = 1;
           if((newstring = strstr(bytes, "DefaultHPUserAccessCode: Custom.")) != NULL){
             tkstr=strtok(newstring,"*");
             newstring=strstr(tkstr,".");
@@ -269,7 +272,7 @@ static char * GetPPDValues()
             strncpy(finalstr,&newstring[1],i-1);
             ppd_values[12] = 1;
           }
-          ppd_values[13] = '\0';
+          ppd_values[14] = '\0';
           free(bytes);
           /* Closing the PPD file                */
           fclose(file_pointer);
@@ -649,30 +652,60 @@ static void  WriteECONOMODE2(int num_options, cups_option_t *options)
 
 static void  WriteHPPJLPRINTQUALITY(int num_options, cups_option_t *options)
 {
-  char input_slot[MAX_BUFFER] = {0};
+  char print_quality[MAX_BUFFER] = {0};
   const char *val             = NULL;
 
   if((val = cupsGetOption(HPPJLPRINTQUALITY, num_options, options)) != NULL ||
     ((val = GetOptionValue(DEFAULTHPPJLPRINTQUALITY)) != NULL ))
   {
-   strncpy(input_slot, val, strlen(val));
-   if(input_slot)
+   strncpy(print_quality, val, strlen(val));
+   if(print_quality)
    {
-       if((RemoveCharacters(input_slot)) == -1)
+    if((RemoveCharacters(print_quality)) == -1)
        {    
            fprintf(stderr, "HP PS filter func = WriteHPPJLPRINTQUALITY : PRINT QUALITY FAILED\n");
            return;
        }
-      if((strcmp(input_slot, "ProRes1200"))  == 0)
+    if((strcmp(print_quality, "ProRes1200"))  == 0)
+        {
           hpwrite("@PJL SET RESOLUTION=600\x0a@PJL SET BITSPERPIXEL=1\x0a", strlen("@PJL SET RESOLUTION=600\x0a@PJL SET BITSPERPIXEL=1\x0a"));
-      else if((strcmp(input_slot, "600dpi")) == 0)
+        }
+    else if((strcmp(print_quality, "600dpi")) == 0)
+        {
           hpwrite("@PJL SET RESOLUTION=600\x0a@PJL SET BITSPERPIXEL=1\x0a", strlen("@PJL SET RESOLUTION=600\x0a@PJL SET BITSPERPIXEL=1\x0a"));
-      else
-          hpwrite("@PJL SET RESOLUTION=600\x0a@PJL SET BITSPERPIXEL=2\x0a", strlen("@PJL SET RESOLUTION=600\x0a@PJL SET BITSPERPIXEL=2\x0a"));
+        }
+    else if (strcmp(print_quality, "Normal") == 0)
+        {
+          hpwrite("@PJL SET PRINTQUALITY=NORMAL\x0a", strlen("@PJL SET PRINTQUALITY=NORMAL\x0a"));
+        }
+    else if (strcmp(print_quality, "FineLines") == 0)
+        {
+          hpwrite("@PJL SET PRINTQUALITY=MAX\x0a", strlen("@PJL SET PRINTQUALITY=MAX\x0a"));
+        }
+    else if (strcmp(print_quality, "QuickView") == 0)
+        {
+          hpwrite("@PJL SET PRINTQUALITY=DRAFT\x0a", strlen("@PJL SET PRINTQUALITY=DRAFT\x0a"));
+        }
+    else if (strcmp(print_quality, "Enhanced") == 0)
+        {
+          hpwrite("@PJL SET PRINTQUALITY=BEST\x0a", strlen("@PJL SET PRINTQUALITY=BEST\x0a"));
+        }
+    else if (strcmp(print_quality, "Economode") == 0)
+        {
+          // Economode sends TWO commands (from PPD)
+          hpwrite("@PJL SET PRINTQUALITY=DRAFT\x0a", strlen("@PJL SET PRINTQUALITY=DRAFT\x0a"));
+          hpwrite("@PJL SET ECONOMODE=ON\x0a", strlen("@PJL SET ECONOMODE=ON\x0a"));
+        }
+    }
+    else
+    {
+     hpwrite("@PJL SET RESOLUTION=600\x0a@PJL SET BITSPERPIXEL=2\x0a", strlen("@PJL SET RESOLUTION=600\x0a@PJL SET BITSPERPIXEL=2\x0a"));
     }
   }
   else
+    {
      hpwrite("@PJL SET RESOLUTION=600\x0a@PJL SET BITSPERPIXEL=2\x0a", strlen("@PJL SET RESOLUTION=600\x0a@PJL SET BITSPERPIXEL=2\x0a"));
+    }
   fprintf(stderr, "HP PS filter func = WriteHPPJLPRINTQUALITY: WRITING PRINT QUALITY INFO\n");
   return;
 }
@@ -953,6 +986,56 @@ static void  WriteHPPJLTRUEBLACK(int num_options, cups_option_t *options)
   return;
 }
 
+/*
+	This function writes AlternativeLetterheadMode information
+ *      int num_options = No. of options, cups_option_t *options= options
+
+*/
+
+static void WriteAlternativeLetterheadMode(int num_options, cups_option_t *options)
+{
+  const char *alt_mode = cupsGetOption("AlternativeLetterheadMode", num_options, options);
+  const char *media_type = cupsGetOption("MediaType", num_options, options);
+  const char *duplex = cupsGetOption("Duplex", num_options, options);
+
+  if (alt_mode == NULL)
+    alt_mode = GetOptionValue("DefaultAlternativeLetterheadMode");
+  if (media_type == NULL)
+    media_type = GetOptionValue("DefaultMediaType");
+  if (duplex == NULL)
+    duplex = GetOptionValue("DefaultDuplex");
+
+  fprintf(stderr, "HP PS filter func = WriteAlternativeLetterheadMode : alt_mode = %s\n", alt_mode ? alt_mode : "NULL");
+  fprintf(stderr, "HP PS filter func = WriteAlternativeLetterheadMode : media_type = %s\n", media_type ? media_type : "NULL");
+  fprintf(stderr, "HP PS filter func = WriteAlternativeLetterheadMode : duplex = %s\n", duplex ? duplex : "NULL");
+
+  if ((alt_mode != NULL) &&
+      ((strcasecmp(alt_mode, "True") == 0) ||
+       (strcasecmp(alt_mode, "On") == 0) ||
+       (strcasecmp(alt_mode, "Yes") == 0) ||
+       (strcmp(alt_mode, "1") == 0)) &&
+      (media_type != NULL) && (strcasecmp(media_type, "Letterhead") == 0) &&
+      ((duplex == NULL) ||
+       (strcasecmp(duplex, "None") == 0) ||
+       (strcasecmp(duplex, "Off") == 0) ||
+       (strcasecmp(duplex, "Simplex") == 0)))
+  {
+    hpwrite("@PJL DEFAULT ALTERNATIVELETTERHEADMODE=ON\x0a",
+            strlen("@PJL DEFAULT ALTERNATIVELETTERHEADMODE=ON\x0a"));
+    hpwrite("@PJL RESET\x0a",
+            strlen("@PJL RESET\x0a"));
+  }
+  else
+  {
+    hpwrite("@PJL DEFAULT ALTERNATIVELETTERHEADMODE=OFF\x0a",
+            strlen("@PJL DEFAULT ALTERNATIVELETTERHEADMODE=OFF\x0a"));
+    hpwrite("@PJL RESET\x0a",
+            strlen("@PJL RESET\x0a"));
+  } 
+  fprintf(stderr, "HP PS filter func = WriteAlternativeLetterheadMode : WRITING ALT LETTERHEAD MODE\n");
+  return;
+}
+
 
 int main (int argc, char **argv)
 {
@@ -1071,6 +1154,8 @@ int main (int argc, char **argv)
              WriteHPPJLCOLORASGRAY(num_options, options);
          if(ppd_values[11] == 1)
              WriteHPPJLTRUEBLACK(num_options, options);
+        if(ppd_values[13] == 1)
+            WriteAlternativeLetterheadMode(num_options, options);
          hpwrite("@PJL ENTER LANGUAGE=POSTSCRIPT\x0a", strlen("@PJL ENTER LANGUAGE=POSTSCRIPT\x0a")); 
     }
     unsigned int numBytes = 0;
@@ -1162,3 +1247,4 @@ int main (int argc, char **argv)
     fprintf (stderr, "HP PS filter ENDS\n");
     return 0;
 }
+

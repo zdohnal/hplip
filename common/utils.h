@@ -4,6 +4,10 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <syslog.h>
+#include <stdint.h>
+#include <limits.h>
+#include <stdbool.h>
+#include <stddef.h>
 //#include "hpmud.h"
 
 #define _STRINGIZE(x) #x
@@ -53,6 +57,52 @@ enum UTILS_PLUGIN_LIBRARY_TYPE
 //   UTILS_GENERAL_PLUGIN_LIBRARY         //=4,     // Future use.. 
 };
 
+
+/* Safe multiplication helpers - prevent integer overflow */
+
+/**
+ * safe_mul_size_t - Safely multiply two size_t values
+ * @a: First operand
+ * @b: Second operand  
+ * @out: Output buffer for result
+ * Returns: true if multiplication succeeded, false if overflow detected
+ */
+static inline bool safe_mul_size_t(size_t a, size_t b, size_t *out)
+{
+	if (!out)
+		return false;
+	if (a == 0 || b == 0)
+	{
+		*out = 0;
+		return true;
+	}
+	if (a > ((size_t)-1) / b)
+		return false;
+	*out = a * b;
+	return true;
+}
+
+/**
+ * safe_mul_int_positive - Safely multiply two positive integers
+ * @a: First operand (must be >= 0)
+ * @b: Second operand (must be >= 0)
+ * @out: Output buffer for result
+ * Returns: true if multiplication succeeded, false if negative input or overflow detected
+ */
+static inline bool safe_mul_int_positive(int a, int b, int *out)
+{
+	if (!out || a < 0 || b < 0)
+		return false;
+	if (a == 0 || b == 0)
+	{
+		*out = 0;
+		return true;
+	}
+	if (a > INT_MAX / b)
+		return false;
+	*out = a * b;
+	return true;
+}
 
 #ifdef __cplusplus
 extern "C" {

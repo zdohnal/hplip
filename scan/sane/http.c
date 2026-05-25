@@ -316,8 +316,14 @@ enum HTTP_RESULT __attribute__ ((visibility ("hidden"))) http_read_header(HTTP_H
    ps->http_status = strtol(data+9, NULL, 10);
    *bytes_read = total = len;
 
-   /* Check for good status, ignore 400 (no job id found for JobCancelRequest) */                    
-   if (!((ps->http_status >= 200 && ps->http_status < 300) || ps->http_status == 400))
+      /*
+       * Accept selected non-2xx statuses so upper layers can perform protocol-specific
+       * handling without forcing a payload-drain timeout path here.
+       */
+      if (!((ps->http_status >= 200 && ps->http_status < 300) ||
+         ps->http_status == 400 ||  /* no job id for cancel/status paths */
+         ps->http_status == 404 ||  /* NextDocument may legitimately return not found */
+         ps->http_status == 503))   /* transient service unavailable on busy scanners */
    {
       BUG("invalid http_status=%d\n", ps->http_status);
 

@@ -108,6 +108,7 @@ HPLIPFULL provides support for print, scan, fax and toolbox.
 %attr(0644,root,root) "/usr/share/ppd/HP/hp-postscript-laserjet.ppd.gz"
 %attr(0644,root,root) "/usr/share/ppd/HP/hp-Peaks-mod-mech-Normal.ppd.gz"
 %attr(0644,root,root) "/usr/share/ppd/HP/hp-Athena-L-Normal.ppd.gz"
+%attr(0644,root,root) "/usr/share/ppd/HP/hp-MimasVictoria-Normal.ppd.gz"
 %attr(0775,root,root) %dir "/usr/share/hplip/selinux"
 %attr(0755,root,root) "/usr/share/hplip/selinux/hplip.fc"
 %attr(0755,root,root) "/usr/share/hplip/selinux/hplip.if"

@@ -130,8 +130,19 @@ DRIVER_ERROR Hbpl1::StartJob(SystemServices *pSystemServices, JobAttributes *pJA
     m_PrintinGrayscale = m_JA.integer_values[3]; // cupsInterger3 value
     m_pSystemServices = pSystemServices; //Reset and UEL not required
     err = m_pHbpl1Wrapper->StartJob((void**)&m_pOutBuffer, &m_OutBuffSize);
-    err = sendBuffer(static_cast<const BYTE *>(m_pOutBuffer), m_OutBuffSize);
-    m_pHbpl1Wrapper->FreeBuffer(m_pOutBuffer, m_OutBuffSize);
+    if (err != NO_ERROR)
+    {
+        return err;
+    }
+    if (m_pOutBuffer != NULL && m_OutBuffSize > 0)
+    {
+        err = sendBuffer(static_cast<const BYTE *>(m_pOutBuffer), m_OutBuffSize);
+        m_pHbpl1Wrapper->FreeBuffer(m_pOutBuffer, m_OutBuffSize);
+        if (err != NO_ERROR)
+        {
+            return err;
+        }
+    }
     
     if (m_PrintinGrayscale ==  ON){  //Grayscale = ON
         m_ColorMode = COLORTYPE_BOTH;
@@ -156,8 +167,15 @@ DRIVER_ERROR Hbpl1::EndJob()
     }
 
     err = m_pHbpl1Wrapper->EndJob((void**)&m_pOutBuffer, &m_OutBuffSize);
-    err = sendBuffer(static_cast<const BYTE *>(m_pOutBuffer), m_OutBuffSize);
-    m_pHbpl1Wrapper->FreeBuffer(m_pOutBuffer, m_OutBuffSize);
+    if (err != NO_ERROR)
+    {
+        return err;
+    }
+    if (m_pOutBuffer != NULL && m_OutBuffSize > 0)
+    {
+        err = sendBuffer(static_cast<const BYTE *>(m_pOutBuffer), m_OutBuffSize);
+        m_pHbpl1Wrapper->FreeBuffer(m_pOutBuffer, m_OutBuffSize);
+    }
     return err;
 }
 
@@ -167,8 +185,15 @@ DRIVER_ERROR Hbpl1::StartPage (JobAttributes *pJA)
     DRIVER_ERROR        err = NO_ERROR;
 
     err = m_pHbpl1Wrapper->StartPage((void**)&m_pOutBuffer, &m_OutBuffSize);
-    err = sendBuffer(static_cast<const BYTE *>(m_pOutBuffer), m_OutBuffSize);
-    m_pHbpl1Wrapper->FreeBuffer(m_pOutBuffer, m_OutBuffSize);
+    if (err != NO_ERROR)
+    {
+        return err;
+    }
+    if (m_pOutBuffer != NULL && m_OutBuffSize > 0)
+    {
+        err = sendBuffer(static_cast<const BYTE *>(m_pOutBuffer), m_OutBuffSize);
+        m_pHbpl1Wrapper->FreeBuffer(m_pOutBuffer, m_OutBuffSize);
+    }
     return err;
 }
 
@@ -188,29 +213,51 @@ And will reset scan lines counter to zero for next page(HPLIP-1041).
 ************************************************************************************/
 DRIVER_ERROR Hbpl1::FormFeed ()
 {
+    DRIVER_ERROR err = NO_ERROR;
 
     if (0 != m_numScanLines && m_pbyStripData && 0 != m_nStripSize)
 	{
 		++m_nBandCount;
-		m_pHbpl1Wrapper->Encapsulate(m_pbyStripData, m_nStripSize, m_nStripHeight, (void**)&m_pOutBuffer, &m_OutBuffSize);
-		sendBuffer(m_pOutBuffer, m_OutBuffSize);
+        err = m_pHbpl1Wrapper->Encapsulate(m_pbyStripData, m_nStripSize, m_nStripHeight, (void**)&m_pOutBuffer, &m_OutBuffSize);
+        if (err != NO_ERROR)
+            return err;
+        if (m_pOutBuffer != NULL && m_OutBuffSize > 0)
+        {
+            err = sendBuffer(m_pOutBuffer, m_OutBuffSize);
+            if (err != NO_ERROR)
+                return err;
+        }
 		memset(m_pbyStripData,0xFF,m_nStripSize);
 	}
 
 	while(m_nBandCount < m_numStrips)
 	{
 		++m_nBandCount;
-		m_pHbpl1Wrapper->Encapsulate(m_pbyStripData, m_nStripSize, m_nStripHeight, (void**)&m_pOutBuffer, &m_OutBuffSize);
-		sendBuffer(m_pOutBuffer, m_OutBuffSize);
+        err = m_pHbpl1Wrapper->Encapsulate(m_pbyStripData, m_nStripSize, m_nStripHeight, (void**)&m_pOutBuffer, &m_OutBuffSize);
+        if (err != NO_ERROR)
+            return err;
+        if (m_pOutBuffer != NULL && m_OutBuffSize > 0)
+        {
+            err = sendBuffer(m_pOutBuffer, m_OutBuffSize);
+            if (err != NO_ERROR)
+                return err;
+        }
 	}
 
-	m_pHbpl1Wrapper->EndPage((void**)&m_pOutBuffer, &m_OutBuffSize);
-	sendBuffer(m_pOutBuffer, m_OutBuffSize);
+    err = m_pHbpl1Wrapper->EndPage((void**)&m_pOutBuffer, &m_OutBuffSize);
+    if (err != NO_ERROR)
+        return err;
+    if (m_pOutBuffer != NULL && m_OutBuffSize > 0)
+    {
+        err = sendBuffer(m_pOutBuffer, m_OutBuffSize);
+        if (err != NO_ERROR)
+            return err;
+    }
     m_pHbpl1Wrapper->FreeBuffer(m_pOutBuffer,m_OutBuffSize);
 	m_nBandCount = 0;
 	m_numScanLines = 0;
 
-	return NO_ERROR;
+    return err;
 
 }
 
