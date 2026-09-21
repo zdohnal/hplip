@@ -126,7 +126,8 @@ static int new_channel(mud_device *pd, int index, const char *sn)
    pd->channel[index].dindex = pd->index;
    pd->channel[index].fd = 0;
    pd->channel[index].socket = -1;
-   strcpy(pd->channel[index].sn, sn);
+   strncpy(pd->channel[index].sn, sn, HPMUD_LINE_SIZE - 1);
+   pd->channel[index].sn[HPMUD_LINE_SIZE - 1] = '\0';
    pd->channel_cnt++;
 
    stat = 0;

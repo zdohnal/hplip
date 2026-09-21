@@ -234,10 +234,10 @@ def disable_SmartInstall():
             log.error("Smart Install could not be disabled\n")
     else:
         try:
-            from . import pkit
+            from . import utils
             plugin = PLUGIN_REQUIRED
             plugin_reason = PLUGIN_REASON_NONE
-            ok, sudo_ok = pkit.run_plugin_command(plugin == PLUGIN_REQUIRED, plugin_reason)
+            ok, sudo_ok = utils.run_plugin_command(plugin == PLUGIN_REQUIRED, plugin_reason)
             if not ok or not sudo_ok:
                 log.error("Failed to install plug-in.")
         except ImportError:

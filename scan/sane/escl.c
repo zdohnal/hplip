@@ -547,7 +547,7 @@ SANE_Status escl_control_option(SANE_Handle handle, SANE_Int option, SANE_Action
         {
           if(ps->currentScanMode == ps->scanModeMap[i])
           {
-            strcpy(value, ps->scanModeList[i]);
+            snprintf((char *)value, MAX_STRING_SIZE, "%s", ps->scanModeList[i]);
             stat = SANE_STATUS_GOOD;
             break;
           }
@@ -581,7 +581,7 @@ SANE_Status escl_control_option(SANE_Handle handle, SANE_Int option, SANE_Action
             {
                if (ps->currentInputSource == ps->inputSourceMap[i])
                {
-                  strcpy(value, ps->inputSourceList[i]);
+                  snprintf((char *)value, MAX_STRING_SIZE, "%s", ps->inputSourceList[i]);
                   stat = SANE_STATUS_GOOD;
                   break;
                }
@@ -684,7 +684,7 @@ SANE_Status escl_control_option(SANE_Handle handle, SANE_Int option, SANE_Action
             {
                if (ps->currentCompression == ps->compressionMap[i])
                {
-                  strcpy(value, ps->compressionList[i]);
+                  snprintf((char *)value, MAX_STRING_SIZE, "%s", ps->compressionList[i]);
                   stat = SANE_STATUS_GOOD;
                   break;
                }

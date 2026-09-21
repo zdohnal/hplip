@@ -74,7 +74,7 @@ int __attribute__ ((visibility ("hidden"))) get_tag(const char *buf, int buf_siz
       if (buf[i] != '<')
          break;
 
-      if (i < (buf_size-4) && (strncmp(&buf[i], "<!--", 4) == 0))
+      if (buf_size >= 4 && i < (buf_size-4) && (strncmp(&buf[i], "<!--", 4) == 0))
       {
          for (; buf[i] != '>' && i < buf_size; i++);  /* eat comment line */
          i++;

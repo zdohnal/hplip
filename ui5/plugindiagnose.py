@@ -22,7 +22,7 @@
 
 # Local
 from base.g import *
-from base import device, utils, pkit
+from base import device, utils
 from prnt import cups
 from base.codes import *
 from .ui_utils import *
@@ -91,7 +91,7 @@ class PluginDiagnose(QDialog, Ui_Dialog):
         try:
             plugin = PLUGIN_REQUIRED 
             plugin_reason = PLUGIN_REASON_NONE
-            ok, sudo_ok = pkit.run_plugin_command(plugin == PLUGIN_REQUIRED, plugin_reason)
+            ok, sudo_ok = utils.run_plugin_command(plugin == PLUGIN_REQUIRED, plugin_reason)
 
             if not ok or self.pluginObj.getStatus() != pluginhandler.PLUGIN_INSTALLED:
                 FailureUI(self, self.__tr("Failed to install Plug-in.\nEither you have chosen to skip the Plug-in installation  or entered incorrect Password."))

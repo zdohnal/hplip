@@ -167,20 +167,7 @@ if mode == GUI_MODE:
 
 
 PKIT = utils.to_bool(sys_conf.get('configure', 'policy-kit'))
-if PKIT:
-    try:
-        from base.pkit import *
-        try:
-            pkit = PolicyKit()
-            pkit_installed = True
-        except dbus.DBusException as ex:
-            log.error("PolicyKit support requires DBUS or PolicyKit support files missing")
-            pkit_installed = False
-    except:
-        log.error("Unable to load pkit...is HPLIP installed?")
-        pkit_installed = False
-else:
-    pkit_installed = False
+pkit_installed = False
 
 from installer import pluginhandler
 pluginObj = pluginhandler.PluginHandle()

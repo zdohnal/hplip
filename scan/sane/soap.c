@@ -568,7 +568,9 @@ SANE_Status soap_control_option(SANE_Handle handle, SANE_Int option, SANE_Action
             {
                if (ps->currentScanMode == ps->scanModeMap[i])
                {
-                  strcpy(value, ps->scanModeList[i]);
+                  int n = snprintf((char *)value, MAX_STRING_SIZE, "%s", ps->scanModeList[i]);
+                  if (n < 0 || n >= (int)MAX_STRING_SIZE)
+                      DBG(1, "WARNING: SOAP scanModeList value truncated (n=%d limit=%d)\n", n, MAX_STRING_SIZE);
                   stat = SANE_STATUS_GOOD;
                   break;
                }
@@ -681,7 +683,9 @@ SANE_Status soap_control_option(SANE_Handle handle, SANE_Int option, SANE_Action
             {
                if (ps->currentCompression == ps->compressionMap[i])
                {
-                  strcpy(value, ps->compressionList[i]);
+                  int n = snprintf((char *)value, MAX_STRING_SIZE, "%s", ps->compressionList[i]);
+                  if (n < 0 || n >= (int)MAX_STRING_SIZE)
+                      DBG(1, "WARNING: SOAP compressionList value truncated (n=%d limit=%d)\n", n, MAX_STRING_SIZE);
                   stat = SANE_STATUS_GOOD;
                   break;
                }

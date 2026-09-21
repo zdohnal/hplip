@@ -90,6 +90,9 @@ sanei_init_debug (const char * backend, int * var)
 }
 
 void
+#ifdef __GNUC__
+__attribute__ ((format (printf, 4, 0)))
+#endif
 sanei_debug_msg
   (int level, int max_level, const char *be, const char *fmt, va_list ap)
 {

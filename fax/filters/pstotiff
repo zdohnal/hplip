@@ -2,6 +2,7 @@
 
 import os
 import os.path
+import shlex
 import time 
 import sys
 import tempfile
@@ -14,7 +15,7 @@ total_bytes_read = 0
 temp_in_file = "-"
 
 if (len(sys.argv) > 6):
-   temp_in_file = sys.argv[6] 
+   temp_in_file = shlex.quote(sys.argv[6])  # HPLIP-2026-008: quote argv[6] before shell execution.
 
 temp_out_handle, temp_out_fname = tempfile.mkstemp()
 

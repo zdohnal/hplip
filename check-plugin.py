@@ -38,7 +38,7 @@ import time
 
 # Local
 from base.g import *
-from base import utils, device, tui, module, pkit, services
+from base import utils, device, tui, module, services
 from installer import pluginhandler
 
 
@@ -79,7 +79,7 @@ def install_Plugin(systray_running_status, run_directly=False):
         app = QApplication(sys.argv)
         plugin = PLUGIN_REQUIRED
         plugin_reason = PLUGIN_REASON_NONE
-        ok, sudo_ok = pkit.run_plugin_command(plugin == PLUGIN_REQUIRED, plugin_reason)
+        ok, sudo_ok = utils.run_plugin_command(plugin == PLUGIN_REQUIRED, plugin_reason)
         if not ok or not sudo_ok:
             log.error("Failed to install plug-in.")
     elif systray_running_status:

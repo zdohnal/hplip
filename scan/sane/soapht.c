@@ -603,7 +603,9 @@ SANE_Status soapht_control_option(SANE_Handle handle, SANE_Int option, SANE_Acti
             {
                if (ps->currentScanMode == ps->scanModeMap[i])
                {
-                  strcpy(value, ps->scanModeList[i]);
+                  int n = snprintf((char *)value, MAX_STRING_SIZE, "%s", ps->scanModeList[i]);
+                  if (n < 0 || n >= (int)MAX_STRING_SIZE)
+                      DBG(1, "WARNING: SOAPHT scanModeList value truncated (n=%d limit=%d)\n", n, MAX_STRING_SIZE);
                   stat = SANE_STATUS_GOOD;
                   break;
                }
@@ -637,7 +639,9 @@ SANE_Status soapht_control_option(SANE_Handle handle, SANE_Int option, SANE_Acti
             {
                if (ps->currentInputSource == ps->inputSourceMap[i])
                {
-                  strcpy(value, ps->inputSourceList[i]);
+                  int n = snprintf((char *)value, MAX_STRING_SIZE, "%s", ps->inputSourceList[i]);
+                  if (n < 0 || n >= (int)MAX_STRING_SIZE)
+                      DBG(1, "WARNING: SOAPHT inputSourceList value truncated (n=%d limit=%d)\n", n, MAX_STRING_SIZE);
                   stat = SANE_STATUS_GOOD;
                   break;
                }
@@ -761,7 +765,9 @@ SANE_Status soapht_control_option(SANE_Handle handle, SANE_Int option, SANE_Acti
             {
                if (ps->currentCompression == ps->compressionMap[i])
                {
-                  strcpy(value, ps->compressionList[i]);
+                  int n = snprintf((char *)value, MAX_STRING_SIZE, "%s", ps->compressionList[i]);
+                  if (n < 0 || n >= (int)MAX_STRING_SIZE)
+                      DBG(1, "WARNING: SOAPHT compressionList value truncated (n=%d limit=%d)\n", n, MAX_STRING_SIZE);
                   stat = SANE_STATUS_GOOD;
                   break;
                }

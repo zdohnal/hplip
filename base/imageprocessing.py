@@ -340,17 +340,45 @@ def orientangle(im):
     else:
         from tesserocr import PyTessBaseAPI, PSM
 
-    with PyTessBaseAPI(psm=PSM.AUTO_OSD) as api:        
-        try:        
-            api.SetImage(im)
-        except IOError:
-            im = im.convert("RGB")
-            api.SetImage(im)
-        api.Recognize()
+    # Leptonica/Tesseract may reject some 32bpp RGBA BMP inputs.
+    # Normalize to a compatible mode before orientation detection.
+    if getattr(im, 'mode', None) not in ('RGB', 'L'):
+        im = im.convert('RGB')
 
-        it = api.AnalyseLayout()
-        orientation, direction, order, deskew_angle = it.Orientation()
-        return orientation
+    # Resolve tessdata path explicitly so PyTessBaseAPI does not fall back
+    # to the current working directory when TESSDATA_PREFIX is not exported.
+    tessdata_path = os.environ.get('TESSDATA_PREFIX', '')
+    if not tessdata_path or not os.path.isdir(tessdata_path):
+        _candidates = [
+            '/usr/share/tesseract-ocr/4.00/tessdata',
+            '/usr/share/tesseract-ocr/tessdata',
+            '/usr/share/tessdata',
+            '/usr/local/share/tessdata',
+        ]
+        for _c in _candidates:
+            if os.path.isdir(_c):
+                tessdata_path = _c
+                break
+
+    try:
+        api_kwargs = dict(psm=PSM.AUTO_OSD)
+        if tessdata_path and os.path.isdir(tessdata_path):
+            api_kwargs['path'] = tessdata_path
+        with PyTessBaseAPI(**api_kwargs) as api:
+            try:
+                api.SetImage(im)
+            except Exception:
+                # One retry with explicit RGB conversion for robustness.
+                im = im.convert('RGB')
+                api.SetImage(im)
+
+            api.Recognize()
+            it = api.AnalyseLayout()
+            orientation, direction, order, deskew_angle = it.Orientation()
+            return orientation
+    except Exception as e:
+        log.debug("Auto orientation skipped: %s" % e)
+        return 0
 
 def autoorient(im, angle):
     from PIL import Image
@@ -585,7 +613,7 @@ def documentmerge(adf_page_files,ext,output_path):
         imgs    = [Image.open(y) for y in list_im ]
         # pick the image which is the smallest, and resize the others to match it (can be arbitrary image shape here)
         min_shape = sorted( [(np.sum(z.size), z.size ) for z in imgs])[0][1]
-        imgs_comb = np.hstack( (np.asarray( w.resize(min_shape) ) for w in imgs ) )
+        imgs_comb = np.hstack( [np.asarray( w.resize(min_shape) ) for w in imgs ] )
 
         # save that beautiful picture
         imgs_comb = Image.fromarray( imgs_comb)

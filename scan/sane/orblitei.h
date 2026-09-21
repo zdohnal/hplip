@@ -46,6 +46,17 @@
 #define SANE_TITLE_PAPER_SIZE	SANE_I18N("Paper size")
 #define SANE_DESC_PAPER_SIZE \
 	SANE_I18N("Sets scan area to selected paper size")
+
+/* Debug logging — define ORBLITE_DEBUG to enable syslog tracing */
+#define _ORBLITE_STRINGIZE(x) #x
+#define _ORBLITE_STR(x) _ORBLITE_STRINGIZE(x)
+/* #define ORBLITE_DEBUG */
+#ifdef ORBLITE_DEBUG
+# include <syslog.h>
+# define _DBG(args...) syslog(LOG_INFO, __FILE__ " " _ORBLITE_STR(__LINE__) ": " args)
+#else
+# define _DBG(args...)
+#endif
 #if 0
 static SANE_Range SANE_rangeLeft;
 static SANE_Range SANE_rangeRight;

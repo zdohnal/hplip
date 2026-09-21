@@ -66,7 +66,7 @@ static int MlcForwardReply(mud_channel *pc, int fd, unsigned char *buf, int size
 static int MlcExecReverseCmd(mud_channel *pc, int fd, unsigned char *buf)
 {
    mud_device *pd = &msp->device[pc->dindex];
-   mud_channel *out_of_bound_channel;
+   mud_channel *pc_chan;
    MLCCmd *pCmd;
    MLCReply *pReply;
    MLCCredit *pCredit;
@@ -85,25 +85,31 @@ static int MlcExecReverseCmd(mud_channel *pc, int fd, unsigned char *buf)
       if (pCmd->h.hsid == pCmd->h.psid)
       {
          /* Got a valid data packet handle it. This can happen when channel_read timeouts and p2hcredit=1. */
-         out_of_bound_channel = &pd->channel[pCmd->h.hsid];
-
-         if (out_of_bound_channel->ta.p2hcredit <= 0)
+         /* HPLIP-2026-009: bounds-check hsid before use as channel index. */
+         if (pCmd->h.hsid >= HPMUD_CHANNEL_MAX)
          {
-            BUG("invalid data packet credit=%d\n", out_of_bound_channel->ta.p2hcredit);
+            BUG("invalid hsid=%d in data packet, max=%d\n", pCmd->h.hsid, HPMUD_CHANNEL_MAX);
+            return 0;
+         }
+         pc_chan = &pd->channel[pCmd->h.hsid];
+
+         if (pc_chan->ta.p2hcredit <= 0)
+         {
+            BUG("invalid data packet credit=%d\n", pc_chan->ta.p2hcredit);
             return 0;
          }
 
          size = ntohs(pCmd->h.length) - sizeof(MLCHeader);
-         if (size > (HPMUD_BUFFER_SIZE - out_of_bound_channel->rcnt))
+         if (size < 0 || size > (HPMUD_BUFFER_SIZE - pc_chan->rcnt))
          {
             BUG("invalid data packet size=%d\n", size);
             return 0;
          }
-         memcpy(&out_of_bound_channel->rbuf[out_of_bound_channel->rcnt], buf+sizeof(MLCHeader), size);
-         out_of_bound_channel->rcnt += size;
+         memcpy(&pc_chan->rbuf[pc_chan->rcnt], buf+sizeof(MLCHeader), size);
+         pc_chan->rcnt += size;
          if (pCmd->h.credit)
-            out_of_bound_channel->ta.h2pcredit += pCmd->h.credit;  /* note, piggy back credit is 1 byte wide */ 
-         out_of_bound_channel->ta.p2hcredit--; /* one data packet was read, decrement credit count */
+            pc_chan->ta.h2pcredit += pCmd->h.credit;  /* note, piggy back credit is 1 byte wide */ 
+         pc_chan->ta.p2hcredit--; /* one data packet was read, decrement credit count */
       }
       else
       {
@@ -120,8 +126,14 @@ static int MlcExecReverseCmd(mud_channel *pc, int fd, unsigned char *buf)
    {
       case MLC_CREDIT:
          pCredit = (MLCCredit *)buf;
-         out_of_bound_channel = &pd->channel[pCredit->hsocket];
-         out_of_bound_channel->ta.h2pcredit += ntohs(pCredit->credit);
+         /* HPLIP-2026-009: bounds-check hsocket before use as channel index. */
+         if (pCredit->hsocket >= HPMUD_CHANNEL_MAX)
+         {
+            BUG("invalid hsocket=%d in MLC_CREDIT, max=%d\n", pCredit->hsocket, HPMUD_CHANNEL_MAX);
+            break;
+         }
+         pc_chan = &pd->channel[pCredit->hsocket];
+         pc_chan->ta.h2pcredit += ntohs(pCredit->credit);
          pCreditReply = (MLCCreditReply *)buf;
          pCreditReply->h.length = htons(sizeof(MLCCreditReply));
          pCreditReply->cmd |= 0x80;
@@ -453,6 +465,12 @@ int __attribute__ ((visibility ("hidden"))) MlcForwardData(mud_channel *pc, int 
    MLCHeader h;
 
    memset(&h, 0, sizeof(h));
+   if (size < 0 || size > (int)(0xFFFF - sizeof(MLCHeader)))
+   {
+      BUG("MlcForwardData: packet size %d exceeds MLC limit\n", size);
+      stat = 1;
+      goto bugout;
+   }
    n = sizeof(MLCHeader) + size;
    h.length = htons(n);
    h.hsid = pc->sockid;
@@ -480,7 +498,7 @@ bugout:
 int __attribute__ ((visibility ("hidden"))) MlcReverseData(mud_channel *pc, int fd, void *buf, int length, int usec_timeout)
 {
    mud_device *pd = &msp->device[pc->dindex];
-   mud_channel *out_of_bound_channel;
+   mud_channel *pc_chan;
    int len, size, total;
    MLCHeader *pPk;
 
@@ -542,23 +560,29 @@ int __attribute__ ((visibility ("hidden"))) MlcReverseData(mud_channel *pc, int 
          else if (pPk->hsid == pPk->psid)
          {
             /* Got a valid data packet for another channel handle it. This can happen when ReadData timeouts and p2hcredit=1. */
-            out_of_bound_channel = &pd->channel[pPk->hsid];
+            /* HPLIP-2026-009: bounds-check hsid before use as channel index. */
+            if (pPk->hsid >= HPMUD_CHANNEL_MAX)
+            {
+               BUG("invalid hsid=%d in cross-channel data, max=%d\n", pPk->hsid, HPMUD_CHANNEL_MAX);
+               goto bugout;
+            }
+            pc_chan = &pd->channel[pPk->hsid];
             unsigned char *pBuf;
 
-            if (out_of_bound_channel->ta.p2hcredit <= 0)
+            if (pc_chan->ta.p2hcredit <= 0)
             {
-               BUG("invalid data packet credit=%d\n", out_of_bound_channel->ta.p2hcredit);
+               BUG("invalid data packet credit=%d\n", pc_chan->ta.p2hcredit);
                goto bugout;
             }
 
-            if (size > (HPMUD_BUFFER_SIZE - out_of_bound_channel->rcnt))
+            if (size > (HPMUD_BUFFER_SIZE - pc_chan->rcnt))
             {
                BUG("invalid data packet size=%d\n", size);
                goto bugout;
             }
             
             total = 0;
-            pBuf = &out_of_bound_channel->rbuf[out_of_bound_channel->rcnt];
+            pBuf = &pc_chan->rbuf[pc_chan->rcnt];
             while (size > 0)
             {
                if ((len = (pd->vf.read)(fd, pBuf+total, size, HPMUD_EXCEPTION_TIMEOUT)) < 0)
@@ -570,10 +594,10 @@ int __attribute__ ((visibility ("hidden"))) MlcReverseData(mud_channel *pc, int 
                total+=len;
             }
 
-            out_of_bound_channel->rcnt += total;
+            pc_chan->rcnt += total;
             if (pPk->credit)
-               out_of_bound_channel->ta.h2pcredit += pPk->credit;  /* note, piggy back credit is 1 byte wide */ 
-            out_of_bound_channel->ta.p2hcredit--; /* one data packet was read, decrement credit count */
+               pc_chan->ta.h2pcredit += pPk->credit;  /* note, piggy back credit is 1 byte wide */ 
+            pc_chan->ta.p2hcredit--; /* one data packet was read, decrement credit count */
             continue;   /* try again for data packet */
          }
          else

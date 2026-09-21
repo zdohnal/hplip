@@ -29,6 +29,7 @@
 \*****************************************************************************/
 
 #include "ModeDeltaPlus.h"
+#include <climits>
 
 ModeDeltaPlus::ModeDeltaPlus 
 (    
@@ -40,7 +41,11 @@ ModeDeltaPlus::ModeDeltaPlus
     m_bLastBand(false)
 {
     inputsize = PlaneSize;
-    inputsize = ((inputsize + 7) / 8) * 8;
+    // guard against wrap on the +7 rounding step before Init() allocates from inputsize
+    if (inputsize <= UINT_MAX - 7)
+        inputsize = ((inputsize + 7) / 8) * 8;
+    else
+        inputsize = 0;
     m_lCurrCDRasterRow  = 0;
     m_lPrinterRasterRow = 0;
     iRastersReady = 0;

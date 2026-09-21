@@ -365,7 +365,12 @@ enum HPMUD_RESULT hpmud_set_pml(HPMUD_DEVICE device, HPMUD_CHANNEL channel, cons
       *p = type;
       *p |= data_size >> 8;                   /* assume data length is 10 bits */
       *(p+1) = data_size & 0xff;    
-      p += 2; 
+      p += 2;
+      if (data_size < 0 || (p + data_size) > (message + HPMUD_BUFFER_SIZE))
+      {
+         BUG("SetPml data_size %d exceeds message buffer\n", data_size);
+         goto bugout;
+      }
       memcpy(p, data, data_size);
 
       result = hpmud_write_channel(device, channel, message, dLen+data_size+3+2, HPMUD_EXCEPTION_SEC_TIMEOUT, &len);  

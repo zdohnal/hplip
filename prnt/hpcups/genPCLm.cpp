@@ -1918,7 +1918,10 @@ int  PCLmGenerator::Encapsulate(void *pInBuffer, int inBufferSize, int thisHeigh
 	int whiteStripLen=0;
 	if(!safe_mul_int_positive(thisHeight, currSourceWidth, &whiteStripLen) ||
 	   !safe_mul_int_positive(whiteStripLen, srcNumComponents, &whiteStripLen))
+	{
+		free(newStripPtr);
 		return(errorOutAndCleanUp());
+	}
 	bool whiteStrip=isWhiteStrip(pInBuffer, whiteStripLen);
 	if(DebugIt2)
 	{
@@ -1940,11 +1943,17 @@ int  PCLmGenerator::Encapsulate(void *pInBuffer, int inBufferSize, int thisHeigh
 			ubyte whitePt=0xff;
 			size_t tmpStripSize=0;
 			if(!safe_mul_size_t((size_t)scanlineWidth, (size_t)topMarginInPix, &tmpStripSize))
+			{
+				free(newStripPtr);
 				return(errorOutAndCleanUp());
+			}
 
 			ubyte *tmpStrip=(ubyte*)malloc(tmpStripSize);
 			if(!tmpStrip)
+			{
+				free(newStripPtr);
 				return(errorOutAndCleanUp());
+			}
 			memset(tmpStrip,whitePt,tmpStripSize);
 
 
@@ -2012,7 +2021,10 @@ int  PCLmGenerator::Encapsulate(void *pInBuffer, int inBufferSize, int thisHeigh
 	{
 		int sourceLen=0;
 		if(!safe_mul_int_positive(numLinesThisCall, scanlineWidth, &sourceLen))
+		{
+			free(newStripPtr);
 			return(errorOutAndCleanUp());
+		}
 		uint32 len=(uint32)sourceLen;
 		uLongf destSize=len;
 
@@ -2021,12 +2033,18 @@ int  PCLmGenerator::Encapsulate(void *pInBuffer, int inBufferSize, int thisHeigh
 			ubyte whitePt=0xff;
 			size_t tmpStripSize=0;
 			if(!safe_mul_size_t((size_t)scanlineWidth, (size_t)topMarginInPix, &tmpStripSize))
+			{
+				free(newStripPtr);
 				return(errorOutAndCleanUp());
+			}
 
 			// We need to inject a blank image-strip with a height==topMarginInPix
 			ubyte *tmpStrip=(ubyte*)malloc(tmpStripSize);
 			if(!tmpStrip)
+			{
+				free(newStripPtr);
 				return(errorOutAndCleanUp());
+			}
 			uLongf tmpDestSize=destSize;
 			memset(tmpStrip,whitePt,tmpStripSize);
 
@@ -2075,20 +2093,29 @@ int  PCLmGenerator::Encapsulate(void *pInBuffer, int inBufferSize, int thisHeigh
 	{
 		int sourceLen=0;
 		if(!safe_mul_int_positive(numLinesThisCall, scanlineWidth, &sourceLen))
+		{
+			free(newStripPtr);
 			return(errorOutAndCleanUp());
+		}
 
 		if(firstStrip && topMarginInPix)
 		{
 			ubyte whitePt=0xff;
 			size_t tmpStripSize=0;
 			if(!safe_mul_size_t((size_t)scanlineWidth, (size_t)topMarginInPix, &tmpStripSize))
+			{
+				free(newStripPtr);
 				return(errorOutAndCleanUp());
+			}
 
 			// We need to inject a blank image-strip with a height==topMarginInPix
 
 			ubyte *tmpStrip=(ubyte*)malloc(tmpStripSize);
 			if(!tmpStrip)
+			{
+				free(newStripPtr);
 				return(errorOutAndCleanUp());
+			}
 			memset(tmpStrip,whitePt,tmpStripSize);
 
 			for(sint32 stripCntr=0; stripCntr<numFullInjectedStrips;stripCntr++)

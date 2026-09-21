@@ -319,7 +319,18 @@ def normalizeModelName(model):
        except UnicodeEncodeError:
           log.error("Failed to encode model = %s  type=%s "%(model,type(model)))
 
-    return utils.xstrip(model.replace(' ', '_').replace('__', '_').replace('~','').replace('/', '_'), '_')
+    # Neutralize characters that could enable path manipulation (CWE-73) if this
+    # value is later used to construct a filename (e.g. cups.getPpdName()).
+    model = model.replace('\x00', '').replace('\\', '_')
+
+    normalized = utils.xstrip(model.replace(' ', '_').replace('__', '_').replace('~','').replace('/', '_'), '_')
+
+    # Iteratively collapse any remaining '..' so no traversal token survives,
+    # even though '/' removal above already prevents directory escape.
+    while '..' in normalized:
+        normalized = normalized.replace('..', '.')
+
+    return normalized
 
 
 class ModelData:

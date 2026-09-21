@@ -478,7 +478,13 @@ enum HTTP_RESULT __attribute__ ((visibility ("hidden"))) http_read(HTTP_HANDLE h
 				 *bytes_read = (ps->footer) * (-1) + 12;
 				    goto bugout; 
 			   }
-		     strcpy(data, line);
+		     if (*bytes_read + len > max_size)
+		     {
+		        BUG("http_read: response exceeds buffer (read=%d len=%d max=%d)\n", *bytes_read, len, max_size);
+		        stat = HTTP_R_IO_ERROR;
+		        goto bugout;
+		     }
+		     memcpy(data, line, len);
 		     data=data+len;
 		     ps->footer -= len;
             *bytes_read += len;
@@ -495,8 +501,15 @@ enum HTTP_RESULT __attribute__ ((visibility ("hidden"))) http_read(HTTP_HANDLE h
 		            ps->footer = 0;
 		            break;
 		    }
-            strcpy(data, line);
+            if (*bytes_read + len > max_size)
+            {
+               BUG("http_read: response exceeds buffer (read=%d len=%d max=%d)\n", *bytes_read, len, max_size);
+               stat = HTTP_R_IO_ERROR;
+               goto bugout;
+            }
+            memcpy(data, line, len);
             data = data + len;
+            *bytes_read += len;
             DBG("http_read len=%d datalen=%d data=%s\n", len, strlen((char*)data), (char*)data);
             //Check for the footer
             if (strncmp(data-7, ZERO_FOOTER, sizeof(ZERO_FOOTER)-1) == 0)

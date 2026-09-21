@@ -34,7 +34,7 @@ import signal
 # Local
 from base.sixext.moves import queue
 from base.g import *
-from base import device, utils, pml, maint, pkit, os_utils
+from base import device, utils, pml, maint, os_utils
 from base.sixext import  to_unicode
 from prnt import cups
 from base.codes import *
@@ -1417,7 +1417,7 @@ class DevMgr4(DevMgr4_base):
 
 
     def downloadPlugin(self):
-        ok, sudo_ok = pkit.run_plugin_command(self.cur_device.plugin == PLUGIN_REQUIRED, self.cur_device.mq['plugin-reason'])
+        ok, sudo_ok = utils.run_plugin_command(self.cur_device.plugin == PLUGIN_REQUIRED, self.cur_device.mq['plugin-reason'])
         if not sudo_ok:
             QMessageBox.critical(self,
                 self.caption(),

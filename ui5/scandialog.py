@@ -27,6 +27,180 @@ except:
 
 log = logger.Logger('', LOG_LEVEL, logger.Logger.LOG_TO_CONSOLE)
 
+DEVICE_CAPABILITIES = (
+    {
+        'family': '5000',
+        'patterns': (re.compile(r'_5000_', re.I), re.compile(r'_5000_s5', re.I)),
+        'profile': 'adf_only',
+        'supports_multipick': True,
+    },
+    {
+        'family': '7500',
+        'patterns': (re.compile(r'_7500', re.I),),
+        'profile': 'flatbed_adf',
+        'supports_multipick': True,
+    },
+    {
+        'family': '9120',
+        'patterns': (re.compile(r'_n9120', re.I),),
+        'profile': 'flatbed_adf',
+        'supports_multipick': True,
+    },
+    {
+        'family': '3600',
+        'patterns': (re.compile(r'_3600_f1', re.I),),
+        'profile': 'flatbed_adf',
+        'supports_multipick': True,
+    },
+    {
+        'family': '4600',
+        'patterns': (re.compile(r'_n4600', re.I),),
+        'profile': 'flatbed_adf',
+        'supports_multipick': True,
+    },
+    {
+        'family': '2600',
+        'patterns': (re.compile(r'_2600_f1', re.I),),
+        'profile': 'flatbed_adf',
+        'supports_multipick': False,
+    },
+    {
+        'family': '6600',
+        'patterns': (re.compile(r'_n6600', re.I),),
+        'profile': 'flatbed_adf',
+        'supports_multipick': True,
+    },
+    {
+        'family': '8500',
+        'patterns': (re.compile(r'_8500fn2', re.I),),
+        'profile': 'flatbed_adf',
+        'supports_multipick': True,
+    },
+    {
+        'family': '3500',
+        'patterns': (re.compile(r'_3500_f1', re.I),),
+        'profile': 'flatbed_adf',
+        'supports_multipick': True,
+    },
+    {
+        'family': '4500',
+        'patterns': (re.compile(r'_4500_fn1', re.I),),
+        'profile': 'flatbed_adf',
+        'supports_multipick': True,
+    },
+    {
+        'family': '7000',
+        'patterns': (re.compile(r'_7000_s3', re.I), re.compile(r'7000_snw1', re.I)),
+        'profile': 'adf_only',
+        'supports_multipick': True,
+    },
+    {
+        'family': '3000',
+        'patterns': (re.compile(r'_3000_s3', re.I), re.compile(r'_3000_s4', re.I)),
+        'profile': 'adf_only',
+        'supports_multipick': True,
+    },
+    {
+        'family': '2000',
+        'patterns': (re.compile(r'hp2000S1', re.I), re.compile(r'_2000_s2', re.I)),
+        'profile': 'adf_only',
+        'supports_multipick': False,
+    },
+    {
+        'family': '2500',
+        'patterns': (re.compile(r'hpgt2500', re.I),),
+        'profile': 'flatbed_adf',
+        'supports_multipick': False,
+    },
+    {
+        'family': '4000',
+        'patterns': (re.compile(r'4000_snw1', re.I),),
+        'profile': 'adf_only',
+        'supports_multipick': True,
+    },
+    {
+        'family': 'M232-M237',
+        'patterns': (re.compile(r'_M232-M237', re.I),),
+        'profile': 'flatbed_adf',
+        'supports_multipick': True,
+    },
+    {
+        'family': '260x',
+        'patterns': (re.compile(r'_260x', re.I),),
+        'profile': 'flatbed_adf',
+        'supports_multipick': True,
+    },
+    {
+        'family': '4104',
+        'patterns': (re.compile(r'_4104', re.I),),
+        'profile': 'flatbed_adf',
+        'supports_multipick': True,
+    },
+    {
+        'family': '4200',
+        'patterns': (re.compile(r'_4200_s1', re.I),),
+        'profile': 'adf_only',
+        'supports_multipick': True,
+    },
+    {
+        'family': '9000',
+        'patterns': (re.compile(r'_9000_s1', re.I), re.compile(r'_N9000_sn1', re.I)),
+        'profile': 'adf_only',
+        'supports_multipick': True,
+    },
+)
+
+def resolve_source_selection(device_uri, scenario='normal'):
+    if not device_uri:
+        return None
+
+    capability = None
+    for entry in DEVICE_CAPABILITIES:
+        for pattern in entry['patterns']:
+            if pattern.search(device_uri):
+                capability = entry
+                break
+        if capability is not None:
+            break
+
+    if capability is None:
+        return None
+
+    adf_source_items = ('ADF', 'Duplex', 'ADF-Backside')
+    flatbed_source_items = ('Flatbed', 'ADF', 'Duplex', 'ADF-Backside')
+
+    if scenario == 'locked_adf':
+        source_items = adf_source_items
+        selected_index = 0
+    elif scenario == 'docmerge':
+        if capability['profile'] == 'adf_only':
+            source_items = adf_source_items
+            selected_index = 1
+        else:
+            source_items = flatbed_source_items
+            selected_index = 2
+    elif scenario == 'reset':
+        if capability['profile'] == 'adf_only':
+            source_items = adf_source_items
+            selected_index = 0
+        else:
+            source_items = flatbed_source_items
+            selected_index = 1
+    else:
+        if capability['profile'] == 'adf_only':
+            source_items = adf_source_items
+            selected_index = 0
+        else:
+            source_items = flatbed_source_items
+            selected_index = 1
+
+    return {
+        'family': capability['family'],
+        'source_items': source_items,
+        'selected_index': selected_index,
+        'has_flatbed': capability['profile'] == 'flatbed_adf',
+        'supports_multipick': capability['supports_multipick'],
+    }
 
 PAGE_SIZES = OrderedDict([ # in mm
     ("letter" , (215, 279, "Letter", 'mm')),
@@ -54,16 +228,6 @@ PAGE_SIZES = OrderedDict([ # in mm
     ("super_b" , (330, 483, "Super B", 'mm')),
     ])
 
-patterns = [
-        r'_5000_', r'_7500', r'_n9120', r'_3600_f1', r'_n4600', r'_2600_f1', r'_n6600',
-        r'_8500fn2', r'_3500_f1', r'_4500_fn1', r'_7000_s3', r'_3000_s3', r'hp2000S1',
-        r'hpgt2500', r'_2000_s2', r'7000_snw1', r'4000_snw1', r'_3000_s4', r'_5000_s5',
-        r'test',r'_M232-M237', r'_260x', r'_m329', r'_4104'
-        ]
-
-# Combine patterns into a single regular expression
-combined_pattern = re.compile('|'.join(patterns), re.I)
-#devicelist = {}
 device_name = ''
 path = os.getcwd()
 new_path = os.getcwd()
@@ -548,7 +712,7 @@ class Ui_HpScan(object):
         self.sizel5 = self.s5.value()
     def edge_erase_spin_box_value_changed(self):
         self.edge_erase_value = round(self.edge_erase_spin_box.value(),2)
-        #log.debugf"self.edge_erase_value =  {self.edge_erase_value}")
+        #log.debug(f"self.edge_erase_value =  {self.edge_erase_value}")
     def comboBox_Path(self, new_path = None):
         path = new_path
         
@@ -577,17 +741,17 @@ class Ui_HpScan(object):
         if self.crushed.isChecked() == True:
             cmd = cmd + ' --' + 'crushed'
         if self.bg_color_removal.isChecked() == True:
-	        cmd = cmd + ' --' + 'bg_color_removal'
+            cmd = cmd + ' --' + 'bg_color_removal'
         if self.punchhole_removal.isChecked() == True:
-	        cmd = cmd + ' --' + 'punchhole_removal'
+            cmd = cmd + ' --' + 'punchhole_removal'
         if self.color_dropout.isChecked() == True:
-	        cmd = cmd + ' --' + 'color_dropout_red_value'+ '=' + str(self.dropout_color_red_value)
+            cmd = cmd + ' --' + 'color_dropout_red_value'+ '=' + str(self.dropout_color_red_value)
         if self.color_dropout.isChecked() == True:
-	        cmd = cmd + ' --' + 'color_dropout_green_value'+ '=' + str(self.dropout_color_green_value)
+            cmd = cmd + ' --' + 'color_dropout_green_value'+ '=' + str(self.dropout_color_green_value)
         if self.color_dropout.isChecked() == True:
-	        cmd = cmd + ' --' + 'color_dropout_blue_value'+ '=' + str(self.dropout_color_blue_value)
+            cmd = cmd + ' --' + 'color_dropout_blue_value'+ '=' + str(self.dropout_color_blue_value)
         if self.color_dropout.isChecked() == True and self.color_range == True:
-	        cmd = cmd + ' --' + 'color_range'+ '=' + str(self.sizel5)
+            cmd = cmd + ' --' + 'color_range'+ '=' + str(self.sizel5)
         if self.edge_erase.isChecked() == True:
             cmd = cmd + ' --' + 'edge_erase_value'+ '=' + (str(self.edge_erase_value))
         if self.mixed_feed.isChecked() == True:
@@ -761,6 +925,23 @@ class Ui_HpScan(object):
         self.file_type = str(self.comboBox_Type.currentText()).lower()
         #print self.file_type
 
+    def get_source_policy(self, scenario='normal'):
+        return resolve_source_selection(self.device_uri, scenario)
+
+    def apply_source_policy(self, scenario='normal'):
+        policy = self.get_source_policy(scenario)
+        if policy is None:
+            return None
+
+        self.comboBox_Flatbed.clear()
+        for _ in policy['source_items']:
+            self.comboBox_Flatbed.addItem("")
+        for index, label in enumerate(policy['source_items']):
+            self.comboBox_Flatbed.setItemText(index, _translate("HpScan", label, None))
+        self.comboBox_Flatbed.setCurrentIndex(policy['selected_index'])
+        self.comboBox_SourceSelected()
+        return policy
+
     def comboBox_SourceChanged(self,device):
         supported_PageSizes =[]
         for x in PAGE_SIZES:
@@ -769,44 +950,16 @@ class Ui_HpScan(object):
         self.comboBox_Papersize.clear()
         self.comboBox_Papersize.addItems(supported_PageSizes)
         self.comboBox_Papersize.currentIndexChanged.connect(self.comboBox_PaperSizeIndexChanged)
-
-        if device != 'test' and device != '5000' and device != '7500' and device != '9120' and device != '3600' and device != '4600' and device != '2600' and device != '6600' and device != '8500' and device != '3500' and device != '4500' and device != '3000' and device != '7000' and device != '2000' and device != '2500' and device != '4000' and device != 'M232-M237' and device != '260x' and device != 'm329' and device != '4104':
+        policy = self.apply_source_policy('normal')
+        if policy is None:
             self.multi_pick_pri = False
-        else:
-            self.comboBox_Flatbed.clear()
-            self.comboBox_Flatbed.addItem("")
-            self.comboBox_Flatbed.addItem("")
-            self.comboBox_Flatbed.addItem("")
-            if device == '5000' or device == '3000' or device == '7000' or device == '2000' or device == '4000' :
-                if device == '2000':
-                    self.multi_pick_pri = False
-                    self.multi_pick.setEnabled(False)
-                self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "Duplex", None))
-                self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
-                self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "ADF-Backside", None))
-                self.comboBox_Flatbed.setCurrentIndex(1)
-            elif device == 'test' or device == '7500' or device == '9120' or device == '3600' or device == '4600' or device == '2600' or device == '6600' or device == '8500' or device == '3500' or device == '4500' or device == '2500' or device == 'M232-M237' or device == '260x'or device == 'm329' or device == '4104':
-                if device == '2500':
-                    self.multi_pick_pri = False
-                    self.multi_pick.setEnabled(False)
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "Flatbed", None))
-                self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
-                self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "Duplex", None))
-                self.comboBox_Flatbed.setItemText(3, _translate("HpScan", "ADF-Backside", None))
-                self.comboBox_Flatbed.setCurrentIndex(1)
-            if device == 'test' or device == 'm329':
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.setItemText(4, _translate("HpScan", "Manual-Duplex", None))
-            if device == '5000' or device == '7500' or device == '9120' or device == '3600' or device == '4600' or device == '2600' or device == '6600' or device == '8500' or device == '3500' or device == '4500' or device == '3000' or device == '7000' or device == '2000' or device == '2500' or device =='4000' or device == 'M232-M237' or device == '260x' or device == 'm329' or device == '4104':
-                if device == '2500' or device == '2000' or device == '2600':
-                    self.multi_pick_pri = False
-                    self.multi_pick.setEnabled(False)
-                else:
-                    self.multi_pick_pri = True
-                    self.multi_pick.setEnabled(True)
-            self.source = str(self.comboBox_Flatbed.currentText()).lower()
-            self.comboBox_Flatbed.currentIndexChanged.connect(self.comboBox_SourceSelected)
+            self.multi_pick.setEnabled(False)
+            return
+
+        self.device_name = policy['family']
+        self.multi_pick_pri = policy['supports_multipick']
+        self.multi_pick.setEnabled(policy['supports_multipick'])
+        self.comboBox_Flatbed.currentIndexChanged.connect(self.comboBox_SourceSelected)
         
     def comboBox_SourceSelected(self):
         self.source = str(self.comboBox_Flatbed.currentText()).lower()
@@ -828,14 +981,7 @@ class Ui_HpScan(object):
 
     def batch_Seperation(self):
         if self.batch_seperation.isChecked() == True:
-            self.comboBox_Flatbed.clear()
-            self.comboBox_Flatbed.addItem("")
-            self.comboBox_Flatbed.addItem("")
-            self.comboBox_Flatbed.addItem("")
-            self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "Duplex", None))
-            self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
-            self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "ADF-Backside", None))
-            self.comboBox_Flatbed.setCurrentIndex(1)
+            self.apply_source_policy('locked_adf')
             pyPlatform = platform.python_version()
             num = pyPlatform.split('.')
             if num[0] >= '3':
@@ -855,29 +1001,7 @@ class Ui_HpScan(object):
                 self.bp_barcode.stateChanged.connect(self.bp_Barcode)
                 self.bp_blankpage.stateChanged.connect(self.bp_Blankpage)
         else:
-            if (re.search(r'_7500', self.device_uri)) or (re.search(r'_N9120', self.device_uri,re.I)) or (re.search(r'_3600_f1', self.device_uri,re.I)) or (re.search(r'_n4600', self.device_uri,re.I)) or (re.search(r'_2600_f1', self.device_uri,re.I)) or (re.search(r'_n6600', self.device_uri,re.I)) or (re.search(r'_8500fn2', self.device_uri)) or (re.search(r'_3500_f1', self.device_uri)) or (re.search(r'_4500_fn1', self.device_uri)) or (re.search(r'hpgt2500', self.device_uri)):
-                self.comboBox_Flatbed.clear()
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "Flatbed", None))
-                self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
-                self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "Duplex", None))
-                self.comboBox_Flatbed.setItemText(3, _translate("HpScan", "ADF-Backside", None))
-                self.comboBox_Flatbed.setCurrentIndex(1)
-            elif (re.search(r'_5000_', self.device_uri)) or (re.search(r'_7000_s3', self.device_uri)) or (re.search(r'_3000_s3', self.device_uri)) or (re.search(r'hp2000S1', self.device_uri)) or (re.search(r'_2000_s2', self.device_uri)) or (re.search(r'7000_snw1', self.device_uri)) or (re.search(r'4000_snw1', self.device_uri)) or (re.search(r'_3000_s4', self.device_uri)) or (re.search(r'_5000_s5', self.device_uri)):
-                self.comboBox_Flatbed.clear()
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "ADF", None))
-                self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "Duplex", None))
-                self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "ADF-Backside", None))
-                self.comboBox_Flatbed.setCurrentIndex(0)
-            if (re.search(r'_m329', self.device_uri)) or (re.search(r'test', self.device_uri)):
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.setItemText(4, _translate("HpScan", "Manual-Duplex", None))
+            self.apply_source_policy('reset')
             #if pyPlatform < 3:
             self.CheckEnable()
             self.bp_blankpage.setChecked(False)
@@ -925,41 +1049,12 @@ class Ui_HpScan(object):
 
     def Multi_pick(self):
         if self.multi_pick.isChecked() == True:
-            self.comboBox_Flatbed.clear()
-            self.comboBox_Flatbed.addItem("")
-            self.comboBox_Flatbed.addItem("")
-            self.comboBox_Flatbed.addItem("")
-            self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "Duplex", None))
-            self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
-            self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "ADF-Backside", None))
-            self.comboBox_Flatbed.setCurrentIndex(1)
+            self.apply_source_policy('locked_adf')
             if self.multi_pick_pri == True:	    
                 self.multi_pick.setEnabled(True)
             self.CheckEnable()
         else:
-            if (re.search(r'_7500', self.device_uri)) or (re.search(r'_N9120', self.device_uri,re.I)) or (re.search(r'_3600_f1', self.device_uri,re.I)) or (re.search(r'_n4600', self.device_uri,re.I)) or (re.search(r'_2600_f1', self.device_uri,re.I)) or (re.search(r'_n6600', self.device_uri,re.I)) or (re.search(r'_8500fn2', self.device_uri)) or (re.search(r'_3500_f1', self.device_uri)) or (re.search(r'_4500_fn1', self.device_uri)) or (re.search(r'hpgt2500', self.device_uri)):
-                self.comboBox_Flatbed.clear()
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "Flatbed", None))
-                self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
-                self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "Duplex", None))
-                self.comboBox_Flatbed.setItemText(3, _translate("HpScan", "ADF-Backside", None))
-                self.comboBox_Flatbed.setCurrentIndex(1)
-            elif (re.search(r'_5000_', self.device_uri)) or (re.search(r'_7000_s3', self.device_uri)) or (re.search(r'_3000_s3', self.device_uri)) or (re.search(r'hp2000S1', self.device_uri)) or (re.search(r'_2000_s2', self.device_uri)) or (re.search(r'7000_snw1', self.device_uri)) or (re.search(r'4000_snw1', self.device_uri)) or (re.search(r'_3000_s4', self.device_uri)) or (re.search(r'_5000_s5', self.device_uri)):
-                self.comboBox_Flatbed.clear()
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "ADF", None))
-                self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "Duplex", None))
-                self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "ADF-Backside", None))
-                self.comboBox_Flatbed.setCurrentIndex(0)
-            if (re.search(r'_m329', self.device_uri)) or (re.search(r'test', self.device_uri)):
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.setItemText(4, _translate("HpScan", "Manual-Duplex", None))
+            self.apply_source_policy('reset')
             self.CheckEnable()
     
     def Auto_orient(self):
@@ -1184,14 +1279,7 @@ class Ui_HpScan(object):
 
     def Mixed_feed(self):
         if self.mixed_feed.isChecked() == True:
-            self.comboBox_Flatbed.clear()
-            self.comboBox_Flatbed.addItem("")
-            self.comboBox_Flatbed.addItem("")
-            self.comboBox_Flatbed.addItem("")
-            self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "Duplex", None))
-            self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
-            self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "ADF-Backside", None))
-            self.comboBox_Flatbed.setCurrentIndex(1)
+            self.apply_source_policy('locked_adf')
             if self.mixed_feed_pri == True:
                 self.mixed_feed.setEnabled(True)
             self.DisableAll()
@@ -1207,29 +1295,7 @@ class Ui_HpScan(object):
             self.color_dropout.setChecked(False)
             self.color_dropout.setEnabled(False)
         else:
-            if (re.search(r'_7500', self.device_uri)) or (re.search(r'_N9120', self.device_uri,re.I)) or (re.search(r'_3600_f1', self.device_uri,re.I)) or (re.search(r'_n4600', self.device_uri,re.I)) or (re.search(r'_2600_f1', self.device_uri,re.I)) or (re.search(r'_n6600', self.device_uri,re.I)) or (re.search(r'_8500fn2', self.device_uri)) or (re.search(r'_3500_f1', self.device_uri)) or (re.search(r'_4500_fn1', self.device_uri)) or (re.search(r'2500', self.device_uri)):
-                self.comboBox_Flatbed.clear()
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "Flatbed", None))
-                self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
-                self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "Duplex", None))
-                self.comboBox_Flatbed.setItemText(3, _translate("HpScan", "ADF-Backside", None))
-                self.comboBox_Flatbed.setCurrentIndex(1)
-            elif (re.search(r'_5000_', self.device_uri)) or (re.search(r'_7000_s3', self.device_uri)) or (re.search(r'_3000_s3', self.device_uri)) or (re.search(r'hp2000S1', self.device_uri)) or (re.search(r'_2000_s2', self.device_uri)) or (re.search(r'7000_snw1', self.device_uri)) or (re.search(r'4000_snw1', self.device_uri)) or (re.search(r'_3000_s4', self.device_uri)) or (re.search(r'_5000_s5', self.device_uri)):
-                self.comboBox_Flatbed.clear()
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "ADF", None))
-                self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "Duplex", None))
-                self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "ADF-Backside", None))
-                self.comboBox_Flatbed.setCurrentIndex(0)
-            if (re.search(r'_m329', self.device_uri)) or (re.search(r'test', self.device_uri)):
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.setItemText(4, _translate("HpScan", "Manual-Duplex", None))
+            self.apply_source_policy('reset')
             self.document_merge.setChecked(False)
             self.DisableAll()
             self.crushed.setChecked(False)
@@ -1387,26 +1453,7 @@ class Ui_HpScan(object):
             self.color_dropout.setEnabled(False)
             #name = re.search(r'_5000_', self.device_uri)
             #if name:
-            if re.search(r'_5000_', self.device_uri) or re.search(r'_7000_s3', self.device_uri) or re.search(r'_3000_s3', self.device_uri) or (re.search(r'hp2000S1', self.device_uri)) or re.search(r'_2000_s2', self.device_uri) or re.search(r'7000_snw1', self.device_uri) or re.search(r'4000_snw1', self.device_uri) or re.search(r'_3000_s4', self.device_uri) or re.search(r'_5000_s5', self.device_uri):
-                self.comboBox_Flatbed.clear()
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "ADF", None))
-                self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "Duplex", None))
-                self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "ADF-Backside", None))
-                self.comboBox_Flatbed.setCurrentIndex(1)
-            elif (re.search(r'_7500', self.device_uri)) or (re.search(r'_N9120', self.device_uri,re.I)) or (re.search(r'_3600_f1', self.device_uri,re.I)) or (re.search(r'_n4600', self.device_uri,re.I)) or (re.search(r'_2600_f1', self.device_uri,re.I)) or (re.search(r'_n6600', self.device_uri,re.I)) or (re.search(r'_8500fn2', self.device_uri)) or (re.search(r'_3500_f1', self.device_uri)) or (re.search(r'_4500_fn1', self.device_uri)) or (re.search(r'2500', self.device_uri)):
-                self.comboBox_Flatbed.clear()
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "Flatbed", None))
-                self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
-                self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "Duplex", None))
-                self.comboBox_Flatbed.setItemText(3, _translate("HpScan", "ADF-Backside", None))
-                self.comboBox_Flatbed.setCurrentIndex(2)
+            self.apply_source_policy('docmerge')
             self.comboBox_Flatbed.setEnabled(False)
             self.source = str(self.comboBox_Flatbed.currentText()).lower()
         else:
@@ -1427,30 +1474,7 @@ class Ui_HpScan(object):
             if self.color_dropout_pri == True:
                 self.color_dropout.setEnabled(True)
             self.comboBox_Flatbed.setEnabled(True)
-            if (re.search(r'_7500', self.device_uri)) or (re.search(r'_N9120', self.device_uri,re.I)) or (re.search(r'_3600_f1', self.device_uri,re.I)) or (re.search(r'_n4600', self.device_uri,re.I)) or (re.search(r'_2600_f1', self.device_uri,re.I)) or (re.search(r'_n6600', self.device_uri,re.I)) or (re.search(r'_8500fn2', self.device_uri)) or (re.search(r'_3500_f1', self.device_uri)) or (re.search(r'_4500_fn1', self.device_uri)) or (re.search(r'2500', self.device_uri) or (re.search(r'_M232-M237', self.device_uri)) or (re.search(r'_260x', self.device_uri)) or (re.search(r'_m329', self.device_uri)) or (re.search(r'_4104', self.device_uri))):
-                self.comboBox_Flatbed.clear()
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "Flatbed", None))
-                self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "ADF", None))
-                self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "Duplex", None))
-                self.comboBox_Flatbed.setItemText(3, _translate("HpScan", "ADF-Backside", None))
-                self.comboBox_Flatbed.setCurrentIndex(1)
-            elif (re.search(r'_5000_', self.device_uri)) or (re.search(r'_7000_s3', self.device_uri)) or (re.search(r'_3000_s3', self.device_uri)) or (re.search(r'hp2000S1', self.device_uri)) or (re.search(r'_2000_s2', self.device_uri)) or (re.search(r'7000_snw1', self.device_uri)) or (re.search(r'4000_snw1', self.device_uri)) or (re.search(r'_3000_s4', self.device_uri)) or (re.search(r'_5000_s5', self.device_uri)):
-                self.comboBox_Flatbed.clear()
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.setItemText(0, _translate("HpScan", "ADF", None))
-                self.comboBox_Flatbed.setItemText(1, _translate("HpScan", "Duplex", None))
-                self.comboBox_Flatbed.setItemText(2, _translate("HpScan", "ADF-Backside", None))
-                self.comboBox_Flatbed.setCurrentIndex(0)
-            if (re.search(r'_m329', self.device_uri)) or (re.search(r'test', self.device_uri)):
-                self.comboBox_Flatbed.addItem("")
-                self.comboBox_Flatbed.setItemText(4, _translate("HpScan", "Manual-Duplex", None))
-            self.source = str(self.comboBox_Flatbed.currentText()).lower()
+            self.apply_source_policy('reset')
 
     def Document_merge_adf_flatbed(self):
         if self.document_merge_adf_flatbed.isChecked() == True:
@@ -1470,7 +1494,8 @@ class Ui_HpScan(object):
  
     def check_flatbed_present(self):
         #only enable adf flatbed merge button if device has flatbed
-        if self.comboBox_Flatbed.count() == 4:
+        policy = self.get_source_policy('normal')
+        if policy is not None and policy['has_flatbed']:
             self.pushButton_Merge.setEnabled(True)
         else:
             self.pushButton_Merge.setEnabled(False)
@@ -1535,30 +1560,10 @@ class Ui_HpScan(object):
             self.warningMessage(no_pages_to_merge)
              
     def change_source(self):
-        device_patterns = {
-            '_5000_': '5000', '_7500': '7500', 'hp2000S1': '2000',
-            'hpgt2500': '2500', '_n9120': '9120', '_3600_f1': '3600',
-            '_n4600': '4600', '_2600_f1': '2600', '_n6600': '6600',
-            '_8500fn2': '8500', '_3500_f1': '3500', '_4500_fn1': '4500',
-            '_7000_s3': '7000', '_3000_s3': '3000', '_2000_s2': '2000',
-            '7000_snw1': '7000', '4000_snw1': '4000', '_3000_s4': '3000',
-            '_5000_s5': '5000', 'test': 'test', '_M232-M237': 'M232-M237', '_260x' : '260x', '_m329': 'm329', '_4104' : '4104'
-        }
-        
-        for pattern, name in device_patterns.items():
-            if re.search(pattern, self.device_uri, re.I):
-                self.device_name = name
-                break
-        else:
-            self.device_name = None
-        """
-        if self.device_name in {
-            '7500', '5000', '9120', '3600', '4600', '2600',
-            '6600', '8500', '3500', '4500', '7000', '3000',
-            '2000', '2500', '4000', 'test', 'M232-M237', '260x', 'm329', '4104'
-        }:"
-        """
-        self.comboBox_SourceChanged(self.device_name)
+        policy = self.get_source_policy('normal')
+        self.device_name = policy['family'] if policy is not None else None
+        if policy is not None:
+            self.comboBox_SourceChanged(self.device_name)
         
         
     def comboBox_device_URI(self):
@@ -1661,12 +1666,12 @@ class Ui_HpScan(object):
 
         # Process each device
         for device in self.devicelist:
-           log.debug(f"device discovered - {device}")
-           if combined_pattern.search(device):
+              log.debug(f"device discovered - {device}")
+              if resolve_source_selection(device):
                 self.comboBox_Device_URI.addItem(device)
                 self.comboBox_Device_URI.setItemText(i, _translate('HpScan', device,None))
                 i += 1
-           else:
+              else:
                 self.other_device_cnt += 1
         self.comboBox_path.addItem(path)
         self.comboBox_path.setItemText(0, _translate('HpScan', path,
@@ -1689,13 +1694,13 @@ class SetupDialog():
         ui = Ui_HpScan()
 
         devicelist = {}
-        #device = ''
+        device = ''
         sane.init()
         sane_devices = sane.getDevices()
         log.debug(f"sane devices = {sane_devices}")
         # Process each device
         for (device, mfg, mdl, t) in sane_devices:
-            if combined_pattern.search(device):
+            if resolve_source_selection(device):
                 try:
                     scanDevice = sane.openDevice(device)
                     brx = scanDevice.getOptionObj('br-x').limitAndSet(None)

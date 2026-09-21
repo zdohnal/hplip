@@ -1303,6 +1303,32 @@ def getEndian():
         return LITTLE_ENDIAN
 
 
+def run_plugin_command(required=True, plugin_reason=PLUGIN_REASON_NONE, Mode=GUI_MODE):
+    """Run hp-plugin subprocess for user-initiated plugin installation.
+    
+    Handles interactive password prompts via pexpect for sudo/su elevation.
+    """
+    from . import password
+    
+    req = '--required'
+    if not required:
+        req = '--optional'
+
+    if which("hp-plugin"):
+        p_path = "hp-plugin"
+    else:
+        p_path = "python ./plugin.py"
+
+    cmd = "%s -u %s --reason %s" % (p_path, req, plugin_reason)   
+    log.debug("%s" % cmd)
+    
+    # Use run() with password support for interactive prompts via pexpect
+    passwordObj = password.Password()
+    status, output = run(cmd, passwordObj=passwordObj, log_output=True)
+
+    return (status == 0, True)
+
+
 #
 # Function: run()
 #   Note:- to run su/sudo commands, caller needs to pass passwordObj.
@@ -2136,9 +2162,19 @@ def download_from_network(weburl, outputFile = None, useURLLIB=False):
 
 
 class Sync_Lock:
+    # HPLIP-2026-001: use a root-owned runtime directory, not world-writable /tmp.
+    _LOCK_DIR = "/var/run/hplip"
+
     def __init__(self, filename):
-        self.Lock_filename = filename
-        self.handler = open(self.Lock_filename, 'w')
+        if not os.path.isdir(self._LOCK_DIR):
+            os.makedirs(self._LOCK_DIR, 0o755)
+        safe_path = os.path.join(self._LOCK_DIR, os.path.basename(filename))
+        self.Lock_filename = safe_path
+        # O_NOFOLLOW: refuse open if path is a symlink (HPLIP-2026-001).
+        fd = os.open(safe_path,
+                     os.O_WRONLY | os.O_CREAT | os.O_TRUNC | os.O_NOFOLLOW,
+                     0o600)
+        self.handler = os.fdopen(fd, 'w')
 
 # Wait for another process to release resource and acquires the resource.
     def acquire(self):
@@ -2275,6 +2311,96 @@ def check_library( so_file_path):
 
     log.debug("%s library status: %d" % (so_file_path, ret_val))
     return ret_val
+
+
+def _path_is_within(child_path, parent_path):
+    child_real = os.path.realpath(os.path.abspath(child_path))
+    parent_real = os.path.realpath(os.path.abspath(parent_path))
+
+    if child_real == parent_real:
+        return True
+
+    parent_sep = parent_real if parent_real.endswith(os.sep) else parent_real + os.sep
+    return child_real.startswith(parent_sep)
+
+
+def _trusted_ppd_owner(ppd_file):
+    # Trusted owners are root and the current effective user.
+    if not hasattr(os, 'geteuid') and not hasattr(os, 'getuid'):
+        return True
+
+    st = os.stat(ppd_file)
+    trusted_uids = [0]
+    if hasattr(os, 'geteuid'):
+        trusted_uids.append(os.geteuid())
+    elif hasattr(os, 'getuid'):
+        trusted_uids.append(os.getuid())
+
+    return st.st_uid in trusted_uids
+
+
+def validate_alternative_ppd(ppd_file, ppd_dir):
+    """
+    Validate a user-selected alternate PPD file before it is used for printer setup.
+    Returns (True, '') if the PPD passes all trust checks, else (False, reason).
+    """
+    if not ppd_file:
+        return False, "No PPD file was selected."
+
+    selected_path = os.path.abspath(ppd_file)
+    selected_path_lower = selected_path.lower()
+    if not (selected_path_lower.endswith('.ppd') or selected_path_lower.endswith('.ppd.gz')):
+        return False, "Only .ppd or .ppd.gz files are allowed."
+
+    if not os.path.isfile(selected_path):
+        return False, "The selected PPD file does not exist."
+
+    if os.path.islink(selected_path):
+        return False, "Symbolic links are not allowed for PPD selection."
+
+    if not _path_is_within(selected_path, ppd_dir):
+        return False, "PPD must be inside the HPLIP PPD directory: %s" % ppd_dir
+
+    try:
+        if not _trusted_ppd_owner(selected_path):
+            return False, "PPD owner is not trusted. Expected root or current user ownership."
+    except OSError:
+        return False, "Unable to verify ownership of selected PPD file."
+
+    try:
+        if selected_path_lower.endswith('.gz'):
+            import gzip
+            header = gzip.GzipFile(selected_path, 'rb').read(32768)
+        else:
+            header = open(selected_path, 'rb').read(32768)
+    except Exception:
+        return False, "Unable to read the selected PPD file."
+
+    if not header:
+        return False, "Selected PPD file is empty."
+
+    header_text = header.decode('latin-1', 'ignore') if PY3 else header
+
+    if '*PPD-Adobe:' not in header_text:
+        return False, "Selected file does not contain a valid PPD header."
+
+    if '*Manufacturer:' not in header_text and '*NickName:' not in header_text:
+        return False, "Selected file is missing required PPD metadata."
+
+    if 'HP' not in header_text and 'Hewlett-Packard' not in header_text:
+        return False, "Selected PPD content is not trusted for HP device setup."
+
+    # Local import: prnt.cups imports base.utils, so import lazily to avoid a circular import.
+    from prnt import cups
+    try:
+        ppd_desc = cups.getPPDDescription(selected_path)
+    except Exception:
+        ppd_desc = ''
+
+    if not ppd_desc:
+        return False, "Unable to parse PPD description from selected file."
+
+    return True, ''
 
 
 def download_via_wget(target):

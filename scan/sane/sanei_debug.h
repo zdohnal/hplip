@@ -137,7 +137,11 @@ __attribute__ ((format (printf, 2, 3)))
 #   include <stdarg.h>
 	
 extern void sanei_debug_msg 
-  (int level, int max_level, const char *be, const char *fmt, va_list ap);
+  (int level, int max_level, const char *be, const char *fmt, va_list ap)
+#ifdef __GNUC__
+  __attribute__ ((format (printf, 4, 0)))
+#endif
+  ;
 
 #ifdef __GNUC__
 #   ifndef DEBUG_NOT_STATIC

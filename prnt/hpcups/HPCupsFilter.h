@@ -86,7 +86,8 @@ public:
 
 private:
 
-    BYTE            *m_pPrinterBuffer;        
+    BYTE            *m_pPrinterBuffer;
+    size_t           m_uPrinterBufferSize;
     Job            m_Job;
     SystemServices         *m_pSys;
     int             child_pid;
@@ -98,6 +99,7 @@ private:
 private:
     void            closeFilter();
     void            cleanup();
+    void            allocPrinterBuffer(cups_page_header2_t *header);
     //void            getLogLevel();
     DRIVER_ERROR    startPage (cups_page_header2_t *header);
     int             processRasterData(cups_raster_t *cups_raster);

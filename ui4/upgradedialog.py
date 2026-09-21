@@ -26,7 +26,7 @@ import signal
 
 # Local
 from base.g import *
-from base import device, utils, pkit, os_utils
+from base import device, utils, os_utils
 from .ui_utils import *
 
 # Qt

@@ -502,7 +502,7 @@ DRIVER_ERROR DeviceRegistry::SelectDevice(char* model, int *pVIPVersion, char* p
 DRIVER_ERROR DeviceRegistry::SelectDevice(const char* sDevID, SystemServices* pSS)
 {
     char strModel[DevIDBuffSize]; // to contain the MODEL (MDL) from the DevID
-    char strPens[64];   // to contain the VSTATUS penID from the DevID
+    char strPens[132];   // to contain the VSTATUS penID from the DevID (max parsed payload is 121 + '\0')
     int  VIPVersion;    // VIP version from the DevID
 
 	DRIVER_ERROR err = ParseDevIDString(sDevID, strModel, &VIPVersion, strPens);

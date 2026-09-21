@@ -1,0 +1,97 @@
+Consolidated Review: HPLIP Uncommitted Changes
+
+  This changeset is primarily a security hardening sweep — bounds checks, sprintf→snprintf, strcpy→strncpy, symlink-safe file creation, eval() removal, shlex.quote() adoption. Most changes are correct
+  improvements. However, I found the following issues:
+
+  ---
+
+  CRITICAL — Build Blockers
+
+  1. configure.in:865 — AC_CONFIG_FILES references deleted .in templates
+
+  AC_CONFIG_FILES still lists hplip.conf, hplip.desktop, hplip-systray.desktop, and hplip.list, but all four .in template files are deleted. ./configure will fail with "cannot find input file" errors.
+
+  2. Makefile.am:185,200 — References to deleted files break make dist
+
+  dist_noinst_SCRIPTS still lists hplip-install and hplipclassdriver.spec (line 185). dist_home_DATA still lists hplip_clean.sh (line 200). The rpmbuild rule on line 948 also references hplipclassdriver.spec. All
+  these files are deleted.
+
+  ---
+
+  HIGH — Security / Data Corruption
+
+  3. scan/sane/http.c:498,512 — *bytes_read double-incremented (data corruption)
+
+  In the non-chunked else branch of http_read(), *bytes_read += len appears on both line 498 (immediately after read_line) and line 512 (after memcpy). Every iteration adds len twice, so callers receive ~2x the
+  actual byte count. The bounds check on line 504 also uses the already-inflated value, making it check current + 2*len > max_size. Fix: remove the increment on line 498, keep only line 512.
+
+  4. protocol/hp_ipp.c:177 — Missed sprintf → snprintf conversion
+
+  sprintf(printer_uri, "ipp://localhost/printers/%s", name);
+  validate_name() is a stub (returns 1 unconditionally), so name is unvalidated. Every other sprintf in the changeset was converted, but this one was missed.
+
+  5. Makefile.am:657 — hpps_CXXFLAGS is dead code (C sources need CFLAGS)
+
+  hpps has only .c sources. Automake ignores _CXXFLAGS for C files, so $(APDK_ENDIAN_FLAG) $(DBUS_CFLAGS) are never passed to the compiler. Should be hpps_CFLAGS.
+
+  ---
+
+  MEDIUM — Security / Hardening Gaps
+
+  6. Makefile.am:87-88 — SECURITY_CFLAGS applied to only 1 of ~10 C/C++ targets
+
+  -fstack-protector-strong, -D_FORTIFY_SOURCE=2, -fcf-protection, and linker hardening flags are added only to libsane_hpaio_la. Missing from: hp (CUPS backend, parses network URIs), hpcups (raster filter), hpps,
+  libhpmud, libhpipp, libhpdiscovery, cupsext, scanext, and hpmudext.
+
+  7. fax/filters/pstotiff:18,27 — shlex.quote() added but still uses os.system()
+
+  The fix quotes argv[6] but the command is still built via string concatenation and run through os.system(). The temp_out_fname from mkstemp() is interpolated without quoting. The proper fix is subprocess.run()
+  with a list. Also, os.system() exit code is never checked — Ghostscript failure is silently ignored.
+
+  8. prnt/hpcups/HPCupsFilter.cpp — new BYTE[needed] without upper bound or nothrow
+
+  needed is computed from untrusted raster header values (cupsWidth, cupsBytesPerLine). A malicious raster could cause a huge allocation. new[] throws on failure (no exception handling in this codebase). Add
+  (std::nothrow) + NULL check, or add an upper-bound sanity check.
+
+  9. prnt/hpcups/ModeDeltaPlus.cpp:47 — inputsize = 0 on overflow is a deferred crash
+
+  When inputsize > UINT_MAX - 7, the overflow guard sets inputsize = 0. Downstream code will allocate 0-byte buffers or operate on empty data, causing crashes later. Should set an error flag or return early.
+
+  10. base/utils.py:2166 — Sync_Lock uses /var/run/hplip without fallback
+
+  Non-root HPLIP processes (user-mode scanning) that use Sync_Lock will fail with PermissionError if /var/run/hplip doesn't exist. The old code used /tmp. Needs a non-root fallback or tmpfiles.d config.
+
+  ---
+
+  LOW — Compatibility / Minor Bugs
+
+  11. ui4/scandialog.py / ui5/scandialog.py — m329 device family dropped
+
+  The scan source selection refactor drops the _m329 pattern from the device capabilities table. Devices matching this pattern will lose scan source selection functionality. Manual-Duplex source option is also
+  gone.
+
+  12. ui4/scandialog.py / ui5/scandialog.py — except: pass swallows all errors
+
+  Old code logged errors: log.debug(f"Error processing device {device}: {e}"). New code uses bare except: pass which catches SystemExit/KeyboardInterrupt and silently discards. Scanner failures become invisible.
+
+  13. base/utils.py:2243-2244 — File handle leaks in validate_alternative_ppd
+
+  header = gzip.GzipFile(selected_path, 'rb').read(32768)
+  Creates file handles without with blocks. Resource leak under repeated calls.
+
+  14. protocol/hp_ipp.c:114 — Unnecessary NUL write after realpath()
+
+  canonical_path[canonical_path_size - 1] = '\0' is redundant — realpath() already NUL-terminates. If canonical_path_size were ever less than the path length, this would silently truncate to a wrong path.
+
+  ---
+
+  Positive Changes (Good Security Fixes)
+
+  - ui5/fabwindow.py — Removed dangerous eval() on QFileDialog return value
+  - ui4/printsettingstoolbox.py / ui5/ — shlex.quote() replaces manual quoting for print commands
+  - fax/backend/hpfax.py — Secure FIFO creation: uuid4() unpredictable names, mode 0600, symlink resolution, username validation
+  - hpssd.py — Removed unsafe os.fork() + SIGKILL pattern
+  - io/hpmud/dot4.c, mlc.c — Bounds-checking protocol IDs before array indexing
+  - scan/sane/mfpdtf.c — creat() → open() with O_NOFOLLOW for symlink safety
+  - prnt/hpcups/genPCLm.cpp — Memory leak fixes on error paths
+  - prnt/hpcups/HPCupsFilter.cpp — Bounds-checked DEVICE_URI parsing with isxdigit() validation

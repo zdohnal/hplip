@@ -215,22 +215,24 @@ static char * GetPPDValues()
         fseek(file_pointer, 0L, SEEK_END );
         count = ftell(file_pointer);
         fseek(file_pointer, 0L, SEEK_SET );
-        /* Alloacting memory for PPD content    */
-        bytes = (char *)malloc(count);
+        /* Alloacting memory for PPD content + NUL terminator */
+        bytes = (char *)malloc(count + 1);
         if(!bytes)
            fprintf(stderr, "HP PS filter func = GetPPDValues : GET PPD VALUES FAILED - 2\n");
         else
         {
-          memset(bytes, 0, count);
+          memset(bytes, 0, count + 1);
           fread(bytes, count, 1, file_pointer);
+          bytes[count] = '\0';
           /* Checking HPDigit in PPD           */
           if((strstr(bytes, "HPDigit")) != NULL)
              ppd_values[0] = 1;
           /* Checking HPACCOUNTINGINFO in PPD  */
           if((strstr(bytes, HPACCOUNTINGINFO)) != NULL)
             ppd_values[1] = 1;
-          /* Checking HPBOD in PPD             */
-          if((strstr(bytes, HPBOD)) != NULL)
+          /* Disable only when explicitly set to *HPBOD: "0". */
+          if((strstr(bytes, HPBOD)) != NULL &&
+             (strstr(bytes, "*HPBOD: \"0\"") != NULL))
             ppd_values[2] = 1;
           /* Checking HPPJLECONOMODE in PPD    */
           if((strstr(bytes, HPPJLECONOMODE)) != NULL)
@@ -269,7 +271,8 @@ static char * GetPPDValues()
                if(newstring[i]=='\n')
                   break;
             }
-            strncpy(finalstr,&newstring[1],i-1);
+            strncpy(finalstr, &newstring[1], sizeof(finalstr) - 1);
+            finalstr[sizeof(finalstr) - 1] = '\0';
             ppd_values[12] = 1;
           }
           ppd_values[14] = '\0';
@@ -300,7 +303,7 @@ static signed char RemoveCharacters(char input_slot[])
 
     if((strlen(input_slot)) > 0)
     {
-        while(input_slot[len] != '\0')
+        while(input_slot[len] != '\0' && temp_len < sizeof(temp_input_slot) - 1)
         {
             if (input_slot[len] != '-' && input_slot[len] != ' ')
             {
@@ -328,17 +331,25 @@ static signed char RemoveCharacters(char input_slot[])
 static void WriteHeader(char **argument)
 {
     char buffer[MAX_BUFFER] = {0};
+    int n;
     
     /*		Writing Header Information
     argument[1] = JOB ID , argument[2]= USERNAME,  argument[3] = TITLE		*/
     hpwrite("\x1b%-12345X@PJL JOBNAME=", strlen("\x1b%-12345X@PJL JOBNAME="));
-    sprintf(buffer, "hplip_%s_%s\x0a", argument[2], argument[1]);
+    
+    n = snprintf(buffer, sizeof(buffer), "hplip_%s_%s\x0a", argument[2], argument[1]);
+    if (n >= (int)sizeof(buffer))
+        fprintf(stderr, "HP PS filter func = WriteHeader : WARNING hplip_user_jobid truncated\n");
     hpwrite(buffer, strlen(buffer));
     memset(buffer, 0, sizeof(buffer));
-    sprintf(buffer, "@PJL SET USERNAME=\"%s\"\x0a", argument[2]);
+    n = snprintf(buffer, sizeof(buffer), "@PJL SET USERNAME=\"%s\"\x0a", argument[2]);
+    if (n >= (int)sizeof(buffer))
+        fprintf(stderr, "HP PS filter func = WriteHeader : WARNING USERNAME truncated\n");
     hpwrite(buffer, strlen(buffer));
     memset(buffer, 0, sizeof(buffer));
-    sprintf(buffer, "@PJL SET JOBNAME=\"%s\"\x0a", argument[3]);
+    n = snprintf(buffer, sizeof(buffer), "@PJL SET JOBNAME=\"%s\"\x0a", argument[3]);
+    if (n >= (int)sizeof(buffer))
+        fprintf(stderr, "HP PS filter func = WriteHeader : WARNING JOBNAME truncated\n");
     hpwrite(buffer, strlen(buffer));
     fprintf(stderr, "HP PS filter func = WriteHeader           : WRITING PJL HEADER INFO\n");
     return;
@@ -400,7 +411,8 @@ static unsigned char WriteSecurePrinting(char is_secure_printing_old, int num_op
          if((val = cupsGetOption("HPDigit", num_options, options)) != NULL || 
            ((val = GetOptionValue("DefaultHPDigit")) != NULL ))
          {
-           strncpy(input_slot, val, strlen(val));
+           strncpy(input_slot, val, sizeof(input_slot) - 1);
+           input_slot[sizeof(input_slot) - 1] = '\0';
            if((strstr(input_slot, "Custom.")) != NULL)
            {
               char *sec_pin_value = strtok(input_slot, "Custom.");
@@ -427,7 +439,7 @@ static unsigned char WriteSecurePrinting(char is_secure_printing_old, int num_op
 
        /* Sending Secure Printing PJL Command */
        char sec_pin_command[MAX_BUFFER] = {0};
-       sprintf(sec_pin_command, "%s%s%s", "@PJL SET HOLDKEY=", sec_pin, "\x0a");
+       snprintf(sec_pin_command, sizeof(sec_pin_command), "%s%s%s", "@PJL SET HOLDKEY=", sec_pin, "\x0a");
        hpwrite("@PJL SET HOLD=ON\x0a", strlen("@PJL SET HOLD=ON\x0a"));
        hpwrite("@PJL SET HOLDTYPE=PRIVATE\x0a", strlen("@PJL SET HOLDTYPE=PRIVATE\x0a"));
        hpwrite(sec_pin_command, strlen(sec_pin_command));
@@ -456,19 +468,21 @@ static unsigned char WriteJobAccounting(char **argument, int num_options, cups_o
        struct tm *tmp;
 
 
-       sprintf(buffer, "@PJL SET JOBATTR=\"JobAcct1=%s\"\x0a", argument[2]);
+       int n = snprintf(buffer, sizeof(buffer), "@PJL SET JOBATTR=\"JobAcct1=%s\"\x0a", argument[2]);
+       if (n >= (int)sizeof(buffer))
+           fprintf(stderr, "HP PS filter func = WriteJobAccounting : WARNING JobAcct1 truncated\n");
        hpwrite(buffer, strlen(buffer));
        memset(buffer, 0, sizeof(buffer));
        gethostname(name, sizeof(name));
        if((strlen(name)) < 1)
        { 
-         sprintf(buffer, "@PJL SET JOBATTR=\"JobAcct2=%s\"\x0a", "unknown_system_name");
+         snprintf(buffer, sizeof(buffer), "@PJL SET JOBATTR=\"JobAcct2=%s\"\x0a", "unknown_system_name");
          hpwrite(buffer, strlen(buffer));
          memset(buffer, 0, sizeof(buffer));
        }
        else
        {
-         sprintf(buffer, "@PJL SET JOBATTR=\"JobAcct2=%s\"\x0a", name);
+         snprintf(buffer, sizeof(buffer), "@PJL SET JOBATTR=\"JobAcct2=%s\"\x0a", name);
          hpwrite(buffer, strlen(buffer));
          memset(buffer, 0, sizeof(buffer));
        }
@@ -476,13 +490,13 @@ static unsigned char WriteJobAccounting(char **argument, int num_options, cups_o
        getdomainname(name,sizeof(name));
        if(strstr(name, "none") != NULL)
        { 
-           sprintf(buffer, "@PJL SET JOBATTR=\"JobAcct3=%s\"\x0a", "unknown_domain_name");
+           snprintf(buffer, sizeof(buffer), "@PJL SET JOBATTR=\"JobAcct3=%s\"\x0a", "unknown_domain_name");
            hpwrite(buffer, strlen(buffer));
            memset(buffer, 0, sizeof(buffer));
        }
        else
        {
-           sprintf(buffer, "@PJL SET JOBATTR=\"JobAcct3=%s\"\x0a", name);
+           snprintf(buffer, sizeof(buffer), "@PJL SET JOBATTR=\"JobAcct3=%s\"\x0a", name);
            hpwrite(buffer, strlen(buffer));
            memset(buffer, 0, sizeof(buffer));
        }
@@ -499,15 +513,16 @@ static unsigned char WriteJobAccounting(char **argument, int num_options, cups_o
              return 0;
           }
 
-           sprintf(buffer, "@PJL SET JOBATTR=\"JobAcct4=%s\"\x0a", outstr);
+           snprintf(buffer, sizeof(buffer), "@PJL SET JOBATTR=\"JobAcct4=%s\"\x0a", outstr);
            hpwrite(buffer, strlen(buffer));
            memset(buffer, 0, sizeof(buffer));
            if((val = cupsGetOption("job-uuid", num_options, options)) != NULL)
             {
-                strncpy(input_slot, val, strlen(val));
+                strncpy(input_slot, val, sizeof(input_slot) - 1);
+                input_slot[sizeof(input_slot) - 1] = '\0';
                 if(input_slot)
                 {
-                 sprintf(buffer, "@PJL SET JOBATTR=\"JobAcct5=%s\"\x0a", input_slot);
+                 snprintf(buffer, sizeof(buffer), "@PJL SET JOBATTR=\"JobAcct5=%s\"\x0a", input_slot);
                  hpwrite(buffer, strlen(buffer));
                  memset(buffer, 0, sizeof(buffer));
                  
@@ -518,15 +533,15 @@ static unsigned char WriteJobAccounting(char **argument, int num_options, cups_o
               fprintf(stderr, "HP PS filter func = WriteJobAccounting : JOB ACCOUNTING INFO FAILED -3\n");
               return 0;
             }
-            sprintf(buffer, "@PJL SET JOBATTR=\"JobAcct6=%s\"\x0a", "HP Linux Printing");
+            snprintf(buffer, sizeof(buffer), "@PJL SET JOBATTR=\"JobAcct6=%s\"\x0a", "HP Linux Printing");
             hpwrite(buffer, strlen(buffer));
             memset(buffer, 0, sizeof(buffer));
 
-            sprintf(buffer, "@PJL SET JOBATTR=\"JobAcct7=%s\"\x0a", "HP Linux Printing");
+            snprintf(buffer, sizeof(buffer), "@PJL SET JOBATTR=\"JobAcct7=%s\"\x0a", "HP Linux Printing");
             hpwrite(buffer, strlen(buffer));
             memset(buffer, 0, sizeof(buffer));
 
-            sprintf(buffer, "@PJL SET JOBATTR=\"JobAcct8=%s\"\x0a", argument[2]);
+            snprintf(buffer, sizeof(buffer), "@PJL SET JOBATTR=\"JobAcct8=%s\"\x0a", argument[2]);
             hpwrite(buffer, strlen(buffer));
             memset(buffer, 0, sizeof(buffer));
             fprintf(stderr, "HP PS filter func = WriteJobAccounting    : WRITING JOB ACCOUNTING INFO\n");
@@ -612,7 +627,8 @@ static void  WriteECONOMODE2(int num_options, cups_option_t *options)
   if((val = cupsGetOption(HPPJLECONOMODE2, num_options, options)) != NULL || 
       ((val = GetOptionValue(DEFAULTHPPJLECONOMODE2)) != NULL ))
   {
-    strncpy(input_slot, val, strlen(val));
+    strncpy(input_slot, val, sizeof(input_slot) - 1);
+    input_slot[sizeof(input_slot) - 1] = '\0';
     if(input_slot)
     {
        if((RemoveCharacters(input_slot)) == -1)
@@ -658,7 +674,8 @@ static void  WriteHPPJLPRINTQUALITY(int num_options, cups_option_t *options)
   if((val = cupsGetOption(HPPJLPRINTQUALITY, num_options, options)) != NULL ||
     ((val = GetOptionValue(DEFAULTHPPJLPRINTQUALITY)) != NULL ))
   {
-   strncpy(print_quality, val, strlen(val));
+   strncpy(print_quality, val, sizeof(print_quality) - 1);
+   print_quality[sizeof(print_quality) - 1] = '\0';
    if(print_quality)
    {
     if((RemoveCharacters(print_quality)) == -1)
@@ -724,7 +741,8 @@ static void  WriteHPPJLOUTPUTMODE(int num_options, cups_option_t *options)
   if((val = cupsGetOption(HPPJLOUTPUTMODE, num_options, options)) != NULL ||
     ((val = GetOptionValue(DEFAULTHPPJLOUTPUTMODE)) != NULL ))
   {
-     strncpy(input_slot, val, strlen(val));
+     strncpy(input_slot, val, sizeof(input_slot) - 1);
+     input_slot[sizeof(input_slot) - 1] = '\0';
      if(input_slot)
      {
        if((RemoveCharacters(input_slot)) == -1)
@@ -765,7 +783,8 @@ static void  WriteHPPJLDRYTIME(int num_options, cups_option_t *options)
   if((val = cupsGetOption(HPPJLDRYTIME, num_options, options)) != NULL ||
     ((val = GetOptionValue(DEFAULTHPPJLDRYTIME)) != NULL ))
   {
-     strncpy(input_slot, val, strlen(val));
+     strncpy(input_slot, val, sizeof(input_slot) - 1);
+     input_slot[sizeof(input_slot) - 1] = '\0';
      if(input_slot)
      {
        if((RemoveCharacters(input_slot)) == -1)
@@ -801,7 +820,8 @@ static void  WriteHPPJLSATURATION(int num_options, cups_option_t *options)
   if((val = cupsGetOption(HPPJLSATURATION, num_options, options)) != NULL ||
     ((val = GetOptionValue(DEFAULTHPPJLSATURATION)) != NULL ))
   {
-      strncpy(input_slot, val, strlen(val));
+      strncpy(input_slot, val, sizeof(input_slot) - 1);
+      input_slot[sizeof(input_slot) - 1] = '\0';
       if(input_slot)
       {
          if((RemoveCharacters(input_slot)) == -1)
@@ -843,7 +863,8 @@ static void  WriteHPPJLINKBLEED(int num_options, cups_option_t *options)
   if((val = cupsGetOption(HPPJLINKBLEED, num_options, options)) != NULL ||
     ((val = GetOptionValue(DEFAULTHPPJLINKBLEED)) != NULL ))
   {
-     strncpy(input_slot, val, strlen(val));
+     strncpy(input_slot, val, sizeof(input_slot) - 1);
+     input_slot[sizeof(input_slot) - 1] = '\0';
      if(input_slot)
      {
        if((RemoveCharacters(input_slot)) == -1)
@@ -911,7 +932,8 @@ static void  WriteHPPJLCOLORASGRAY(int num_options, cups_option_t *options)
   if((val = cupsGetOption(HPPJLCOLORASGRAY, num_options, options)) != NULL || 
     ((val = GetOptionValue(DEFAULTHPPJLCOLORASGRAY)) != NULL ))
   {
-     strncpy(input_slot, val, strlen(val));
+     strncpy(input_slot, val, sizeof(input_slot) - 1);
+     input_slot[sizeof(input_slot) - 1] = '\0';
      if(input_slot)
      {
         if((RemoveCharacters(input_slot)) == -1)
@@ -966,7 +988,8 @@ static void  WriteHPPJLTRUEBLACK(int num_options, cups_option_t *options)
   if((val = cupsGetOption(HPPJLTRUEBLACK, num_options, options)) != NULL ||
     ((val = GetOptionValue(DEFAULTHPPJLTRUEBLACK)) != NULL ))
   {
-      strncpy(input_slot, val, strlen(val));
+      strncpy(input_slot, val, sizeof(input_slot) - 1);
+      input_slot[sizeof(input_slot) - 1] = '\0';
       if(input_slot)
       {
         if((RemoveCharacters(input_slot)) == -1)
@@ -1110,7 +1133,8 @@ int main (int argc, char **argv)
              order = 1;
              if((subString = strstr(argv[5], "HPBookletPageSize")) != NULL)
              {
-                 strncpy(newline, subString,64);
+                 strncpy(newline, subString, sizeof(newline) - 1);
+                 newline[sizeof(newline) - 1] = '\0';
                  subString = strtok(newline,"="); // find the first double quote
                  subString = strtok(NULL," ");   // find the second double quote
              }
@@ -1222,7 +1246,7 @@ int main (int argc, char **argv)
     		GetSecurePin(sec_pin, num_options, options);  
 		hpwrite (line, numBytes);
 
-                sprintf(buffer, "[{\x0a%%BeginFeature: *PrivacyLevel PrivacyLevelPin\x0a/HPDict /ProcSet findresource /SetPrivacyLevel get /PrivacyLevelPin exch exec /HPDict /ProcSet findresource /SetPrivacyPIN get %s exch exec\x0a%%EndFeature\x0a} stopped cleartomark\x0a", sec_pin);
+                snprintf(buffer, sizeof(buffer), "[{\x0a%%BeginFeature: *PrivacyLevel PrivacyLevelPin\x0a/HPDict /ProcSet findresource /SetPrivacyLevel get /PrivacyLevelPin exch exec /HPDict /ProcSet findresource /SetPrivacyPIN get %s exch exec\x0a%%EndFeature\x0a} stopped cleartomark\x0a", sec_pin);
                 hpwrite(buffer, strlen(buffer));
                 memset(buffer, 0, sizeof(buffer));
 

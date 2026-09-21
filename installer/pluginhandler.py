@@ -38,6 +38,22 @@ def get_checksum(s):
 PLUGIN_STATE_FILE = '/var/lib/hp/hplip.state'
 PLUGIN_FALLBACK_LOCATION = 'https://developers.hp.com/sites/default/files/'
 
+# Versions where the HP Developer Portal CDN uses a YYYY-MM date subdirectory.
+# Old versions (<=3.24.x) use PLUGIN_FALLBACK_LOCATION directly (no date dir).
+# Add new entries here whenever a new plugin is published on developers.hp.com.
+PLUGIN_FALLBACK_URLS = {
+    '3.25.2': 'https://developers.hp.com/sites/default/files/2025-04/hplip-3.25.2-plugin.run',
+    '3.25.6': 'https://developers.hp.com/sites/default/files/2025-08/hplip-3.25.6-plugin.run',
+    '3.25.8': 'https://developers.hp.com/sites/default/files/2025-11/hplip-3.25.8-plugin.run',
+    '3.26.4': 'https://developers.hp.com/sites/default/files/2026-05/hplip-3.26.4-plugin.run',
+}
+
+WGET_FALLBACK_HEADERS = (
+    "--user-agent='Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0'"
+    " --header='Referer: https://developers.hp.com/hp-linux-imaging-and-printing/plugins'"
+    " --header='Accept: */*'"
+)
+
 
 
 class PluginHandle(object):
@@ -96,6 +112,25 @@ class PluginHandle(object):
             SANELIBDIR = '/usr/lib/sane'
             LIBDIR = '/usr/lib'
 
+        # Read allowed plugin directories from configuration (hplip.conf).
+        # Config values are colon-separated directory paths. If not configured,
+        # fall back to sensible defaults for common Linux distributions.
+        lib_dirs_str = sys_conf.get('plugin', 'allowed_lib_dirs',
+            '/usr/lib:/usr/lib64:/usr/local/lib:/usr/local/lib64:'
+            '/usr/lib/x86_64-linux-gnu:/usr/lib/i386-linux-gnu:'
+            '/usr/lib/aarch64-linux-gnu:/usr/lib/arm-linux-gnueabihf')
+        sane_dirs_str = sys_conf.get('plugin', 'allowed_sane_dirs',
+            '/usr/lib/sane:/usr/lib64/sane:/usr/local/lib/sane:/usr/local/lib64/sane:'
+            '/usr/lib/x86_64-linux-gnu/sane:/usr/lib/i386-linux-gnu/sane:'
+            '/usr/lib/aarch64-linux-gnu/sane:/usr/lib/arm-linux-gnueabihf/sane')
+
+        # Parse colon-separated config values into lists, filter out empty strings
+        lib_dirs = [d for d in lib_dirs_str.split(':') if d]
+        sane_dirs = [d for d in sane_dirs_str.split(':') if d]
+        
+        allowed_dirs = tuple(os.path.realpath(d) for d in (
+            HOMEDIR, PPDDIR, DRVDIR, DOCDIR, CUPSBACKENDDIR,
+            CUPSFILTERDIR, RULESDIR, BIN) + tuple(lib_dirs) + tuple(sane_dirs) if d)
         copies = []
 
         for PRODUCT in products:
@@ -124,8 +159,19 @@ class PluginHandle(object):
                 src = os.path.basename(utils.cat(src))
                 trg = utils.cat(trg)
 
+                real_trg = os.path.realpath(trg)
+                if not any(real_trg == d or real_trg.startswith(d + os.sep) for d in allowed_dirs):
+                    log.error("Destination path '%s' is outside allowed plugin directories. Aborting." % trg)
+                    os.chdir(cwd)
+                    return []
+
                 if link:
                     link = utils.cat(link)
+                    real_link = os.path.realpath(link)
+                    if not any(real_link == d or real_link.startswith(d + os.sep) for d in allowed_dirs):
+                        log.error("Symlink path '%s' is outside allowed plugin directories. Aborting." % link)
+                        os.chdir(cwd)
+                        return []
 
                 copies.append((src, trg, link))
 
@@ -164,7 +210,7 @@ class PluginHandle(object):
 
 
     def __getPluginInformation(self, callback=None):
-        status, url, check_sum = ERROR_NO_NETWORK, '',''
+        status, url, check_sum = ERROR_NO_NETWORK, '', ''
 
         if self.__plugin_conf_file.startswith('http://'):
             if not utils.check_network_connection():
@@ -180,7 +226,7 @@ class PluginHandle(object):
                 else:
                     wget = utils.which("wget", True)
                     if wget:
-                        status, output = utils.run("%s --tries=3 --timeout=60 --output-document=%s %s --cache=off" %(wget, local_conf, self.__plugin_conf_file))
+                        status, output = utils.run("%s --timeout=60 --output-document=%s %s --cache=off" %(wget, local_conf, self.__plugin_conf_file))
                         if status:
                             log.error("Plugin download failed with error code = %d" %status)
                             return status, url, check_sum
@@ -273,6 +319,7 @@ class PluginHandle(object):
             log.error("Failed in OS operations:%s "%e.strerror)
             return ERROR_DIRECTORY_NOT_FOUND, "", self.__plugin_path + queryString(102)
 
+        using_fallback = False
         try:
             if src.startswith('file://'):
                 status, filename = utils.download_from_network(src, plugin_file, True)
@@ -286,9 +333,11 @@ class PluginHandle(object):
 
                 #Check whether plugin is accessible in Openprinting.org website otherwise dowload plugin from alternate location.
                 if status != 0 or os_utils.getFileSize(plugin_file) <= 0:
-                    src = os.path.join(PLUGIN_FALLBACK_LOCATION, self.__plugin_name)
+                    using_fallback = True
+                    src = (PLUGIN_FALLBACK_URLS.get(self.__required_version) or
+                           os.path.join(PLUGIN_FALLBACK_LOCATION, self.__plugin_name))
                     log.info("Plugin is not accessible. Trying to download it from fallback location: [%s]" % src)
-                    cmd = "%s --cache=off -P %s %s" % (wget,self.__plugin_path,src)
+                    cmd = "%s --cache=off %s -P %s %s" % (wget, WGET_FALLBACK_HEADERS, self.__plugin_path, src)
                     log.debug(cmd)
                     status, output = utils.run(cmd)
 
@@ -316,7 +365,10 @@ class PluginHandle(object):
             if digsig_url.startswith('file://'):
                 status, filename = utils.download_from_network(digsig_url, digsig_file, True)
             else:
-                cmd = "%s --cache=off -P %s %s" % (wget,self.__plugin_path,digsig_url)
+                if using_fallback:
+                    cmd = "%s --cache=off %s -P %s %s" % (wget, WGET_FALLBACK_HEADERS, self.__plugin_path, digsig_url)
+                else:
+                    cmd = "%s --cache=off -P %s %s" % (wget, self.__plugin_path, digsig_url)
                 log.debug(cmd)
                 status, output = utils.run(cmd)
         except IOError as e:
@@ -365,8 +417,14 @@ class PluginHandle(object):
 
     def copyFiles(self, src_dir):
 
+        # Security: Destination paths are validated by __getPluginFilesList() against
+        # a whitelist of allowed directories (HOMEDIR, PPDDIR, DRVDIR, etc.). The .run
+        # file's GPG signature was already verified in the unprivileged download() phase.
+        # Re-validating the .run file here would be redundant and doesn't protect against
+        # extracted file tampering or malicious plugin.spec entries — the path confinement
+        # is the actual defense.
+        
         copies = self.__getPluginFilesList(src_dir)
-        os.umask(0)
 
         for src, trg, link in copies:
 
@@ -383,6 +441,11 @@ class PluginHandle(object):
             if not os.path.exists(trg_dir):
                 log.debug("Target directory %s does not exist. Creating." % trg_dir)
                 os.makedirs(trg_dir, 0o755)
+                # Ensure directory is traversable by all users
+                try:
+                    os.chmod(trg_dir, 0o755)
+                except OSError as e:
+                    log.warn("Failed to chmod %s: %s" % (trg_dir, e))
 
             if not os.path.isdir(trg_dir):
                 log.error("Target directory %s exists but is not a directory. Skipping." % trg_dir)
@@ -399,7 +462,9 @@ class PluginHandle(object):
                     log.error("Target file %s does not exist. File copy failed." % trg)
                     continue
                 else:
-                    os.chmod(trg, stat.S_IRWXU | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IXOTH)
+                    # Make plugin .so files readable/executable by all users
+                    os.chmod(trg, 0o755)
+                    log.debug("Set plugin file to 0o755: %s" % trg)
 
                 if link:
                     if os.path.exists(link):
@@ -422,6 +487,13 @@ class PluginHandle(object):
         hplip_version = sys_conf.get('hplip', 'version', '0.0.0')
         log.debug("Updating hplip.state - version = %s"%hplip_version)
         plugin_state_conf.set('plugin','version', hplip_version)
+
+        # Make hplip.state readable by all users
+        try:
+            os.chmod(PLUGIN_STATE_FILE, 0o644)
+            log.debug("Set hplip.state to 0o644")
+        except OSError as e:
+            log.warn("Failed to chmod hplip.state: %s" % e)
 
         self.__plugin_state = PLUGIN_INSTALLED
         self.__installed_version = hplip_version
@@ -468,3 +540,4 @@ class PluginHandle(object):
             os.unlink(plugin_file)
         if os.path.exists(digsig_file):
             os.unlink(digsig_file)
+

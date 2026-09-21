@@ -7,6 +7,17 @@ INCLUDES = -Iip -Iio/hpmud -Iscan/sane -Iprnt/hpijs -Icommon/
 CFLAGS+= -DCONFDIR=\"$(hplip_confdir)\"
 CXXFLAGS+= -DCONFDIR=\"$(hplip_confdir)\"
 
+# ASAN instrumentation is opt-in via configure --enable-asan-build.
+# This keeps production builds unchanged while allowing a debug validation build.
+AM_CFLAGS =
+AM_CXXFLAGS =
+AM_LDFLAGS =
+if ASAN_BUILD
+AM_CFLAGS += -fsanitize=address -fno-omit-frame-pointer -g -O1
+AM_CXXFLAGS += -fsanitize=address -fno-omit-frame-pointer -g -O1
+AM_LDFLAGS += -fsanitize=address
+endif
+
 hplipdir = $(datadir)/hplip
 apparmordir = /etc/apparmor.d
 docdir = $(hpdocdir)
@@ -73,7 +84,8 @@ endif
 # The following is a interlibrary dependency that must be compiled first.
 libsane_hpaio_la_LIBADD = libhpip.la libhpmud.la libhpipp.la $(DBUS_LIBS) -lcups -ldl
 #libsane_hpaio_la_CFLAGS = -DWITH_NONAMESPACES -DSOAP_DEBUG
-libsane_hpaio_la_CFLAGS = $(DBUS_CFLAGS) -Iprotocol
+libsane_hpaio_la_CFLAGS = $(DBUS_CFLAGS) -Iprotocol $(SECURITY_CFLAGS)
+libsane_hpaio_la_LDFLAGS += $(SECURITY_LDFLAGS)
 
 if NETWORK_BUILD
 libsane_hpaio_la_LIBADD += libhpdiscovery.la
@@ -180,7 +192,7 @@ cmddir = $(hplipdir)
 if !HPLIP_CLASS_DRIVER
 dist_cmd_SCRIPTS = align.py info.py print.py toolbox.py clean.py colorcal.py unload.py testpage.py makeuri.py check.py fab.py levels.py \
 	sendfax.py setup.py makecopies.py probe.py timedate.py firmware.py scan.py systray.py plugin.py linefeedcal.py pqdiag.py \
-	faxsetup.py devicesettings.py printsettings.py query.py pkservice.py wificonfig.py diagnose_plugin.py uninstall.py \
+	faxsetup.py devicesettings.py printsettings.py query.py wificonfig.py diagnose_plugin.py uninstall.py \
 	upgrade.py config_usb_printer.py diagnose_queues.py logcapture.py doctor.py uiscan.py
 
 homedir = $(hplipdir)
@@ -195,7 +207,7 @@ dist_base_DATA = base/maint.py base/codes.py base/g.py base/pml.py base/status.p
 	base/device.py base/logger.py base/slp.py base/exif.py base/strings.py base/magic.py \
 	base/imagesize.py base/models.py base/validation.py base/sixext.py base/avahi.py \
 	base/mdns.py base/tui.py base/dime.py base/ldif.py base/vcard.py base/module.py \
-	base/pkit.py base/queues.py base/password.py base/services.py base/os_utils.py \
+	base/queues.py base/password.py base/services.py base/os_utils.py \
 	base/smart_install.py base/six.py base/imageprocessing.py
 
 basepexpectdir = $(hplipdir)/base/pexpect
@@ -450,15 +462,8 @@ dist_plugins5_SCRIPTS =
 endif
 endif
 endif #HPLIP_CLASS_DRIVER
-# PolicyKit
-if POLICYKIT_INSTALL
-policykit_dbus_etcdir = /etc/dbus-1/system.d
-dist_policykit_dbus_etc_DATA = data/policykit/com.hp.hplip.conf
-policykit_dbus_sharedir = /usr/share/dbus-1/system-services
-dist_policykit_dbus_share_DATA = data/policykit/com.hp.hplip.service
-policykit_policydir = $(policykit_dir)
-dist_policykit_policy_DATA = data/policykit/com.hp.hplip.policy
-endif
+# PolicyKit infrastructure removed as part of security remediation (CWE-22, CWE-347)
+# Plugin installation now uses subprocess elevation with password authentication
 
 
 # hppgsz
@@ -597,7 +602,9 @@ hpcups_SOURCES = prnt/hpcups/HPCupsFilter.cpp prnt/hpcups/HPCupsFilter.h prnt/hp
 	prnt/hpcups/genJPEGStrips.cpp prnt/hpcups/RunLenEncoding.cpp \
 	prnt/hpcups/ImageProcessor.h
 
-hpcups_CXXFLAGS = $(APDK_ENDIAN_FLAG) $(DBUS_CFLAGS)
+hpcups_CPPFLAGS = -I$(srcdir)/prnt/hpcups -I$(srcdir)/prnt -I$(srcdir)/common -D_GNU_SOURCE
+hpcups_CXXFLAGS = $(APDK_ENDIAN_FLAG) $(DBUS_CFLAGS) $(AM_CXXFLAGS)
+hpcups_LDFLAGS = $(AM_LDFLAGS)
 hpcups_LDADD = -L./prnt/hpcups/ -ljpeg -ldl -lImageProcessor -lcups -lcupsimage -lz $(DBUS_LIBS)
 #else
 #hpcupsdir = $(cupsfilterdir)
@@ -642,9 +649,13 @@ endif
 if HPPS_INSTALL
 hppsdir = $(cupsfilterdir)
 hpps_PROGRAMS = hpps
-hpps_SOURCES = prnt/hpps/hppsfilter.c prnt/hpps/hppsfilter.h prnt/hpps/psutil.c prnt/hpps/psutil.h prnt/hpps/pserror.c prnt/hpps/pserror.h prnt/hpps/psbooklet.c prnt/hpps/patchlev.h prnt/hpps/psspec.c prnt/hpps/psspec.h
+# Keep the booklet implementation in the final linkage set; hppsfilter.c calls
+# PS_Booklet() defined in psbooklet.c and the raw source tarball will not link
+# correctly unless these sources stay together with the correct include flags.
+hpps_SOURCES = prnt/hpps/hppsfilter.c prnt/hpps/hppsfilter.h prnt/hpps/psbooklet.c prnt/hpps/psutil.c prnt/hpps/psutil.h prnt/hpps/pserror.c prnt/hpps/pserror.h prnt/hpps/patchlev.h prnt/hpps/psspec.c prnt/hpps/psspec.h
+hpps_CPPFLAGS = -I$(srcdir)/prnt/hpps -I$(srcdir)/prnt -D_GNU_SOURCE
 hpps_CXXFLAGS = $(APDK_ENDIAN_FLAG) $(DBUS_CFLAGS)
-hpps_LDADD = -lcups  $(DBUS_LIBS)
+hpps_LDADD = -lcups $(DBUS_LIBS)
 endif #HPPS_INSTALL
 
 

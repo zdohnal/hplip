@@ -31,7 +31,8 @@ import os.path, os
 import syslog
 import time
 import operator
-import tempfile
+import errno
+import uuid
 
 if sys.version_info[0] == 3:
     import configparser
@@ -106,6 +107,52 @@ def usage(typ='text'):
 
     utils.format_text(USAGE, typ, title=__title__, crumb='hpfax:')
     sys.exit(CUPS_BACKEND_OK)
+
+
+def is_safe_username(username):
+    # CUPS passes username on argv. Reject path/meta chars before filesystem use.
+    if not username or username in ('.', '..'):
+        return False
+
+    if '\x00' in username or '/' in username:
+        return False
+
+    return True
+
+
+def get_tmp_dir_for_user(username):
+    user_home = os.path.realpath(os.path.join('/home', username))
+    user_hplip_dir = os.path.realpath(os.path.join(user_home, '.hplip'))
+
+    # Username must resolve under /home/<username>.
+    if not user_home.startswith('/home' + os.sep):
+        return '/tmp'
+
+    # Ensure resolved path stays under the user's home directory.
+    if user_hplip_dir.startswith(user_home + os.sep) and os.path.isdir(user_hplip_dir):
+        return user_hplip_dir
+
+    return '/tmp'
+
+
+def create_secure_fifo(tmp_dir, job_id):
+    # In /tmp, avoid predictable names to prevent opportunistic readers/races.
+    if tmp_dir == '/tmp':
+        for _ in range(32):
+            unique = os.path.join(tmp_dir, 'hp_fax-pipe-%d-%s' % (job_id, uuid.uuid4().hex))
+            try:
+                os.mkfifo(unique, 0o600)
+                return unique
+            except OSError as e:
+                if e.errno == errno.EEXIST:
+                    continue
+                raise
+
+        raise OSError(errno.EEXIST, 'Unable to allocate unique FIFO name')
+
+    fifo_path = os.path.join(tmp_dir, 'hp_fax-pipe-%d' % job_id)
+    os.mkfifo(fifo_path, 0o600)
+    return fifo_path
 
 # Send dbus event to hpssd on dbus system bus
 def send_message(device_uri, printer_name, event_code, username, job_id, title, pipe_name=''):
@@ -239,6 +286,10 @@ else:
         bug("Invalid command line: invalid arguments.")
         sys.exit(CUPS_BACKEND_FAILED)
 
+    if not is_safe_username(username):
+        bug("Invalid command line: invalid username.")
+        sys.exit(CUPS_BACKEND_FAILED)
+
     send_message(device_uri, printer_name, EVENT_START_FAX_PRINT_JOB, username, job_id, title)
 
     try:
@@ -246,21 +297,18 @@ else:
     except IndexError:
         input_fd = 0
 
-    if os.path.exists("/home/%s/.hplip"%username):
-        tmp_dir = "/home/%s/.hplip"%username
-    else:
-        tmp_dir = "/tmp"
-
-    pipe_name = os.path.join(tmp_dir, "hp_fax-pipe-%d" % job_id)
+    tmp_dir = get_tmp_dir_for_user(username)
 
     # Create the named pipe. Make sure it exists before sending
     # message to hppsd.
-    os.umask(0o111)
     try:
-        os.mkfifo(pipe_name)
+        pipe_name = create_secure_fifo(tmp_dir, job_id)
     except OSError:
-        os.unlink(pipe_name)
-        os.mkfifo(pipe_name)
+        if tmp_dir != '/tmp':
+            tmp_dir = '/tmp'
+            pipe_name = create_secure_fifo(tmp_dir, job_id)
+        else:
+            raise
 
     # Send dbus event to hpssd
     send_message(device_uri, printer_name, EVENT_FAX_RENDER_COMPLETE, username, job_id, title, pipe_name)

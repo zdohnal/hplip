@@ -32,7 +32,7 @@ import signal
 from base.sixext.moves import configparser
 # Local
 from base.g import *
-from base import device, utils, pml, maint, models, pkit, os_utils
+from base import device, utils, pml, maint, models, os_utils
 from prnt import cups
 from base.sixext import PY3
 from base.codes import *
@@ -143,7 +143,7 @@ class PluginInstall(QObject):
                                 QMessageBox.NoButton) == QMessageBox.Yes
 
         if install_plugin:
-            ok, sudo_ok = pkit.run_plugin_command(self.plugin_type == PLUGIN_REQUIRED, self.parent.cur_device.mq['plugin-reason'])
+            ok, sudo_ok = utils.run_plugin_command(self.plugin_type == PLUGIN_REQUIRED, self.parent.cur_device.mq['plugin-reason'])
             if not sudo_ok:
                 QMessageBox.critical(self.parent,
                     self.parent.windowTitle(),

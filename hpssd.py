@@ -357,24 +357,8 @@ def handle_hpdio_event(event, bytes_written):
             send_toolbox_event(event, EVENT_DEVICE_UPDATE_REPLY)
 
 def handle_plugin_install():
-
-    child_process=os.fork()
-    if child_process== 0:    # child process
-        lockObj = utils.Sync_Lock("/tmp/pluginInstall.tmp")
-        lockObj.acquire()
-        child_pid=os.getpid()
-        from installer import pluginhandler
-        pluginObj = pluginhandler.PluginHandle()
-
-        if pluginObj.getStatus() != PLUGIN_INSTALLED:
-            os_utils.execute('hp-diagnose_plugin')
-        else:
-            log.debug("Device Plug-in was already installed. Not Invoking Plug-in installation wizard")
-
-        lockObj.release()
-        os.kill(child_pid,signal.SIGKILL)
-    else: #parent process
-        log.debug("Started Plug-in installation wizard")
+    # Automatic D-Bus plugin installation disabled; use 'hp-plugin' command
+    log.debug("Automatic plugin installation disabled - use 'hp-plugin' command")
     
 
 def handle_printer_diagnose():
@@ -407,7 +391,8 @@ def handle_event(event, more_args=None):
     event.debug()
 
     if event.event_code == EVENT_AUTO_CONFIGURE:
-        handle_plugin_install()
+        # Automatic D-Bus plugin installation disabled
+        log.debug("EVENT_AUTO_CONFIGURE: Plugin installation requires 'hp-plugin' command")
         return
 
     if event.event_code == EVENT_DIAGNOSE_PRINTQUEUE:
@@ -465,7 +450,8 @@ def handle_event(event, more_args=None):
         send_toolbox_event(event, EVENT_HISTORY_UPDATE)
 
         if event.event_code in (EVENT_PRINT_FAILED_MISSING_PLUGIN, EVENT_SCAN_FAILED_MISSING_PLUGIN,EVENT_FAX_FAILED_MISSING_PLUGIN):
-            handle_plugin_install()
+            # Plugin installation requires manual 'hp-plugin' command
+            log.debug("Plugin error: Run 'hp-plugin' command to install")
 
     # Handle fax signals
     elif EVENT_FAX_MIN <= event.event_code <= EVENT_FAX_MAX and more_args:

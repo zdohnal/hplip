@@ -203,7 +203,7 @@ void HPCupsFilter::WriteKBMPRaster (FILE *fp, BYTE *pbyk, int width)
     fwrite (black_raster, 1, adj_k_width, fp);
 }
 
-HPCupsFilter::HPCupsFilter() : m_pPrinterBuffer(NULL)
+HPCupsFilter::HPCupsFilter() : m_pPrinterBuffer(NULL), m_uPrinterBufferSize(0)
 {
     setbuf (stderr, NULL);
 
@@ -230,6 +230,7 @@ void HPCupsFilter::cleanup()
         delete [] m_pPrinterBuffer;
         m_pPrinterBuffer = NULL;
     }
+    m_uPrinterBufferSize = 0;
 
     if(m_ppd){
        ppdClose(m_ppd);
@@ -240,6 +241,23 @@ void HPCupsFilter::cleanup()
     	delete m_pSys;
     	m_pSys = NULL;
     }
+}
+
+/* size_t arithmetic prevents cupsWidth*4 wrapping in unsigned int;
+ * cupsBytesPerLine may exceed cupsWidth*4+32 for wide-format colour (PSR-2026-0193). */
+void HPCupsFilter::allocPrinterBuffer(cups_page_header2_t *cups_header)
+{
+    size_t needed = (size_t)cups_header->cupsWidth * 4 + 32;
+    if ((size_t)cups_header->cupsBytesPerLine > needed)
+        needed = (size_t)cups_header->cupsBytesPerLine;
+    if (m_pPrinterBuffer != NULL && needed <= m_uPrinterBufferSize)
+        return;
+    delete [] m_pPrinterBuffer;
+    m_pPrinterBuffer = new BYTE[needed];
+    m_uPrinterBufferSize = needed;
+    if (m_iLogLevel & BASIC_LOG)
+        dbglog("DEBUG: allocPrinterBuffer %zu bytes (cupsWidth=%u cupsBytesPerLine=%u)\n",
+               needed, cups_header->cupsWidth, cups_header->cupsBytesPerLine);
 }
 
 void HPCupsFilter::CancelJob()
@@ -465,16 +483,23 @@ DRIVER_ERROR HPCupsFilter::startPage (cups_page_header2_t *cups_header)
         i--;
     }
     snprintf(m_JA.driver_name, sizeof(m_JA.driver_name), "%s; %s", &m_argv[0][i+1], HP_FILE_VERSION_STR);
-    char    *ptr = getenv("DEVICE_URI");
+    const char *ptr = getenv("DEVICE_URI");
     i = 0;
     if (ptr) {
-        while (*ptr) {
-            if (*ptr == '%') {
-                ptr += 3;
+        const int max = (int)sizeof(m_JA.printer_name) - 1;
+        while (*ptr && i < max) {
+            if (ptr[0] == '%' && isxdigit((unsigned char)ptr[1]) &&
+                isxdigit((unsigned char)ptr[2])) {
                 m_JA.printer_name[i++] = ' ';
+                ptr += 3;
+            } else {
+                m_JA.printer_name[i++] = *ptr++;
             }
-            m_JA.printer_name[i++] = *ptr++;
         }
+        m_JA.printer_name[i] = '\0';
+        if (m_iLogLevel & BASIC_LOG)
+            dbglog("DEBUG: DEVICE_URI copied %d chars into printer_name (uri_len=%zu)\n",
+                   i, strlen(getenv("DEVICE_URI")));
     }
 
     string strPrinterURI="" , strPrinterName= "";
@@ -485,7 +510,11 @@ DRIVER_ERROR HPCupsFilter::startPage (cups_page_header2_t *cups_header)
 
     ptr = strstr(m_argv[5], "job-uuid");
     if (ptr) {
-        strncpy(m_JA.uuid, ptr + strlen("job-uuid=urn:uuid:"), sizeof(m_JA.uuid)-1);
+        const char *uuid_prefix = "job-uuid=urn:uuid:";
+        if (strncmp(ptr, uuid_prefix, strlen(uuid_prefix)) == 0)
+            strncpy(m_JA.uuid, ptr + strlen(uuid_prefix), sizeof(m_JA.uuid) - 1);
+        else if (m_iLogLevel & BASIC_LOG)
+            dbglog("DEBUG: job-uuid found but prefix mismatch — uuid not copied\n");
     }
 
     for (i = 0; i < 16; i++)
@@ -516,8 +545,6 @@ DRIVER_ERROR HPCupsFilter::startPage (cups_page_header2_t *cups_header)
     if (m_iLogLevel & BASIC_LOG) {
         dbglog("HPCUPS: returning NO_ERROR from startPage\n");
     }
-
-    m_pPrinterBuffer = new BYTE[cups_header->cupsWidth * 4 + 32];
 
     return NO_ERROR;
 }
@@ -666,7 +693,10 @@ int HPCupsFilter::processRasterData(cups_raster_t *cups_raster)
     char hpPreProcessedRasterFile[MAX_FILE_PATH_LEN]; //temp file needed to store raster data with swaped pages.
 
 
-    sprintf(hpPreProcessedRasterFile, "%s/hp_%s_cups_SwapedPagesXXXXXX",CUPS_TMP_DIR, m_JA.user_name);
+    snprintf(hpPreProcessedRasterFile, sizeof(hpPreProcessedRasterFile),
+             "%s/hp_%s_cups_SwapedPagesXXXXXX", CUPS_TMP_DIR, m_JA.user_name);
+    if (m_iLogLevel & BASIC_LOG)
+        dbglog("DEBUG: raster temp path: %s\n", hpPreProcessedRasterFile);
     #ifndef DISABLE_IMAGEPROCESSOR 
 	    image_processor_t* imageProcessor=NULL;
 	    IMAGE_PROCESSOR_ERROR result;
@@ -688,6 +718,8 @@ int HPCupsFilter::processRasterData(cups_raster_t *cups_raster)
 		    }
        #endif
         current_page_number++;
+
+        allocPrinterBuffer(&cups_header);
 
         if (current_page_number == 1) {
 

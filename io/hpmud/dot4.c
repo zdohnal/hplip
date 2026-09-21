@@ -47,7 +47,7 @@ static int Dot4ForwardReply(mud_channel *pc, int fd, unsigned char *buf, int siz
 static int Dot4ExecReverseCmd(mud_channel *pc, int fd, unsigned char *buf)
 {
    mud_device *pd = &msp->device[pc->dindex];
-   mud_channel *out_of_bound_channel;
+   mud_channel *pc_chan;
    DOT4Cmd *pCmd;
    DOT4Reply *pReply;
    DOT4Credit *pCredit;
@@ -67,25 +67,31 @@ static int Dot4ExecReverseCmd(mud_channel *pc, int fd, unsigned char *buf)
       if (pCmd->h.psid == pCmd->h.ssid)
       {
          /* Got a valid data packet handle it. This can happen when channel_read timeouts and p2hcredit=1. */
-         out_of_bound_channel = &pd->channel[pCmd->h.psid];
-
-         if (out_of_bound_channel->ta.p2hcredit <= 0)
+         /* HPLIP-2026-009: bounds-check psid before use as channel index. */
+         if (pCmd->h.psid >= HPMUD_CHANNEL_MAX)
          {
-            BUG("invalid data packet credit=%d\n", out_of_bound_channel->ta.p2hcredit);
+            BUG("invalid psid=%d in data packet, max=%d\n", pCmd->h.psid, HPMUD_CHANNEL_MAX);
+            return 0;
+         }
+         pc_chan = &pd->channel[pCmd->h.psid];
+
+         if (pc_chan->ta.p2hcredit <= 0)
+         {
+            BUG("invalid data packet credit=%d\n", pc_chan->ta.p2hcredit);
             return 0;
          }
 
          size = ntohs(pCmd->h.length) - sizeof(DOT4Header);
-         if (size > (HPMUD_BUFFER_SIZE - out_of_bound_channel->rcnt))
+         if (size > (HPMUD_BUFFER_SIZE - pc_chan->rcnt))
          {
             BUG("invalid data packet size=%d\n", size);
             return 0;
          }
-         memcpy(&out_of_bound_channel->rbuf[out_of_bound_channel->rcnt], buf+sizeof(MLCHeader), size);
-         out_of_bound_channel->rcnt += size;
+         memcpy(&pc_chan->rbuf[pc_chan->rcnt], buf+sizeof(MLCHeader), size);
+         pc_chan->rcnt += size;
          if (pCmd->h.credit)
-            out_of_bound_channel->ta.h2pcredit += pCmd->h.credit;  /* note, piggy back credit is 1 byte wide */ 
-         out_of_bound_channel->ta.p2hcredit--; /* one data packet was read, decrement credit count */
+            pc_chan->ta.h2pcredit += pCmd->h.credit;  /* note, piggy back credit is 1 byte wide */ 
+         pc_chan->ta.p2hcredit--; /* one data packet was read, decrement credit count */
       }
       else
       {
@@ -102,16 +108,22 @@ static int Dot4ExecReverseCmd(mud_channel *pc, int fd, unsigned char *buf)
    {
       case DOT4_CREDIT:
          pCredit = (DOT4Credit *)buf;
-         out_of_bound_channel = &pd->channel[pCredit->psocket];
-         out_of_bound_channel->ta.h2pcredit += ntohs(pCredit->credit);
+         /* HPLIP-2026-009: bounds-check psocket before use as channel index. */
+         if (pCredit->psocket >= HPMUD_CHANNEL_MAX)
+         {
+            BUG("invalid psocket=%d in DOT4_CREDIT, max=%d\n", pCredit->psocket, HPMUD_CHANNEL_MAX);
+            break;
+         }
+         pc_chan = &pd->channel[pCredit->psocket];
+         pc_chan->ta.h2pcredit += ntohs(pCredit->credit);
          pCreditReply = (DOT4CreditReply *)buf;
          pCreditReply->h.length = htons(sizeof(DOT4CreditReply));
          pCreditReply->h.credit = 1;       /* transaction credit for next command */
          pCreditReply->h.control = 0;
          pCreditReply->cmd |= 0x80;
          pCreditReply->result = 0;
-         pCreditReply->psocket = out_of_bound_channel->sockid;
-         pCreditReply->ssocket = out_of_bound_channel->sockid;
+         pCreditReply->psocket = pc_chan->sockid;
+         pCreditReply->ssocket = pc_chan->sockid;
          Dot4ForwardReply(pc, fd, (unsigned char *)pCreditReply, sizeof(DOT4CreditReply)); 
          break;
       case DOT4_CREDIT_REQUEST:
@@ -426,6 +438,12 @@ int __attribute__ ((visibility ("hidden"))) Dot4ForwardData(mud_channel *pc, int
    DOT4Header h;
 
    memset(&h, 0, sizeof(h));
+   if (size < 0 || size > (int)(0xFFFF - sizeof(DOT4Header)))
+   {
+      BUG("Dot4ForwardData: packet size %d exceeds DOT4 limit\n", size);
+      stat = 1;
+      goto bugout;
+   }
    n = sizeof(DOT4Header) + size;
    h.length = htons(n);
    h.psid = pc->sockid;
@@ -453,7 +471,7 @@ bugout:
 int __attribute__ ((visibility ("hidden"))) Dot4ReverseData(mud_channel *pc, int fd, void *buf, int length, int usec_timeout)
 {
    mud_device *pd = &msp->device[pc->dindex];
-   mud_channel *out_of_bound_channel;
+   mud_channel *pc_chan;
    int len, size, total;
    DOT4Header *pPk;
 
@@ -515,23 +533,29 @@ int __attribute__ ((visibility ("hidden"))) Dot4ReverseData(mud_channel *pc, int
          else if (pPk->psid == pPk->ssid)
          {
             /* Got a valid data packet for another channel handle it. This can happen when ReadData timeouts and p2hcredit=1. */
-            out_of_bound_channel = &pd->channel[pPk->psid];
+            /* HPLIP-2026-009: bounds-check psid before use as channel index. */
+            if (pPk->psid >= HPMUD_CHANNEL_MAX)
+            {
+               BUG("invalid psid=%d in cross-channel data, max=%d\n", pPk->psid, HPMUD_CHANNEL_MAX);
+               goto bugout;
+            }
+            pc_chan = &pd->channel[pPk->psid];
             unsigned char *pBuf;
 
-            if (out_of_bound_channel->ta.p2hcredit <= 0)
+            if (pc_chan->ta.p2hcredit <= 0)
             {
-               BUG("invalid data packet credit=%d\n", out_of_bound_channel->ta.p2hcredit);
+               BUG("invalid data packet credit=%d\n", pc_chan->ta.p2hcredit);
                goto bugout;
             }
 
-            if (size > (HPMUD_BUFFER_SIZE - out_of_bound_channel->rcnt))
+            if (size > (HPMUD_BUFFER_SIZE - pc_chan->rcnt))
             {
                BUG("invalid data packet size=%d\n", size);
                goto bugout;
             }
             
             total = 0;
-            pBuf = &out_of_bound_channel->rbuf[out_of_bound_channel->rcnt];
+            pBuf = &pc_chan->rbuf[pc_chan->rcnt];
             while (size > 0)
             {
                if ((len = (pd->vf.read)(fd, pBuf+total, size, HPMUD_EXCEPTION_TIMEOUT)) < 0)
@@ -543,10 +567,10 @@ int __attribute__ ((visibility ("hidden"))) Dot4ReverseData(mud_channel *pc, int
                total+=len;
             }
 
-            out_of_bound_channel->rcnt += total;
+            pc_chan->rcnt += total;
             if (pPk->credit)
-               out_of_bound_channel->ta.h2pcredit += pPk->credit;  /* note, piggy back credit is 1 byte wide */ 
-            out_of_bound_channel->ta.p2hcredit--; /* one data packet was read, decrement credit count */
+               pc_chan->ta.h2pcredit += pPk->credit;  /* note, piggy back credit is 1 byte wide */ 
+            pc_chan->ta.p2hcredit--; /* one data packet was read, decrement credit count */
             continue;   /* try again for data packet */
          }
          else

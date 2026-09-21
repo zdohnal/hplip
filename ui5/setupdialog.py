@@ -28,7 +28,7 @@ import signal
 import configparser
 # Local
 from base.g import *
-from base import device, utils, models, pkit
+from base import device, utils, models
 from prnt import cups
 from base.codes import *
 from .ui_utils import *
@@ -209,6 +209,7 @@ class SetupDialog(QDialog, Ui_Dialog):
 
     def initUi(self):
         self.setWindowIcon(QIcon(load_pixmap('hp_logo', '128x128')))
+        self.alt_ppd_selected = False
 
         # connect signals/slots
         self.CancelButton.clicked.connect(self.CancelButton_clicked)
@@ -686,7 +687,7 @@ class SetupDialog(QDialog, Ui_Dialog):
         if plugin > PLUGIN_NONE:
 
             if pluginObj.getStatus() != pluginhandler.PLUGIN_INSTALLED:
-                ok, sudo_ok = pkit.run_plugin_command(
+                ok, sudo_ok = utils.run_plugin_command(
                     plugin == PLUGIN_REQUIRED, plugin_reason)
                 if not sudo_ok:
                     FailureUI(self, self.__tr(
@@ -771,13 +772,20 @@ class SetupDialog(QDialog, Ui_Dialog):
             'dirs', 'ppd'),
             self.__tr("PPD Files (*.ppd *.ppd.gz);;All Files (*)")))
 
-        if ppd_file and os.path.exists(ppd_file):
+        if ppd_file:
+            is_valid, validation_err = utils.validate_alternative_ppd(ppd_file, sys_conf.get('dirs', 'ppd'))
+            if not is_valid:
+                FailureUI(self, self.__tr("<b>Invalid PPD file selection.</b><p>%s</p>" % validation_err))
+                return
+
             self.print_ppd = (ppd_file, cups.getPPDDescription(ppd_file))
+            self.alt_ppd_selected = True
             self.updatePPD()
             self.setAddPrinterButton()
 
     def findPrinterPPD(self):
         QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
+        self.alt_ppd_selected = False
         """
         Postscript devices specify the ppd file directly in models.dat key ppd_name
         There is no need to search for it.
@@ -1125,6 +1133,13 @@ class SetupDialog(QDialog, Ui_Dialog):
         status = cups.IPP_BAD_REQUEST
         QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
         try:
+            if self.alt_ppd_selected and self.print_ppd and os.path.exists(self.print_ppd[0]):
+                is_valid, validation_err = utils.validate_alternative_ppd(self.print_ppd[0], sys_conf.get('dirs', 'ppd'))
+                if not is_valid:
+                    QApplication.restoreOverrideCursor()
+                    FailureUI(self, self.__tr("<b>Printer queue setup failed.</b> <p>%s" % validation_err))
+                    return status
+
             # assume foomatic: or some such
             if not os.path.exists(self.print_ppd[0]):
                 add_prnt_args = (from_unicode_to_str(self.printer_name), self.device_uri,

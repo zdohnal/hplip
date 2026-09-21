@@ -28,6 +28,10 @@ Boston, MA 02110-1301, USA.
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>
+#include <limits.h>
+#include <ctype.h>
+#include <stdlib.h>
+#include <errno.h>
 
 #include <sys/time.h>
 #include <time.h>
@@ -36,6 +40,9 @@ Boston, MA 02110-1301, USA.
 #include "hp_ipp.h"
 #include "hp_ipp_i.h"
 #define O_BINARY 0
+#ifndef PATH_MAX
+#define PATH_MAX 4096
+#endif
 #define _STRINGIZE(x) #x
 #define STRINGIZE(x) _STRINGIZE(x)
 #define hplip_strlcpy(dst, src, size) \
@@ -71,6 +78,57 @@ static int                      /* O - 0 if name is no good, 1 if name is good *
 validate_name(const char *name) /* I - Name to check */
 {
     return 1; // TODO: Make it work with utf-8 encoding
+}
+
+/*
+ * Validate and canonicalize user-provided fax document path before passing it to file APIs.
+ */
+static int validate_fax_filename(const char *input_path, char *canonical_path, size_t canonical_path_size)
+{
+    struct stat st;
+    size_t i;
+
+    if (input_path == NULL || canonical_path == NULL || canonical_path_size == 0)
+    {
+        return 0;
+    }
+
+    if (input_path[0] == '\0' || strlen(input_path) >= PATH_MAX)
+    {
+        return 0;
+    }
+
+    for (i = 0; input_path[i] != '\0'; i++)
+    {
+        if (iscntrl((unsigned char)input_path[i]))
+        {
+            return 0;
+        }
+    }
+
+    if (realpath(input_path, canonical_path) == NULL)
+    {
+        return 0;
+    }
+
+    canonical_path[canonical_path_size - 1] = '\0';
+
+    if (stat(canonical_path, &st) != 0)
+    {
+        return 0;
+    }
+
+    if (!S_ISREG(st.st_mode))
+    {
+        return 0;
+    }
+
+    if (access(canonical_path, R_OK) != 0)
+    {
+        return 0;
+    }
+
+    return 1;
 }
 
 const char *getCupsErrorString(int status)
@@ -113,8 +171,8 @@ int addCupsPrinter(char *name, char *device_uri, char *location, char *ppd_file,
         goto abort;
     }
 
-     if ( info == NULL )
-        hplip_strlcpy( info, name, sizeof(info));
+    /* Fall back to name as printer description when caller supplies none. */
+    const char *printer_info = (info != NULL) ? info : name;
 
     sprintf(printer_uri, "ipp://localhost/printers/%s", name);
 
@@ -151,7 +209,7 @@ int addCupsPrinter(char *name, char *device_uri, char *location, char *ppd_file,
                  device_uri);
 
     ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_TEXT, "printer-info", NULL,
-                 info);
+                 printer_info);
 
     ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_TEXT, "printer-location", NULL,
                  location);
@@ -1235,8 +1293,10 @@ HPIPP_RESULT prepend_http_header(raw_ipp *raw_request, const char *resource)
     char http_header[1024] = {0};
     int http_header_size = 0;
 
-    // Create transport header for the request
-    http_header_size = sprintf(http_header, http_header_tamplate, resource, raw_request->data_length);
+    // Create transport header for the request; snprintf guards against overflow if resource is unexpectedly long.
+    http_header_size = snprintf(http_header, sizeof(http_header), http_header_tamplate, resource, raw_request->data_length);
+    if (http_header_size < 0 || (size_t)http_header_size >= sizeof(http_header))
+        return HPIPP_INVALID_LENGTH;
 
 
     // Shift raw_request->data by http_header_size bytes and copy http_header in the beginning
@@ -1257,8 +1317,10 @@ HPIPP_RESULT prepend_http_header_with_data(raw_ipp *raw_request, const char *res
     char http_header[1024] = {0};
     int http_header_size = 0;
 
-    // Create transport header for the request
-    http_header_size = sprintf(http_header, http_header_tamplate, resource, raw_request->data_length+fileSize);
+    // Create transport header for the request; snprintf guards against overflow if resource is unexpectedly long.
+    http_header_size = snprintf(http_header, sizeof(http_header), http_header_tamplate, resource, raw_request->data_length+fileSize);
+    if (http_header_size < 0 || (size_t)http_header_size >= sizeof(http_header))
+        return HPIPP_INVALID_LENGTH;
 
     // Shift raw_request->data by http_header_size bytes and copy http_header in the beginning
     if (raw_request->data_length + http_header_size >= MAX_IPP_DATA_LENGTH)
@@ -1376,9 +1438,17 @@ HPIPP_RESULT sendFaxJob(const char *iDeviceUri, const char *iPrinterName, const 
     ipp_t *faxNumber = NULL;
     char uri[HTTP_MAX_URI] = {0};
     char ip[HPMUD_LINE_SIZE] = {0};
+    char safeFileName[PATH_MAX] = {0};
     int aJobID = 0;   
     char aFaxNumberUri[HTTP_MAX_URI] = {0};
     int infile = 0;
+
+    if (!validate_fax_filename(iFileName, safeFileName, sizeof(safeFileName)))
+    {
+        BUG("Invalid fax filename: %s\n", (iFileName != NULL) ? iFileName : "(null)");
+        return HPIPP_ERROR;
+    }
+
     request = ippNewRequest(IPP_OP_PRINT_JOB);
     initializeIPPRequest(request);
     if (request)
@@ -1412,12 +1482,17 @@ HPIPP_RESULT sendFaxJob(const char *iDeviceUri, const char *iPrinterName, const 
         // Send request to the server based on connection
         if (strcasestr(iDeviceUri, ":/usb") != NULL)
         {       
-            infile = open(iFileName, O_RDONLY | O_BINARY);
+            infile = open(safeFileName, O_RDONLY | O_BINARY);
+            if (infile < 0)
+            {
+                BUG("Unable to open fax file %s: %s\n", safeFileName, strerror(errno));
+                return HPIPP_ERROR;
+            }
             response = usbDoFileRequest(request, infile,iDeviceUri, "/ipp/faxout");
         }
         else if (strcasestr(iDeviceUri, ":/net") != NULL)
         {
-            response = networkDoFileRequest(request, iDeviceUri, "/ipp/faxout", iFileName);
+            response = networkDoFileRequest(request, iDeviceUri, "/ipp/faxout", safeFileName);
         }
         else
         {

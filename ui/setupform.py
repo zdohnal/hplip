@@ -30,7 +30,7 @@ import signal
 
 # Local
 from base.g import *
-from base import device, utils, models, pkit
+from base import device, utils, models
 from base.sixext import  to_unicode
 from prnt import cups
 from .ui_utils import load_pixmap
@@ -230,7 +230,7 @@ class SetupForm(SetupForm_base):
             plugin = self.mq.get('plugin', PLUGIN_NONE)
             plugin_reason = self.mq.get('plugin-reason', PLUGIN_REASON_NONE)
             if plugin > PLUGIN_NONE and pluginObj.getStatus() != pluginhandler.PLUGIN_INSTALLED:
-                ok, sudo_ok = pkit.run_plugin_command(plugin == PLUGIN_REQUIRED, plugin_reason)
+                ok, sudo_ok = utils.run_plugin_command(plugin == PLUGIN_REQUIRED, plugin_reason)
                 if not sudo_ok:
                     self.FailureUI(self.__tr("<b>Unable to find an appropriate su/sudo utility to run hp-plugin.</b><p>Install kdesu, gnomesu, or gksu.</p>"))
                     return

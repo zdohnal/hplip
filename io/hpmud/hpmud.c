@@ -351,7 +351,8 @@ static int new_device(const char *uri, enum HPMUD_IO_MODE mode, int *result)
    msp->device[i].index = index;
    msp->device[i].channel_cnt = 0;
    msp->device[i].open_fd = -1;
-   strcpy(msp->device[i].uri, uri);
+   strncpy(msp->device[i].uri, uri, HPMUD_LINE_SIZE - 1);
+   msp->device[i].uri[HPMUD_LINE_SIZE - 1] = '\0';
 
 bugout:
    pthread_mutex_unlock(&msp->mutex);

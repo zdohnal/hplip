@@ -383,7 +383,8 @@ static int ParseInc(char *incFile)
    {
       if (rcbuf[0] == '[')
       {
-         strncpy(section, rcbuf+1, sizeof(section)); /* found new section */
+         strncpy(section, rcbuf+1, sizeof(section)-1); /* found new section */
+         section[sizeof(section)-1] = '\0';
          n = strlen(section);
          section[n-2]=0; /* remove ']' and CR */
          RegisterLabel(fp, incFile, section);
@@ -417,7 +418,8 @@ static int ParseFile(char *datFile, char *model, char *attr, int attrSize, int *
    {
       if (rcbuf[0] == '[')
       {
-         strncpy(section, rcbuf+1, sizeof(section)); /* found new section */
+         strncpy(section, rcbuf+1, sizeof(section)-1); /* found new section */
+         section[sizeof(section)-1] = '\0';
          n = strlen(section);
          section[n-2]=0; /* remove ']' and CR */
          if (strcasecmp(model, section) == 0)

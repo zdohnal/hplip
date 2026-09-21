@@ -607,7 +607,9 @@ SANE_Status marvell_control_option(SANE_Handle handle, SANE_Int option, SANE_Act
             {
                if (ps->current_scan_mode == ps->scan_mode_map[i])
                {
-                  strcpy(value, ps->scan_mode_list[i]);
+                  int n = snprintf((char *)value, MAX_STRING_SIZE, "%s", ps->scan_mode_list[i]);
+                  if (n < 0 || n >= (int)MAX_STRING_SIZE)
+                      DBG(1, "WARNING: MARVELL scan_mode_list value truncated (n=%d limit=%d)\n", n, MAX_STRING_SIZE);
                   stat = SANE_STATUS_GOOD;
                   break;
                }
@@ -639,7 +641,9 @@ SANE_Status marvell_control_option(SANE_Handle handle, SANE_Int option, SANE_Act
             {
                if (ps->current_input_source == ps->input_source_map[i])
                {
-                  strcpy(value, ps->input_source_list[i]);
+                  int n = snprintf((char *)value, MAX_STRING_SIZE, "%s", ps->input_source_list[i]);
+                  if (n < 0 || n >= (int)MAX_STRING_SIZE)
+                      DBG(1, "WARNING: MARVELL input_source_list value truncated (n=%d limit=%d)\n", n, MAX_STRING_SIZE);
                   stat = SANE_STATUS_GOOD;
                   break;
                }

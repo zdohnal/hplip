@@ -1481,7 +1481,7 @@ enum HPMUD_RESULT __attribute__ ((visibility ("hidden"))) musb_raw_channel_read(
     if (sec_timeout==0)
         usec = 1000;       /* minmum timeout is 1ms for libusb 0.1.12, hangs forever with zero */
     else
-        usec = sec_timeout*1000000;
+        usec = (sec_timeout > (INT_MAX / 1000000) ? (INT_MAX / 1000000) : sec_timeout) * 1000000;
 
     len = (msp->device[pc->dindex].vf.read)(pc->fd, buf, length, usec);
     if (len < 0)

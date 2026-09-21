@@ -28,6 +28,7 @@
 #include "common.h"
 #include "mfpdtf.h"
 #include "io.h"
+#include <fcntl.h>
 
 #define DEBUG_DECLARE_ONLY
 #include "sanei_debug.h"
@@ -104,7 +105,9 @@ int __attribute__ ((visibility ("hidden"))) MfpdtfLogToFile( Mfpdtf_t mfpdtf, ch
     mfpdtf->logOffset = 0;
     if( filename )
     {
-        int fd = creat( filename, 0600 );
+        /* O_NOFOLLOW rejects the final path component if it is a symlink,
+         * closing the TOCTOU window creat() would otherwise leave open. */
+        int fd = open( filename, O_WRONLY | O_CREAT | O_TRUNC | O_NOFOLLOW, 0600 );
         if( fd < 0 )
         {
             return ERROR;
@@ -233,6 +236,11 @@ int __attribute__ ((visibility ("hidden"))) MfpdtfReadService( Mfpdtf_t mfpdtf )
         
         /* Parse fixed header. */
         blockLength = LEND_GET_LONG( mfpdtf->read.fixedHeader.blockLength );
+        if( blockLength < datalen )  /* HPLIP-2026-011: reject under-sized block. */
+        {
+            bug("invalid mfpdtf blockLength=%d < header=%d\n", blockLength, datalen);
+            return MFPDTF_RESULT_READ_ERROR;
+        }
         mfpdtf->read.fixedBlockBytesRemaining = blockLength - datalen;
         headerLength = LEND_GET_SHORT( mfpdtf->read.fixedHeader.headerLength );
 

@@ -86,7 +86,7 @@ err_pats = {r'(?is)<TITLE>.*?(404|403).*?ERROR.*?</TITLE>': 0.95,
             }
 # Note:- If new utility is added, add same utility here to uninstall properly.
 
-BINS_LIST = ['hpijs', 'hp-align', 'hp-colorcal', 'hp-faxsetup', 'hp-linefeedcal', 'hp-pkservice', 'hp-printsettings', 'hp-sendfax', 'hp-timedate', 'hp-check', 'hp-devicesettings', 'hp-firmware', 'hp-makecopies', 'hp-plugin', 'hp-probe', 'hp-setup', 'hp-toolbox', 'hp-check-plugin', 'hp-diagnose_plugin',
+BINS_LIST = ['hpijs', 'hp-align', 'hp-colorcal', 'hp-faxsetup', 'hp-linefeedcal', 'hp-printsettings', 'hp-sendfax', 'hp-timedate', 'hp-check', 'hp-devicesettings', 'hp-firmware', 'hp-makecopies', 'hp-plugin', 'hp-probe', 'hp-setup', 'hp-toolbox', 'hp-check-plugin', 'hp-diagnose_plugin',
              'hp-info', 'hp-makeuri', 'hp-pqdiag', 'hp-query', 'hp-systray', 'hp-unload', 'hp-clean', 'hp-fab', 'hp-levels', 'hp-print', 'hp-scan', 'hp-testpage', 'hp-wificonfig', 'hp-upgrade', 'hplip-info', 'hp-check-upgrade', 'hp-config_usb_printer', 'hp-diagnose_queues', 'hp-devicesetup', 'hp-doctor', 'hp-logcapture', 'hp-uiscan']
 
 LIBS_LIST = ['libhpmud.*', 'libhpip.*', 'sane/libsane-hpaio.*', 'cups/backend/hp', 'cups/backend/hpfax', 'cups/filter/hpcac','sane/libsane-hp2000S1*', 'libjpeg*',

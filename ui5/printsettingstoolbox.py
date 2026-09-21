@@ -21,6 +21,7 @@
 
 # Std Lib
 import sys
+import shlex
 
 # Local
 from base.g import *
@@ -87,6 +88,7 @@ class OptionComboBox(QComboBox):
         self.typ = typ
         self.other = other
         self.job_option = job_option
+        self.choice_map = dict((t, c) for c, t in choices)
         self.setObjectName(name)
 
 
@@ -179,6 +181,17 @@ class PrintSettingsToolbox(QToolBox):
         self.job_storage_enable = False
         self.ppd_type = 0
         self.pin_count = 0
+        self._ui_build_epoch = 0
+        self._deferred_epoch = 0
+        self._deferred_current_options = None
+        self._deferred_cur_outputmode = ""
+        self._deferred_cur_outputmode_dpi = None
+        self._deferred_read_only = False
+        self._deferred_device_is_fax = False
+        self._pending_option_updates = {}
+        self._pending_option_timer = QTimer(self)
+        self._pending_option_timer.setSingleShot(True)
+        self._pending_option_timer.timeout.connect(self._flushPendingPrinterOptions)
 
         # self.currentChanged[int].connect(self.PrintSettingsToolbox_currentChanged)
         self.currentChanged[int].connect(self.PrintSettingsToolbox_currentChanged)
@@ -188,6 +201,8 @@ class PrintSettingsToolbox(QToolBox):
         # File list: [(path, mime_type, mime_desc, title, num_pages), ...]
         if file_list is None or not file_list:
             return []
+
+        self._flushPendingPrinterOptions()
 
         print_commands = []
 
@@ -227,10 +242,12 @@ class PrintSettingsToolbox(QToolBox):
             else:
                 booklet_pagesize = 'letter'
             # NEED TO sET THE OPTIONS DICTIONARY
-            self.setPrinterOption('fitplot', 'true')
-            self.setPrinterOption('Duplex', 'DuplexTumble')
-            self.setPrinterOption('PageSize', booklet_pagesize)
-            self.setPrinterOption('number-up', '1')
+            self._applyPrinterOptionBatch({
+                'fitplot': 'true',
+                'Duplex': 'DuplexTumble',
+                'PageSize': booklet_pagesize,
+                'number-up': '1',
+            })
         cups.closePPD()
 
         cups.openPPD(self.cur_printer)
@@ -247,7 +264,7 @@ class PrintSettingsToolbox(QToolBox):
 
             if utils.which('lpr'):
                 if alt_nup:
-                    cmd = ' '.join(['psnup', '-%d' % nup, ''.join(['"', p, '"']), '| lpr -P', self.cur_printer])
+                    cmd = ' '.join(['psnup', '-%d' % nup, shlex.quote(p), '| lpr -P', self.cur_printer])
                 else:
                     cmd = ' '.join(['lpr -P', self.cur_printer])
 
@@ -256,7 +273,7 @@ class PrintSettingsToolbox(QToolBox):
 
             else: # lp
                 if alt_nup:
-                    cmd = ' '.join(['psnup', '-%d' % nup, ''.join(['"', p, '"']), '| lp -c -d', self.cur_printer])
+                    cmd = ' '.join(['psnup', '-%d' % nup, shlex.quote(p), '| lp -c -d', self.cur_printer])
                 else:
                     cmd = ' '.join(['lp -c -d', self.cur_printer])
 
@@ -325,7 +342,7 @@ class PrintSettingsToolbox(QToolBox):
                     cmd = ' '.join([cmd, '-o HOLD=OFF'])
 
             if not alt_nup:
-                cmd = ''.join([cmd, ' "', p, '"'])
+                cmd = cmd + ' ' + shlex.quote(p)  # HPLIP-2026-010: quote path before shell execution.
 
             print_commands.append(cmd)
 
@@ -344,6 +361,9 @@ class PrintSettingsToolbox(QToolBox):
         self.cur_device = cur_device
         self.cur_printer = cur_printer
         self.current_options = None
+        self._ui_build_epoch += 1
+        ui_epoch = self._ui_build_epoch
+        self.setUpdatesEnabled(False)
         
         while self.count():
             self.removeItem(0)
@@ -352,6 +372,7 @@ class PrintSettingsToolbox(QToolBox):
         cups.resetOptions()
         cups.openPPD(self.cur_printer)
         cur_outputmode = ""
+        deferred_read_only = False
 
         try:
             if 1:
@@ -479,6 +500,7 @@ class PrintSettingsToolbox(QToolBox):
                         continue
 
                     read_only = 'install' in g.lower()
+                    deferred_read_only = read_only
 
 
                     if g.lower() == 'printoutmode':
@@ -559,324 +581,14 @@ class PrintSettingsToolbox(QToolBox):
 ##                            if value.lower() == 'custom':
 ##                                pass
 
-                # N-Up
-                    # number-up
-                    # number-up-layout
-                    # page-border
-
-                self.beginControlGroup("nup", self.__tr("N-Up (Multiple document pages per printed page)"))
-                current = current_options.get('number-up', '1')
-
-                self.addControlRow("number-up", self.__tr("Pages per Sheet"),
-                    cups.PPD_UI_PICKONE, current,
-                    [('1', self.__tr('1 page per sheet')),
-                     ('2', self.__tr('2 pages per sheet')),
-                     ('4', self.__tr('4 pages per sheet'))], '1')
-
-                log.debug("  Option: number-up")
-                log.debug("  Current value: %s" % current)
-
-                current = current_options.get('number-up-layout', 'lrtb')
-
-                self.addControlRow("number-up-layout", self.__tr("Layout"),
-                    cups.PPD_UI_PICKONE, current,
-                    [('btlr', self.__tr('Bottom to top, left to right')),
-                     ('btrl', self.__tr('Bottom to top, right to left')),
-                     ('lrbt', self.__tr('Left to right, bottom to top')),
-                     ('lrtb', self.__tr('Left to right, top to bottom')),
-                     ('rlbt', self.__tr('Right to left, bottom to top')),
-                     ('rltb', self.__tr('Right to left, top to bottom')),
-                     ('tblr', self.__tr('Top to bottom, left to right')),
-                     ('tbrl', self.__tr('Top to bottom, right to left')) ], 'lrtb')
-
-                log.debug("  Option: number-up-layout")
-                log.debug("  Current value: %s" % current)
-
-                current = current_options.get('page-border', 'none')
-
-                self.addControlRow("page-border",
-                    self.__tr("Printed Border Around Each Page"),
-                    cups.PPD_UI_PICKONE, current,
-                    [('double', self.__tr("Two thin borders")),
-                     ("double-thick", self.__tr("Two thick borders")),
-                     ("none", self.__tr("No border")),
-                     ("single", self.__tr("One thin border")),
-                     ("single-thick", self.__tr("One thick border"))], 'none')
-
-                log.debug("  Option: page-border")
-                log.debug("  Current value: %s" % current)
-
-                self.endControlGroup()
-
-                # Adjustment
-                    # brightness
-                    # gamma
-
-                if not self.cur_device.device_type == DEVICE_TYPE_FAX:
-                    self.beginControlGroup("adjustment", self.__tr("Printout Appearance"))
-
-                    current = int(current_options.get('brightness', 100))
-
-                    log.debug("  Option: brightness")
-                    log.debug("  Current value: %s" % current)
-
-                    self.addControlRow("brightness", self.__tr("Brightness"),
-                        cups.UI_SPINNER, current, (0, 200), 100, suffix=" %")
-
-                    current = int(current_options.get('gamma', 1000))
-
-                    log.debug("  Option: gamma")
-                    log.debug("  Current value: %s" % current)
-
-                    self.addControlRow("gamma", self.__tr("Gamma"), cups.UI_SPINNER, current,
-                        (1, 10000), 1000)
-
-                    self.endControlGroup()
-
-                # Margins (pts)
-                    # page-left
-                    # page-right
-                    # page-top
-                    # page-bottom
-
-##                if 0:
-##                    # TODO: cupsPPDPageSize() fails on LaserJets. How do we get margins in this case? Defaults?
-##                    # PPD file for LJs has a HWMargin entry...
-##                    page, page_width, page_len, left, bottom, right, top = cups.getPPDPageSize()
-##
-##                    right = page_width - right
-##                    top = page_len - top
-##
-##                    self.addGroupHeading("margins", self.__tr("Margins"))
-##                    current_top = current_options.get('page-top', 0) # pts
-##                    current_bottom = current_options.get('page-bottom', 0) # pts
-##                    current_left = current_options.get('page-left', 0) # pts
-##                    current_right = current_options.get('page-right', 0) # pts
-##
-##                    log.debug("  Option: page-top")
-##                    log.debug("  Current value: %s" % current_top)
-##
-##                    self.addControlRow("margins", "page-top", self.__tr("Top margin"),
-##                        cups.UI_UNITS_SPINNER, current_top,
-##                        (0, page_len), top)
-##
-##                    self.addControlRow("margins", "page-bottom", self.__tr("Bottom margin"),
-##                        cups.UI_UNITS_SPINNER, current_bottom,
-##                        (0, page_len), bottom)
-##
-##                    self.addControlRow("margins", "page-left", self.__tr("Right margin"),
-##                        cups.UI_UNITS_SPINNER, current_left,
-##                        (0, page_width), left)
-##
-##                    self.addControlRow("margins", "page-right", self.__tr("Left margin"),
-##                        cups.UI_UNITS_SPINNER, current_right,
-##                        (0, page_width), right)
-
-                # Image Printing
-                    # position
-                    # natural-scaling
-                    # saturation
-                    # hue
-
-                self.beginControlGroup("image", self.__tr("Image Printing"))
-
-                current = utils.to_bool(current_options.get('fitplot', 'false'))
-
-                self.addControlRow("fitplot",
-                    self.__tr("Fit to Page"),
-                    cups.PPD_UI_BOOLEAN, current,
-                    [], 0)
-
-                current = current_options.get('position', 'center')
-
-                self.addControlRow("position", self.__tr("Position on Page"),
-                    cups.PPD_UI_PICKONE, current,
-                    [('center', self.__tr('Centered')),
-                     ('top', self.__tr('Top')),
-                     ('left', self.__tr('Left')),
-                     ('right', self.__tr('Right')),
-                     ('top-left', self.__tr('Top left')),
-                     ('top-right', self.__tr('Top right')),
-                     ('bottom', self.__tr('Bottom')),
-                     ('bottom-left', self.__tr('Bottom left')),
-                     ('bottom-right', self.__tr('Bottom right'))], 'center')
-
-                log.debug("  Option: position")
-                log.debug("  Current value: %s" % current)
-
-                if not self.cur_device.device_type == DEVICE_TYPE_FAX:
-                    current = int(current_options.get('saturation', 100))
-
-                    log.debug("  Option: saturation")
-                    log.debug("  Current value: %s" % current)
-
-                    self.addControlRow("saturation", self.__tr("Saturation"),
-                        cups.UI_SPINNER, current, (0, 200), 100, suffix=" %")
-
-                    current = int(current_options.get('hue', 0))
-
-                    log.debug("  Option: hue")
-                    log.debug("  Current value: %s" % current)
-
-                    self.addControlRow("hue", self.__tr("Hue (color shift/rotation)"),
-                        cups.UI_SPINNER, current,
-                        (-100, 100), 0)
-
-                current = int(current_options.get('natural-scaling', 100))
-
-                log.debug("  Option: natural-scaling")
-                log.debug("  Current value: %s" % current)
-
-                self.addControlRow("natural-scaling",
-                    self.__tr('"Natural" Scaling (relative to image)'),
-                    cups.UI_SPINNER, current, (1, 800), 100, suffix=" %")
-
-                current = int(current_options.get('scaling', 100))
-
-                log.debug("  Option: scaling")
-                log.debug("  Current value: %s" % current)
-
-                self.addControlRow("scaling", self.__tr("Scaling (relative to page)"),
-                    cups.UI_SPINNER, current,
-                    (1, 800), 100, suffix=" %")
-
-                self.endControlGroup()
-
-                # Misc
-                    # PrettyPrint
-                    # job-sheets
-                    # mirror
-
-                self.beginControlGroup("misc", self.__tr("Miscellaneous"))
-
-                log.debug("Group: Misc")
-
-                current = utils.to_bool(current_options.get('prettyprint', '0'))
-
-                self.addControlRow("prettyprint",
-                    self.__tr('"Pretty Print" Text Documents (Add headers and formatting)'),
-                    cups.PPD_UI_BOOLEAN, current, [], 0)
-
-                log.debug("  Option: prettyprint")
-                log.debug("  Current value: %s" % current)
-
-                if not self.cur_device.device_type == DEVICE_TYPE_FAX:
-                    current = current_options.get('job-sheets', 'none').split(',')
-
-                    try:
-                        start = current[0]
-                    except IndexError:
-                        start = 'none'
-
-                    try:
-                        end = current[1]
-                    except IndexError:
-                        end = 'none'
-
-                    # TODO: Look for locally installed banner pages beyond the default CUPS ones?
-                    self.addControlRow("job-sheets", self.__tr("Banner Pages"), cups.UI_BANNER_JOB_SHEETS,
-                        (start, end),
-                        [("none", self.__tr("No banner page")),
-                         ('classified', self.__tr("Classified")),
-                         ('confidential', self.__tr("Confidential")),
-                         ('secret', self.__tr("Secret")),
-                         ('standard', self.__tr("Standard")),
-                         ('topsecret', self.__tr("Top secret")),
-                         ('unclassified', self.__tr("Unclassified"))], ('none', 'none'))
-
-                    log.debug("  Option: job-sheets")
-                    log.debug("  Current value: %s,%s" % (start, end))
-
-                current = utils.to_bool(current_options.get('mirror', '0'))
-
-                self.addControlRow("mirror", self.__tr('Mirror Printing'),
-                    cups.PPD_UI_BOOLEAN, current, [], 0)
-
-                log.debug("  Option: mirror")
-                log.debug("  Current value: %s" % current)
-
-                self.endControlGroup()
-                
-                #Summary
-                    #color input
-                    #quality
                 quality_attr_name = "OutputModeDPI"
-                cur_outputmode_dpi = cups.findPPDAttribute(quality_attr_name, cur_outputmode)
-                if cur_outputmode_dpi is not None:
-                    log.debug("Adding Group: Summary outputmode is : %s" % cur_outputmode)
-                    log.debug("Adding Group: Summary outputmode dpi is : %s" % to_unicode (cur_outputmode_dpi))
-                    self.beginControlGroup("sumry", self.__tr("Summary"))
-                    self.addControlRow("colorinput", self.__tr('Color Input / Black Render'),
-                        cups.UI_INFO, to_unicode (cur_outputmode_dpi), [], read_only)
-                    self.addControlRow("quality", self.__tr('Print Quality'),
-                        cups.UI_INFO, cur_outputmode, [], read_only)
-                    self.endControlGroup()
-                    log.debug("End adding Group: Summary")
-                   
-
-                self.job_storage_enable = 0 #self.cur_device.mq.get('job-storage', JOB_STORAGE_DISABLE) == JOB_STORAGE_ENABLE
-
-
-                if self.job_storage_enable:
-                    self.job_storage_pin = to_unicode(current_options.get('HOLDKEY', '0000')[:4])
-                    self.job_storage_username = to_unicode(current_options.get('USERNAME', prop.username)[:16])
-                    self.job_storage_jobname = to_unicode(current_options.get('JOBNAME', to_unicode('Untitled'))[:16])
-                    hold = to_unicode(current_options.get('HOLD', to_unicode('OFF')))
-                    holdtype = to_unicode(current_options.get('HOLDTYPE', to_unicode('PUBLIC')))
-                    self.job_storage_use_pin = False
-                    duplicate = to_unicode(current_options.get('DUPLICATEJOB', to_unicode('REPLACE')))
-                    self.job_storage_auto_username = True
-                    self.job_storage_auto_jobname = True
-                    self.job_storage_mode = JOB_STORAGE_TYPE_OFF
-
-                    if hold == 'OFF':
-                        self.job_storage_mode = JOB_STORAGE_TYPE_OFF
-
-                    elif hold == 'ON':
-                        if holdtype == to_unicode('PUBLIC'):
-                            self.job_storage_mode = JOB_STORAGE_TYPE_QUICK_COPY
-
-                        else: # 'PRIVATE'
-                            self.job_storage_mode = JOB_STORAGE_TYPE_PERSONAL
-                            self.job_storage_use_pin = True
-
-                    elif hold == to_unicode('PROOF'):
-                        if holdtype == to_unicode('PUBLIC'):
-                            self.job_storage_mode = JOB_STORAGE_TYPE_PROOF_AND_HOLD
-                        else:
-                            self.job_storage_mode = JOB_STORAGE_TYPE_PERSONAL
-                            self.job_storage_use_pin = True
-
-                    elif hold == to_unicode('STORE'):
-                        self.job_storage_mode = JOB_STORAGE_TYPE_STORE
-                        self.job_storage_use_pin = (holdtype == 'PRIVATE')
-
-                    if duplicate == to_unicode('REPLACE'):
-                        self.job_storage_job_exist = JOB_STORAGE_EXISTING_JOB_REPLACE
-                    else: # u'APPEND'
-                        self.job_storage_job_exist = JOB_STORAGE_EXISTING_JOB_APPEND_1_99
-
-                    # option, text, typ, value, choices, default, read_only=False, suffix="", job_option=False)
-
-                    self.beginControlGroup("jobstorage", self.__tr("Job Storage and Secure Printing"))
-
-                    self.addControlRow("job-storage-mode", self.__tr("Mode"),
-                                       cups.UI_JOB_STORAGE_MODE, None, None, None)
-
-                    self.addControlRow("job-storage-pin", self.__tr("Make job private (use PIN to print)"),
-                                      cups.UI_JOB_STORAGE_PIN, None, None, None )
-
-                    self.addControlRow("job-storage-username", self.__tr("User name (for job identification)"),
-                                       cups.UI_JOB_STORAGE_USERNAME, None, None, None)
-
-                    self.addControlRow("job-storage-id", self.__tr("Job name/ID (for job identification)"),
-                                      cups.UI_JOB_STORAGE_ID, None, None, None)
-
-                    self.addControlRow("job-storage-id-exists", self.__tr("If job name/ID already exists..."),
-                                       cups.UI_JOB_STORAGE_ID_EXISTS, None, None, None)
-
-                    self.endControlGroup()
-                    self.updateJobStorageControls()
+                self._deferred_current_options = current_options
+                self._deferred_cur_outputmode = cur_outputmode
+                self._deferred_cur_outputmode_dpi = cups.findPPDAttribute(quality_attr_name, cur_outputmode)
+                self._deferred_read_only = deferred_read_only
+                self._deferred_device_is_fax = (self.cur_device.device_type == DEVICE_TYPE_FAX)
+                self._deferred_epoch = ui_epoch
+                QTimer.singleShot(0, lambda: self._buildDeferredGroups(ui_epoch))
 
                 # use: self.job_options['xxx'] so that values can be picked up by getPrintCommand(
 
@@ -888,6 +600,280 @@ class PrintSettingsToolbox(QToolBox):
         finally:
             cups.closePPD()
             self.loading = False
+            self.setUpdatesEnabled(True)
+
+
+    def _buildDeferredGroups(self, ui_epoch):
+        if ui_epoch != self._deferred_epoch:
+            return
+
+        current_options = self._deferred_current_options
+        if current_options is None:
+            return
+
+        read_only = self._deferred_read_only
+        cur_outputmode = self._deferred_cur_outputmode
+        cur_outputmode_dpi = self._deferred_cur_outputmode_dpi
+        is_fax = self._deferred_device_is_fax
+
+        self.setUpdatesEnabled(False)
+        try:
+            # N-Up
+            self.beginControlGroup("nup", self.__tr("N-Up (Multiple document pages per printed page)"))
+            current = current_options.get('number-up', '1')
+
+            self.addControlRow("number-up", self.__tr("Pages per Sheet"),
+                cups.PPD_UI_PICKONE, current,
+                [('1', self.__tr('1 page per sheet')),
+                 ('2', self.__tr('2 pages per sheet')),
+                 ('4', self.__tr('4 pages per sheet'))], '1')
+
+            log.debug("  Option: number-up")
+            log.debug("  Current value: %s" % current)
+
+            current = current_options.get('number-up-layout', 'lrtb')
+
+            self.addControlRow("number-up-layout", self.__tr("Layout"),
+                cups.PPD_UI_PICKONE, current,
+                [('btlr', self.__tr('Bottom to top, left to right')),
+                 ('btrl', self.__tr('Bottom to top, right to left')),
+                 ('lrbt', self.__tr('Left to right, bottom to top')),
+                 ('lrtb', self.__tr('Left to right, top to bottom')),
+                 ('rlbt', self.__tr('Right to left, bottom to top')),
+                 ('rltb', self.__tr('Right to left, top to bottom')),
+                 ('tblr', self.__tr('Top to bottom, left to right')),
+                 ('tbrl', self.__tr('Top to bottom, right to left')) ], 'lrtb')
+
+            log.debug("  Option: number-up-layout")
+            log.debug("  Current value: %s" % current)
+
+            current = current_options.get('page-border', 'none')
+
+            self.addControlRow("page-border",
+                self.__tr("Printed Border Around Each Page"),
+                cups.PPD_UI_PICKONE, current,
+                [('double', self.__tr("Two thin borders")),
+                 ("double-thick", self.__tr("Two thick borders")),
+                 ("none", self.__tr("No border")),
+                 ("single", self.__tr("One thin border")),
+                 ("single-thick", self.__tr("One thick border"))], 'none')
+
+            log.debug("  Option: page-border")
+            log.debug("  Current value: %s" % current)
+
+            self.endControlGroup()
+
+            # Adjustment
+            if not is_fax:
+                self.beginControlGroup("adjustment", self.__tr("Printout Appearance"))
+
+                current = int(current_options.get('brightness', 100))
+
+                log.debug("  Option: brightness")
+                log.debug("  Current value: %s" % current)
+
+                self.addControlRow("brightness", self.__tr("Brightness"),
+                    cups.UI_SPINNER, current, (0, 200), 100, suffix=" %")
+
+                current = int(current_options.get('gamma', 1000))
+
+                log.debug("  Option: gamma")
+                log.debug("  Current value: %s" % current)
+
+                self.addControlRow("gamma", self.__tr("Gamma"), cups.UI_SPINNER, current,
+                    (1, 10000), 1000)
+
+                self.endControlGroup()
+
+            # Image Printing
+            self.beginControlGroup("image", self.__tr("Image Printing"))
+
+            current = utils.to_bool(current_options.get('fitplot', 'false'))
+
+            self.addControlRow("fitplot",
+                self.__tr("Fit to Page"),
+                cups.PPD_UI_BOOLEAN, current,
+                [], 0)
+
+            current = current_options.get('position', 'center')
+
+            self.addControlRow("position", self.__tr("Position on Page"),
+                cups.PPD_UI_PICKONE, current,
+                [('center', self.__tr('Centered')),
+                 ('top', self.__tr('Top')),
+                 ('left', self.__tr('Left')),
+                 ('right', self.__tr('Right')),
+                 ('top-left', self.__tr('Top left')),
+                 ('top-right', self.__tr('Top right')),
+                 ('bottom', self.__tr('Bottom')),
+                 ('bottom-left', self.__tr('Bottom left')),
+                 ('bottom-right', self.__tr('Bottom right'))], 'center')
+
+            log.debug("  Option: position")
+            log.debug("  Current value: %s" % current)
+
+            if not is_fax:
+                current = int(current_options.get('saturation', 100))
+
+                log.debug("  Option: saturation")
+                log.debug("  Current value: %s" % current)
+
+                self.addControlRow("saturation", self.__tr("Saturation"),
+                    cups.UI_SPINNER, current, (0, 200), 100, suffix=" %")
+
+                current = int(current_options.get('hue', 0))
+
+                log.debug("  Option: hue")
+                log.debug("  Current value: %s" % current)
+
+                self.addControlRow("hue", self.__tr("Hue (color shift/rotation)"),
+                    cups.UI_SPINNER, current,
+                    (-100, 100), 0)
+
+            current = int(current_options.get('natural-scaling', 100))
+
+            log.debug("  Option: natural-scaling")
+            log.debug("  Current value: %s" % current)
+
+            self.addControlRow("natural-scaling",
+                self.__tr('"Natural" Scaling (relative to image)'),
+                cups.UI_SPINNER, current, (1, 800), 100, suffix=" %")
+
+            current = int(current_options.get('scaling', 100))
+
+            log.debug("  Option: scaling")
+            log.debug("  Current value: %s" % current)
+
+            self.addControlRow("scaling", self.__tr("Scaling (relative to page)"),
+                cups.UI_SPINNER, current,
+                (1, 800), 100, suffix=" %")
+
+            self.endControlGroup()
+
+            # Misc
+            self.beginControlGroup("misc", self.__tr("Miscellaneous"))
+
+            log.debug("Group: Misc")
+
+            current = utils.to_bool(current_options.get('prettyprint', '0'))
+
+            self.addControlRow("prettyprint",
+                self.__tr('"Pretty Print" Text Documents (Add headers and formatting)'),
+                cups.PPD_UI_BOOLEAN, current, [], 0)
+
+            log.debug("  Option: prettyprint")
+            log.debug("  Current value: %s" % current)
+
+            if not is_fax:
+                current = current_options.get('job-sheets', 'none').split(',')
+
+                try:
+                    start = current[0]
+                except IndexError:
+                    start = 'none'
+
+                try:
+                    end = current[1]
+                except IndexError:
+                    end = 'none'
+
+                self.addControlRow("job-sheets", self.__tr("Banner Pages"), cups.UI_BANNER_JOB_SHEETS,
+                    (start, end),
+                    [("none", self.__tr("No banner page")),
+                     ('classified', self.__tr("Classified")),
+                     ('confidential', self.__tr("Confidential")),
+                     ('secret', self.__tr("Secret")),
+                     ('standard', self.__tr("Standard")),
+                     ('topsecret', self.__tr("Top secret")),
+                     ('unclassified', self.__tr("Unclassified"))], ('none', 'none'))
+
+                log.debug("  Option: job-sheets")
+                log.debug("  Current value: %s,%s" % (start, end))
+
+            current = utils.to_bool(current_options.get('mirror', '0'))
+
+            self.addControlRow("mirror", self.__tr('Mirror Printing'),
+                cups.PPD_UI_BOOLEAN, current, [], 0)
+
+            log.debug("  Option: mirror")
+            log.debug("  Current value: %s" % current)
+
+            self.endControlGroup()
+
+            # Summary
+            if cur_outputmode_dpi is not None:
+                log.debug("Adding Group: Summary outputmode is : %s" % cur_outputmode)
+                log.debug("Adding Group: Summary outputmode dpi is : %s" % to_unicode(cur_outputmode_dpi))
+                self.beginControlGroup("sumry", self.__tr("Summary"))
+                self.addControlRow("colorinput", self.__tr('Color Input / Black Render'),
+                    cups.UI_INFO, to_unicode(cur_outputmode_dpi), [], read_only)
+                self.addControlRow("quality", self.__tr('Print Quality'),
+                    cups.UI_INFO, cur_outputmode, [], read_only)
+                self.endControlGroup()
+                log.debug("End adding Group: Summary")
+
+            self.job_storage_enable = 0 #self.cur_device.mq.get('job-storage', JOB_STORAGE_DISABLE) == JOB_STORAGE_ENABLE
+
+            if self.job_storage_enable:
+                self.job_storage_pin = to_unicode(current_options.get('HOLDKEY', '0000')[:4])
+                self.job_storage_username = to_unicode(current_options.get('USERNAME', prop.username)[:16])
+                self.job_storage_jobname = to_unicode(current_options.get('JOBNAME', to_unicode('Untitled'))[:16])
+                hold = to_unicode(current_options.get('HOLD', to_unicode('OFF')))
+                holdtype = to_unicode(current_options.get('HOLDTYPE', to_unicode('PUBLIC')))
+                self.job_storage_use_pin = False
+                duplicate = to_unicode(current_options.get('DUPLICATEJOB', to_unicode('REPLACE')))
+                self.job_storage_auto_username = True
+                self.job_storage_auto_jobname = True
+                self.job_storage_mode = JOB_STORAGE_TYPE_OFF
+
+                if hold == 'OFF':
+                    self.job_storage_mode = JOB_STORAGE_TYPE_OFF
+
+                elif hold == 'ON':
+                    if holdtype == to_unicode('PUBLIC'):
+                        self.job_storage_mode = JOB_STORAGE_TYPE_QUICK_COPY
+
+                    else: # 'PRIVATE'
+                        self.job_storage_mode = JOB_STORAGE_TYPE_PERSONAL
+                        self.job_storage_use_pin = True
+
+                elif hold == to_unicode('PROOF'):
+                    if holdtype == to_unicode('PUBLIC'):
+                        self.job_storage_mode = JOB_STORAGE_TYPE_PROOF_AND_HOLD
+                    else:
+                        self.job_storage_mode = JOB_STORAGE_TYPE_PERSONAL
+                        self.job_storage_use_pin = True
+
+                elif hold == to_unicode('STORE'):
+                    self.job_storage_mode = JOB_STORAGE_TYPE_STORE
+                    self.job_storage_use_pin = (holdtype == 'PRIVATE')
+
+                if duplicate == to_unicode('REPLACE'):
+                    self.job_storage_job_exist = JOB_STORAGE_EXISTING_JOB_REPLACE
+                else: # u'APPEND'
+                    self.job_storage_job_exist = JOB_STORAGE_EXISTING_JOB_APPEND_1_99
+
+                self.beginControlGroup("jobstorage", self.__tr("Job Storage and Secure Printing"))
+
+                self.addControlRow("job-storage-mode", self.__tr("Mode"),
+                                   cups.UI_JOB_STORAGE_MODE, None, None, None)
+
+                self.addControlRow("job-storage-pin", self.__tr("Make job private (use PIN to print)"),
+                                  cups.UI_JOB_STORAGE_PIN, None, None, None )
+
+                self.addControlRow("job-storage-username", self.__tr("User name (for job identification)"),
+                                   cups.UI_JOB_STORAGE_USERNAME, None, None, None)
+
+                self.addControlRow("job-storage-id", self.__tr("Job name/ID (for job identification)"),
+                                  cups.UI_JOB_STORAGE_ID, None, None, None)
+
+                self.addControlRow("job-storage-id-exists", self.__tr("If job name/ID already exists..."),
+                                   cups.UI_JOB_STORAGE_ID_EXISTS, None, None, None)
+
+                self.endControlGroup()
+                self.updateJobStorageControls()
+        finally:
+            self.setUpdatesEnabled(True)
 
 
     def beginControlGroup(self, group, text):
@@ -1041,7 +1027,7 @@ class PrintSettingsToolbox(QToolBox):
 
             DefaultButton.clicked.connect(self.DefaultButton_clicked)
             ComboBox.currentIndexChanged["const QString &"].connect(self.ComboBox_indexChanged)
-            ComboBox.highlighted["const QString &"].connect(self.ComboBox_highlighted)
+            ComboBox.activated["const QString &"].connect(self.ComboBox_highlighted)
 
             control = ComboBox
 
@@ -1502,38 +1488,27 @@ class PrintSettingsToolbox(QToolBox):
 
             if start is not None and \
                 end is not None:
-
-                self.setPrinterOption('job-sheets', ','.join([start, end]))
+                self._queuePrinterOptionUpdate('job-sheets', ','.join([start, end]))
 
 
     def ComboBox_highlighted(self, t):
         t = to_unicode(t)
         sender = self.sender()
-        choice = None
+        choice = sender.choice_map.get(t)
 
-        #print sender, sender.option, sender.job_option
+        sender.pushbutton.setEnabled(True)
 
-        choice = None
-        for c, a in sender.choices:
-            if a == t:
-                choice = c
-                break
-
-        if choice is not None and choice == sender.default:
+        if choice is not None:
             if sender.job_option:
-                self.job_options[sender.option] = sender.default
+                if self.job_options.get(sender.option) == choice:
+                    return
+                self.job_options[sender.option] = choice
             else:
-                self.removePrinterOption(sender.option)
-            sender.pushbutton.setEnabled(False)
-
-        else:
-            sender.pushbutton.setEnabled(True)
-
-            if choice is not None:
-                if sender.job_option:
-                    self.job_options[sender.option] = choice
-                else:
-                    self.setPrinterOption(sender.option, choice)
+                if self.current_options is not None and self.current_options.get(sender.option) == choice:
+                    return
+                if self.current_options is not None:
+                    self.current_options[sender.option] = choice
+                self._queuePrinterOptionUpdate(sender.option, choice)
 
             #self.linkPrintoutModeAndQuality(sender.option, choice)
 
@@ -1588,7 +1563,7 @@ class PrintSettingsToolbox(QToolBox):
                    self.pin_count = 0
             else:
                 sender.pushbutton.setEnabled(True)
-                self.setPrinterOption(sender.option, str(i))
+                self._queuePrinterOptionUpdate(sender.option, str(i))
 
         else:
             try:
@@ -1612,9 +1587,9 @@ class PrintSettingsToolbox(QToolBox):
             sender.pushbutton.setEnabled(True)
 
             if b:
-                self.setPrinterOption(sender.option, "true")
+                self._queuePrinterOptionUpdate(sender.option, "true")
             else:
-                self.setPrinterOption(sender.option, "false")
+                self._queuePrinterOptionUpdate(sender.option, "false")
 
     def ComboBox_indexChanged(self, currentItem):
         sender = self.sender()
@@ -1835,47 +1810,61 @@ class PrintSettingsToolbox(QToolBox):
         beginWaitCursor()
         try:
             log.debug("Saving job storage options...")
+            self._flushPendingPrinterOptions()
+
+            add_updates = {}
+            remove_updates = set()
+
+            def set_opt(option, value):
+                if option in remove_updates:
+                    remove_updates.remove(option)
+                add_updates[option] = value
+
+            def remove_opt(option):
+                if option in add_updates:
+                    del add_updates[option]
+                remove_updates.add(option)
 
             if self.job_storage_mode == JOB_STORAGE_TYPE_OFF:
                 log.debug("Job storage mode = JOB_STORAGE_TYPE_OFF")
-                self.setPrinterOption('HOLD', 'OFF')
-                self.removePrinterOption('HOLDTYPE')
-                self.removePrinterOption('USERNAME')
-                self.removePrinterOption('JOBNAME')
-                self.removePrinterOption('DUPLICATEJOB')
+                set_opt('HOLD', 'OFF')
+                remove_opt('HOLDTYPE')
+                remove_opt('USERNAME')
+                remove_opt('JOBNAME')
+                remove_opt('DUPLICATEJOB')
 
             elif self.job_storage_mode == JOB_STORAGE_TYPE_PROOF_AND_HOLD:
                 log.debug("Job storage mode = JOB_STORAGE_TYPE_PROOF_AND_HOLD")
-                self.setPrinterOption('HOLD', 'PROOF')
+                set_opt('HOLD', 'PROOF')
                 #self.removePrinterOption('HOLDTYPE')
-                self.setPrinterOption('HOLDTYPE', 'PUBLIC')
+                set_opt('HOLDTYPE', 'PUBLIC')
 
             elif self.job_storage_mode == JOB_STORAGE_TYPE_PERSONAL:
                 log.debug("Job storage mode = JOB_STORAGE_TYPE_PERSONAL")
 
                 if self.job_storage_use_pin:
-                    self.setPrinterOption('HOLD', 'ON')
+                    set_opt('HOLD', 'ON')
                 else:
-                    self.setPrinterOption('HOLD', 'PROOF')
-                    self.setPrinterOption('HOLDTYPE', 'PUBLIC')
+                    set_opt('HOLD', 'PROOF')
+                    set_opt('HOLDTYPE', 'PUBLIC')
 
 
             elif self.job_storage_mode == JOB_STORAGE_TYPE_QUICK_COPY:
                 log.debug("Job storage mode = JOB_STORAGE_TYPE_QUICK_COPY")
-                self.setPrinterOption('HOLD', 'ON')
-                self.setPrinterOption('HOLDTYPE', 'PUBLIC')
+                set_opt('HOLD', 'ON')
+                set_opt('HOLDTYPE', 'PUBLIC')
 
             elif self.job_storage_mode == JOB_STORAGE_TYPE_STORE:
                 log.debug("Job storage mode = JOB_STORAGE_TYPE_STORE")
-                self.setPrinterOption('HOLD', 'STORE')
+                set_opt('HOLD', 'STORE')
 
                 if not self.job_storage_use_pin:
-                    self.removePrinterOption('HOLDTYPE')
+                    remove_opt('HOLDTYPE')
 
             # PIN
             log.debug("Job storage use pin = %d" % self.job_storage_use_pin)
             if self.job_storage_use_pin:
-                self.setPrinterOption('HOLDTYPE', 'PRIVATE')
+                set_opt('HOLDTYPE', 'PRIVATE')
 
             #else:
             #    self.removePrinterOption('HOLDKEY')
@@ -1883,11 +1872,13 @@ class PrintSettingsToolbox(QToolBox):
             # Dup/exisiting
             if self.job_storage_job_exist == JOB_STORAGE_EXISTING_JOB_REPLACE:
                 log.debug("Job storage duplicate = JOB_STORAGE_EXISTING_JOB_REPLACE")
-                self.setPrinterOption('DUPLICATEJOB', 'REPLACE')
+                set_opt('DUPLICATEJOB', 'REPLACE')
 
             else: # JOB_STORAGE_EXISTING_JOB_APPEND_1_99
                 log.debug("Job storage duplicate = JOB_STORAGE_EXISTING_JOB_APPEND_1_99")
-                self.setPrinterOption('DUPLICATEJOB', 'APPEND')
+                set_opt('DUPLICATEJOB', 'APPEND')
+
+            self._applyPrinterOptionBatch(add_updates, remove_updates)
 
 
         finally:
@@ -1933,7 +1924,7 @@ class PrintSettingsToolbox(QToolBox):
 
     def JobStoragePinEdit_textEdited(self, s):
         self.job_storage_pin = to_unicode(s)
-        self.setPrinterOption('HOLDKEY', self.job_storage_pin.encode('ascii'))
+        self._queuePrinterOptionUpdate('HOLDKEY', self.job_storage_pin.encode('ascii'))
 
 
 
@@ -1959,7 +1950,7 @@ class PrintSettingsToolbox(QToolBox):
 
     def JobStorageUsernameEdit_textEdited(self, s):
         self.job_storage_username = to_unicode(s)
-        self.setPrinterOption('USERNAME', self.job_storage_username.encode('ascii'))
+        self._queuePrinterOptionUpdate('USERNAME', self.job_storage_username.encode('ascii'))
 
     #
     # Jobname/ID
@@ -1983,7 +1974,7 @@ class PrintSettingsToolbox(QToolBox):
 
     def JobStorageIDEdit_textEdited(self, s):
         self.job_storage_jobname = to_unicode(s)
-        self.setPrinterOption('JOBNAME', self.job_storage_jobname.encode('ascii'))
+        self._queuePrinterOptionUpdate('JOBNAME', self.job_storage_jobname.encode('ascii'))
 
     #
     # Duplicate/existing Jobname/ID
@@ -2006,34 +1997,89 @@ class PrintSettingsToolbox(QToolBox):
     # Printer I/O
     #
 
-    def setPrinterOption(self, option, value):
-        log.debug("setPrinterOption(%s, %s)" % (option, value))
+    def _queuePrinterOptionUpdate(self, option, value):
+        log.debug("_queuePrinterOptionUpdate(%s, %s)" % (option, value))
+        if self.current_options is not None:
+            self.current_options[option] = value
+        self._pending_option_updates[option] = value
+        if not self._pending_option_timer.isActive():
+            self._pending_option_timer.start(0)
+
+
+    def _flushPendingPrinterOptions(self):
+        if not self._pending_option_updates:
+            return
+
+        pending = self._pending_option_updates
+        self._pending_option_updates = {}
+        self._applyPrinterOptionBatch(pending, skip_cache_check=True)
+
+
+    def _normalizePrinterOptionValue(self, option, value):
+        if option == "HPDigit":
+            if len(value) == 1:
+                value = '000' + value
+            if len(value) == 2:
+                value = '00' + value
+            if len(value) == 3:
+                value = '0' + value
+            if len(value) != 4:
+                value = value[-4:]
+        return value
+
+
+    def _applyPrinterOptionBatch(self, add_updates=None, remove_updates=None, skip_cache_check=False):
+        if add_updates is None:
+            add_updates = {}
+        if remove_updates is None:
+            remove_updates = set()
+
+        add_updates = dict(add_updates)
+        remove_updates = set(remove_updates)
+
+        for option in list(add_updates.keys()):
+            add_updates[option] = self._normalizePrinterOptionValue(option, add_updates[option])
+            if option in remove_updates:
+                remove_updates.remove(option)
+
+        if not skip_cache_check and self.current_options is not None:
+            add_updates = dict((option, value) for option, value in add_updates.items()
+                               if self.current_options.get(option) != value)
+            remove_updates = set(option for option in remove_updates
+                                 if option in self.current_options)
+
+        if not add_updates and not remove_updates:
+            return
+
         cups.openPPD(self.cur_printer)
 
         try:
-            if option == "HPDigit":
-               if len(value) == 1:
-                  value = '000' + value
-               if len(value) == 2:
-                  value += '00' + value
-               if len(value) == 3:
-                  value += '0' + value
-               if len(value) != 4:
-                  value = value[-4:]
-            cups.addOption("%s=%s" % (option, value))
+            for option in remove_updates:
+                cups.removeOption(option)
+
+            for option, value in add_updates.items():
+                cups.addOption("%s=%s" % (option, value))
+
             cups.setOptions()
+
+            if self.current_options is not None:
+                for option in remove_updates:
+                    if option in self.current_options:
+                        del self.current_options[option]
+                for option, value in add_updates.items():
+                    self.current_options[option] = value
         finally:
             cups.closePPD()
+
+    def setPrinterOption(self, option, value, skip_cache_check=False):
+        log.debug("setPrinterOption(%s, %s)" % (option, value))
+        self._applyPrinterOptionBatch({option: value}, skip_cache_check=skip_cache_check)
 
     def removePrinterOption(self, option):
         log.debug("removePrinterOption(%s)" % option)
-        cups.openPPD(self.cur_printer)
-
-        try:
-            cups.removeOption(option)
-            cups.setOptions()
-        finally:
-            cups.closePPD()
+        if option in self._pending_option_updates:
+            del self._pending_option_updates[option]
+        self._applyPrinterOptionBatch(remove_updates={option})
 
 
     def __tr(self,s,c = None):

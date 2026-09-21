@@ -62,6 +62,7 @@
 #include "header.h"
 #include "hptypes.h"
 #include "halftoner.h"
+#include "../../common/utils.h"
 
 APDK_BEGIN_NAMESPACE
 
@@ -122,7 +123,13 @@ Halftoner::Halftoner
         ColorDepth[i]= pPM->ColorDepth[i];
         NumRows[i]=iNumRows[i];
 
-        OutputWidth[i] = AdjustedInputWidth * NumRows[i] * ResBoost;
+        // guard against overflow before assigning to unsigned int
+        size_t ow;
+        if (!safe_mul_size_t(AdjustedInputWidth, NumRows[i], &ow) ||
+            !safe_mul_size_t(ow, (size_t)(unsigned int)ResBoost, &ow) ||
+            ow > UINT_MAX)
+            goto MemoryError;
+        OutputWidth[i] = (unsigned int)ow;
 
     }
     for (;i < (unsigned)MAXCOLORPLANES; i++)

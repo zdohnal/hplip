@@ -28,7 +28,7 @@
 #AC_PREREQ(2.59)
 
 
-AC_INIT([HP Linux Imaging and Printing], [3.26.4], [3.26.4], [hplip])
+AC_INIT([HP Linux Imaging and Printing], [3.26.6], [3.26.6], [hplip])
 
 
 #AM_INIT_AUTOMAKE([1.9 foreign])
@@ -219,6 +219,17 @@ else
    AC_MSG_RESULT(no)
 fi
 AM_CONDITIONAL(HPPS_INSTALL, test x$hpps_install = xyes && test x$hpijs_only_build = xno)
+
+AC_MSG_CHECKING([for ASAN debug build])
+AC_ARG_ENABLE(asan_build,
+  [  --enable-asan-build     build with AddressSanitizer instrumentation (default=no)],
+  asan_build=$enableval, asan_build=no)
+if test "$asan_build" = "yes"; then
+   AC_MSG_RESULT(yes)
+else
+   AC_MSG_RESULT(no)
+fi
+AM_CONDITIONAL(ASAN_BUILD, test x$asan_build = xyes)
 
 AC_MSG_CHECKING([for network build])
 AC_ARG_ENABLE(network_build,
@@ -549,30 +560,9 @@ else
    ui_toolkit=no
 fi
 fi
+# PolicyKit infrastructure removed as part of security remediation (CWE-22, CWE-347)
+# Plugin installation now uses subprocess elevation with password authentication
 
-AC_MSG_CHECKING([for policykit])
-AC_ARG_ENABLE(policykit,
-  [  --enable-policykit    enable PolicyKit (default=no)],
-  policykit=$enableval, policykit=no)
-if test "$policykit" = "yes"; then
-   AC_MSG_RESULT(yes)
-else
-   AC_MSG_RESULT(no)
-fi
-AM_CONDITIONAL(POLICYKIT_INSTALL, test x$policykit = xyes)
-
-# Determine where the PolicyKit policy file goes
-if test "$policykit" = "yes"; then
-   if test -d /usr/share/polkit-1; then
-      policykit_dir=/usr/share/polkit-1/actions
-   elif test -d /usr/share/PolicyKit; then
-      policykit_dir=/usr/share/PolicyKit/policy
-   else
-      policykit_dir=/usr/share/PolicyKit/policy
-   fi
-else
-   policykit_dir=
-fi
 
 AC_MSG_CHECKING(for host machine platform)
 machine=`uname -m`
@@ -771,6 +761,71 @@ AC_SUBST(cups_drv_install)
 AC_SUBST(hpijs_install)
 AC_SUBST(hpcups_install)
 AC_SUBST(hpps_install)
+
+# --- Security hardening flags (CWE-693: Insecure Binary Protection) ---
+# Probe for each flag individually so the build still works on older toolchains.
+SECURITY_CFLAGS=""
+SECURITY_LDFLAGS=""
+AS_IF([test "x$GCC" = "xyes"], [
+  save_CFLAGS="$CFLAGS"
+  save_LDFLAGS="$LDFLAGS"
+
+  AC_MSG_CHECKING([whether gcc accepts -fstack-protector-strong])
+  CFLAGS="$save_CFLAGS -fstack-protector-strong"
+  AC_COMPILE_IFELSE([AC_LANG_PROGRAM()],
+    [SECURITY_CFLAGS="$SECURITY_CFLAGS -fstack-protector-strong"
+     AC_MSG_RESULT([yes])],
+    [AC_MSG_RESULT([no])])
+
+  AC_MSG_CHECKING([whether gcc accepts -fstack-clash-protection])
+  CFLAGS="$save_CFLAGS -fstack-clash-protection"
+  AC_COMPILE_IFELSE([AC_LANG_PROGRAM()],
+    [SECURITY_CFLAGS="$SECURITY_CFLAGS -fstack-clash-protection"
+     AC_MSG_RESULT([yes])],
+    [AC_MSG_RESULT([no])])
+
+  AC_MSG_CHECKING([whether gcc accepts -D_FORTIFY_SOURCE=2])
+  CFLAGS="$save_CFLAGS -O2 -D_FORTIFY_SOURCE=2"
+  AC_COMPILE_IFELSE([AC_LANG_PROGRAM()],
+    [SECURITY_CFLAGS="$SECURITY_CFLAGS -D_FORTIFY_SOURCE=2"
+     AC_MSG_RESULT([yes])],
+    [AC_MSG_RESULT([no])])
+
+  AC_MSG_CHECKING([whether gcc accepts -fcf-protection])
+  CFLAGS="$save_CFLAGS -fcf-protection"
+  AC_COMPILE_IFELSE([AC_LANG_PROGRAM()],
+    [SECURITY_CFLAGS="$SECURITY_CFLAGS -fcf-protection"
+     AC_MSG_RESULT([yes])],
+    [AC_MSG_RESULT([no])])
+
+  AC_MSG_CHECKING([whether linker accepts -Wl,-z,relro])
+  LDFLAGS="$save_LDFLAGS -Wl,-z,relro"
+  AC_LINK_IFELSE([AC_LANG_PROGRAM()],
+    [SECURITY_LDFLAGS="$SECURITY_LDFLAGS -Wl,-z,relro"
+     AC_MSG_RESULT([yes])],
+    [AC_MSG_RESULT([no])])
+
+  AC_MSG_CHECKING([whether linker accepts -Wl,-z,now])
+  LDFLAGS="$save_LDFLAGS -Wl,-z,now"
+  AC_LINK_IFELSE([AC_LANG_PROGRAM()],
+    [SECURITY_LDFLAGS="$SECURITY_LDFLAGS -Wl,-z,now"
+     AC_MSG_RESULT([yes])],
+    [AC_MSG_RESULT([no])])
+
+  AC_MSG_CHECKING([whether linker accepts -Wl,-z,noexecstack])
+  LDFLAGS="$save_LDFLAGS -Wl,-z,noexecstack"
+  AC_LINK_IFELSE([AC_LANG_PROGRAM()],
+    [SECURITY_LDFLAGS="$SECURITY_LDFLAGS -Wl,-z,noexecstack"
+     AC_MSG_RESULT([yes])],
+    [AC_MSG_RESULT([no])])
+
+  CFLAGS="$save_CFLAGS"
+  LDFLAGS="$save_LDFLAGS"
+])
+AC_MSG_NOTICE([Security CFLAGS : $SECURITY_CFLAGS])
+AC_MSG_NOTICE([Security LDFLAGS: $SECURITY_LDFLAGS])
+AC_SUBST(SECURITY_CFLAGS)
+AC_SUBST(SECURITY_LDFLAGS)
 AC_SUBST(doc_build)
 AC_SUBST(shadow_build)
 AC_SUBST(libusb01_build)
@@ -798,8 +853,6 @@ AC_SUBST(epm_hpcups_only)
 AC_SUBST(epm_hpijs_only)
 AC_SUBST(epm_print_only_exclude)
 AC_SUBST(epm_scan)
-AC_SUBST(policykit)
-AC_SUBST(policykit_dir)
 AC_SUBST(hpijs_only_build)
 AC_SUBST(lite_build)
 AC_SUBST(hpcups_only_build)
@@ -809,5 +862,5 @@ AC_SUBST(udev_sysfs_rules)
 AC_SUBST(epm_class_driver)
 AC_SUBST(epm_class_install)
 
-AC_CONFIG_FILES(Makefile hplip.conf hplip.desktop hp-uiscan.desktop hplip-systray.desktop prnt/drv/hpijs.drv prnt/drv/hpcups.drv hplip.list data/policykit/com.hp.hplip.service)
+AC_CONFIG_FILES(Makefile hplip.conf hplip.desktop hp-uiscan.desktop hplip-systray.desktop prnt/drv/hpijs.drv prnt/drv/hpcups.drv hplip.list)
 AC_OUTPUT

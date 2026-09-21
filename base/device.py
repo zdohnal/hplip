@@ -1059,6 +1059,7 @@ class Device(object):
         self.channels = {} # { 'SERVICENAME' : channel_id, ... }
         self.device_id = -1
         self.r_values = None # ( r_value, r_value_str, rg, rr )
+        self.raw_deviceID = ''
         self.deviceID = ''
         self.panel_check = True
         self.io_state = IO_STATE_HP_READY

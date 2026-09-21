@@ -333,8 +333,12 @@ static int parse_scan_elements(const char *payload, int size, struct wscn_scan_e
           get_element(tail, size-(tail-payload), value, sizeof(value), &tail);
           _DBG ("parse_scan_elements platen_resolution_list value=%s\n", value);
           if(strtol(value, NULL, 10) && elements->config.platen.platen_resolution_list[i-1] != strtol(value, NULL, 10))
-          
-            elements->config.platen.platen_resolution_list[i++]=strtol(value, NULL, 10);
+          {
+            if (i < MAX_LIST_SIZE)
+              elements->config.platen.platen_resolution_list[i++]=strtol(value, NULL, 10);
+            else
+              _BUG("parse_scan_elements: platen resolution list overflow ignored (MAX_LIST_SIZE=%d)\n", MAX_LIST_SIZE);
+          }
         }
       }
       elements->config.platen.platen_resolution_list[0]=i-1;
@@ -396,7 +400,12 @@ static int parse_scan_elements(const char *payload, int size, struct wscn_scan_e
           get_element(tail, size-(tail-payload), value, sizeof(value), &tail);
           _DBG ("parse_scan_elements adf_resolution_list value=%s", value);
           if(strtol(value, NULL, 10) && elements->config.adf.adf_resolution_list[i-1] != strtol(value, NULL, 10))
-            elements->config.adf.adf_resolution_list[i++]=strtol(value, NULL, 10);
+          {
+            if (i < MAX_LIST_SIZE)
+              elements->config.adf.adf_resolution_list[i++]=strtol(value, NULL, 10);
+            else
+              _BUG("parse_scan_elements: adf resolution list overflow ignored (MAX_LIST_SIZE=%d)\n", MAX_LIST_SIZE);
+          }
         }
       }
       elements->config.adf.adf_resolution_list[0]=i-1;

@@ -30,6 +30,8 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <string.h>
+#include <ctype.h>
+#include <sys/time.h>
 #include "sane.h"
 #include "saneopts.h"
 #include "common.h"
@@ -54,6 +56,31 @@
 # endif
 
 static struct hpaioScanner_s * session;
+
+static int is_valid_debug_home_path(const char *home)
+{
+    size_t i;
+
+    if (home == NULL || home[0] == '\0')
+        return 0;
+
+    /* Require absolute path and block traversal sequences. */
+    if (home[0] != '/' || strstr(home, "..") != NULL)
+        return 0;
+
+    /* Allowlist: only characters expected in a legitimate home directory
+     * path are accepted; anything else (spaces, $, ;, *, control chars, etc.)
+     * is rejected outright. */
+    for (i = 0; home[i] != '\0'; i++)
+    {
+        unsigned char c = (unsigned char)home[i];
+
+        if (!isalnum(c) && c != '_' && c != '-' && c != '.' && c != '/')
+            return 0;
+    }
+
+    return 1;
+}
 
 SANE_Status __attribute__ ((visibility ("hidden"))) hpaioScannerToSaneError( hpaioScanner_t hpaio )
 {
@@ -2143,6 +2170,7 @@ SANE_Status sclpml_control_option(SANE_Handle handle, SANE_Int option, SANE_Acti
     SANE_String pStrValue = pValue;
     SANE_Status retcode;
     char sz[64];
+    int n;
 
     if( !pInfo )
     {
@@ -2162,16 +2190,20 @@ SANE_Status sclpml_control_option(SANE_Handle handle, SANE_Int option, SANE_Acti
                     switch( hpaio->currentScanMode )
                     {
                         case SCAN_MODE_LINEART:
-                            strcpy( pStrValue, SANE_VALUE_SCAN_MODE_LINEART );
+                            n = snprintf( pStrValue, LEN_STRING_OPTION_VALUE, "%s", SANE_VALUE_SCAN_MODE_LINEART );
+                            if (n < 0 || n >= (int)LEN_STRING_OPTION_VALUE) DBG(1, "WARNING: sclpml SCAN_MODE_LINEART truncated (n=%d)\n", n);
                             break;
                         case SCAN_MODE_GRAYSCALE:
-                            strcpy( pStrValue, SANE_VALUE_SCAN_MODE_GRAY );
+                            n = snprintf( pStrValue, LEN_STRING_OPTION_VALUE, "%s", SANE_VALUE_SCAN_MODE_GRAY );
+                            if (n < 0 || n >= (int)LEN_STRING_OPTION_VALUE) DBG(1, "WARNING: sclpml SCAN_MODE_GRAY truncated (n=%d)\n", n);
                             break;
                         case SCAN_MODE_COLOR:
-                            strcpy( pStrValue, SANE_VALUE_SCAN_MODE_COLOR );
+                            n = snprintf( pStrValue, LEN_STRING_OPTION_VALUE, "%s", SANE_VALUE_SCAN_MODE_COLOR );
+                            if (n < 0 || n >= (int)LEN_STRING_OPTION_VALUE) DBG(1, "WARNING: sclpml SCAN_MODE_COLOR truncated (n=%d)\n", n);
                             break;
                         default:
-                            strcpy( pStrValue, STR_UNKNOWN );
+                            n = snprintf( pStrValue, LEN_STRING_OPTION_VALUE, "%s", STR_UNKNOWN );
+                            if (n < 0 || n >= (int)LEN_STRING_OPTION_VALUE) DBG(1, "WARNING: sclpml SCAN_MODE default truncated (n=%d)\n", n);
                             break;
                     }
                     break;
@@ -2191,22 +2223,28 @@ SANE_Status sclpml_control_option(SANE_Handle handle, SANE_Int option, SANE_Acti
                     switch( hpaio->currentCompression )
                     {
                         case COMPRESSION_NONE:
-                            strcpy( pStrValue, STR_COMPRESSION_NONE );
+                            n = snprintf( pStrValue, LEN_STRING_OPTION_VALUE, "%s", STR_COMPRESSION_NONE );
+                            if (n < 0 || n >= (int)LEN_STRING_OPTION_VALUE) DBG(1, "WARNING: sclpml COMPRESSION_NONE truncated (n=%d)\n", n);
                             break;
                         case COMPRESSION_MH:
-                            strcpy( pStrValue, STR_COMPRESSION_MH );
+                            n = snprintf( pStrValue, LEN_STRING_OPTION_VALUE, "%s", STR_COMPRESSION_MH );
+                            if (n < 0 || n >= (int)LEN_STRING_OPTION_VALUE) DBG(1, "WARNING: sclpml COMPRESSION_MH truncated (n=%d)\n", n);
                             break;
                         case COMPRESSION_MR:
-                            strcpy( pStrValue, STR_COMPRESSION_MR );
+                            n = snprintf( pStrValue, LEN_STRING_OPTION_VALUE, "%s", STR_COMPRESSION_MR );
+                            if (n < 0 || n >= (int)LEN_STRING_OPTION_VALUE) DBG(1, "WARNING: sclpml COMPRESSION_MR truncated (n=%d)\n", n);
                             break;
                         case COMPRESSION_MMR:
-                            strcpy( pStrValue, STR_COMPRESSION_MMR );
+                            n = snprintf( pStrValue, LEN_STRING_OPTION_VALUE, "%s", STR_COMPRESSION_MMR );
+                            if (n < 0 || n >= (int)LEN_STRING_OPTION_VALUE) DBG(1, "WARNING: sclpml COMPRESSION_MMR truncated (n=%d)\n", n);
                             break;
                         case COMPRESSION_JPEG:
-                            strcpy( pStrValue, STR_COMPRESSION_JPEG );
+                            n = snprintf( pStrValue, LEN_STRING_OPTION_VALUE, "%s", STR_COMPRESSION_JPEG );
+                            if (n < 0 || n >= (int)LEN_STRING_OPTION_VALUE) DBG(1, "WARNING: sclpml COMPRESSION_JPEG truncated (n=%d)\n", n);
                             break;
                         default:
-                            strcpy( pStrValue, STR_UNKNOWN );
+                            n = snprintf( pStrValue, LEN_STRING_OPTION_VALUE, "%s", STR_UNKNOWN );
+                            if (n < 0 || n >= (int)LEN_STRING_OPTION_VALUE) DBG(1, "WARNING: sclpml COMPRESSION default truncated (n=%d)\n", n);
                             break;
                     }
                     break;
@@ -2223,16 +2261,20 @@ SANE_Status sclpml_control_option(SANE_Handle handle, SANE_Int option, SANE_Acti
                     switch( hpaio->currentAdfMode )
                     {
                         case ADF_MODE_AUTO:
-                            strcpy( pStrValue, STR_ADF_MODE_AUTO );
+                            n = snprintf( pStrValue, LEN_STRING_OPTION_VALUE, "%s", STR_ADF_MODE_AUTO );
+                            if (n < 0 || n >= (int)LEN_STRING_OPTION_VALUE) DBG(1, "WARNING: sclpml ADF_MODE_AUTO truncated (n=%d)\n", n);
                             break;
                         case ADF_MODE_FLATBED:
-                            strcpy( pStrValue, STR_ADF_MODE_FLATBED );
+                            n = snprintf( pStrValue, LEN_STRING_OPTION_VALUE, "%s", STR_ADF_MODE_FLATBED );
+                            if (n < 0 || n >= (int)LEN_STRING_OPTION_VALUE) DBG(1, "WARNING: sclpml ADF_MODE_FLATBED truncated (n=%d)\n", n);
                             break;
                         case ADF_MODE_ADF:
-                            strcpy( pStrValue, STR_ADF_MODE_ADF );
+                            n = snprintf( pStrValue, LEN_STRING_OPTION_VALUE, "%s", STR_ADF_MODE_ADF );
+                            if (n < 0 || n >= (int)LEN_STRING_OPTION_VALUE) DBG(1, "WARNING: sclpml ADF_MODE_ADF truncated (n=%d)\n", n);
                             break;
                         default:
-                            strcpy( pStrValue, STR_UNKNOWN );
+                            n = snprintf( pStrValue, LEN_STRING_OPTION_VALUE, "%s", STR_UNKNOWN );
+                            if (n < 0 || n >= (int)LEN_STRING_OPTION_VALUE) DBG(1, "WARNING: sclpml ADF_MODE default truncated (n=%d)\n", n);
                             break;
                     }
                     break;
@@ -2245,24 +2287,30 @@ SANE_Status sclpml_control_option(SANE_Handle handle, SANE_Int option, SANE_Acti
                     switch( hpaio->currentLengthMeasurement )
                     {
                         case LENGTH_MEASUREMENT_UNKNOWN:
-                            strcpy( pStrValue, STR_LENGTH_MEASUREMENT_UNKNOWN );
+                            n = snprintf( pStrValue, LEN_STRING_OPTION_VALUE, "%s", STR_LENGTH_MEASUREMENT_UNKNOWN );
+                            if (n < 0 || n >= (int)LEN_STRING_OPTION_VALUE) DBG(1, "WARNING: sclpml LENGTH_MEASUREMENT_UNKNOWN truncated (n=%d)\n", n);
                             break;
                         case LENGTH_MEASUREMENT_UNLIMITED:
-                            strcpy( pStrValue,
+                            n = snprintf( pStrValue, LEN_STRING_OPTION_VALUE, "%s",
                                     STR_LENGTH_MEASUREMENT_UNLIMITED );
+                            if (n < 0 || n >= (int)LEN_STRING_OPTION_VALUE) DBG(1, "WARNING: sclpml LENGTH_MEASUREMENT_UNLIMITED truncated (n=%d)\n", n);
                             break;
                         case LENGTH_MEASUREMENT_APPROXIMATE:
-                            strcpy( pStrValue,
+                            n = snprintf( pStrValue, LEN_STRING_OPTION_VALUE, "%s",
                                     STR_LENGTH_MEASUREMENT_APPROXIMATE );
+                            if (n < 0 || n >= (int)LEN_STRING_OPTION_VALUE) DBG(1, "WARNING: sclpml LENGTH_MEASUREMENT_APPROXIMATE truncated (n=%d)\n", n);
                             break;
                         case LENGTH_MEASUREMENT_PADDED:
-                            strcpy( pStrValue, STR_LENGTH_MEASUREMENT_PADDED );
+                            n = snprintf( pStrValue, LEN_STRING_OPTION_VALUE, "%s", STR_LENGTH_MEASUREMENT_PADDED );
+                            if (n < 0 || n >= (int)LEN_STRING_OPTION_VALUE) DBG(1, "WARNING: sclpml LENGTH_MEASUREMENT_PADDED truncated (n=%d)\n", n);
                             break;
                         case LENGTH_MEASUREMENT_EXACT:
-                            strcpy( pStrValue, STR_LENGTH_MEASUREMENT_EXACT );
+                            n = snprintf( pStrValue, LEN_STRING_OPTION_VALUE, "%s", STR_LENGTH_MEASUREMENT_EXACT );
+                            if (n < 0 || n >= (int)LEN_STRING_OPTION_VALUE) DBG(1, "WARNING: sclpml LENGTH_MEASUREMENT_EXACT truncated (n=%d)\n", n);
                             break;
                         default:
-                            strcpy( pStrValue, STR_UNKNOWN );
+                            n = snprintf( pStrValue, LEN_STRING_OPTION_VALUE, "%s", STR_UNKNOWN );
+                            if (n < 0 || n >= (int)LEN_STRING_OPTION_VALUE) DBG(1, "WARNING: sclpml LENGTH_MEASUREMENT default truncated (n=%d)\n", n);
                             break;
                     }
                     break;
@@ -2659,11 +2707,18 @@ SANE_Status sclpml_start(SANE_Handle handle)
         {
             char f[MAX_FILE_PATH_LEN];
             static int cnt=0;
+            int log_index = cnt++;
+            const char *home = getenv("HOME");
+            int n = -1;
 
-            if (getenv("HOME"))
-                sprintf(f, "%s/.hplip/mfpdtf_%d.out", getenv("HOME"), cnt++);
-            else
-                sprintf(f, "/tmp/mfpdtf_%d.out", cnt++);
+            if (is_valid_debug_home_path(home))
+                n = snprintf(f, sizeof(f), "%s/.hplip/mfpdtf_%d.out", home, log_index);
+
+            if (n < 0 || n >= (int)sizeof(f))
+                n = snprintf(f, sizeof(f), "/tmp/mfpdtf_%d.out", log_index);
+
+            if (n < 0 || n >= (int)sizeof(f))
+                goto abort;
 
             bug("saving raw image to %s \n", f);
 

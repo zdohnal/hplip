@@ -21,6 +21,7 @@
 
 # Std Lib
 import sys
+import shlex
 
 # Local
 from base.g import *
@@ -264,7 +265,7 @@ class PrintSettingsToolbox(QToolBox):
 
             if utils.which('lpr'):
                 if alt_nup:
-                    cmd = ' '.join(['psnup', '-%d' % nup, ''.join(['"', p, '"']), '| lpr -P', self.cur_printer])
+                    cmd = ' '.join(['psnup', '-%d' % nup, shlex.quote(p), '| lpr -P', self.cur_printer])
                 else:
                     cmd = ' '.join(['lpr -P', self.cur_printer])
 
@@ -273,7 +274,7 @@ class PrintSettingsToolbox(QToolBox):
 
             else: # lp
                 if alt_nup:
-                    cmd = ' '.join(['psnup', '-%d' % nup, ''.join(['"', p, '"']), '| lp -c -d', self.cur_printer])
+                    cmd = ' '.join(['psnup', '-%d' % nup, shlex.quote(p), '| lp -c -d', self.cur_printer])
                 else:
                     cmd = ' '.join(['lp -c -d', self.cur_printer])
 
@@ -342,7 +343,7 @@ class PrintSettingsToolbox(QToolBox):
                     cmd = ' '.join([cmd, '-o HOLD=OFF'])
 
             if not alt_nup:
-                cmd = ''.join([cmd, ' "', p, '"'])
+                cmd = cmd + ' ' + shlex.quote(p)  # HPLIP-2026-010: quote path before shell execution.
 
             print_commands.append(cmd)
 

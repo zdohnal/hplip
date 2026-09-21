@@ -32,7 +32,7 @@ import signal
 from base.sixext.moves import configparser
 # Local
 from base.g import *
-from base import device, utils, pml, maint, models, pkit, os_utils
+from base import device, utils, pml, maint, models, os_utils
 from prnt import cups
 from base.sixext import PY3
 from base.codes import *
@@ -149,7 +149,7 @@ class PluginInstall(QObject):
                                 QMessageBox.NoButton) == QMessageBox.Yes
 
         if install_plugin:
-            ok, sudo_ok = pkit.run_plugin_command(self.plugin_type == PLUGIN_REQUIRED, self.parent.cur_device.mq['plugin-reason'])
+            ok, sudo_ok = utils.run_plugin_command(self.plugin_type == PLUGIN_REQUIRED, self.parent.cur_device.mq['plugin-reason'])
             if not sudo_ok:
                 QMessageBox.critical(self.parent,
                     self.parent.windowTitle(),
@@ -1544,15 +1544,18 @@ class DevMgr5(Ui_MainWindow_Derived, Ui_MainWindow, QMainWindow):
                 self.cur_device.device_state != DEVICE_STATE_NOT_FOUND:
                 self.cur_device.sorted_supplies = []
                 a = 1
+                retried_supplies_query = False
                 while True:
                     try:
                         agent_type = int(self.cur_device.dq['agent%d-type' % a])
                         agent_kind = int(self.cur_device.dq['agent%d-kind' % a])
                         agent_sku = self.cur_device.dq['agent%d-sku' % a]
                     except KeyError:
-                        if a == 1:
+                        if a == 1 and not retried_supplies_query:
                             self.cur_device.queryDevice()
-                        else:    
+                            retried_supplies_query = True
+                            continue
+                        else:
                             break
                     else:
                         self.cur_device.sorted_supplies.append((a, agent_kind, agent_type, agent_sku))
